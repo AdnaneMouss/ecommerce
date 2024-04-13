@@ -47,6 +47,5 @@ public class produit {
     public Long getId() {
         return id;
     }
-
 }
 
