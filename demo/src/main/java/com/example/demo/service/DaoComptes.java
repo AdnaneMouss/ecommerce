@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.modele.comptes;
 import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;

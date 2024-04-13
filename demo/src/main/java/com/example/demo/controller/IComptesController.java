@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.comptes;
+import com.example.demo.modele.comptes;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 

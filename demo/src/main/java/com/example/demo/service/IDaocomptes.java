@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import com.example.demo.modele.comptes;
+
 import java.util.List;
 
 public interface IDaocomptes {
