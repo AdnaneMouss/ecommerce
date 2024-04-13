@@ -49,7 +49,7 @@ public class DemoApplication {
 	}
 
 	public static void testUpdateProduct() {
-		produit n = new produit(1,"","",1,"","","",null);
+		produit n = new produit(1,"",1,"","","","",null);
 		produitController.updateProduit(2,n);
 	}
 
