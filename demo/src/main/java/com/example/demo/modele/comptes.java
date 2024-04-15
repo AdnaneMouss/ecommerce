@@ -12,6 +12,8 @@ public class comptes {
         this.email = email;
         this.phone = phone;
         this.password = password;
+        this.type = type;
+        this.photo = photo;
     }
 
     @Id
@@ -21,6 +23,8 @@ public class comptes {
     private String email;
     private int phone;
     private String password;
+    private int type;
+    private Long photo;
 
     public comptes() {
 
@@ -66,5 +70,13 @@ public class comptes {
 
     public void setPassword(String Password) {
         this.password = Password;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public Long getPhoto() {
+        return photo;
     }
 }
