@@ -16,9 +16,10 @@ public class DemoApplication {
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
 
-	public DemoApplication(ProduitService produitService, ProduitController produitController) {
+	public DemoApplication(ProduitService produitService, ProduitController produitController,CategorieController categorieController) {
 		this.produitService = produitService;
 		this.produitController = produitController;
+		this.categorieController = categorieController;
 	}
 
 	public static void main(String[] args) {
