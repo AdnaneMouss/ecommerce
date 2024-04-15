@@ -23,7 +23,7 @@
 }
 body{
   background: white;
-  background-image: url('ecommerce.jpg');
+  background-image: url('img/ecommerce.jpg');
 }
 nav{
   position: sticky;
@@ -296,27 +296,27 @@ table thead tr{
   <div class="container">
     <nav>
       <ul>
-        <a href="#" class="logo">
-          <img src="logo.png">
+ <a href="#" class="logo">
+          <img src="img/logo.png">
           <span class="nav-item">DASHBOARD</span>
         </a>
-        <a href="#">
-          <i class="fas fa-menorah"></i>
-          <span class="nav-item">Dashboard</span>
-        </a>
-        <a href="#">
-          <i class="fas fa-comment"></i>
-          <span class="nav-item">Contact</span>
-        </a>
-        <a href="#">
+            <a href="accounts.html">
           <i class="fas fa-database"></i>
           <span class="nav-item">Accounts</span>
         </a>
-        <a href="#">
+            <a href="products.html">
           <i class="fas fa-chart-bar"></i>
           <span class="nav-item">Products</span>
         </a>
-        <a href="#">
+        <a href="contact.html">
+          <i class="fas fa-comment"></i>
+          <span class="nav-item">Contact</span>
+        </a>
+        <a href="analytics.html">
+          <i class="fas fa-database"></i>
+          <span class="nav-item">Analytics</span>
+        </a>
+         <a href="settings.html">
           <i class="fas fa-cog"></i>
           <span class="nav-item">Settings</span>
         </a>
@@ -325,7 +325,6 @@ table thead tr{
           <i class="fas fa-sign-out-alt"></i>
           <span class="nav-item">Log out</span>
         </a>
-      </ul>
     </nav>
 
 
@@ -342,7 +341,7 @@ table thead tr{
           <h4>Sold products</h4>
         </div>
         <div class="second">
-          <img src="dollars.png">
+          <img src="img/dollars.png">
         </div>
       </section>
     </div>
@@ -354,7 +353,7 @@ table thead tr{
           <h4>Net profit</h4>
         </div>
         <div class="second">
-          <img src="arrowgain.png">
+          <img src="img/arrowgain.png">
         </div>
       </section>
     </div>
@@ -365,7 +364,7 @@ table thead tr{
           <h4>Done deliveries</h4>
         </div>
         <div class="second">
-          <img src="donedeliveries.png">
+          <img src="img/donedeliveries.png">
         </div>
       </section>
     </div>
@@ -377,7 +376,7 @@ table thead tr{
           <h4>Remaining deliveries</h4>
         </div>
         <div class="second">
-          <img src="remainingdeliveries.png">
+          <img src="img/remainingdeliveries.png">
         </div>
       </section>
     </div>
@@ -390,14 +389,15 @@ table thead tr{
 <div class="piechart">
   <canvas id="myPieChart"></canvas>
 </div>
-<div class="piechart">
-  <canvas id="myPieChart2"></canvas>
-</div>
 </section>
+        <section class="charts">
 <div class="chart">
   <canvas id="graphiqueEnCourbes"></canvas>
 </div>
-
+        <div class="piechart">
+  <canvas id="myPieChart2"></canvas>
+</div>
+</section>
     </section>
 
 </body>

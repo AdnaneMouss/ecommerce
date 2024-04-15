@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.modele.produit;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
@@ -20,23 +21,23 @@ public class ProduitController {
     }
 
     @GetMapping("/{id}")
-    public produit getProduitById(@PathVariable Long id) {
+    public produit getProduitById(@PathVariable int id) {
         Optional<produit> produit = produitService.getProduitById(id);
-        return produit.orElse(null); // Return null if produit is not found
+        return produit.orElse(null);
     }
 
-    @PostMapping
-    public produit createProduit(@RequestBody produit produit) {
-        return produitService.createProduit(produit);
+    @PostMapping("/addProduct")
+    public boolean addProduct(@RequestBody produit product) {
+        return produitService.createProduit(product);
     }
 
     @PutMapping("/{id}")
-    public produit updateProduit(@PathVariable Long id, @RequestBody produit updatedProduit) {
+    public boolean updateProduit(@PathVariable int id, @RequestBody produit updatedProduit) {
         return produitService.updateProduit(id, updatedProduit);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduit(@PathVariable Long id) {
-        produitService.deleteProduit(id);
+    public boolean deleteProduit(@PathVariable int id) {
+        return produitService.deleteProduit(id);
     }
 }
