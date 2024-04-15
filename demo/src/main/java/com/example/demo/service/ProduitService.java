@@ -1,5 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.ProduitRepository;
+import com.example.demo.repository.ProduitRepository;
 import com.example.demo.modele.produit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,18 +20,32 @@ public class ProduitService {
         return produitRepository.findById((long) id);
     }
 
-    public produit createProduit(produit produit) {
-        return produitRepository.save(produit);
+    public boolean createProduit(produit produit) {
+        boolean res = false;
+        try{
+            produitRepository.save(produit);
+             res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+            return res;
+        }
+        return res;
     }
 
-    public produit updateProduit(int id, produit updatedProduit) {
-        // Check if the produit exists
-        if (produitRepository.existsById((long) id)) {
-            return null; // Or throw an exception
+    public boolean updateProduit(int id, produit updatedProduit) {
+        boolean res = false;
+        try{
+            updatedProduit.setId(id);
+            produitRepository.save(updatedProduit);
+            res=true;
         }
-        updatedProduit.setId(id); // Ensure the ID matches the path variable
-        return produitRepository.save(updatedProduit);
+        catch(Exception e){
+            return res;
+        }
+        return res;
     }
+
 
     public boolean deleteProduit(int id) {
         boolean res = false;
@@ -41,7 +55,7 @@ public class ProduitService {
                 res=true;
             }
             else{
-                res=false;
+                return res;
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the exception or handle it appropriately

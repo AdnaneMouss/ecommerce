@@ -27,14 +27,12 @@ public class ProduitController {
     }
 
     @PostMapping("/addProduct")
-    public String addProduct(@RequestBody produit product) {
-        produitService.createProduit(product);
-        // Optionally, you can add attributes to the model to display a success message or redirect to another page
-        return "redirect:/signup.html"; // Redirect to a page displaying the list of products
+    public boolean addProduct(@RequestBody produit product) {
+        return produitService.createProduit(product);
     }
 
     @PutMapping("/{id}")
-    public produit updateProduit(@PathVariable int id, @RequestBody produit updatedProduit) {
+    public boolean updateProduit(@PathVariable int id, @RequestBody produit updatedProduit) {
         return produitService.updateProduit(id, updatedProduit);
     }
 

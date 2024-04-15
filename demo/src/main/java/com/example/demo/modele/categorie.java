@@ -9,24 +9,24 @@ import java.util.List;
 public class categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @Column
     private String catname;
     @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
     private List<produit> products;
 
-    public categorie(Long id, String catname, List<produit> products) {
+    public categorie(int id, String catname, List<produit> products) {
         this.id = id;
         this.catname = catname;
         this.products = products;
     }
     public categorie() {}
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
