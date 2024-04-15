@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.controller.ProduitController;
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.produit;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +22,7 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		//testDeleteProduct();
-		//testAddProduct();
+		testAddProduct();
 		//testUpdateProduct();
 		//testGetAllProducts();
 	}
@@ -41,16 +42,24 @@ public class DemoApplication {
 	}
 	}
 	public static void testAddProduct() {
-		produit p1 = new produit();
-		p1.setLabel("Product 1");
-		p1.setType("Type 1");
-		p1.setPrice(10);
-        produitController.addProduct(p1);
+		produit p1 = new produit(0,"Adkd",1,"","","",null);
+		if(produitController.addProduct(p1)) {
+			System.out.println("Le produit:" + p1 + "\t a été ajouté avec succés");
+		}
+		else{
+			System.out.println("Erreur lors de l'ajout!");
+		}
 	}
 
 	public static void testUpdateProduct() {
-		produit n = new produit(1,"",1,"","","","",null);
-		produitController.updateProduit(2,n);
+		int idProduitAModifier=2;
+		produit prod = new produit(0,"",1,"fgh","","",null);
+		if(produitController.updateProduit(idProduitAModifier,prod)){
+		System.out.println("Le produit a été mis à jour");
+	}
+		else{
+		System.out.println("Le produit:" + prod + "\t existe déjà!");
+	}
 	}
 
 }

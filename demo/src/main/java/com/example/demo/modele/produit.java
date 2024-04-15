@@ -14,8 +14,6 @@ public class produit {
     @Column
     private int price;
     @Column
-    private String type;
-    @Column
     private String color;
     @Column
     private String photo;
@@ -25,11 +23,10 @@ public class produit {
     @JoinColumn(name="category_id")
     private categorie categorie;
 
-    public produit(int id, String label, int price, String type, String color, String photo, String size, categorie categorie) {
+    public produit(int id, String label, int price, String color, String photo, String size, categorie categorie) {
         this.id = id;
         this.label = label;
         this.price = price;
-        this.type = type;
         this.color = color;
         this.photo = photo;
         this.size = size;
@@ -44,14 +41,6 @@ public class produit {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getPrice() {
