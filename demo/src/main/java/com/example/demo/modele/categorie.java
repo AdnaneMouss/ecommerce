@@ -15,10 +15,9 @@ public class categorie {
     @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
     private List<produit> products;
 
-    public categorie(int id, String catname, List<produit> products) {
+    public categorie(int id, String catname) {
         this.id = id;
         this.catname = catname;
-        this.products = products;
     }
     public categorie() {}
 

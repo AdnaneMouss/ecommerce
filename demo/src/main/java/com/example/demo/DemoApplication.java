@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.produit;
@@ -13,6 +14,7 @@ import java.util.List;
 public class DemoApplication {
 	private final ProduitService produitService;
 	private static ProduitController produitController=null;
+	private static CategorieController categorieController=null;
 
 	public DemoApplication(ProduitService produitService, ProduitController produitController) {
 		this.produitService = produitService;
@@ -22,9 +24,11 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 		//testDeleteProduct();
-		testAddProduct();
+		//testAddProduct();
 		//testUpdateProduct();
 		//testGetAllProducts();
+		//testAddCategory();
+		//testDeleteCategory();
 	}
 
 	// This method can be used for testing purposes
@@ -60,6 +64,34 @@ public class DemoApplication {
 		else{
 		System.out.println("Le produit:" + prod + "\t existe déjà!");
 	}
+	}
+
+	//---------------Catégories--------------------
+
+	public static void testAddCategory() {
+		String name = "";
+		categorie c = new categorie(0,name);
+		if((categorieController.addCategorie(c))) {
+			System.out.println("La categorie:" + c + "\t a été ajouté avec succés");
+		}
+		else{
+			System.out.println("Erreur lors de l'ajout!");
+		}
+	}
+
+	public static void testDeleteCategory() {
+		int id = 4;
+		if(categorieController.deleteCategorie(id)) {
+			System.out.println("La catégorie n°:" + id + "\t a été supprimé avec succés");
+		}
+		else{
+			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
+		}
+	}
+
+	public static void testGetAllCategories() {
+		List<categorie> all = categorieController.getAllCategories();
+		System.out.println(all);
 	}
 
 }
