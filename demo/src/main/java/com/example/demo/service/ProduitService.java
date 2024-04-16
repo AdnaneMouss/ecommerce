@@ -1,5 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.ProduitRepository;
+import com.example.demo.repository.ProduitRepository;
 import com.example.demo.modele.produit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +8,10 @@ import java.util.Optional;
 
 @Service
 public class ProduitService {
+    public ProduitService(ProduitRepository produitRepository) {
+        this.produitRepository = produitRepository;
+    }
+    public ProduitService() {}
 
     @Autowired
     private ProduitRepository produitRepository;
@@ -20,20 +24,40 @@ public class ProduitService {
         return produitRepository.findById(id);
     }
 
-    public produit createProduit(produit produit) {
-        return produitRepository.save(produit);
-    }
-
-    public produit updateProduit(Long id, produit updatedProduit) {
-        // Check if the produit exists
-        if (!produitRepository.existsById(id)) {
-            return null; // Or throw an exception
+    public boolean createProduit(produit produit) {
+        boolean res=false;
+        try{
+            produitRepository.save(produit);
+            res=true;
         }
-        updatedProduit.setId(id); // Ensure the ID matches the path variable
-        return produitRepository.save(updatedProduit);
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return res;
     }
 
-    public void deleteProduit(Long id) {
-        produitRepository.deleteById(id);
+    public boolean updateProduit(int id, produit updatedProduit) {
+        boolean res=false;
+        try{
+            produitRepository.save(updatedProduit);
+            updatedProduit.setId(id);
+            res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return res;
+    }
+
+    public boolean deleteProduit(int id) {
+        boolean res;
+        if(produitRepository.existsById((long) id)) {
+            res=false;
+        }
+        else{
+            produitRepository.deleteById((long) id);
+            res=true;
+        }
+        return res;
     }
 }

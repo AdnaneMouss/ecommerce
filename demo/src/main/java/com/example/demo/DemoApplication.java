@@ -63,7 +63,7 @@ public class DemoApplication {
 		System.out.println("Le produit a été mis à jour");
 	}
 		else{
-		System.out.println("Le produit:" + prod + "\t existe déjà!");
+		System.out.println("Erreur!");
 	}
 	}
 

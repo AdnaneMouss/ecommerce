@@ -8,12 +8,12 @@ public interface IDaocomptes {
 
     List<comptes> getAllComptes();
 
-    comptes getCompteById(Long id);
+    comptes getCompteById(int id);
 
     void addCompte(comptes copmte);
 
     void updateCompte(comptes compte);
 
-    void deleteCompte(Long id);
+    void deleteCompte(int id);
 
 }

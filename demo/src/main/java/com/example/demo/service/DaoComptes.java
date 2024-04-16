@@ -16,7 +16,7 @@ public class DaoComptes implements IDaocomptes{
 
 
     @Override
-    public comptes getCompteById(Long id) {
+    public comptes getCompteById(int id) {
         for (comptes compte : comptesList) {
             if (compte.getId().equals(id)) {
                 return compte;
@@ -42,7 +42,7 @@ public class DaoComptes implements IDaocomptes{
     }
 
     @Override
-    public void deleteCompte(Long id) {
+    public void deleteCompte(int id) {
         comptes compteToRemove = null;
         for (comptes compte : comptesList) {
             if (compte.getId().equals(id)) {
