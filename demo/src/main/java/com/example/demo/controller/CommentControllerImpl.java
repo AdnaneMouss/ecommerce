@@ -1,44 +1,47 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Comment;
-import com.example.demo.service.ICommentDAO;
+import com.example.demo.modele.comptes;
+import com.example.demo.service.CommentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class CommentControllerImpl implements CommentController {
 
-    private final ICommentDAO commentDAO;
-
+@RestController
+@RequestMapping("/Comment")
+public class CommentControllerImpl {
 
     @Autowired
-    public CommentControllerImpl(ICommentDAO commentDAO) {
-        this.commentDAO = commentDAO;
+    private CommentService dao;
+
+    @GetMapping
+    public List<Comment> getAllAccs() {
+        return dao.getAllComments();
     }
 
-    @Override
-    public List<Comment> getAllComments() {
-        return commentDAO.getAllComments();
+    @GetMapping("/{id}")
+    public Comment getAccById(@PathVariable int id) {
+        Optional<Comment> c = dao.getCommentById((long)id);
+        return c.orElse(null);
     }
 
-    @Override
-    public Optional<Comment> getCommentById(Long id) {
-        return commentDAO.getCommentById(id);
+    @PostMapping("/addProduct")
+    public boolean addAcc(@RequestBody Comment c) {
+        return dao.createComment(c);
     }
 
-    @Override
-    @Transactional
-    public Comment createComment(Comment comment) {
-        return commentDAO.createComment(comment);
+    @PutMapping("/{id}")
+    public boolean updateAcc(@PathVariable int id, @RequestBody Comment updatedCom) {
+        return dao.updateComment(id, updatedCom);
     }
 
-    @Override
-    @Transactional
-    public void deleteComment(Long id) {
-        commentDAO.deleteComment(id);
+    @DeleteMapping("/{id}")
+    public boolean deleteAcc(@PathVariable int id) {
+        return dao.deleteComment(id);
     }
 }

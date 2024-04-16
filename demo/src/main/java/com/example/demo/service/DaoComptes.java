@@ -1,58 +1,69 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
+import com.example.demo.repository.CompteRepository;
+import com.example.demo.repository.ProduitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class DaoComptes implements IDaocomptes{
+@Service
+public class DaoComptes{
+    public DaoComptes(){}
 
-    private List<comptes> comptesList = new ArrayList<>();
+public DaoComptes(CompteRepository compteRepository){
+        this.compteRepository=compteRepository;
+}
+@Autowired
+    private CompteRepository compteRepository;
 
-    @Override
-    public List<comptes> getAllComptes() {
-        return comptesList;
+    public List<comptes> getAllAccs() {
+        return compteRepository.findAll();
     }
 
+    public Optional<comptes> getAccById(Long id) {
+        return compteRepository.findById(id);
+    }
 
-    @Override
-    public comptes getCompteById(int id) {
-        for (comptes compte : comptesList) {
-            if (compte.getId().equals(id)) {
-                return compte;
-            }
+    public boolean createCompte(comptes compte) {
+        boolean res=false;
+        try{
+            compteRepository.save(compte);
+            res=true;
         }
-        return null;
-    }
-
-    @Override
-    public void addCompte(comptes compte) {
-        comptesList.add(compte);
-    }
-
-    @Override
-    public void updateCompte(comptes updatedCompte) {
-        for (comptes compte : comptesList) {
-            if (compte.getId().equals(updatedCompte.getId())) {
-                compte.setUsername(updatedCompte.getUsername());
-                // Update other fields as needed
-                break;
-            }
+        catch(Exception e){
+            System.out.println(e);
         }
+        return res;
     }
 
-    @Override
-    public void deleteCompte(int id) {
-        comptes compteToRemove = null;
-        for (comptes compte : comptesList) {
-            if (compte.getId().equals(id)) {
-                compteToRemove = compte;
-                break;
-            }
+    public boolean updateCompte(int id, comptes updatedCompte) {
+        boolean res=false;
+        try{
+            compteRepository.save(updatedCompte);
+            updatedCompte.setId(id);
+            res=true;
         }
-        if (compteToRemove != null) {
-            comptesList.remove(compteToRemove);
+        catch(Exception e){
+            System.out.println(e);
         }
+        return res;
     }
 
+    public boolean deleteCompte(int id) {
+        boolean res;
+        if(compteRepository.existsById((long) id)) {
+            res=false;
+        }
+        else{
+            compteRepository.deleteById((long) id);
+            res=true;
+        }
+        return res;
+    }
 }

@@ -10,12 +10,15 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     private String content;
 
-    public Comment() {
+    public Comment() {}
 
+    public Comment(int id, String content){
+        this.id=id;
+        this.content=content;
     }
 
     @Override
@@ -26,11 +29,11 @@ public class Comment {
                 '}';
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

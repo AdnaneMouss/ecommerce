@@ -11,7 +11,7 @@ import java.util.Optional;
 public class ReclamationService {
 
     @Autowired
-    private ReclamationService ReclamationService;
+    private ReclamationRepository ReclamationService;
 
     public List<Reclamation> getAllReclamations() {
         return ReclamationService.findAll();
