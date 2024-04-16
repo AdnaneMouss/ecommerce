@@ -5,44 +5,41 @@ import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/comptes")
-public class ComptesController{
+@RequestMapping("/api/comptes")
+public class ComptesController {
 
     @Autowired
-    private DaoComptes dao;
+    private DaoComptes daoComptes;
 
     @GetMapping
-    public List<comptes> getAllAccs() {
-        return dao.getAllAccs();
+    public  List<comptes> getAllAccs() {
+        return daoComptes.getAllAccs();
     }
 
     @GetMapping("/{id}")
-    public comptes getAccById(@PathVariable int id) {
-        Optional<comptes> c = dao.getAccById((long)id);
-        return c.orElse(null);
+    public comptes getComptesById(@PathVariable int id) {
+        Optional<comptes> comptes = DaoComptes.getAccById((long)id);
+        return comptes.orElse(null);
     }
 
-    @PostMapping("/addProduct")
-    public boolean addAcc(@RequestBody comptes c) {
-        return dao.createCompte(c);
+    @PostMapping("/addComptes")
+    public boolean addComptes(@RequestBody comptes comptes) {
+        return DaoComptes.createCompte(comptes);
     }
 
     @PutMapping("/{id}")
-    public boolean updateAcc(@PathVariable int id, @RequestBody comptes updatedCompte) {
-        return dao.updateCompte(id, updatedCompte);
+    public boolean updateComptes(@PathVariable int id, @RequestBody comptes updatedComptes) {
+        return DaoComptes.updateCompte(id, updatedComptes);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteAcc(@PathVariable int id) {
-        return dao.deleteCompte(id);
+    public boolean deleteComptes(@PathVariable int id) {
+        return DaoComptes.deleteCompte(id);
     }
 }
