@@ -13,9 +13,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/comptes")
 public class ComptesController {
-
     @Autowired
     private DaoComptes daoComptes;
+
+    public ComptesController(DaoComptes daoComptes) {
+        this.daoComptes = daoComptes;
+    }
 
     @GetMapping
     public  List<comptes> getAllAccs() {
@@ -24,22 +27,22 @@ public class ComptesController {
 
     @GetMapping("/{id}")
     public comptes getComptesById(@PathVariable int id) {
-        Optional<comptes> comptes = DaoComptes.getAccById((long)id);
+        Optional<comptes> comptes = daoComptes.getAccById((long)id);
         return comptes.orElse(null);
     }
 
     @PostMapping("/addComptes")
     public boolean addComptes(@RequestBody comptes comptes) {
-        return DaoComptes.createCompte(comptes);
+        return daoComptes.createCompte(comptes);
     }
 
     @PutMapping("/{id}")
     public boolean updateComptes(@PathVariable int id, @RequestBody comptes updatedComptes) {
-        return DaoComptes.updateCompte(id, updatedComptes);
+        return daoComptes.updateCompte(id, updatedComptes);
     }
 
     @DeleteMapping("/{id}")
     public boolean deleteComptes(@PathVariable int id) {
-        return DaoComptes.deleteCompte(id);
+        return daoComptes.deleteCompte(id);
     }
 }

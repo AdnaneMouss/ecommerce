@@ -14,23 +14,24 @@ import java.util.Optional;
 
 @Service
 public class DaoComptes{
-    public DaoComptes(){}
+    @Autowired
+    private CompteRepository compteRepository;
 
+    public DaoComptes(){}
 public DaoComptes(CompteRepository compteRepository){
         this.compteRepository=compteRepository;
 }
-@Autowired
-    private static CompteRepository compteRepository;
 
-    public static List<comptes> getAllAccs() {
+
+    public List<comptes> getAllAccs() {
         return compteRepository.findAll();
     }
 
-    public static Optional<comptes> getAccById(Long id) {
+    public Optional<comptes> getAccById(Long id) {
         return compteRepository.findById(id);
     }
 
-    public static boolean createCompte(comptes compte) {
+    public boolean createCompte(comptes compte) {
         boolean res=false;
         try{
             compteRepository.save(compte);
@@ -42,7 +43,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
-    public static boolean updateCompte(int id, comptes updatedCompte) {
+    public boolean updateCompte(int id, comptes updatedCompte) {
         boolean res=false;
         try{
             compteRepository.save(updatedCompte);
@@ -55,7 +56,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
-    public static boolean deleteCompte(int id) {
+    public boolean deleteCompte(int id) {
         boolean res;
         if(compteRepository.existsById((long) id)) {
             res=false;
