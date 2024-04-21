@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
 import org.springframework.data.jpa.repository.JpaRepository;
 

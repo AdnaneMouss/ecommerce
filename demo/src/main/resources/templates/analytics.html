@@ -1,5 +1,6 @@
-<span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
-<html lang="en">
+<span style="font-family: verdana, geneva, sans-serif;">
+    <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <title>Attendance Dashboard | By Code Info</title>
@@ -337,7 +338,7 @@ table thead tr{
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1>100</h1>
+          <h1><span th:text="${productCount}"></span></h1>
           <h4>Sold products</h4>
         </div>
         <div class="second">

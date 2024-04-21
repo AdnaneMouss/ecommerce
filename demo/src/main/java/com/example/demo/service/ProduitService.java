@@ -60,4 +60,8 @@ public class ProduitService {
         }
         return res;
     }
+
+    public int countProduits() {
+        return (int) produitRepository.count();
+    }
 }

@@ -83,7 +83,7 @@ public class DemoApplication {
 	public static void testDeleteCategory() {
 		int id = 4;
 		if(categorieController.deleteCategorie(id)) {
-			System.out.println("La catégorie n°:" + id + "\t a été supprimé avec succés");
+			System.out.println("La catégorie n°:" + id + "\t a été supprimée avec succés");
 		}
 		else{
 			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
