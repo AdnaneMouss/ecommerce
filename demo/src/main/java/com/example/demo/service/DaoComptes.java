@@ -20,17 +20,17 @@ public DaoComptes(CompteRepository compteRepository){
         this.compteRepository=compteRepository;
 }
 @Autowired
-    private CompteRepository compteRepository;
+    private static CompteRepository compteRepository;
 
-    public List<comptes> getAllAccs() {
+    public static List<comptes> getAllAccs() {
         return compteRepository.findAll();
     }
 
-    public Optional<comptes> getAccById(Long id) {
+    public static Optional<comptes> getAccById(Long id) {
         return compteRepository.findById(id);
     }
 
-    public boolean createCompte(comptes compte) {
+    public static boolean createCompte(comptes compte) {
         boolean res=false;
         try{
             compteRepository.save(compte);
@@ -42,7 +42,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
-    public boolean updateCompte(int id, comptes updatedCompte) {
+    public static boolean updateCompte(int id, comptes updatedCompte) {
         boolean res=false;
         try{
             compteRepository.save(updatedCompte);
@@ -55,7 +55,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
-    public boolean deleteCompte(int id) {
+    public static boolean deleteCompte(int id) {
         boolean res;
         if(compteRepository.existsById((long) id)) {
             res=false;
