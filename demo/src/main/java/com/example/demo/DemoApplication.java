@@ -18,11 +18,16 @@ public class DemoApplication {
 	private final ProduitService produitService;
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
+	private static ComptesController ComptesController=null;
+	private static DaoComptes DaoComptes=null;
 
-	public DemoApplication(ProduitService produitService, ProduitController produitController,CategorieController categorieController) {
+	public DemoApplication(ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
+		this.ComptesController = ComptesController;
+		this.DaoComptes = DaoComptes;
+
 	}
 
 	public static void main(String[] args) {
@@ -33,15 +38,15 @@ public class DemoApplication {
 		//testGetAllProducts();
 		//testAddCategory();
 		//testDeleteCategory();
-	}
-	{
-	// Test des fonctionnalités pour les comptes
-	//testDeleteComptes();
-	//testAddComptes();
-	//testUpdateComptes();
-	//testGetAllAccs();
-}
 
+
+	// Test des fonctionnalités pour les comptes
+		//testdeleteComptes();
+	testAddComptes();
+	//testupdateComptes();
+	//testgetAllAccs();
+
+	}
 	// This method can be used for testing purposes
 	public static void testGetAllProducts() {
 		List<produit> all = produitController.getAllProduits();
@@ -106,7 +111,7 @@ public class DemoApplication {
 	}
 
 
-private static ComptesController ComptesController;
+
 
 	// This method can be used for testing purposes
 	public static void testgetAllAccs() {
