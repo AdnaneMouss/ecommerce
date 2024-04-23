@@ -39,7 +39,7 @@ public class comptes {
         this.id = id;
     }
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
@@ -63,7 +63,7 @@ public class comptes {
         this.phone = phone;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 

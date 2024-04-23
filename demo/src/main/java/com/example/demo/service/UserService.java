@@ -13,7 +13,7 @@ public class UserService {
         user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
     }
-    public comptes findByUsername(String username, String password) {
+    public comptes findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
     private String hashPassword(String password) {

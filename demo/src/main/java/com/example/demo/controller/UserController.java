@@ -25,7 +25,7 @@ public class UserController {
     }
     @PostMapping("/login")
     public String loginUser(@ModelAttribute("user") comptes user, Model model) {
-        boolean isAuthenticated = userService.findByUsername(comptes.getUsername(), comptes.getPassword());
+        boolean isAuthenticated = userService.findByUsername(comptes.getUsername(), user.getPassword());
         if (isAuthenticated) {
             return "redirect:/shop.html";
         } else {
