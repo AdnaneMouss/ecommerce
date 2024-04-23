@@ -40,4 +40,11 @@ public class ProduitController {
     public boolean deleteProduit(@PathVariable int id) {
         return produitService.deleteProduit(id);
     }
+
+    @GetMapping("/products/count")
+    public String countProducts(Model model) {
+        int productCount = produitService.countProduits();
+        model.addAttribute("productCount", productCount);
+        return "analytics";
+    }
 }
