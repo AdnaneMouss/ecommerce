@@ -31,7 +31,6 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 	}
-
 	// This method can be used for testing purposes
 	public static void testGetAllProducts() {
 		List<produit> all = produitController.getAllProduits();
