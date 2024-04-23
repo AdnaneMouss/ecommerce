@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.modele.comptes;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 @Controller
 public class UserController {
 
@@ -20,18 +18,14 @@ public class UserController {
         model.addAttribute("user", new comptes());
         return "login";
     }
-
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new comptes());
         return "register";
     }
-
     @PostMapping("/login")
     public String loginUser(@ModelAttribute("user") comptes user, Model model) {
-        // Authentification de l'utilisateur
-        boolean isAuthenticated = userService.findByUsername(comptes.getUsername(), user.getPassword());
-
+        boolean isAuthenticated = userService.findByUsername(comptes.getUsername(), comptes.getPassword());
         if (isAuthenticated) {
             return "redirect:/shop.html";
         } else {
