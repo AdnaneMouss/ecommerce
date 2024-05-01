@@ -73,7 +73,8 @@ public class DemoApplication {
 
 	public static void testUpdateProduct() {
 		int idProduitAModifier=2;
-		produit prod = new produit(0,"",1,"fgh","","",null);
+		categorie cat = new categorie(1,"Aero");
+		produit prod = new produit(0,"",1,"fgh","","",cat);
 		if(produitController.updateProduit(idProduitAModifier,prod)){
 		System.out.println("Le produit a été mis à jour");
 	}
@@ -85,10 +86,10 @@ public class DemoApplication {
 	//---------------Catégories--------------------
 
 	public static void testAddCategory() {
-		String name = "";
-		categorie c = new categorie(0,name);
+		String name = "Aero";
+		categorie c = new categorie(1,name);
 		if((categorieController.addCategorie(c))) {
-			System.out.println("La categorie:" + c + "\t a été ajouté avec succés");
+			System.out.println("La categorie:" + c + "\t a été ajoutée avec succés");
 		}
 		else{
 			System.out.println("Erreur lors de l'ajout!");

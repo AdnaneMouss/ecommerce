@@ -22,7 +22,7 @@
   }
   body{
       background: white;
-      background-image: url('img/ecommerce.jpg');
+      background-image: url('/ecommerce.jpg');
   }
   nav{
       position: sticky;
@@ -154,7 +154,7 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('img/addproduct.jpg');
+      background-image: url('/addproduct.jpg');
       height: 350px;
   }
   .addprod .card2{
@@ -165,7 +165,7 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('img/furnitures.jpg');
+      background-image: url('/furnitures.jpg');
       height: 350px;
   }
   .addprod .card img{
@@ -344,6 +344,10 @@
       color: #fff;
       border: 1px solid red;
   }
+  .mysection{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+  }
   </span>
 </style>
 <body>
@@ -351,7 +355,7 @@
     <nav>
 <ul>
         <a href="#" class="logo">
-          <img src="img/logo.png">
+          <img src="/logo.png">
           <span class="nav-item">DASHBOARD</span>
         </a>
             <a href="accounts.html">
@@ -388,8 +392,8 @@
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${productCount}"></spanth:text></span></h1>
+          <h4>Number of products</h4>
         </div>
         <div class="second">
           <img src="/dollars.png">
@@ -399,33 +403,33 @@
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${archi}">a</span></h1>
+          <h4>Architecture products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/archii.png">
         </div>
       </section>
     </div>
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${aero}"></span></h1>
+          <h4>Aerospace products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/aero.png">
         </div>
       </section>
     </div>
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${cs}"></span></h1>
+          <h4>CS products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/cs.png">
         </div>
       </section>
     </div>
@@ -435,44 +439,44 @@
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${dentistry}"></span></h1>
+          <h4>Dentistry products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/dentistry.png">
         </div>
       </section>
     </div>
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${medecine}"></span></h1>
+          <h4>Medecine products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/medecine.png">
         </div>
       </section>
     </div>
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${energie}"></span></h1>
+          <h4>Energy products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/energy.png">
         </div>
       </section>
     </div>
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
+          <h1><span th:text="${auto}"></span></h1>
+          <h4>Automobile products</h4>
         </div>
         <div class="second">
-          <img src="/dollars.png">
+          <img src="/autoo.png">
         </div>
       </section>
     </div>
@@ -504,7 +508,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
                                           <tr>
@@ -514,7 +518,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
                                         <tr>
                 <td>01</td>
@@ -523,7 +527,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
                                            <tr>
@@ -533,7 +537,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
             </tbody>
