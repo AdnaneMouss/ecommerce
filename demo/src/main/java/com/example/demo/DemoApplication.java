@@ -42,9 +42,9 @@ public class DemoApplication {
 
 	// Test des fonctionnalités pour les comptes
 		//testdeleteComptes();
-	testAddComptes();
-	//testupdateComptes();
-	//testgetAllAccs();
+	    //testAddComptes();
+	    //testupdateComptes();
+	    //testgetAllAccs();
 
 	}
 	// This method can be used for testing purposes

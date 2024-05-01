@@ -254,7 +254,7 @@ button[type="submit"]:hover {
 
 <body>
   <header>
-  <img class="logo" src="logo.png">
+  <img class="logo" src="img/logo.png">
 
     <ul class="navlist">
       <li><a href="acceuil.html">Home</a></li>
@@ -267,7 +267,7 @@ button[type="submit"]:hover {
   </header>
   <section class="hero">
         <div class="hero-img">
-      <img src="img.png">
+      <img src="img/img.png">
     </div>
     <div class="hero-text">
  <form th:action="@{/api/produits/addProduct}" method="post">
@@ -275,9 +275,11 @@ button[type="submit"]:hover {
 
 
      <input type="text" name="label" placeholder="Label">
+     <br>
+     <br>
      <input type="text" name="type" placeholder="Type">
-     <input type="number" name="price" placeholder="Price">
-     <button type="submit">Add Product</button>
+     <br>
+     <br>
         <button  id="loginButton" type="submit" style="font-weight: bold;">Login</button>
     </form><br>
 
