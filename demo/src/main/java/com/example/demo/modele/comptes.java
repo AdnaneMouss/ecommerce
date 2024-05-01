@@ -31,12 +31,6 @@ public class comptes {
     private String photo;
     private String nom;
     private String filiere;
-
-    // autres champs et méthodes
-
-    // Getters et setters
-
-
     public int getId() {
         return id;
     }

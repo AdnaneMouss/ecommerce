@@ -14,14 +14,13 @@ import java.util.Optional;
 
 @Service
 public class DaoComptes{
-    @Autowired
-    private CompteRepository compteRepository;
-
     public DaoComptes(){}
+
 public DaoComptes(CompteRepository compteRepository){
         this.compteRepository=compteRepository;
 }
-
+@Autowired
+    private CompteRepository compteRepository;
 
     public List<comptes> getAllAccs() {
         return compteRepository.findAll();
