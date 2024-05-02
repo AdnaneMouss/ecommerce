@@ -12,7 +12,6 @@ public class ProduitService {
         this.produitRepository = produitRepository;
     }
     public ProduitService() {}
-
     @Autowired
     private ProduitRepository produitRepository;
 

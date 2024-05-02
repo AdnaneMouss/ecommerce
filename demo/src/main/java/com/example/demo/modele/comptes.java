@@ -19,7 +19,6 @@ public class comptes {
     public comptes(){
 
     }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
