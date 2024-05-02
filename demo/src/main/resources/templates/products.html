@@ -22,7 +22,7 @@
   }
   body{
       background: white;
-      background-image: url('img/ecommerce.jpg');
+      background-image: url('/ecommerce.jpg');
   }
   nav{
       position: sticky;
@@ -120,7 +120,7 @@
       color: rgb(110, 109, 109);
       cursor: pointer;
   }
-  .main .users{
+  .main .addprod{
       display: flex;
       width: 100%;
   }
@@ -141,12 +141,12 @@
       color: rgb(110, 109, 109);
       cursor: pointer;
   }
-  .main .users{
+  .main .addprod{
       display: flex;
       width: 100%;
   }
 
-  .users .card{
+  .addprod .card{
       width: 39%;
       margin: 10px;
       background: #fff;
@@ -154,10 +154,10 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('img/addproduct.jpg');
+      background-image: url('/addproduct.jpg');
       height: 350px;
   }
-  .users .card2{
+  .addprod .card2{
       width: 39%;
       margin: 10px;
       background: #fff;
@@ -165,26 +165,26 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('img/furnitures.jpg');
+      background-image: url('/furnitures.jpg');
       height: 350px;
   }
-  .users .card img{
+  .addprod .card img{
       width: 70px;
       height: 70px;
       border-radius: 50%;
   }
-  .users .card h4{
+  .addprod .card h4{
       text-transform: uppercase;
   }
-  .users .card p{
+  .addprod .card p{
       font-size: 12px;
       margin-bottom: 15px;
       text-transform: uppercase;
   }
-  .users table{
+  .addprod table{
       margin: auto;
   }
-  .users .per span{
+  .addprod .per span{
       padding: 5px;
       border-radius: 10px;
       background: rgb(223, 223, 223);
@@ -213,11 +213,11 @@
       right: 20px;
   }
 
-  .users td{
+  .addprod td{
       font-size: 14px;
       padding-right: 15px;
   }
-  .users .card button{
+  .addprod .card button{
       width: 100%;
       margin-top: 8px;
       padding: 7px;
@@ -288,6 +288,66 @@
   .fa-solid.fa-phone {
       right: 20px;
   }
+  .main .users{
+      display: flex;
+      width: 100%;
+  }
+
+  .users .card{
+      width: 50%;
+      margin: 10px;
+      height: 100px;
+      background: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 10px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #4169E1;
+  }
+  .users .card h1,h4{
+      text-align: left;
+  }
+
+  .users .card:hover{
+      background-color: red;
+      color: white;
+  }
+  .users .card img{
+      width: 120px;
+      height: 100px;
+  }
+
+  .users .card p{
+      font-size: 12px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+  }
+  .users table{
+      margin:  auto;
+  }
+  .users .per span{
+      padding: 5px;
+      border-radius: 10px;
+      background: rgb(223, 223, 223);
+  }
+  .users td{
+      font-size: 14px;
+      padding-right: 15px;
+  }
+  .users .card button{
+      width: 100%;
+      margin-top: 8px;
+      padding: 7px;
+      cursor: pointer;
+      border-radius: 10px;
+      background: red;
+      color: #fff;
+      border: 1px solid red;
+  }
+  .mysection{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+  }
   </span>
 </style>
 <body>
@@ -295,7 +355,7 @@
     <nav>
 <ul>
         <a href="#" class="logo">
-          <img src="img/logo.png">
+          <img src="/logo.png">
           <span class="nav-item">DASHBOARD</span>
         </a>
             <a href="accounts.html">
@@ -328,6 +388,102 @@
 
 
     <section class="main">
+              <div class="users">
+        <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${productCount}"></spanth:text></span></h1>
+          <h4>Number of products</h4>
+        </div>
+        <div class="second">
+          <img src="/dollars.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${archi}">a</span></h1>
+          <h4>Architecture products</h4>
+        </div>
+        <div class="second">
+          <img src="/archii.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${aero}"></span></h1>
+          <h4>Aerospace products</h4>
+        </div>
+        <div class="second">
+          <img src="/aero.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${cs}"></span></h1>
+          <h4>CS products</h4>
+        </div>
+        <div class="second">
+          <img src="/cs.png">
+        </div>
+      </section>
+    </div>
+              </div>
+
+                      <div class="users">
+        <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${dentistry}"></span></h1>
+          <h4>Dentistry products</h4>
+        </div>
+        <div class="second">
+          <img src="/dentistry.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${medecine}"></span></h1>
+          <h4>Medecine products</h4>
+        </div>
+        <div class="second">
+          <img src="/medecine.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${energie}"></span></h1>
+          <h4>Energy products</h4>
+        </div>
+        <div class="second">
+          <img src="/energy.png">
+        </div>
+      </section>
+    </div>
+                          <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${auto}"></span></h1>
+          <h4>Automobile products</h4>
+        </div>
+        <div class="second">
+          <img src="/autoo.png">
+        </div>
+      </section>
+    </div>
+              </div>
+
+        
+
       <section class="attendance">
         <div class="attendance-list">
           <h1>List of products</h1>
@@ -352,7 +508,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
                                           <tr>
@@ -362,7 +518,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
                                         <tr>
                 <td>01</td>
@@ -371,7 +527,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
                                            <tr>
@@ -381,7 +537,7 @@
                 <td>Red</td>
                 <td>M-S-XL</td>
                 <td>Dentistry</td>
-                                                 <td><button onclick="showImage('img/redgirl.png')">Show Image</button></td>
+                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
                                               <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
               </tr>
             </tbody>
@@ -393,7 +549,7 @@
         &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
         <h1>
       </div>
-      <div class="users">
+      <div class="addprod">
         <div class="card">
           <div class="per">
             <table class="table2">

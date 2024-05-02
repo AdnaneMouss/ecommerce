@@ -19,6 +19,7 @@ public class categorie {
         this.id = id;
         this.catname = catname;
     }
+
     public categorie() {}
 
     public int getId() {

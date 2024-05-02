@@ -1,4 +1,5 @@
 package com.example.demo.service;
+import com.example.demo.modele.categorie;
 import com.example.demo.repository.ProduitRepository;
 import com.example.demo.modele.produit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,4 +64,9 @@ public class ProduitService {
     public int countProduits() {
         return (int) produitRepository.count();
     }
+
+    public int countProduitsByCategorie(categorie cat) {
+        return produitRepository.countByCategorie(cat);
+    }
+
 }
