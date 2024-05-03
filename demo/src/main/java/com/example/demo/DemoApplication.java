@@ -1,11 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.controller.CategorieController;
+import com.example.demo.controller.LoginController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
 import com.example.demo.modele.categorie;
+import com.example.demo.modele.*;
 import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
+import com.example.demo.service.Loginservice;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,14 +22,17 @@ public class DemoApplication {
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
 	private static DaoComptes DaoComptes=null;
+	private static Loginservice logService;
+	private static LoginController lc=null;
 
-
-	public DemoApplication( ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
+	public DemoApplication(LoginController lc, ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
+		this.lc=lc;
+
 	}
 
 	public static void main(String[] args) {
@@ -42,9 +48,9 @@ public class DemoApplication {
 
 	// Test des fonctionnalités pour les comptes
 		//testdeleteComptes();
-	//testAddComptes();
-	//testupdateComptes();
-	//testgetAllAccs();
+	    //testAddComptes();
+	    //testupdateComptes();
+	    //testgetAllAccs();
 
 	}
 	// This method can be used for testing purposes
@@ -73,7 +79,8 @@ public class DemoApplication {
 
 	public static void testUpdateProduct() {
 		int idProduitAModifier=2;
-		produit prod = new produit(0,"",1,"fgh","","",null);
+		categorie cat = new categorie(1,"Aero");
+		produit prod = new produit(0,"",1,"fgh","","",cat);
 		if(produitController.updateProduit(idProduitAModifier,prod)){
 		System.out.println("Le produit a été mis à jour");
 	}
@@ -85,10 +92,10 @@ public class DemoApplication {
 	//---------------Catégories--------------------
 
 	public static void testAddCategory() {
-		String name = "";
-		categorie c = new categorie(0,name);
+		String name = "Aero";
+		categorie c = new categorie(1,name);
 		if((categorieController.addCategorie(c))) {
-			System.out.println("La categorie:" + c + "\t a été ajouté avec succés");
+			System.out.println("La categorie:" + c + "\t a été ajoutée avec succés");
 		}
 		else{
 			System.out.println("Erreur lors de l'ajout!");
@@ -118,11 +125,11 @@ public class DemoApplication {
 			System.out.println("yes");
 		}
 	}*/
-	/*public static void testgetAllAccs() {
+	public static void testgetAllAccs() {
 		ComptesController ComptesController = null;
 		List<Comptes> all = ComptesController.getAllAccs();
 		System.out.println(all);
-	}*/
+	}
 
 	/*public static  void testdeleteComptes() {
 		int id = 4;
