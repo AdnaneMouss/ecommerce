@@ -52,11 +52,12 @@ public class ProduitService {
     public boolean deleteProduit(int id) {
         boolean res;
         if(produitRepository.existsById((long) id)) {
-            res=false;
-        }
-        else{
             produitRepository.deleteById((long) id);
             res=true;
+        }
+        else{
+
+            res=false;
         }
         return res;
     }
@@ -68,5 +69,6 @@ public class ProduitService {
     public int countProduitsByCategorie(categorie cat) {
         return produitRepository.countByCategorie(cat);
     }
+
 
 }

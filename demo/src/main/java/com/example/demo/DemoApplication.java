@@ -20,13 +20,14 @@ public class DemoApplication {
 	private static ComptesController ComptesController=null;
 	private static DaoComptes DaoComptes=null;
 
-
 	public DemoApplication( ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
+
+
 	}
 
 	public static void main(String[] args) {
@@ -42,17 +43,17 @@ public class DemoApplication {
 
 	// Test des fonctionnalités pour les comptes
 		//testdeleteComptes();
-	//testAddComptes();
-	//testupdateComptes();
-	//testgetAllAccs();
+	    //testAddComptes();
+	    //testupdateComptes();
+	    //testgetAllAccs();
 
 	}
 	// This method can be used for testing purposes
-	public static void testGetAllProducts() {
+/*ublic static void testGetAllProducts() {
 		List<produit> all = produitController.getAllProduits();
 		System.out.println(all);
-	}
-	public static void testDeleteProduct() {
+	}*/
+/*ublic static void testDeleteProduct() {
 		int id = 4;
     if(produitController.deleteProduit(id)) {
 		System.out.println("Le produit n°:" + id + "\t a été supprimé avec succés");
@@ -60,8 +61,8 @@ public class DemoApplication {
 	else{
 		System.out.println("Le produit n°:" + id + "\t n'existe pas!");
 	}
-	}
-	public static void testAddProduct() {
+	}*/
+/*ublic static void testAddProduct() {
 		produit p1 = new produit(0,"Adkd",1,"","","",null);
 		if(produitController.addProduct(p1)) {
 			System.out.println("Le produit:" + p1 + "\t a été ajouté avec succés");
@@ -70,10 +71,11 @@ public class DemoApplication {
 			System.out.println("Erreur lors de l'ajout!");
 		}
 	}
-
+*/
 	public static void testUpdateProduct() {
 		int idProduitAModifier=2;
-		produit prod = new produit(0,"",1,"fgh","","",null);
+		categorie cat = new categorie(1,"Aero");
+		produit prod = new produit(0,"",1,"fgh","","",cat);
 		if(produitController.updateProduit(idProduitAModifier,prod)){
 		System.out.println("Le produit a été mis à jour");
 	}
@@ -84,18 +86,18 @@ public class DemoApplication {
 
 	//---------------Catégories--------------------
 
-	public static void testAddCategory() {
-		String name = "";
-		categorie c = new categorie(0,name);
+/*ublic static void testAddCategory() {
+		String name = "Aero";
+		categorie c = new categorie(1,name);
 		if((categorieController.addCategorie(c))) {
-			System.out.println("La categorie:" + c + "\t a été ajouté avec succés");
+			System.out.println("La categorie:" + c + "\t a été ajoutée avec succés");
 		}
 		else{
 			System.out.println("Erreur lors de l'ajout!");
 		}
 	}
-
-	public static void testDeleteCategory() {
+*/
+/*ublic static void testDeleteCategory() {
 		int id = 4;
 		if(categorieController.deleteCategorie(id)) {
 			System.out.println("La catégorie n°:" + id + "\t a été supprimée avec succés");
@@ -103,7 +105,7 @@ public class DemoApplication {
 		else{
 			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
 		}
-	}
+	}*/
 	public static void testGetAllCategories() {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);
@@ -118,7 +120,7 @@ public class DemoApplication {
 			System.out.println("yes");
 		}
 	}*/
-	/*public static void testgetAllAccs() {
+/*ublic static void testgetAllAccs() {
 		ComptesController ComptesController = null;
 		List<Comptes> all = ComptesController.getAllAccs();
 		System.out.println(all);
