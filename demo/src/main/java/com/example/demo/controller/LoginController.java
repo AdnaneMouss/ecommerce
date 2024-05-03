@@ -14,18 +14,13 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
     @Autowired
     private Loginservice userService;
-    @GetMapping("/login1")
-    public ModelAndView Comptes() {
-        ModelAndView mav = new ModelAndView("login");
-        mav.addObject("user", new Comptes());
-        return mav;
-    }
+
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         // Perform login logic here (e.g., validate credentials)
         if (userService.authenticate(username,password)) {
             System.out.println("REUSSI");
-            return "";
+            return "loginPage";
         } else {
             System.out.println("no");
             model.addAttribute("error", "Invalid username or password");

@@ -20,21 +20,29 @@ public class CategorieService {
         return categRepository.findAll();
     }
 
-    public Optional<categorie> getCategorieById(int id) {
+    public Optional<categorie> getCategoryById(int id) {
         return categRepository.findById((long) id);
     }
 
     public boolean createCategorie(categorie categorie) {
-        boolean res = false;
-        try{
+        // Check if the category already exists
+        boolean categoryExists = categRepository.existsByCatname(categorie.getCatname());
+
+        if (categoryExists) {
+            // Category already exists, return false
+            return false;
+        }
+        // Category doesn't exist, attempt to save it
+        try {
             categRepository.save(categorie);
-             res=true;
-        }
-        catch(Exception e){
+            // Saved successfully, return true
+            return true;
+        } catch (Exception e) {
+            // Log the exception (optional)
             System.out.println(e);
-            return res;
+            // Return false if an exception occurs during saving
+            return false;
         }
-        return res;
     }
 
     public boolean deleteCategorie(int id) {

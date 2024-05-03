@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.produit;
+import com.example.demo.service.CategorieService;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,21 +17,40 @@ public class ProduitController {
 
     @Autowired
     private ProduitService produitService;
+    @Autowired
+    private CategorieService catService;
 
-    @GetMapping
-    public List<produit> getAllProduits() {
-        return produitService.getAllProduits();
-    }
-
-    @GetMapping("/{id}")
-    public produit getProduitById(@PathVariable int id) {
-        Optional<produit> produit = produitService.getProduitById((long)id);
-        return produit.orElse(null);
+    @GetMapping("/{all}")
+    public String getAllProduits(Model model) {
+        List<produit> produits = produitService.getAllProduits();
+        model.addAttribute("all",produits);
+        return "products";
     }
 
     @PostMapping("/addProduct")
-    public boolean addProduct(@RequestBody produit product) {
-        return produitService.createProduit(product);
+    public String addProduct(@RequestParam String label, @RequestParam int price, @RequestParam String color,
+                             @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId) {
+        // Fetch the category object by ID
+        Optional<categorie> categoryOptional = catService.getCategoryById(categoryId);
+
+            categorie category = categoryOptional.get();
+
+            // Create a product object and set its properties
+            produit product = new produit();
+            product.setLabel(label);
+            product.setPrice(price);
+            product.setColor(color);
+            product.setPhoto(photo);
+            product.setSize(size);
+
+            // Set the category for the product
+            product.setCategorie(category);
+
+            // Save the product to the database
+            produitService.createProduit(product);
+
+            // Redirect to the desired page
+            return "redirect:/products/count";
     }
 
     @PutMapping("/{id}")
@@ -38,9 +58,17 @@ public class ProduitController {
         return produitService.updateProduit(id, updatedProduit);
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteProduit(@PathVariable int id) {
-        return produitService.deleteProduit(id);
+    @PostMapping("/delete")
+    public String delete(@RequestParam int id) {
+
+            boolean isDeleted = produitService.deleteProduit(id);
+            if (isDeleted) {
+                System.out.println("Product deleted successfully.");
+            } else {
+                System.out.println("Failed to delete product.");
+            }
+
+        return "redirect:/products/count";
     }
 
     @GetMapping("/count")
@@ -76,6 +104,11 @@ public class ProduitController {
         categorie energie = new categorie(7,"Energy");
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
+        //getall
+        List<produit> produits = produitService.getAllProduits();
+        model.addAttribute("all",produits);
+        List<categorie> c = catService.getAllCategories();
+        model.addAttribute("allc",c);
         return "products";
     }
 }

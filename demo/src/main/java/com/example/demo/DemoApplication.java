@@ -17,7 +17,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication {
-	private final ProduitService produitService;
+	private static ProduitService produitService=null;
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
@@ -37,7 +37,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-		//testDeleteProduct();
+		testDeleteProduct();
 		//testAddProduct();
 		//testUpdateProduct();
 		//testGetAllProducts();
@@ -54,20 +54,20 @@ public class DemoApplication {
 
 	}
 	// This method can be used for testing purposes
-	public static void testGetAllProducts() {
+	/*public static void testGetAllProducts() {
 		List<produit> all = produitController.getAllProduits();
 		System.out.println(all);
-	}
+	}*/
 	public static void testDeleteProduct() {
 		int id = 4;
-    if(produitController.deleteProduit(id)) {
+    if(produitService.deleteProduit(4)) {
 		System.out.println("Le produit n°:" + id + "\t a été supprimé avec succés");
 	}
 	else{
 		System.out.println("Le produit n°:" + id + "\t n'existe pas!");
 	}
 	}
-	public static void testAddProduct() {
+	/*public static void testAddProduct() {
 		produit p1 = new produit(0,"Adkd",1,"","","",null);
 		if(produitController.addProduct(p1)) {
 			System.out.println("Le produit:" + p1 + "\t a été ajouté avec succés");
@@ -75,7 +75,7 @@ public class DemoApplication {
 		else{
 			System.out.println("Erreur lors de l'ajout!");
 		}
-	}
+	}*/
 
 	public static void testUpdateProduct() {
 		int idProduitAModifier=2;
@@ -91,7 +91,7 @@ public class DemoApplication {
 
 	//---------------Catégories--------------------
 
-	public static void testAddCategory() {
+	/*public static void testAddCategory() {
 		String name = "Aero";
 		categorie c = new categorie(1,name);
 		if((categorieController.addCategorie(c))) {
@@ -100,9 +100,9 @@ public class DemoApplication {
 		else{
 			System.out.println("Erreur lors de l'ajout!");
 		}
-	}
+	}*/
 
-	public static void testDeleteCategory() {
+	/*public static void testDeleteCategory() {
 		int id = 4;
 		if(categorieController.deleteCategorie(id)) {
 			System.out.println("La catégorie n°:" + id + "\t a été supprimée avec succés");
@@ -110,7 +110,7 @@ public class DemoApplication {
 		else{
 			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
 		}
-	}
+	}*/
 	public static void testGetAllCategories() {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);

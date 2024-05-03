@@ -24,9 +24,4 @@ class DemoApplicationTests {
 		// Your existing test method
 	}
 
-	@Test
-	void testGetAllProducts() {
-		List<produit> all = produitController.getAllProduits();
-		System.out.println(all);
-	}
 }

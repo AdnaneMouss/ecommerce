@@ -1,5 +1,5 @@
 <span style="font-family: verdana, geneva, sans-serif;"><!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <title>Attendance Dashboard | By Code Info</title>
@@ -147,7 +147,7 @@
   }
 
   .addprod .card{
-      width: 39%;
+      width: 79%;
       margin: 10px;
       background: #fff;
       text-align: left;
@@ -172,6 +172,9 @@
       width: 70px;
       height: 70px;
       border-radius: 50%;
+  }
+  .addprod button{
+
   }
   .addprod .card h4{
       text-transform: uppercase;
@@ -218,13 +221,24 @@
       padding-right: 15px;
   }
   .addprod .card button{
-      width: 100%;
+         width: 540px;
+         font-weight: bold;
+         margin-top: 8px;
+         padding: 9px;
+         cursor: pointer;
+         border-radius: 10px;
+         background: white;
+         color: red;
+         border: 2px solid red;
+     }
+  .addprod .card button:hover{
+      width: 540px;
       margin-top: 8px;
-      padding: 7px;
+      padding: 9px;
       cursor: pointer;
       border-radius: 10px;
       background: red;
-      color: #fff;
+      color: white;
       border: 1px solid red;
   }
 
@@ -240,6 +254,16 @@
       border-radius: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
   }
+
+  .attendance-list2{
+      width: 25%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+  }
+
   .table{
       border-collapse: collapse;
       margin: 25px 0;
@@ -322,6 +346,10 @@
       margin-bottom: 15px;
       text-transform: uppercase;
   }
+  .adding{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+  }
   .users table{
       margin:  auto;
   }
@@ -388,6 +416,7 @@
 
 
     <section class="main">
+        <h2>PRODUCTS PAGE</h2> <h4>Display,add and delete products easily</h4>
               <div class="users">
         <div class="card">
           <section class="mysection">
@@ -403,7 +432,7 @@
                           <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${archi}">a</span></h1>
+          <h1><span th:text="${archi}"></span></h1>
           <h4>Architecture products</h4>
         </div>
         <div class="second">
@@ -482,109 +511,153 @@
     </div>
               </div>
 
-        
-
       <section class="attendance">
-        <div class="attendance-list">
-          <h1>List of products</h1>
-          <table class="table">
-            <thead>
-              <tr>
+<div>
+    <label style="color: white" for="categorySelect">Filter by Category:</label>
+    <select id="categorySelect" onchange="applyCategoryFilter()">
+        <option value="">All Categories</option>
+        <!-- Populate dropdown options dynamically with Thymeleaf -->
+        <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
+    </select>
+</div>
+<div class="attendance-list">
+    <h1>List of products</h1>
+    <form th:action="@{/products/delete}" method="post">
+    <table class="table">
+        <thead>
+            <tr>
                 <th>ID</th>
                 <th>Label</th>
-                  <th>Price</th>
+                <th>Price</th>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Category</th>
                 <th>Image</th>
                 <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-                                             <tr>
-                <td>01</td>
-                <td>Prod1</td>
-                <td>1.56 MAD</td>
-                <td>Red</td>
-                <td>M-S-XL</td>
-                <td>Dentistry</td>
-                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
-                                              <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
-              </tr>
-                                          <tr>
-                <td>01</td>
-                <td>Prod1</td>
-                <td>1.56 MAD</td>
-                <td>Red</td>
-                <td>M-S-XL</td>
-                <td>Dentistry</td>
-                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
-                                              <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
-                                        <tr>
-                <td>01</td>
-                <td>Prod1</td>
-                <td>1.56 MAD</td>
-                <td>Red</td>
-                <td>M-S-XL</td>
-                <td>Dentistry</td>
-                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
-                                              <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
-              </tr>
-                                           <tr>
-                <td>01</td>
-                <td>Prod1</td>
-                <td>1.56 MAD</td>
-                <td>Red</td>
-                <td>M-S-XL</td>
-                <td>Dentistry</td>
-                                                 <td><button onclick="showImage('/redgirl.png')">Show Image</button></td>
-                                              <td><button>Delete</button>&nbsp<button onclick="modifyRow(this)">Modify</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+            </tr>
+        </thead>
+
+      <tbody>
+    <tr th:each="produit : ${all}" class="productRow">
+        <td th:text="${produit.id}"></td>
+        <td th:text="${produit.label}"></td>
+        <td th:text="${produit.price}"></td>
+        <td th:text="${produit.color}"></td>
+        <td th:text="${produit.size}"></td>
+        <td th:text="${produit.categorie?.catname}"></td>
+        <td><button onclick="showImage('${produit.photo}')">Show Image</button></td>
+        <td>
+            <input type="hidden" name="id" th:value="${produit.id}" />
+             <button type="submit" value="delete">Delete</button>
+            &nbsp;<button onclick="modifyRow(this)">Modify</button>
+        </td>
+    </tr>
+</tbody>
+    </table>
+         </form>
+
+</div>
+          <div class="attendance-list2">
+    <h1>List of categories</h1>
+              <form th:action="@{/categorie/delete}" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+      <tbody>
+    <tr th:each="categorie : ${allc}" class="productRow">
+        <td th:text="${categorie.id}"></td>
+         <input type="hidden" name="idC" th:value="${categorie.id}" />
+        <td th:text="${categorie.catname}"></td>
+        <td>
+            <button>Delete</button>
+            &nbsp;<button onclick="modifyRow(this)">Modify</button>
+        </td>
+    </tr>
+</tbody>
+
+    </table>
+              </form>
+
+</div>
     <section class="main">
       <div class="main-top">
         &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
-        <h1>
       </div>
+        <section class="adding">
       <div class="addprod">
         <div class="card">
           <div class="per">
-            <table class="table2">
-              <tr>
-                <td><input type="text" placeholder="Label"></td>
-                <td><input type="number" placeholder="Price"></td>
-              </tr>
-              <tr>
-                <td><input type="text" placeholder="Color"></td>
-                                                    <td><input type='file' accept='image/*' onchange='validateImageSize(this)'></td>
-              </tr>
-                                         <tr>
-                                             <td><select>
-                  <option value="" disabled selected>Size</option>
-                  <option value="option1">None</option>
-                  <option value="option1">M</option>
-                  <option value="option1">XS</option>
-                  <option value="option2">S</option>
-                  <option value="option2">L</option>
-                  <option value="option2">XL</option>
-                  <option value="option2">XXL</option>
-                </select></td>
-                                <td><select>
-                  <option value="" disabled selected>Category</option>
-                  <option value="option1">Architecture</option>
-                  <option value="option2">Computer science</option>
-                </select></td>
-              </tr>
-            </table>
+<form th:action="@{/products/addProduct}" method="post">
+    <table class="table2">
+        <tr>
+            <td><input type="text" placeholder="Label" name="label" required></td>
+            <td><input type="number" placeholder="Price" name="price" required></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Color" name="color"></td>
+            <td><input type="file" accept="image/*" onchange="validateImageSize(this)" name="photo"></td>
+        </tr>
+        <tr>
+            <td>
+                <select name="size">
+                    <option value="" disabled selected>Size</option>
+                    <option value="None">None</option>
+                    <option value="M">M</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </td>
+            <td>
+                <select name="categoryId">
+                    <option value="" disabled selected>Category</option>
+                    <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
+                </select>
+            </td>
+        </tr>
+    </table>
+    <button>Add Product</button>
+</form>
+
           </div>
         </div>
         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
         </div>
+ <div class="addprod">
+        <div class="card">
+          <div class="per">
+<form th:action="@{/categorie/addCategory}" method="post">
+    <table class="table2">
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" placeholder="Name" name="catname"></td>
+            <td><button type="submit">Add Category</button></td>
+        </tr>
+        <tr>
+ <td colspan="2" th:if="${errorMessage}" style="color: white" th:text="${errorMessage}"></td>
+            <td style="color: white">
+                a
+            </td>
+        </tr>
+    </table>
 
+</form>
 
+          </div>
+        </div>
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+        </div>
+</section>
     </section>
 
     </section>
@@ -676,8 +749,28 @@
       actionCell.innerHTML = "<button onclick='modifyRow(this)'>Modify</button>";
   }
 </script>
+<script>
+    function applyCategoryFilter() {
+        var select = document.getElementById("categorySelect");
+        var categoryId = select.value;
+        var rows = document.getElementsByClassName("productRow");
 
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var categoryCell = row.getElementsByTagName("td")[5]; // Assuming Category column is at index 5
+            var category = categoryCell.textContent.trim();
 
+            if (categoryId === "" || categoryId === category) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        }
+    }
+</script>
+  <script th:if="${errorMessage}">
+        alert([[${errorMessage}]]);
+    </script>
 </body>
 </html>
 </span>
