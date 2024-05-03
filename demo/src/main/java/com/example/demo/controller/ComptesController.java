@@ -1,39 +1,59 @@
 package com.example.demo.controller;
-import com.example.demo.modele.*;
+
+import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
-@RestController
-@RequestMapping("/api/comptes")
+
+@Controller
+@RequestMapping("/comptes")
 public class ComptesController {
     @Autowired
     private DaoComptes daoComptes;
+
     public ComptesController(DaoComptes daoComptes) {
         this.daoComptes = daoComptes;
     }
+
     @GetMapping
-    public  List<Comptes> getAllAccs() {
+    public  List<comptes> getAllAccs() {
         return daoComptes.getAllAccs();
     }
+
     @GetMapping("/{id}")
-    public Comptes getComptesById(@PathVariable int id) {
-        Optional<Comptes> comptes = daoComptes.getAccById((long)id);
+    public comptes getComptesById(@PathVariable int id) {
+        Optional<comptes> comptes = daoComptes.getAccById((long)id);
         return comptes.orElse(null);
     }
+
     @PostMapping("/addComptes")
-    public boolean addComptes(@RequestBody Comptes comptes) {
+    public boolean addComptes(@RequestBody comptes comptes) {
         return daoComptes.createCompte(comptes);
     }
+
     @PutMapping("/{id}")
-    public boolean updateComptes(@PathVariable int id, @RequestBody Comptes updatedComptes) {
+    public boolean updateComptes(@PathVariable int id, @RequestBody comptes updatedComptes) {
         return daoComptes.updateCompte(id, updatedComptes);
     }
+
     @DeleteMapping("/{id}")
     public boolean deleteComptes(@PathVariable int id) {
         return daoComptes.deleteCompte(id);
+    }
+    @GetMapping("/profile")
+    public String getProfilePage(Model model, String username) {
+
+        comptes compte = daoComptes.findByUsername("myUsername");
+
+        // Passer les données à la vue
+        model.addAttribute("comptes", compte);
+
+        return "compte";
     }
 }
