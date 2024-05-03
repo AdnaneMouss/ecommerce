@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.modele.comptes;
+import com.example.demo.modele.*;
 import com.example.demo.modele.produit;
-import com.example.demo.repository.CompteRepository;
+import com.example.demo.repository.*;
 import com.example.demo.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,15 +22,15 @@ public DaoComptes(CompteRepository compteRepository){
 @Autowired
     private CompteRepository compteRepository;
 
-    public List<comptes> getAllAccs() {
+    public List<Comptes> getAllAccs() {
         return compteRepository.findAll();
     }
 
-    public Optional<comptes> getAccById(Long id) {
+    public Optional<Comptes> getAccById(Long id) {
         return compteRepository.findById(id);
     }
 
-    public boolean createCompte(comptes compte) {
+    public boolean createCompte(Comptes compte) {
         boolean res=false;
         try{
             compteRepository.save(compte);
@@ -42,7 +42,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
-    public boolean updateCompte(int id, comptes updatedCompte) {
+    public boolean updateCompte(int id, Comptes updatedCompte) {
         boolean res=false;
         try{
             compteRepository.save(updatedCompte);

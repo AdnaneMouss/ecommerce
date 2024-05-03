@@ -1,5 +1,5 @@
 package com.example.demo.service;
-import com.example.demo.modele.comptes;
+import com.example.demo.modele.Comptes;
 import com.example.demo.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,11 +9,11 @@ import java.security.NoSuchAlgorithmException;
 public class UserService {
     @Autowired
     private CompteRepository userRepository;
-    public void saveUser(comptes user) {
+    public void saveUser(Comptes user) {
         user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
     }
-    public comptes findByUsername(String username) {
+    public Comptes findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
     private String hashPassword(String password) {

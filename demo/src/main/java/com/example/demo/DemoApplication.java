@@ -4,7 +4,7 @@ import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
 import com.example.demo.modele.categorie;
-import com.example.demo.modele.comptes;
+import com.example.demo.modele.*;
 import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
@@ -105,19 +105,13 @@ public class DemoApplication {
 			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
 		}
 	}
-
 	public static void testGetAllCategories() {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);
 	}
-
-
-
-
-	// This method can be used for testing purposes
 	public static void testgetAllAccs() {
 		ComptesController ComptesController = null;
-		List<comptes> all = ComptesController.getAllAccs();
+		List<Comptes> all = ComptesController.getAllAccs();
 		System.out.println(all);
 	}
 
@@ -131,8 +125,8 @@ public class DemoApplication {
 	}
 
 	public static void testAddComptes() {
-		comptes compte = new comptes(0, "username", "email@example.com", 123456789, "password", "type", "photo", "filiere", "nom");
-		if (ComptesController.addComptes((comptes) compte)) {
+		Comptes compte = new Comptes(0, "email@example.com", "INFO", "test", "password", 0666666666, "photo", "tester", "username");
+		if (ComptesController.addComptes((Comptes) compte)) {
 			System.out.println("Le compte a été ajouté avec succès");
 		} else {
 			System.out.println("Erreur lors de l'ajout du compte!");
@@ -140,7 +134,7 @@ public class DemoApplication {
 	}
 	public static void testupdateComptes() {
 		int idCompteAModifier = 2;
-		comptes compte = new comptes(0, "newUsername", "newemail@example.com", 987654321, "newPassword", "newType", "newPhoto", "newFiliere", "newNom");
+		Comptes compte = new Comptes(0, "email@example.com", "INFO", "test", "password", 0666666666, "photo", "tester", "username");
 		if (ComptesController.updateComptes(idCompteAModifier, compte)) {
 			System.out.println("Le compte a été mis à jour");
 		} else {

@@ -1,17 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Comment;
-import com.example.demo.modele.comptes;
 import com.example.demo.service.CommentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
-
-
 @RestController
 @RequestMapping("/Comment")
 public class CommentControllerImpl {

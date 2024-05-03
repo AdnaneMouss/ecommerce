@@ -1,8 +1,9 @@
 package com.example.demo.controller;
 import java.util.Objects;
+
+import com.example.demo.modele.Comptes;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.example.demo.modele.Login;
 import com.example.demo.service.Loginservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,18 +18,17 @@ public class LoginController {
     @Autowired
     private Loginservice userService;
     @GetMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView Comptes() {
         ModelAndView mav = new ModelAndView("login");
-        mav.addObject("user", new Login());
+        mav.addObject("user", new Comptes());
         return mav;
     }
     @PostMapping("/login")
-    public String login(@ModelAttribute("user") Login user ) {
-        Login oauthUser = userService.login(user.getUsername(), user.getPassword());
-        System.out.print(oauthUser);
+    public String Comptes(@ModelAttribute("user") Comptes user ) {
+        Comptes oauthUser = userService.login(user.getUsername(), user.getPassword());
         if(Objects.nonNull(oauthUser))
         {
-            return "redirect:/";
+            return "redirect:shop.html";
         } else {
             return "redirect:/login";
         }

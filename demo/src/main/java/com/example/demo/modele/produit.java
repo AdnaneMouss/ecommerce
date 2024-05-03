@@ -1,7 +1,5 @@
 package com.example.demo.modele;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name ="products")
 public class produit {
