@@ -1,12 +1,14 @@
 package com.example.demo;
 
 import com.example.demo.controller.CategorieController;
+import com.example.demo.controller.LoginController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.*;
 import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
+import com.example.demo.service.Loginservice;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,13 +22,16 @@ public class DemoApplication {
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
 	private static DaoComptes DaoComptes=null;
+	private static Loginservice logService;
+	private static LoginController lc=null;
 
-	public DemoApplication(ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
+	public DemoApplication(LoginController lc, ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
+		this.lc=lc;
 
 	}
 
@@ -38,6 +43,7 @@ public class DemoApplication {
 		//testGetAllProducts();
 		//testAddCategory();
 		//testDeleteCategory();
+		testLogin();
 
 
 	// Test des fonctionnalités pour les comptes
@@ -109,22 +115,32 @@ public class DemoApplication {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);
 	}
+	public static void testLogin(){
+		String username="usr";
+		String password="psw";
+		Comptes c = new Comptes();
+		c.setPassword(password);
+		c.setUsername(username);
+		if(lc.Compte(c)){
+			System.out.println("yes");
+		}
+	}
 	public static void testgetAllAccs() {
 		ComptesController ComptesController = null;
 		List<Comptes> all = ComptesController.getAllAccs();
 		System.out.println(all);
 	}
 
-	public static  void testdeleteComptes() {
+	/*public static  void testdeleteComptes() {
 		int id = 4;
 		if (ComptesController.deleteComptes(id)) {
 			System.out.println("Le compte n°:" + id + "\t a été supprimé avec succès");
 		} else {
 			System.out.println("Le compte n°:" + id + "\t n'existe pas!");
 		}
-	}
+	}*/
 
-	public static void testAddComptes() {
+	/*public static void testAddComptes() {
 		Comptes compte = new Comptes(0, "email@example.com", "INFO", "test", "password", 0666666666, "photo", "tester", "username");
 		if (ComptesController.addComptes((Comptes) compte)) {
 			System.out.println("Le compte a été ajouté avec succès");
@@ -140,5 +156,6 @@ public class DemoApplication {
 		} else {
 			System.out.println("Erreur lors de la mise à jour du compte!");
 		}
-	}
+	}*/
 }
+
