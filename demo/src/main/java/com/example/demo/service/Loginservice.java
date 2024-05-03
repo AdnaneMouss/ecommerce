@@ -7,8 +7,14 @@ import org.springframework.stereotype.Service;
 public class Loginservice {
     @Autowired
     private LoginRepository repo;
-    public Comptes login(String username, String password) {
-        Comptes user = repo.findByUsernameAndPassword(username, password);
-        return user;
+
+    public boolean authenticate(String username, String password) {
+        boolean res = false;
+        if (repo.existsByUsernameAndPassword(username, password)) {
+            res = true;
+        } else {
+            res = false;
+        }
+        return res;
     }
 }

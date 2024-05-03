@@ -43,7 +43,7 @@ public class DemoApplication {
 		//testGetAllProducts();
 		//testAddCategory();
 		//testDeleteCategory();
-		testLogin();
+		//testLogin();
 
 
 	// Test des fonctionnalités pour les comptes
@@ -115,7 +115,7 @@ public class DemoApplication {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);
 	}
-	public static void testLogin(){
+	/*public static void testLogin(){
 		String username="usr";
 		String password="psw";
 		Comptes c = new Comptes();
@@ -124,7 +124,7 @@ public class DemoApplication {
 		if(lc.Compte(c)){
 			System.out.println("yes");
 		}
-	}
+	}*/
 	public static void testgetAllAccs() {
 		ComptesController ComptesController = null;
 		List<Comptes> all = ComptesController.getAllAccs();
