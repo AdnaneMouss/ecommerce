@@ -110,6 +110,6 @@ public class ProduitController {
         model.addAttribute("all",produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc",c);
-        return "products";
+        return "dashboard_products";
     }
 }
