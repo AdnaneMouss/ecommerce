@@ -10,28 +10,63 @@ public class produit {
     @Column
     private String label;
     @Column
-    private int price;
+    private double price;
     @Column
     private String color;
     @Column
     private String photo;
+    @Lob // This annotation is used to indicate that the property should be persisted as a large object (BLOB or CLOB) to the underlying database.
+    @Column
+    private byte[] pic;
     @Column
     private String size;
+    @Column
+    private int quantity;
+    @Column
+    private int rating;
     @ManyToOne
     @JoinColumn(name="category_id")
     private categorie categorie;
 
-    public produit(int id, String label, int price, String color, String photo, String size, categorie categorie) {
+    public produit(int id, String label, double price, String color, String photo, int quantity,int rating, byte[]pic, String size, categorie categorie) {
         this.id = id;
         this.label = label;
         this.price = price;
         this.color = color;
         this.photo = photo;
+        this.pic=pic;
         this.size = size;
         this.categorie = categorie;
+        this.rating=rating;
+        this.quantity=quantity;
+
     }
 
     public produit() {}
+
+    public byte[] getPic() {
+        return pic;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPic(byte[] pic) {
+        this.pic = pic;
+    }
 
     public String getLabel() {
         return label;
@@ -41,11 +76,11 @@ public class produit {
         this.label = label;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

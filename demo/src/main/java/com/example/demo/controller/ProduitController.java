@@ -20,11 +20,11 @@ public class ProduitController {
     @Autowired
     private CategorieService catService;
 
-    @GetMapping("/{all}")
+    @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
         List<produit> produits = produitService.getAllProduits();
         model.addAttribute("all",produits);
-        return "products";
+        return "shop";
     }
 
     @PostMapping("/addProduct")
@@ -70,6 +70,7 @@ public class ProduitController {
 
         return "redirect:/products/count";
     }
+
 
     @GetMapping("/count")
     public String countProducts(Model model) {

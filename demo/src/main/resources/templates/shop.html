@@ -38,8 +38,8 @@ header{
 
 header img{
   width:15%;
-
 }
+
 .logo{
   font-size: 30px;
   font-weight: 700;
@@ -337,7 +337,7 @@ h3{
 </style>
 <body>
   <header>
-    <img class="logo" src="logo.png">
+    <img class="logo" src="/logo.png">
 
     <ul class="navlist">
       <li><a href="acceuil.html">Home</a></li>
@@ -364,7 +364,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
 
 <div class="hero-img">
 
-        <img  src="colors.png" alt="Image 2">
+        <img  src="/colors.png" alt="Image 2">
 
   </div>
   <div>
@@ -380,272 +380,41 @@ Discover our freshest selection of masks, crafted to combine both style and func
   </div>
   </section>
 
-   <section class="hero2">
-  <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="greenwoman.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Médecine</span>
-          <h5>Doctors masks</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
+  <section class="hero2">
+      <section id="prod1" class="section-p1" th:each="product : ${all}">
+          <div class="pro-container" >
+              <div class="pro">
+                  <div class="container">
+                      <div class="wrapper">
+                          <img th:src="'data:image/png;base64,'+${product.photo}" alt="Product Photo"/>
+                      </div>
+                  </div>
+                  <div class="des">
+                      <span th:text="${product.categorie?.catname}">Category</span>
+                      <h5 th:text="${product.label}">Product Label</h5>
+                      <div class="star">
+                          <div class="rating">
+                              <input type="radio" id="star5" name="rating" value="5" th:checked="${product.rating == 5}"/>
+                              <label for="star5">&#9733;</label>
+                              <input type="radio" id="star4" name="rating" value="4" th:checked="${product.rating == 4}"/>
+                              <label for="star4">&#9733;</label>
+                              <input type="radio" id="star3" name="rating" value="3" th:checked="${product.rating == 3}"/>
+                              <label for="star3">&#9733;</label>
+                              <input type="radio" id="star2" name="rating" value="2" th:checked="${product.rating == 2}"/>
+                              <label for="star2">&#9733;</label>
+                              <input type="radio" id="star1" name="rating" value="1" th:checked="${product.rating == 1}"/>
+                              <label for="star1">&#9733;</label>
+                          </div>
+
+                      </div>
+                      <button class="fa-sharp fa-solid fa-cart-plus"></button>
+                      <h3 th:text="${product.price}" MAD>Price</h3>
+                  </div>
+              </div>
           </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
- <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="redgirl.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Médecine</span>
-          <h5>Doctors masks</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="greenman.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Médecine</span>
-          <h5>Doctors masks</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="doctoorsuit.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Médecine</span>
-          <h5>Doctors masks</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="tube.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Architecture</span>
-          <h5>Telescopic Storage Tube</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="corrector.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Architecture</span>
-          <h5>Tipp-ex correction tape</h5>
-          <div class="star">
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img style="height: 230px;" src="markers.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Architecture</span>
-          <h5>Sets of 12 Winsor & Newton Promarker</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
-  </section>
-   <section id="prod1" class="section-p1">
-    <div class="pro-container">
-      <div class="pro">
-        <div class="container">
-    <div class="wrapper">
-        <img  src="compass.png" alt="Image 2">
-    </div>
-</div>
-        <div class="des">
-          <span>Architecture</span>
-          <h5>Technical Compass</h5>
-          <div class="star">
-            <!-- Rating System -->
-      <div class="rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
-          </div>
-<button class="fa-sharp fa-solid fa-cart-plus"></button>
-<h3> 40.00 MAD</h3>
-        </div>
-      </div>
-      <!-- Add more products here -->
-    </div>
+      </section>
   </section>
 
-</section>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
   const indicatorItems = document.querySelectorAll(".indicator li");
