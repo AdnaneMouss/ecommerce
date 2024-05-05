@@ -19,6 +19,8 @@ public class ProduitController {
     private ProduitService produitService;
     @Autowired
     private CategorieService catService;
+    @Autowired
+    private CategorieService categorieService;
 
     @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
@@ -29,7 +31,7 @@ public class ProduitController {
 
     @PostMapping("/addProduct")
     public String addProduct(@RequestParam String label, @RequestParam int price, @RequestParam String color,
-                             @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId) {
+                             @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId, @RequestParam int stock,@RequestParam String description) {
         // Fetch the category object by ID
         Optional<categorie> categoryOptional = catService.getCategoryById(categoryId);
 
@@ -42,6 +44,8 @@ public class ProduitController {
             product.setColor(color);
             product.setPhoto(photo);
             product.setSize(size);
+            product.setQuantity(stock);
+            product.setDescription(description);
 
             // Set the category for the product
             product.setCategorie(category);
@@ -78,31 +82,31 @@ public class ProduitController {
         int productCount = produitService.countProduits();
         model.addAttribute("productCount", ""+productCount);
         //Archi
-        categorie archi = new categorie(1,"Archi");
+        categorie archi = categorieService.findCategoieByName("Archi");
         int countArchi = produitService.countProduitsByCategorie(archi);
         model.addAttribute("archi", ""+countArchi);
         //Auto
-        categorie auto = new categorie(2,"Auto");
+        categorie auto = categorieService.findCategoieByName("Auto");
         int countAuto = produitService.countProduitsByCategorie(auto);
         model.addAttribute("auto", ""+countAuto);
         //Aero
-        categorie aero = new categorie(3,"Aero");
+        categorie aero = categorieService.findCategoieByName("Aero");
         int countAero = produitService.countProduitsByCategorie(aero);
         model.addAttribute("aero", ""+countAero);
         //CS
-        categorie cs = new categorie(4,"CS");
+        categorie cs = categorieService.findCategoieByName("CS");
         int countCS = produitService.countProduitsByCategorie(cs);
         model.addAttribute("cs", ""+countCS);
         //Dentaire
-        categorie dentistry = new categorie(5,"Dentistry");
+        categorie dentistry = categorieService.findCategoieByName("Dentistry");
         int countDentistry = produitService.countProduitsByCategorie(dentistry);
         model.addAttribute("dentistry", ""+countDentistry);
         //Générale
-        categorie medecine = new categorie(6,"Medecine");
+        categorie medecine = categorieService.findCategoieByName("Medecine");
         int countMedecine = produitService.countProduitsByCategorie(medecine);
         model.addAttribute("medecine", ""+countMedecine);
         //Energie
-        categorie energie = new categorie(7,"Energy");
+        categorie energie = categorieService.findCategoieByName("Energy");
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
         //getall

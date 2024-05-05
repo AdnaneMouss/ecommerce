@@ -204,12 +204,14 @@ section{
       gap: 20px;
       border-radius: 20px;
     }
+
     .pro {
     background-color: white;
       padding: 20px;
       border-radius: 19px;
       box-shadow: 5 4px 8px rgba(0, 0, 0, 0.1);
-      width: 250px;
+      width: 450px;
+        height: 600px;
     }
     .pro img {
       width: 100%;
@@ -346,10 +348,14 @@ h3{
     .fa-user{
         color: white;
     }
+    img{
+        max-width: 700px;
+        max-height: 1400px;
+    }
 </style>
 <body>
   <header>
-    <img class="logo" src="/logo.png">
+    <img class="logo" src="img/logo.png">
 
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
@@ -365,66 +371,35 @@ h3{
     <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 <br><br><br><br><br>
-      <section class="hero">
-    <div class="hero-text">
- <h6 style="color: white">New arrivals</h6>
- <h1 style="color: white">New arrivals <br> Ready to Elevate Your Experience.</h1>
- <p style="font-family: arial"> 
-Discover our freshest selection of masks, crafted to combine both style and functionality seamlessly. Embrace comfort and protection with our latest arrivals, designed with precision and care. From chic designs to timeless classics, our new masks cater to every taste and need. Elevate your everyday look while staying safe with our innovative collection. Shop now and stay ahead with the latest trends in mask fashion.</p>
- <button class="btn">Shop now -></button>
-    </div>
 
-<div class="hero-img">
-
-        <img  src="/colors.png" alt="Image 2">
-
-  </div>
-  <div>
-
-          <ul class="indicator">
-        <li data-filter="all" class="active"><a href="">All</a></li>
-        <li data-filter="Blazer"><a href="#">Blazzer</a></li>
-        <li data-filter="Watch"><a href="#">Watch</a></li>
-        <li data-filter="Shoes"><a href="#">Shoes</a></li>
-        <li data-filter="Mobile"><a href="#">Mobiles</a></li>
-        <li data-filter="Accessories"><a href="#">Accessories</a></li>
-      </ul>
-  </div>
-  </section>
-
-  <section class="hero2">
-      <section id="prod1" class="section-p1" th:each="product : ${all}">
-          <div class="pro-container" >
-              <div class="pro">
-                  <div class="container">
-                      <div class="wrapper">
-                          <img th:src="'data:image/png;base64,'+${product.photo}" alt="Product Photo"/>
-                      </div>
-                  </div>
-                  <div class="des">
-                      <span th:text="${product.categorie?.catname}">Category</span>
-                      <h5 th:text="${product.label}">Product Label</h5>
-                      <div class="star">
-                          <div class="rating">
-                              <input type="radio" id="star5" name="rating" value="5" th:checked="${product.rating == 5}"/>
-                              <label for="star5">&#9733;</label>
-                              <input type="radio" id="star4" name="rating" value="4" th:checked="${product.rating == 4}"/>
-                              <label for="star4">&#9733;</label>
-                              <input type="radio" id="star3" name="rating" value="3" th:checked="${product.rating == 3}"/>
-                              <label for="star3">&#9733;</label>
-                              <input type="radio" id="star2" name="rating" value="2" th:checked="${product.rating == 2}"/>
-                              <label for="star2">&#9733;</label>
-                              <input type="radio" id="star1" name="rating" value="1" th:checked="${product.rating == 1}"/>
-                              <label for="star1">&#9733;</label>
+  <section class="hero">
+      <div>
+          <section id="prod1" class="section-p1">
+              <div class="pro-container" >
+                  <div class="pro">
+                      <div class="container">
+                          <div class="wrapper">
+                              <img src="img/markers.png" alt="Product Photo"/>
                           </div>
-
                       </div>
-                      <button class="fa-sharp fa-solid fa-cart-plus"></button>
-                      <h3 th:text="${product.price}" MAD>Price</h3>
+                      </div>
                   </div>
-              </div>
-          </div>
-      </section>
+          </section>
+      </div>
+      <div>
+          <h3 style="color: white;position: absolute;top: 65px;">Category</h3>
+          <h4 style="color: white;position: absolute;top: 125px;">Product Label</h4>
+      <h2 style="color: white;position: absolute;top: 185px;">100.00 MAD</h2>
+          <select style="color: black;position: absolute;top: 225px; padding-bottom: 10px;padding-top: 10px">
+              <option value="" disabled selected>Select a size</option>
+              <option value="" >L</option>
+          </select>
+          <input placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+          <button style="color: black; font-weight: bold; background-color: white; padding: 20px; ;position: absolute;top: 300px; right: 530px;">Add To cart</button>
+          <h4 style="color: white;position: absolute;top: 405px;">Product Details:</h4>
+          <p style="color: white;position: absolute;top: 450px;">Elevate your audio experience to new heights with our Premium Wireless Headphones. Immerse yourself in the rich, full-bodied sound and enjoy every detail of your favorite music, podcasts, and movies like never before.
+              Crafted with precision and engineered for performance, these headphones deliver exceptional sound quality with a perfect balance of clarity, depth, and punchy bass. Whether you're a discerning audiophile or a casual listener, our Premium Wireless Headphones are designed to exceed your expectations.</p>
+      </div>
   </section>
 
 <script type="text/javascript">

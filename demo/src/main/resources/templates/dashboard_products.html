@@ -155,7 +155,18 @@
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
       background-image: url('/addproduct.jpg');
-      height: 350px;
+      height: 445px;
+  }
+  .addcat .card{
+      width: 79%;
+      margin: 10px;
+      background: #fff;
+      text-align: left;
+      border-radius: 10px;
+      padding: 10px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+      background-image: url('/addproduct.jpg');
+      height: 445px;
   }
   .addprod .card2{
       width: 39%;
@@ -193,7 +204,7 @@
       background: rgb(223, 223, 223);
   }
 
-  .table2 td input, select{
+  .table2 td input, select, textarea{
       width:200px;
       padding: 15px;
       margin:30px;
@@ -303,6 +314,13 @@
       color: white;
       border: 1px solid red;
       font-weight: bold;
+  }
+  .addcat button{
+      width:200px;
+      padding: 15px;
+      margin:30px;
+      border-radius: 10px;
+      border:3px solid red;
   }
   .table button:hover{
       background: red;
@@ -528,6 +546,8 @@
             <tr>
                 <th>ID</th>
                 <th>Label</th>
+                <th>Description</th>
+                <th>Stock</th>
                 <th>Price</th>
                 <th>Color</th>
                 <th>Size</th>
@@ -541,6 +561,8 @@
     <tr th:each="produit : ${all}" class="productRow">
         <td th:text="${produit.id}"></td>
         <td th:text="${produit.label}"></td>
+        <td th:text="${produit.description}"></td>
+        <td th:text="${produit.quantity}"></td>
         <td th:text="${produit.price}"></td>
         <td th:text="${produit.color}"></td>
         <td th:text="${produit.size}"></td>
@@ -622,6 +644,10 @@
                 </select>
             </td>
         </tr>
+        <tr>
+            <td><input type="number" placeholder="Stock" name="stock" required></td>
+            <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
+        </tr>
     </table>
     <button>Add Product</button>
 </form>
@@ -630,27 +656,16 @@
         </div>
         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
         </div>
- <div class="addprod">
+ <div class="addcat">
         <div class="card">
           <div class="per">
 <form th:action="@{/categorie/addCategory}" method="post">
     <table class="table2">
         <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
             <td><input type="text" placeholder="Name" name="catname"></td>
             <td><button type="submit">Add Category</button></td>
         </tr>
-        <tr>
- <td colspan="2" th:if="${errorMessage}" style="color: white" th:text="${errorMessage}"></td>
-            <td style="color: white">
-                a
-            </td>
-        </tr>
     </table>
-
 </form>
 
           </div>
