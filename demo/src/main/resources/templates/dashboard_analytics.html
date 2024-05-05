@@ -276,7 +276,7 @@ table thead tr{
       background-color: white;
       height: 300px;
 }
-#myChart{
+#quantity, #rating{
   color: red;
 }
 .charts{
@@ -330,7 +330,8 @@ table thead tr{
 
 
     <section class="main">
-      <section>
+<h2 style="color: white">ANALYTICS PAGE</h2> <h4 style="color: white">Discover fluidly crucial products' information</h4>
+     <!-- <section>
       <div class="main-top">
         <h1 style="color: white;">DASHBOARD</h1>
       </div>
@@ -382,121 +383,270 @@ table thead tr{
       </section>
     </div>
       </div>
-    </section>
+    </section>-->
 <section class="charts">
     <div class="chart">
-  <canvas id="myChart"></canvas>
+  <canvas id="quantity"></canvas>
+</div>
+    <div class="chart">
+  <canvas id="rating"></canvas>
 </div>
 <div class="piechart">
   <canvas id="myPieChart"></canvas>
 </div>
 </section>
-        <section class="charts">
+     <!--   <section class="charts">
 <div class="chart">
   <canvas id="graphiqueEnCourbes"></canvas>
 </div>
         <div class="piechart">
   <canvas id="myPieChart2"></canvas>
 </div>
-</section>
+</section>-->
     </section>
-
+  </div>
 </body>
+</html>
 
-<script>
-  // Sample data for the chart
-  var data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [{
-      label: 'Sales',
-      backgroundColor: 'red',
-      borderColor: 'white',
-      borderWidth: 1,
-      data: [65, 59, 80, 81, 56, 55]
-    }]
-  };
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
+  var autoCount = /*[[${auto}]]*/ '0'; // Default value if not provided
+  var allCount = /*[[${nocat}]]*/ '0'; // Default value if not provided
+  var aeroCount = /*[[${aero}]]*/ '0'; // Default value if not provided  var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
+  var energyCount = /*[[${energie}]]*/ '0'; // Default value if not provided
+  var csCount = /*[[${cs}]]*/ '0'; // Default value if not provided
+  var dentistryCount = /*[[${dentistry}]]*/ '0'; // Default value if not provided
+  var medecineCount = /*[[${medecine}]]*/ '0'; // Default value if not provided
 
-  // Configuration options
-  var options = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    },
-        plugins: {
-      title: {
-        display: true,
-        text: 'Sold products per month',
-        font: {
-          size: 25,
-          weight: 'bold',
-          family: 'Bradley Hand'
-        },
-        align: 'left',
-        color:'red'
-      },
-        legend: {
-      position: 'bottom', // Position legend at the bottom
-      align: 'center', // Align legend items to center
-    }
-  },
-  };
-
-  // Get the canvas element
-  var ctx = document.getElementById('myChart').getContext('2d');
-
-  // Create the chart
-  var myChart = new Chart(ctx, {
-    type: 'bar',
-    data: data,
-    options: options
-  });
-</script>
-
-<script>
   // Sample data for the pie chart
   var data = {
-    labels: ['Sold products', 'Remaining products'],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [12, 19],
-      backgroundColor: [
-        'red',
-        '#ADFF2F',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-      ],
-      borderWidth: 1
-    }]
+      labels: ['Architecture', 'Automobile', 'Aerospace', 'Computer science', 'All', 'Dentistry', 'Medecine', 'Energy'],
+      datasets: [{
+          label: 'Number of products',
+          data: [archiCount, autoCount, aeroCount, csCount, allCount, dentistryCount, medecineCount, energyCount],
+          backgroundColor: [
+              'red',
+              '#ADFF2F',
+              'blue',
+              'white',
+              'black',
+              'orange',
+              'yellow',
+              'cyan'
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+      }]
   };
-      var options = {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Sales status',
-        font: {
-          size: 25,
-          weight: 'bold',
-          family: 'Bradley Hand'
-        },
-        align: 'left',
-        color:'red'
+
+  var options = {
+      plugins: {
+          title: {
+              display: true,
+              text: 'Products per category',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          }
       }
-    }
   };
 
   var ctx = document.getElementById('myPieChart').getContext('2d');
 
   var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: data,
-    options: options
+      type: 'pie',
+      data: data,
+      options: options
   });
+  /*]]>*/
 </script>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var productNames = /*[[${productNames}]]*/ [];
+  var productRatings = /*[[${productRatings}]]*/ [];
+
+  // Create an array of objects to store both product names and ratings
+  var data = [];
+  for (var i = 0; i < productNames.length; i++) {
+      data.push({name: productNames[i], rating: productRatings[i]});
+  }
+
+  // Sort the data array based on ratings in descending order
+  data.sort(function(a, b) {
+      return b.rating - a.rating;
+  });
+
+  // Extract sorted product names and ratings
+  var sortedProductNames = data.map(function(item) { return item.name; });
+  var sortedProductRatings = data.map(function(item) { return item.rating; });
+
+  // Data for the bar chart
+  var chartData = {
+      labels: sortedProductNames,
+      datasets: [{
+          label: 'Rating',
+          data: sortedProductRatings,
+          backgroundColor: 'red', // Change color here
+          borderColor: 'white', // Change color here
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      scales: {
+          y: {
+              beginAtZero: true,
+              title: {
+                  display: true,
+                  text: 'Rating'
+              }
+          },
+          x: {
+              display: false, // Hide x-axis labels
+              title: {
+                  display: false,
+                  text: 'Product'
+              }
+          }
+      },
+      plugins: {
+          title: {
+              display: true,
+              text: 'Best Rated Products',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          },
+          tooltip: {
+              callbacks: {
+                  label: function(context) {
+                      return context.dataset.label + ': ' + context.formattedValue;
+                  }
+              }
+          }
+      }
+  };
+
+  var ctx = document.getElementById('rating').getContext('2d');
+
+  var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: options
+  });
+
+  // Increase bar thickness
+  myBarChart.options.plugins.title.display = false;
+  myBarChart.options.scales.x.categoryPercentage = 0.9;
+  myBarChart.options.scales.x.barPercentage = 0.9;
+  /*]]>*/
+</script>
+
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var productNames = /*[[${productNames}]]*/ [];
+  var productQuantity = /*[[${productQuantity}]]*/ [];
+
+  // Create an array of objects to store both product names and ratings
+  var data = [];
+  for (var i = 0; i < productNames.length; i++) {
+      data.push({name: productNames[i], rating: productQuantity[i]});
+  }
+
+  // Sort the data array based on ratings in descending order
+  data.sort(function(a, b) {
+      return b.rating - a.rating;
+  });
+
+  // Extract sorted product names and ratings
+  var sortedProductNames = data.map(function(item) { return item.name; });
+  var sortedProductQuantities = data.map(function(item) { return item.rating; });
+
+  // Data for the bar chart
+  var chartData = {
+      labels: sortedProductNames,
+      datasets: [{
+          label: 'Stock:',
+          data: sortedProductQuantities,
+          backgroundColor: 'red', // Change color here
+          borderColor: 'white', // Change color here
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      scales: {
+          y: {
+              beginAtZero: true,
+              title: {
+                  display: true,
+                  text: 'Stock'
+              }
+          },
+          x: {
+              display: false, // Hide x-axis labels
+              title: {
+                  display: false,
+                  text: 'Product'
+              }
+          }
+      },
+      plugins: {
+          title: {
+              display: true,
+              text: 'Stock Per Product Product',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          },
+          tooltip: {
+              callbacks: {
+                  label: function(context) {
+                      return context.dataset.label + ': ' + context.formattedValue;
+                  }
+              }
+          }
+      }
+  };
+
+  var ctx = document.getElementById('quantity').getContext('2d');
+
+  var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: options
+  });
+
+  // Increase bar thickness
+  myBarChart.options.plugins.title.display = false;
+  myBarChart.options.scales.x.categoryPercentage = 0.9;
+  myBarChart.options.scales.x.barPercentage = 0.9;
+  /*]]>*/
+</script>
+
+
+
 
 <script>
   // Sample data for the pie chart
@@ -626,5 +776,5 @@ table thead tr{
     options: options
   });
 </script>
-</html>
+
 </span>

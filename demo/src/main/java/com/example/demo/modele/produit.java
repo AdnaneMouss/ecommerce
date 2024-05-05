@@ -28,7 +28,7 @@ public class produit {
     @Column
     private int quantity;
     @Column
-    private int rating;
+    private double rating;
     @ManyToOne
     @JoinColumn(name="category_id")
     private categorie categorie;
@@ -54,9 +54,10 @@ public class produit {
         return pic;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
+    public void setRating(double rating) {}
 
     public String getDescription() {
         return description;

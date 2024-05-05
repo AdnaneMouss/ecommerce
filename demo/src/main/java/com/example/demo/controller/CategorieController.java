@@ -43,13 +43,13 @@ public class CategorieController {
 
         if (isCategoryCreated) {
             // Category created successfully, redirect to the desired page
-            return "redirect:/products/count";
+            return "redirect:/products/products";
         } else {
             System.out.println("exists already");
             // Category already exists, add error message to the model
             model.addAttribute("errorMessage", "Category already exists!");
         }
-        return "redirect:/products/count";
+        return "redirect:/products/products";
     }
 
     @PostMapping("/delete")
@@ -61,7 +61,7 @@ public class CategorieController {
             System.out.println("Failed to delete product.");
         }
 
-        return "redirect:/products/count";
+        return "redirect:/products/products";
     }
 
 }
