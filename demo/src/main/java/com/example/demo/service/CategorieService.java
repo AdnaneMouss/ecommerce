@@ -61,4 +61,8 @@ public class CategorieService {
         }
         return res;
     }
+    public categorie findCategoieByName(String name){
+        return categRepository.findCategorieByCatname(name);
+    }
+
 }

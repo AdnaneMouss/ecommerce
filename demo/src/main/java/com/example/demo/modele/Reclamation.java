@@ -1,14 +1,21 @@
 package com.example.demo.modele;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 
 @Entity
-@Table(name ="reclamation")
 public class Reclamation {
+    public Reclamation(int id, String description, String nomUtilisateur) {
+        this.description = description;
+        this.nomUtilisateur = nomUtilisateur;
+    }
+    public Reclamation(){
+
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     @Column
     private String description;
     @Column
@@ -31,11 +38,11 @@ public class Reclamation {
     }
 
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 }

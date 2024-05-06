@@ -4,6 +4,8 @@ package com.example.demo.modele;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
+import java.util.List;
+
 @Entity
 public class comptes {
     public comptes(int id, String username, String email, int phone, String password, String type, String photo,String filiere,String nom){
@@ -30,6 +32,11 @@ public class comptes {
     private String photo;
     private String nom;
     private String filiere;
+    @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
+    private List<commande> commandes;
+
+
+
     public int getId() {
         return id;
     }

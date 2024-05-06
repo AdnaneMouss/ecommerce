@@ -70,5 +70,4 @@ public class ProduitService {
         return produitRepository.countByCategorie(cat);
     }
 
-
 }
