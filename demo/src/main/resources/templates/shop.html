@@ -394,6 +394,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
   </section>
 
   <section class="hero2">
+      <form th:action="@{/products/viewdetails}">
       <section id="prod1" class="section-p1" th:each="product : ${all}">
           <div class="pro-container" >
               <div class="pro">
@@ -403,6 +404,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
                       </div>
                   </div>
                   <div class="des">
+                      <input type="hidden" name="id" th:value="${product.id}" />
                       <span th:text="${product.categorie?.catname}">Category</span>
                       <h5 th:text="${product.label}">Product Label</h5>
                       <div class="star">
@@ -426,6 +428,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
               </div>
           </div>
       </section>
+      </form>
   </section>
 
 <script type="text/javascript">

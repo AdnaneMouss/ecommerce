@@ -20,8 +20,8 @@ public class ProduitService {
         return produitRepository.findAll();
     }
 
-    public Optional<produit> getProduitById(Long id) {
-        return produitRepository.findById(id);
+        public Optional<produit> getProduitById(Long id) {
+        return produitRepository.findById((Long)id);
     }
 
     public boolean createProduit(produit produit) {

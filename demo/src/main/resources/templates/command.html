@@ -352,10 +352,20 @@ h3{
         max-width: 700px;
         max-height: 1400px;
     }
+    .btn{
+        font-weight: bold; background-color: white; padding: 15px; ;position: absolute;top: 300px; right: 510px; color: #007bff;
+    }
+    .btn:hover{
+        transform: scale(0.9) translateY(-6px);
+        border-radius: 2px solid black;
+        background: transparent;
+        color: white;
+
+    }
 </style>
 <body>
   <header>
-    <img class="logo" src="img/logo.png">
+    <img class="logo" src="/logo.png">
 
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
@@ -386,19 +396,20 @@ h3{
                   </div>
           </section>
       </div>
-      <div>
-          <h3 style="color: white;position: absolute;top: 65px;">Category</h3>
-          <h4 style="color: white;position: absolute;top: 125px;">Product Label</h4>
-      <h2 style="color: white;position: absolute;top: 185px;">100.00 MAD</h2>
+      <div th:each="oneproduct : ${oneproduct}" >
+         <div><h3 style="color: white;position: absolute;top: 65px;"><span th:text="${oneproduct.categorie?.catname}"></h3></div>
+          <div><h4 style="color: white;position: absolute;top: 125px;"><span th:text="${oneproduct.label}"></span></h4></div>
+      <div><h2 style="color: white;position: absolute;top: 185px;"><span th:text="${oneproduct.price}"></span></h2></div>
           <select style="color: black;position: absolute;top: 225px; padding-bottom: 10px;padding-top: 10px">
               <option value="" disabled selected>Select a size</option>
               <option value="" >L</option>
           </select>
           <input placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
-          <button style="color: black; font-weight: bold; background-color: white; padding: 20px; ;position: absolute;top: 300px; right: 530px;">Add To cart</button>
+          <button class="btn" style="">Add To cart</button>
           <h4 style="color: white;position: absolute;top: 405px;">Product Details:</h4>
-          <p style="color: white;position: absolute;top: 450px;">Elevate your audio experience to new heights with our Premium Wireless Headphones. Immerse yourself in the rich, full-bodied sound and enjoy every detail of your favorite music, podcasts, and movies like never before.
-              Crafted with precision and engineered for performance, these headphones deliver exceptional sound quality with a perfect balance of clarity, depth, and punchy bass. Whether you're a discerning audiophile or a casual listener, our Premium Wireless Headphones are designed to exceed your expectations.</p>
+          <p style="color: white;position: absolute;top: 450px;"><span th:text="${oneproduct.description}"></span></p>
+          <div><h4 style="color: white;position: absolute;top: 540px;">Rating:</h4>
+          <p style="color: white;position: absolute;top: 580px;"><span th:text="${oneproduct.rating}"></span>/5</p></div>
       </div>
   </section>
 
