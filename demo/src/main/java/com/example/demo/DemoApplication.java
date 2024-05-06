@@ -40,11 +40,11 @@ public class DemoApplication {
 		//testLogin();
 
 
-	// Test des fonctionnalités pour les comptes
+		// Test des fonctionnalités pour les comptes
 		//testdeleteComptes();
-	    //testAddComptes();
-	    //testupdateComptes();
-	    //testgetAllAccs();
+		//testAddComptes();
+		//testupdateComptes();
+		//testgetAllAccs();
 
 	}
 	// This method can be used for testing purposes
@@ -152,4 +152,3 @@ public class DemoApplication {
 		}
 	}*/
 }
-

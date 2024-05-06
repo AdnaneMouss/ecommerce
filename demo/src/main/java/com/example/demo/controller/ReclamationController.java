@@ -11,25 +11,26 @@ import java.util.List;
 public class ReclamationController {
 
     @Autowired
-    private ReclamationService ReclamationService;
+    private static ReclamationService ReclamationSer;
 
     @GetMapping
-    public List<Reclamation> getAllReclamations() {
-        return ReclamationService.getAllReclamations();
+    public static List<Reclamation> getAllReclamations() {
+        return ReclamationSer.getAllReclamations();
     }
 
     @GetMapping("/{id}")
-    public Reclamation getReclamationById(@PathVariable Long id) {
-        return ReclamationService.getReclamationById(id);
+    public Reclamation getReclamationById(@PathVariable int id) {
+        return ReclamationSer.getReclamationById(id);
     }
 
     @PostMapping
-    public Reclamation createReclamation(@RequestBody Reclamation reclamation) {
-        return ReclamationService.createReclamation(reclamation);
+    public static Reclamation createReclamation(@RequestBody Reclamation reclamation) {
+        return ReclamationSer.createReclamation(reclamation);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReclamation(@PathVariable Long id) {
-        ReclamationService.deleteReclamation(id);
+    public static boolean deleteReclamation(@PathVariable int id) {
+        ReclamationSer.deleteReclamation(id);
+        return false;
     }
 }
