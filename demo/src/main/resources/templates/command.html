@@ -382,21 +382,21 @@ h3{
   </header>
 <br><br><br><br><br>
 
-  <section class="hero">
-      <div>
+  <section class="hero"  th:each="oneproduct : ${oneproduct}">
+      <div >
           <section id="prod1" class="section-p1">
               <div class="pro-container" >
                   <div class="pro">
                       <div class="container">
                           <div class="wrapper">
-                              <img src="img/markers.png" alt="Product Photo"/>
+                              <img th:src="${oneproduct.photo}" alt="Product Photo"/>
                           </div>
                       </div>
                       </div>
                   </div>
           </section>
       </div>
-      <div th:each="oneproduct : ${oneproduct}" >
+      <div>
          <div><h3 style="color: white;position: absolute;top: 65px;"><span th:text="${oneproduct.categorie?.catname}"></h3></div>
           <div><h4 style="color: white;position: absolute;top: 125px;"><span th:text="${oneproduct.label}"></span></h4></div>
       <div><h2 style="color: white;position: absolute;top: 185px;"><span th:text="${oneproduct.price}"></span></h2></div>
