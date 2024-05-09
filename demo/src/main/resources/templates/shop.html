@@ -159,7 +159,7 @@ section{
 }
 
 .hero-text{
-  display: inline-black;
+  display: inline-block;
   border: 1px solid transparent;
     padding: 20px;
     line-height: 1.4;
@@ -193,6 +193,8 @@ section{
     }
     .section-p1 {
       background-color: transparent;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
     }
     .pro-container {
       display: flex;
@@ -346,6 +348,15 @@ h3{
     .fa-user{
         color: white;
     }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Four columns with equal width */
+        grid-gap: 20px; /* Adjust the gap between products */
+    }
+    .wrapper img{
+width: 200px;
+        height: 200px;
+    }
 </style>
 <body>
   <header>
@@ -394,38 +405,37 @@ Discover our freshest selection of masks, crafted to combine both style and func
   </section>
 
   <section class="hero2">
-      <section id="prod1" class="section-p1" th:each="product : ${all}">
-          <div class="pro-container" >
+      <form th:action="@{/products/viewdetails}">
+          <div class="product-grid">
+      <section id="prod1" class="section-p1" th:each="product : ${all}" >
+          <div class="pro-container">
               <div class="pro">
                   <div class="container">
                       <div class="wrapper">
-                          <img th:src="'data:image/png;base64,'+${product.photo}" alt="Product Photo"/>
+                          <img th:src="${product.photo}" alt="Product Photo"/>
                       </div>
                   </div>
                   <div class="des">
-                      <span th:text="${product.categorie?.catname}">Category</span>
-                      <h5 th:text="${product.label}">Product Label</h5>
-                      <div class="star">
-                          <div class="rating">
-                              <input type="radio" id="star5" name="rating" value="5" th:checked="${product.rating == 5}"/>
-                              <label for="star5">&#9733;</label>
-                              <input type="radio" id="star4" name="rating" value="4" th:checked="${product.rating == 4}"/>
-                              <label for="star4">&#9733;</label>
-                              <input type="radio" id="star3" name="rating" value="3" th:checked="${product.rating == 3}"/>
-                              <label for="star3">&#9733;</label>
-                              <input type="radio" id="star2" name="rating" value="2" th:checked="${product.rating == 2}"/>
-                              <label for="star2">&#9733;</label>
-                              <input type="radio" id="star1" name="rating" value="1" th:checked="${product.rating == 1}"/>
-                              <label for="star1">&#9733;</label>
+                      <input type="hidden" name="id" th:value="${product.id}" />
+                      <span th:text="${product.categorie?.catname}"></span>
+                      <h5 th:text="${product.label}"></h5>
+                      <div>
+                          <div style="color: yellow">
+                              <!-- Loop to generate solid star icons based on product rating -->
+                              <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
                           </div>
-
                       </div>
+
+
+
                       <button class="fa-sharp fa-solid fa-cart-plus"></button>
-                      <h3 th:text="${product.price}" MAD>Price</h3>
+                      <h3 th:text="${product.price}"></h3>
                   </div>
               </div>
           </div>
       </section>
+          </div>
+      </form>
   </section>
 
 <script type="text/javascript">
