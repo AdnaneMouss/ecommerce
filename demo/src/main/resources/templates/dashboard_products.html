@@ -394,7 +394,10 @@
       display: grid;
       grid-template-columns: repeat(2,1fr);
   }
-  </span>
+  .productRow img{
+      width:50px;
+      height: 50px;
+  }
 </style>
 <body>
   <div class="container">
@@ -540,7 +543,6 @@
 </div>
 <div class="attendance-list">
     <h1>List of products</h1>
-    <form th:action="@{/products/delete}" method="post">
     <table class="table">
         <thead>
             <tr>
@@ -567,7 +569,7 @@
         <td th:text="${produit.color}"></td>
         <td th:text="${produit.size}"></td>
         <td th:text="${produit.categorie?.catname}"></td>
-        <td><button onclick="showImage('${produit.photo}')">Show Image</button></td>
+       <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
         <td>
             <input type="hidden" name="id" th:value="${produit.id}" />
              <button type="submit" value="delete">Delete</button>
@@ -622,7 +624,7 @@
         </tr>
         <tr>
             <td><input type="text" placeholder="Color" name="color"></td>
-            <td><input type="file" accept="image/*" onchange="validateImageSize(this)" name="photo"></td>
+            <td><input type="text" name="photo" placeholder="Image link"></td>
         </tr>
         <tr>
             <td>
@@ -687,7 +689,7 @@
       }
   }
 </script>
-<script>
+<script th:inline="javascript">
   function showImage(imageUrl) {
       // Create a new window to display the image
       var imageWindow = window.open("", "_blank");
