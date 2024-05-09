@@ -22,7 +22,7 @@
 }
 body{
   background: white;
-  background-image: url('img/ecommerce.jpg');
+  background-image: url('/ecommerce.jpg');
 }
 nav{
   position: sticky;
@@ -154,7 +154,7 @@ a:hover i{
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-   background-image: url('img/students.jpg');
+   background-image: url('/students.jpg');
    height: 350px;
 }
 .users2 .card2{
@@ -165,7 +165,7 @@ a:hover i{
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-   background-image: url('img/furnitures.jpg');
+   background-image: url('/furnitures.jpg');
    height: 350px;
 }
 .users2 .card img{
@@ -359,7 +359,7 @@ table thead tr{
     <nav>
 <ul>
         <a href="#" class="logo">
-          <img src="img/logo.png">
+          <img src="/logo.png">
           <span class="nav-item">DASHBOARD</span>
         </a>
             <a href="dashboard_accounts.html">
@@ -398,33 +398,33 @@ table thead tr{
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Student}"></span></h1>
           <h4>Number of students</h4>
         </div>
         <div class="second">
-          <img src="img/studentstotal.png">
+          <img src="/studentstotal.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Supplier}"></span></h1>
           <h4>Number of suppliers</h4>
         </div>
         <div class="second">
-          <img src="img/suppliertotal.png">
+          <img src="/suppliertotal.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${DeliveryMan}"></span></h1>
           <h4>Number of delivery men</h4>
         </div>
         <div class="second">
-          <img src="img/deliverymentotal.png">
+          <img src="/deliverymentotal.png">
         </div>
       </section>
     </div>
@@ -433,33 +433,33 @@ table thead tr{
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Architecturstudents}"></span></h1>
           <h4>Architecture students</h4>
         </div>
         <div class="second">
-          <img src="img/archistudents.png">
+          <img src="/archistudents.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${CSstudents}"></span></h1>
           <h4>CS students</h4>
         </div>
         <div class="second">
-          <img src="img/csstudents.png">
+          <img src="/csstudents.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Energystudents}"></span></h1>
           <h4>Energy students</h4>
         </div>
         <div class="second">
-          <img src="img/energystudents.png">
+          <img src="/energystudents.png">
         </div>
       </section>
     </div>
@@ -468,33 +468,33 @@ table thead tr{
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Automobilestudents}"></span></h1>
           <h4>Automobile students</h4>
         </div>
         <div class="second">
-          <img src="img/autostudents.png">
+          <img src="/autostudents.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Aerospacestudents}"></span></h1>
           <h4>Aerospace students</h4>
         </div>
         <div class="second">
-          <img src="img/aerostudents.png">
+          <img src="/aerostudents.png">
         </div>
       </section>
     </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${}"></span></h1>
+          <h1><span th:text="${Medicinestudents}"></span></h1>
           <h4>Medecine students</h4>
         </div>
         <div class="second">
-          <img src="img/medecinestudents.png">
+          <img src="/medecinestudents.png">
         </div>
       </section>
     </div>
@@ -513,6 +513,7 @@ table thead tr{
                 <th>Phone number</th>
                 <th>Email address</th>
                 <th>User Type</th>
+                <th>Image</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -524,6 +525,7 @@ table thead tr{
                 <td>0653842666</td>
                 <td>mdaghri.amine@uir.ac.ma</td>
                 <td>Admin</td>
+                <td>Admin</td>
                 <td><button>Delete</button>&nbsp<button>Suspend</button></td>
               </tr>
                             <tr>
@@ -532,6 +534,7 @@ table thead tr{
                 <td>None</td>
                 <td>0653842666</td>
                 <td>mdaghri.amine@uir.ac.ma</td>
+                <td>Supplier</td>
                 <td>Supplier</td>
                 <td><button>Delete</button>&nbsp<button>Suspend</button></td>
               </tr>
@@ -542,6 +545,7 @@ table thead tr{
                 <td>0653842666</td>
                 <td>mdaghri.amine@uir.ac.ma</td>
                 <td>Delivery man</td>
+                <td>Delivery man</td>
                 <td><button>Delete</button>&nbsp<button>Suspend</button></td>
               </tr>
                                           <tr>
@@ -550,6 +554,7 @@ table thead tr{
                 <td>Architecture</td>
                 <td>0653842666</td>
                 <td>mdaghri.amine@uir.ac.ma</td>
+                <td>Student</td>
                 <td>Student</td>
                 <td><button>Delete</button>&nbsp<button>Suspend</button></td>
               </tr>
@@ -585,6 +590,9 @@ table thead tr{
                   <option value="option2">Computer science</option>
                 </select></td>
               </tr>
+                <tr>
+                    <td><input type="text" placeholder="Image link"></td>
+                </tr>
  
  
             </table>
@@ -604,7 +612,12 @@ table thead tr{
               </tr>
                                           <tr>
              
-                <td><input style="position: relative;  left: 140px;" type="text" placeholder="Phone number"></td>
+                <td><input type="text" placeholder="Phone number"></td>
+                                                                    <td><select>
+                  <option value="" disabled selected>Type</option>
+                  <option value="option1">Supplier</option>
+                  <option value="option2">DeliveryMan</option>
+                </select></td>
 </tr>
 
             </table>

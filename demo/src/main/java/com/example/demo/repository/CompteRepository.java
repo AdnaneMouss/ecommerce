@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CompteRepository extends JpaRepository<comptes, Long> {
     comptes findByUsername(String username);
+    int countByType( String type);
+    int countByFiliere(String fill);
 }
