@@ -31,6 +31,12 @@ public class ProduitController {
         return "shop";
     }
 
+    @GetMapping("/viewdetails")
+    public String details(@RequestParam("id") Long id) {
+        // Redirect to the singleproduct endpoint with the provided ID
+        return "redirect:/products/singleproduct/" + id;
+    }
+
     @PostMapping("/addProduct")
     public String addProduct(@RequestParam String label, @RequestParam int price, @RequestParam String color,
                              @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId, @RequestParam int stock,@RequestParam String description) {
@@ -57,6 +63,22 @@ public class ProduitController {
 
             // Redirect to the desired page
             return "redirect:/products/products";
+    }
+
+    @GetMapping("/singleproduct/{id}")
+    public String getSingleProduct(Model model, @PathVariable("id") int id) {
+        Optional<produit> optionalProduct = produitService.getProduitById((long)id);
+
+        // Check if the product exists
+        if (optionalProduct.isPresent()) {
+            produit product = optionalProduct.get();
+            model.addAttribute("oneproduct", product);
+            return "command";
+        } else {
+            // Handle case when product with given ID is not found
+            // You can redirect to an error page or handle it based on your application's requirements
+            return "error"; // Assuming you have an "error" template
+        }
     }
 
     @PutMapping("/{id}")
