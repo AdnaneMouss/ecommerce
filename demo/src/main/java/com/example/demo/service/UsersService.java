@@ -14,6 +14,6 @@ public class UsersService {
         this.comptesRepository = comptesRepository;
     }
     public comptes authenticate(String username,String password){
-        return comptesRepository.findByUsernameAndPassword(username,password).orElse(null);
+        return comptesRepository.findByUsernameAndPassword(username,password);
     }
 }
