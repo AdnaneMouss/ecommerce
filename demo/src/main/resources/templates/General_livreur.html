@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
+  <title>Customer's Orders </title>
   <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -31,8 +31,7 @@
       height: 100vh;
       left: 0;
       width: 90px;
-      /* width: 280px; */
-      background: linear-gradient(to bottom left, red, white);
+      background: linear-gradient(to bottom left, blue, white);
       overflow: hidden;
       transition: 1s;
   }
@@ -78,32 +77,27 @@
       position: relative;
       top: 12px;
       margin-left: 10px;
-      color: red;
+      color: blue;
   }
   a:hover{
-      background: red;
+      background: blue;
       color: white;
   }
   a:hover i{
       color: white;
       transition: 0.5s;
   }
-
   .logout{
       position: absolute;
       bottom: 0;
   }
-
   .container{
       display: flex;
       color: black;
-
   }
   .container a{
       right: 40px;
   }
-
-  /* MAin Section */
   .main{
       position: relative;
       padding: 20px;
@@ -124,7 +118,6 @@
       display: flex;
       width: 100%;
   }
-
   .main2{
       position: relative;
       padding: 5px;
@@ -145,7 +138,6 @@
       display: flex;
       width: 100%;
   }
-
   .addprod .card{
       width: 79%;
       margin: 10px;
@@ -185,7 +177,6 @@
       border-radius: 50%;
   }
   .addprod button{
-
   }
   .addprod .card h4{
       text-transform: uppercase;
@@ -203,13 +194,12 @@
       border-radius: 10px;
       background: rgb(223, 223, 223);
   }
-
   .table2 td input, select, textarea{
       width:200px;
       padding: 15px;
       margin:30px;
       border-radius: 10px;
-      border:3px solid red;
+      border:3px solid blue;
   }
   .table2 button{
       width:200px;
@@ -219,7 +209,7 @@
       border:3px solid white;
       color: white;
       font-weight: bold;
-      background-color: red;
+      background-color: blue;
       position: relative;
       left: 140px;
   }
@@ -232,27 +222,26 @@
       padding-right: 15px;
   }
   .addprod .card button{
-         width: 540px;
-         font-weight: bold;
-         margin-top: 8px;
-         padding: 9px;
-         cursor: pointer;
-         border-radius: 10px;
-         background: white;
-         color: red;
-         border: 2px solid red;
-     }
+      width: 540px;
+      font-weight: bold;
+      margin-top: 8px;
+      padding: 9px;
+      cursor: pointer;
+      border-radius: 10px;
+      background: white;
+      color: blue;
+      border: 2px solid blue;
+  }
   .addprod .card button:hover{
       width: 540px;
       margin-top: 8px;
       padding: 9px;
       cursor: pointer;
       border-radius: 10px;
-      background: red;
+      background: blue;
       color: white;
-      border: 1px solid red;
+      border: 1px solid blue;
   }
-
   .attendance{
       margin-top: 20px;
       text-transform: capitalize;
@@ -265,7 +254,6 @@
       border-radius: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
   }
-
   .attendance-list2{
       width: 25%;
       padding: 10px;
@@ -274,7 +262,6 @@
       border-radius: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
   }
-
   .table{
       border-collapse: collapse;
       margin: 25px 0;
@@ -288,7 +275,7 @@
   }
   table thead tr{
       color: #fff;
-      background: #FF0000
+      background: blue;
   ;
       text-align: left;
       font-weight: bold;
@@ -298,21 +285,21 @@
       padding: 12px 15px;
   }
   .table tbody tr{
-      border-bottom: 1px solid red;
+      border-bottom: 1px solid blue;
   }
   .table tbody tr:nth-of-type(odd){
       background: #f3f3f3;
   }
   .table tbody tr:last-of-type{
-      border-bottom: 2px solid red;
+      border-bottom: 2px solid blue;
   }
   .table button{
       padding: 6px 20px;
       border-radius: 10px;
       cursor: pointer;
-      background: red;
+      background: blue;
       color: white;
-      border: 1px solid red;
+      border: 1px solid blue;
       font-weight: bold;
   }
   .addcat button{
@@ -320,10 +307,10 @@
       padding: 15px;
       margin:30px;
       border-radius: 10px;
-      border:3px solid red;
+      border:3px solid blue;
   }
   .table button:hover{
-      background: red;
+      background: blue;
       color: #fff;
       transition: 0.5rem;
   }
@@ -334,7 +321,6 @@
       display: flex;
       width: 100%;
   }
-
   .users .card{
       width: 50%;
       margin: 10px;
@@ -349,16 +335,14 @@
   .users .card h1,h4{
       text-align: left;
   }
-
   .users .card:hover{
-      background-color: red;
+      background-color: blue;
       color: white;
   }
   .users .card img{
       width: 120px;
       height: 100px;
   }
-
   .users .card p{
       font-size: 12px;
       margin-bottom: 15px;
@@ -386,9 +370,16 @@
       padding: 7px;
       cursor: pointer;
       border-radius: 10px;
-      background: red;
+      background: blue;
       color: #fff;
-      border: 1px solid red;
+      border: 1px solid blue;
+  }
+  #yes{
+      background-color: green;
+      border-color: green;
+  }
+  #no{
+      background-color: red;
   }
   .mysection{
       display: grid;
@@ -427,310 +418,86 @@
           <i class="fas fa-cog"></i>
           <span class="nav-item">Settings</span>
         </a>
-
-        <a href="#">
+        <a href="loginPage.html">
           <i class="fas fa-sign-out-alt"></i>
           <span class="nav-item">Log out</span>
         </a>
       </ul>
     </nav>
-
-
     <section class="main">
-        <h2 style="color: white">PRODUCTS PAGE</h2> <h4 style="color: white">Display,add and delete products easily</h4>
-              <div class="users">
-        <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${productCount}"></spanth:text></span></h1>
-          <h4>Number of products</h4>
-        </div>
-        <div class="second">
-          <img src="/dollars.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${archi}"></span></h1>
-          <h4>Architecture products</h4>
-        </div>
-        <div class="second">
-          <img src="/archii.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${aero}"></span></h1>
-          <h4>Aerospace products</h4>
-        </div>
-        <div class="second">
-          <img src="/aero.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${cs}"></span></h1>
-          <h4>CS products</h4>
-        </div>
-        <div class="second">
-          <img src="/cs.png">
-        </div>
-      </section>
-    </div>
-              </div>
-
-                      <div class="users">
-        <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${dentistry}"></span></h1>
-          <h4>Dentistry products</h4>
-        </div>
-        <div class="second">
-          <img src="/dentistry.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${medecine}"></span></h1>
-          <h4>Medecine products</h4>
-        </div>
-        <div class="second">
-          <img src="/medecine.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${energie}"></span></h1>
-          <h4>Energy products</h4>
-        </div>
-        <div class="second">
-          <img src="/energy.png">
-        </div>
-      </section>
-    </div>
-                          <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${auto}"></span></h1>
-          <h4>Automobile products</h4>
-        </div>
-        <div class="second">
-          <img src="/autoo.png">
-        </div>
-      </section>
-    </div>
-              </div>
-
-      <section class="attendance">
-<div>
-    <label style="color: white" for="categorySelect">Filter by Category:</label>
-    <select id="categorySelect" onchange="applyCategoryFilter()">
-        <option value="">All Categories</option>
-        <!-- Populate dropdown options dynamically with Thymeleaf -->
-        <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
-    </select>
-</div>
 <div class="attendance-list">
-    <h1>List of products</h1>
+    <h1>List of orders to deliver </h1>
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Label</th>
-                <th>Description</th>
-                <th>Stock</th>
-                <th>Price</th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Category</th>
-                <th>Image</th>
-                <th>Action</th>
+                <th>ID CUSTOMER</th>
+                <th>DELIVERING LOCATION</th>
+                <th>DELIVERING DATE</th>
+                <th>METHOD OF PAYMENT</th>
+                <th>Delivery Status</th>
             </tr>
         </thead>
-
       <tbody>
     <tr th:each="produit : ${all}" class="productRow">
-        <td th:text="${produit.id}"></td>
-        <td th:text="${produit.label}"></td>
-        <td th:text="${produit.description}"></td>
-        <td th:text="${produit.quantity}"></td>
-        <td th:text="${produit.price}"></td>
-        <td th:text="${produit.color}"></td>
-        <td th:text="${produit.size}"></td>
-        <td th:text="${produit.categorie?.catname}"></td>
-       <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
+        <td th:text="${commande.id}"></td>
+        <td th:text="${commande.idc}"></td>
+        <td th:text="${commande.location}"></td>
+        <td th:text="${commande.datedeliv}"></td>
+        <td th:text="${commande.methodepai}"></td>
         <td>
             <input type="hidden" name="id" th:value="${produit.id}" />
-             <button type="submit" value="delete">Delete</button>
-            &nbsp;<button onclick="modifyRow(this)">Modify</button>
+             <button id="yes" type="submit" value="delete">Delivered</button>
+            &nbsp;<button id="no" onclick="modifyRow(this)">Not delivered</button>
         </td>
     </tr>
-</tbody>
+    </tbody>
     </table>
-         </form>
-
+    </form>
 </div>
-          <div class="attendance-list2">
-    <h1>List of categories</h1>
-              <form th:action="@{/categorie/delete}" method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-      <tbody>
-    <tr th:each="categorie : ${allc}" class="productRow">
-        <td th:text="${categorie.id}"></td>
-         <input type="hidden" name="idC" th:value="${categorie.id}" />
-        <td th:text="${categorie.catname}"></td>
-        <td>
-            <button>Delete</button>
-            &nbsp;<button onclick="modifyRow(this)">Modify</button>
-        </td>
-    </tr>
-</tbody>
-
-    </table>
-              </form>
-
-</div>
-    <section class="main">
-      <div class="main-top">
-        &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
-      </div>
-        <section class="adding">
-      <div class="addprod">
-        <div class="card">
-          <div class="per">
-<form th:action="@{/products/addProduct}" method="post">
-    <table class="table2">
-        <tr>
-            <td><input type="text" placeholder="Label" name="label" required></td>
-            <td><input type="number" placeholder="Price" name="price" required></td>
-        </tr>
-        <tr>
-            <td><input type="text" placeholder="Color" name="color"></td>
-            <td><input type="text" name="photo" placeholder="Image link"></td>
-        </tr>
-        <tr>
-            <td>
-                <select name="size">
-                    <option value="" disabled selected>Size</option>
-                    <option value="None">None</option>
-                    <option value="M">M</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
-            </td>
-            <td>
-                <select name="categoryId">
-                    <option value="" disabled selected>Category</option>
-                    <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td><input type="number" placeholder="Stock" name="stock" required></td>
-            <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
-        </tr>
-    </table>
-    <button>Add Product</button>
-</form>
-
-          </div>
-        </div>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-        </div>
- <div class="addcat">
-        <div class="card">
-          <div class="per">
-<form th:action="@{/categorie/addCategory}" method="post">
-    <table class="table2">
-        <tr>
-            <td><input type="text" placeholder="Name" name="catname"></td>
-            <td><button type="submit">Add Category</button></td>
-        </tr>
-    </table>
-</form>
-
-          </div>
-        </div>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-        </div>
-</section>
     </section>
-
     </section>
   </div>
 <script>
   function validateImageSize(input) {
       const file = input.files[0];
-      const maxSizeInBytes = 500 * 500; // 1MB
+      const maxSizeInBytes = 500 * 500;
       if (file && file.size > maxSizeInBytes) {
           alert("Please select an image smaller than 1MB.");
-          input.value = ""; // Clear the file input
+          input.value = "";
       }
   }
 </script>
 <script th:inline="javascript">
   function showImage(imageUrl) {
-      // Create a new window to display the image
       var imageWindow = window.open("", "_blank");
-      // Set the HTML content of the window to display the image
       imageWindow.document.body.innerHTML = "<img src='" + imageUrl + "' alt='Image'>";
   }
 </script>
 <script>
   function modifyRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
-
-      // Loop through each <td> element to replace text with input fields
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
+      var row = button.closest('tr');
+      var cells = row.getElementsByTagName('td');
+      for (var i = 0; i < cells.length - 1; i++) {
           var cell = cells[i];
-          var currentValue = cell.textContent.trim(); // Get the current text content
-
-          // Replace text with input field, except for the last <td> containing the image
+          var currentValue = cell.textContent.trim();
           if (i !== cells.length - 2) {
-              cell.innerHTML = "<input type='text' value='" + currentValue + "' style='width: 100px;'>"; // Adjust the width as needed
+              cell.innerHTML = "<input type='text' value='" + currentValue + "' style='width: 100px;'>";
           } else {
               cell.innerHTML = "<input type='file' accept='image/*' onchange='validateImageSize(this)'>";
           }
       }
-
-      // Replace the "Modify" button with "Save" and "Cancel" buttons
       var actionCell = row.querySelector('td:last-child');
       actionCell.innerHTML = "<button onclick='saveRow(this)'>Save</button>&nbsp;<button onclick='cancelRow(this)'>Cancel</button>";
   }
 
   function saveRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
-
-      // Loop through each <td> element to replace input fields with text
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
+      var row = button.closest('tr');
+      var cells = row.getElementsByTagName('td');
+      for (var i = 0; i < cells.length - 1; i++) {
           var cell = cells[i];
-          var input = cell.querySelector('input'); // Get the input field within the cell
-          var newValue = input.value; // Get the value from the input field
-
-          // Replace input field with text, except for the last <td> containing the image
+          var input = cell.querySelector('input');
+          var newValue = input.value;
           if (i !== cells.length - 2) {
               cell.innerHTML = newValue;
           } else {
@@ -739,29 +506,21 @@
       }
       var actionCell = row.querySelector('td:last-child');
       actionCell.innerHTML = "<button onclick='modifyRow(this)'>Delete</button>";
-
-      // Re-add the "Delete" button
       actionCell.innerHTML += "&nbsp;<button onclick='deleteRow(this)'>Modify</button>";
   }
   function cancelRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
-
-      // Loop through each <td> element to revert changes and restore original text
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
+      var row = button.closest('tr');
+      var cells = row.getElementsByTagName('td');
+      for (var i = 0; i < cells.length - 1; i++) {
           var cell = cells[i];
-          var input = cell.querySelector('input'); // Get the input field within the cell
-          var currentValue = input.getAttribute('value'); // Get the original value from the input field
-
-          // Replace input field with original text, except for the last <td> containing the image
+          var input = cell.querySelector('input');
+          var currentValue = input.getAttribute('value');
           if (i !== cells.length - 2) {
               cell.innerHTML = currentValue;
           } else {
               cell.innerHTML = "<img src='" + currentValue + "' alt='Image'>";
           }
       }
-
-      // Replace the "Save" and "Cancel" buttons with "Modify" button
       var actionCell = row.querySelector('td:last-child');
       actionCell.innerHTML = "<button onclick='modifyRow(this)'>Modify</button>";
   }
@@ -774,9 +533,8 @@
 
         for (var i = 0; i < rows.length; i++) {
             var row = rows[i];
-            var categoryCell = row.getElementsByTagName("td")[5]; // Assuming Category column is at index 5
+            var categoryCell = row.getElementsByTagName("td")[5];
             var category = categoryCell.textContent.trim();
-
             if (categoryId === "" || categoryId === category) {
                 row.style.display = "";
             } else {

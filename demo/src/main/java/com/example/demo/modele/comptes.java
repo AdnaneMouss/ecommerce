@@ -13,23 +13,14 @@ public class comptes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String username;
-
     private String email;
-
     private int phone;
-
     private String password;
-
     private String type;
-
     private String photo;
-
     private String nom;
-
     private String filiere;
-
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<commande> commandes;
 
@@ -89,6 +80,7 @@ public class comptes {
         this.filiere = filiere;
     }
     public comptes(int id, String username, String email, int phone, String password, String type, String photo,String filiere,String nom){
+        this.id=id;
         this.username = username;
         this.email = email;
         this.phone = phone;
