@@ -32,6 +32,8 @@ public class comptes {
 
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<commande> commandes;
+
+
     public int getId() {
         return id;
     }

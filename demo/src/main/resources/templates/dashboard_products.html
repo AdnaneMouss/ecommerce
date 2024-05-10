@@ -541,7 +541,8 @@
         <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
     </select>
 </div>
-<div class="attendance-list">
+          <div><input style="border-color: red; border-radius: 3px; padding: 10px;" type="text" id="searchInput" onkeyup="searchByLabel()" placeholder="Search by Label..."></div>
+          <div class="attendance-list">
     <h1>List of products</h1>
     <table class="table">
         <thead>
@@ -549,8 +550,12 @@
                 <th>ID</th>
                 <th>Label</th>
                 <th>Description</th>
-                <th>Stock</th>
-                <th>Price</th>
+                                                <th>
+                    Stock<button onclick="sortByPrice2()"><i class="fa-solid fa-sort"></i></button>
+                </th>
+                                <th>
+                    Price<button onclick="sortByPrice()"><i class="fa-solid fa-sort"></i></button>
+                </th>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Category</th>
@@ -578,7 +583,6 @@
     </tr>
 </tbody>
     </table>
-         </form>
 
 </div>
           <div class="attendance-list2">
@@ -788,6 +792,104 @@
   <script th:if="${errorMessage}">
         alert([[${errorMessage}]]);
     </script>
+<script>
+    var dir = "asc"; // Initialize sorting direction
+
+    function sortByPrice() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.querySelector(".table");
+        switching = true;
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[4]; // Price column index is 4
+                y = rows[i + 1].getElementsByTagName("TD")[4];
+
+                if (dir === "asc") {
+                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        dir = (dir === "asc") ? "desc" : "asc"; // Toggle sorting direction
+    }
+</script>
+<script>
+    var dir = "asc"; // Initialize sorting direction
+
+    function sortByPrice2() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.querySelector(".table");
+        switching = true;
+
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[3]; // Price column index is 4
+                y = rows[i + 1].getElementsByTagName("TD")[3];
+
+                if (dir === "asc") {
+                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        dir = (dir === "asc") ? "desc" : "asc"; // Toggle sorting direction
+    }
+</script>
+<script>
+    function searchByLabel() {
+        // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+
+        // Parcourir toutes les lignes du tableau et masquer celles qui ne correspondent pas à la recherche
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1]; // La colonne du libellé est la deuxième (index 1)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
 </span>

@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.categorie;
+import com.example.demo.modele.commande;
+import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
 import com.example.demo.service.CategorieService;
+import com.example.demo.service.CommandeService;
+import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,11 @@ public class ProduitController {
     private CategorieService catService;
     @Autowired
     private CategorieService categorieService;
+    @Autowired
+    private DaoComptes daoComptes;
+    @Autowired
+    private CommandeService commandeService;
+
 
     @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
@@ -199,6 +208,7 @@ public class ProduitController {
         model.addAttribute("all",produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc",c);
+
         //getRatings
         List<String> productNames = new ArrayList<>();
         List<Double> productRatings = new ArrayList<>();
@@ -208,14 +218,63 @@ public class ProduitController {
         }
         model.addAttribute("productNames", productNames);
         model.addAttribute("productRatings", productRatings);
-        //getRatings
+
+        //getStock
         List<Integer> productQuantity = new ArrayList<>();
         for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productQuantity.add(produit.getQuantity());
         }
-        model.addAttribute("productNames", productNames);
         model.addAttribute("productQuantity", productQuantity);
+
+        //getStock
+        List<comptes> comptes = daoComptes.getAllAccs();
+        List<String> accountName = new ArrayList<>();
+        List<Integer> numOfCommands = new ArrayList<>();
+
+        for (comptes acc : comptes) {
+            int com = commandeService.count(acc);
+            accountName.add(acc.getNom());
+            numOfCommands.add(com);
+            System.out.println("fghjklkjhgfdfg"+numOfCommands);
+        }
+
+        model.addAttribute("accNames", accountName);
+        model.addAttribute("numOfCommands", numOfCommands);
+
+
+
+        //getTypes
+        int Delivery = daoComptes.countcompteByType("DeliveryMan");
+        model.addAttribute("DeliveryMan",""+Delivery);
+        int Supplier = daoComptes.countcompteByType("Supplier");
+        model.addAttribute("Supplier",""+Supplier);
+        int Student = daoComptes.countcompteByType("Student");
+        model.addAttribute("Student",""+Student);
+        int Admin = daoComptes.countcompteByType("Admin");
+        model.addAttribute(" Admin",""+Admin);
+
+
+        //fields
+        int Architecture = daoComptes.countcompteByFiliere ("Architecture");
+        model.addAttribute("Architecturstudents",""+Architecture);
+
+        int CS = daoComptes.countcompteByFiliere ("CS");
+        model.addAttribute("CSstudents",""+CS);
+
+        int Energy = daoComptes.countcompteByFiliere ("Energy");
+        model.addAttribute("Energystudents",""+Energy);
+        int Aerospace = daoComptes.countcompteByFiliere ("Aerospace");
+        model.addAttribute("Aerospacestudents",""+Aerospace);
+        System.out.println("Aerospacestudents"+Aerospace);
+
+        int Medicine = daoComptes.countcompteByFiliere ("Medecine");
+        model.addAttribute("Medicinestudents",""+Medicine);
+        System.out.println("Medicinestudents"+Medicine);
+
+        int Automobile = daoComptes.countcompteByFiliere ("Automobile");
+        model.addAttribute("Automobilestudents",""+Automobile);
+        System.out.println("Automobile"+Automobile);
         return "dashboard_analytics";
     }
 

@@ -281,7 +281,7 @@ table thead tr{
 }
 .charts{
   display:grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(4,1fr);
 }
     #scatterChartContainer {
       width: 600px;
@@ -322,7 +322,7 @@ table thead tr{
           <span class="nav-item">Settings</span>
         </a>
 
-        <a href="#">
+        <a href=localhost:8080/log/login>
           <i class="fas fa-sign-out-alt"></i>
           <span class="nav-item">Log out</span>
         </a>
@@ -392,22 +392,25 @@ table thead tr{
   <canvas id="rating"></canvas>
 </div>
 <div class="piechart">
-  <canvas id="myPieChart"></canvas>
+  <canvas id="productsPerCategory"></canvas>
 </div>
 </section>
        <section class="charts">
-<div class="chart">
-  <canvas id="graphiqueEnCourbes"></canvas>
+                   <div class="chart">
+  <canvas id="command"></canvas>
 </div>
         <div class="piechart">
-  <canvas id="myPieChart2"></canvas>
+  <canvas id="usersPerField"></canvas>
+</div>
+                   <div class="piechart">
+  <canvas id="usersPerType"></canvas>
 </div>
 </section>
     </section>
   </div>
 </body>
 </html>
-
+ <!--products per category-->
 <script th:inline="javascript">
   /*<![CDATA[*/
   // Get data from Thymeleaf attributes
@@ -460,7 +463,119 @@ table thead tr{
       }
   };
 
-  var ctx = document.getElementById('myPieChart').getContext('2d');
+  var ctx = document.getElementById('productsPerCategory').getContext('2d');
+
+  var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: data,
+      options: options
+  });
+  /*]]>*/
+</script>
+    <!--users per field-->
+    <script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var archiCount = /*[[${Architecturstudents}]]*/ '0'; // Default value if not provided
+  var autoCount = /*[[${Automobilestudents}]]*/ '0'; // Default value if not provided
+  var aeroCount = /*[[${Aerospacestudents}]]*/ '0'; // Default value if not provided
+  var energyCount = /*[[${Energystudents}]]*/ '0'; // Default value if not provided
+  var csCount = /*[[${CSstudents}]]*/ '0'; // Default value if not provided
+  var medecineCount = /*[[${Medicinestudents}]]*/ '0'; // Default value if not provided
+
+  // Sample data for the pie chart
+  var data = {
+      labels: ['Architecture', 'Automobile', 'Aerospace', 'Computer science', 'Medecine','Energy'],
+      datasets: [{
+          label: 'Number of users',
+          data: [archiCount, autoCount, aeroCount, csCount, medecineCount, energyCount],
+          backgroundColor: [
+              'red',
+              '#ADFF2F',
+              'blue',
+              'white',
+              'black',
+              'yellow',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      plugins: {
+          title: {
+              display: true,
+              text: 'Users per field',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          }
+      }
+  };
+
+  var ctx = document.getElementById('usersPerField').getContext('2d');
+
+  var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: data,
+      options: options
+  });
+  /*]]>*/
+</script>
+    <!--users per type-->
+    <script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var supplier = /*[[${Supplier}]]*/ '0'; // Default value if not provided
+  var admin = /*[[${Admin}]]*/ '0'; // Default value if not provided
+  var student = /*[[${Student}]]*/ '0'; // Default value if not provided
+  var deliveryman = /*[[${DeliveryMan}]]*/ '0'; // Default value if not provided
+
+  // Sample data for the pie chart
+  var data = {
+      labels: ['Admin','Supplier','Student','Delivery Man'],
+      datasets: [{
+          label: 'Number of users',
+          data: [admin, supplier, student, deliveryman],
+          backgroundColor: [
+              'red',
+              '#ADFF2F',
+              'blue',
+              'white',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      plugins: {
+          title: {
+              display: true,
+              text: 'Users per type',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          }
+      }
+  };
+
+  var ctx = document.getElementById('usersPerType').getContext('2d');
 
   var myPieChart = new Chart(ctx, {
       type: 'pie',
@@ -543,6 +658,102 @@ table thead tr{
   };
 
   var ctx = document.getElementById('rating').getContext('2d');
+
+  var myBarChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: options
+  });
+
+  // Increase bar thickness
+  myBarChart.options.plugins.title.display = false;
+  myBarChart.options.scales.x.categoryPercentage = 0.9;
+  myBarChart.options.scales.x.barPercentage = 0.9;
+  /*]]>*/
+</script>
+    <script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var Names = /*[[${accNames}]]*/ [];
+  var numOfCommands = /*[[${numOfCommands}]]*/ [];
+
+  // Create an array of objects to store both product names and ratings
+  var data = [];
+  for (var i = 0; i < Names.length; i++) {
+      data.push({name: Names[i], command: numOfCommands[i]});
+  }
+
+  // Sort the data array based on ratings in descending order
+  data.sort(function(a, b) {
+      return b.command - a.command;
+  });
+
+  // Extract sorted product names and ratings
+  var sortedNames = data.map(function(item) { return item.name; });
+  var sortedCommands = data.map(function(item) { return item.command; });
+
+  // Data for the bar chart
+  var chartData = {
+      labels: sortedNames,
+      datasets: [{
+          label: 'Number of commands',
+          data: sortedCommands,
+          backgroundColor: 'red', // Change color here
+          borderColor: 'white', // Change color here
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      scales: {
+          y: {
+              beginAtZero: true,
+              title: {
+                  display: true,
+                  text: 'Number of commands'
+              },
+              ticks: {
+                  callback: function(value) {
+                      if (Number.isInteger(value)) {
+                          return value; // Display integer values as they are
+                      } else {
+                          return ''; // Display decimal values as empty string
+                      }
+                  }
+              }
+          },
+          x: {
+              display: false, // Hide x-axis labels
+              title: {
+                  display: false,
+                  text: 'Product'
+              }
+          }
+      },
+      plugins: {
+          title: {
+              display: true,
+              text: 'Most Loyal Clients',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          },
+          tooltip: {
+              callbacks: {
+                  label: function(context) {
+                      return context.dataset.label + ': ' + context.formattedValue;
+                  }
+              }
+          }
+      }
+  };
+
+
+  var ctx = document.getElementById('command').getContext('2d');
 
   var myBarChart = new Chart(ctx, {
       type: 'bar',
