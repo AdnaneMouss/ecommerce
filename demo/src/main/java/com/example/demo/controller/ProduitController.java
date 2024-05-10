@@ -134,7 +134,7 @@ public class ProduitController {
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
         //No category
-        categorie all = categorieService.findCategoieByName("Energy");
+        categorie all = categorieService.findCategoieByName("All");
         int countAll = produitService.countProduitsByCategorie(all);
         model.addAttribute("nocat", ""+countAll);
         //getall

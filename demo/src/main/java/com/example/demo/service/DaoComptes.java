@@ -1,14 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.comptes;
-import com.example.demo.modele.produit;
 import com.example.demo.repository.CompteRepository;
-import com.example.demo.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,4 +65,16 @@ public DaoComptes(CompteRepository compteRepository){
         }
         return res;
     }
+    public int countcompte() {
+        return (int) compteRepository.count();
+    }
+    public int countcompteByType(String type) {
+        return compteRepository.countByType  (type);
 }
+    public int countcompteByFiliere(String fill) {
+        return compteRepository.countByFiliere (fill);
+}
+}
+
+
+

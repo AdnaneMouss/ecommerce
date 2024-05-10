@@ -56,4 +56,64 @@ public class ComptesController {
 
         return "compte";
     }
+    @GetMapping("/count")
+    public String countCompte(Model model) {
+        // Récupérer le nombre total de comptes
+        int countCompte = daoComptes.countcompte();
+        model.addAttribute("compteCount",""+countCompte);
+System.out.println(""+countCompte);
+        // Renvoyer le nom de la vue à afficher
+
+
+
+        int Delivery = daoComptes.countcompteByType ("DeliveryMan");
+        model.addAttribute("DeliveryMan",""+Delivery);
+        System.out.println("DeliveryMan"+Delivery);
+        // Renvoyer le nom de la vue à afficher
+
+
+        int Supplier = daoComptes.countcompteByType ("Supplier");
+        model.addAttribute("Supplier",""+Supplier);
+        System.out.println("Supplier"+Supplier);
+        // Renvoyer le nom de la vue à afficher
+
+        int Student = daoComptes.countcompteByType ("Student");
+        model.addAttribute("Student",""+Student);
+        System.out.println("Student"+Student);
+        // Renvoyer le nom de la vue à afficher
+
+        int Admin = daoComptes.countcompteByType ("Admin");
+        model.addAttribute(" Admin",""+Admin);
+        System.out.println("Admin"+Admin);
+        // Renvoyer le nom de la vue à afficher
+
+
+
+    int Architecture = daoComptes.countcompteByFiliere ("Architecture");
+        model.addAttribute("Architecturstudents",""+Architecture);
+        System.out.println("Architecturstudents"+Architecture);
+
+        int CS = daoComptes.countcompteByFiliere ("CS");
+        model.addAttribute("CSstudents",""+CS);
+        System.out.println("CSstudents"+CS);
+
+        int Energy = daoComptes.countcompteByFiliere ("Energy");
+        model.addAttribute("Energystudents",""+Energy);
+        System.out.println("Energystudents"+Energy);
+
+        int Aerospace = daoComptes.countcompteByFiliere ("Aerospace");
+        model.addAttribute("Aerospacestudents",""+Aerospace);
+        System.out.println("Aerospacestudents"+Aerospace);
+
+        int Medicine = daoComptes.countcompteByFiliere ("Medecine");
+        model.addAttribute("Medicinestudents",""+Medicine);
+        System.out.println("Medicinestudents"+Medicine);
+
+        int Automobile = daoComptes.countcompteByFiliere ("Automobile");
+        model.addAttribute("Automobilestudents",""+Automobile);
+        System.out.println("Automobile"+Automobile);
+
+
+        return "dashboard_accounts";
+}
 }

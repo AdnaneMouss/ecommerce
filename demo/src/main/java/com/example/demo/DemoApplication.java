@@ -14,19 +14,19 @@ import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication {
-	private final ProduitService produitService;
+	private static ProduitService produitService=null;
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
 	private static DaoComptes DaoComptes=null;
 
-	public DemoApplication(ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
+
+	public DemoApplication( ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
-
 	}
 
 	public static void main(String[] args) {
@@ -52,16 +52,16 @@ public class DemoApplication {
 		List<produit> all = produitController.getAllProduits();
 		System.out.println(all);
 	}*/
-	/*public static void testDeleteProduct() {
+/*	public static void testDeleteProduct() {
 		int id = 4;
-    if(produitController.deleteProduit(id)) {
+    if(produitService.deleteProduit(4)) {
 		System.out.println("Le produit n°:" + id + "\t a été supprimé avec succés");
 	}
 	else{
 		System.out.println("Le produit n°:" + id + "\t n'existe pas!");
 	}
-	}
-	public static void testAddProduct() {
+	}*/
+	/*public static void testAddProduct() {
 		produit p1 = new produit(0,"Adkd",1,"","","",null);
 		if(produitController.addProduct(p1)) {
 			System.out.println("Le produit:" + p1 + "\t a été ajouté avec succés");
@@ -69,27 +69,32 @@ public class DemoApplication {
 		else{
 			System.out.println("Erreur lors de l'ajout!");
 		}
-	}
-*/
+	}*/
+
 	/*public static void testUpdateProduct() {
 		int idProduitAModifier=2;
-		categorie cat = new categorie(1,"Aero");
-		produit prod = new produit(0,"",1,"fgh","","",cat);
+		produit prod = new produit(0,"",1,"fgh","","",null);
 		if(produitController.updateProduit(idProduitAModifier,prod)){
 		System.out.println("Le produit a été mis à jour");
 	}
 		else{
 		System.out.println("Erreur!");
 	}
-	}
-*/
+	}*/
+
 	//---------------Catégories--------------------
+
 
 	/*public static void testAddCategory() {
 		String name = "Aero";
 		categorie c = new categorie(1,name);
+=========
+	public static void testAddCategory() {
+		String name = "";
+		categorie c = new categorie(0,name);
+>>>>>>>>> Temporary merge branch 2
 		if((categorieController.addCategorie(c))) {
-			System.out.println("La categorie:" + c + "\t a été ajoutée avec succés");
+			System.out.println("La categorie:" + c + "\t a été ajouté avec succés");
 		}
 		else{
 			System.out.println("Erreur lors de l'ajout!");
@@ -123,8 +128,8 @@ public class DemoApplication {
 		ComptesController ComptesController = null;
 		List<Comptes> all = ComptesController.getAllAccs();
 		System.out.println(all);
-	}
-*/
+	}*/
+
 	/*public static  void testdeleteComptes() {
 		int id = 4;
 		if (ComptesController.deleteComptes(id)) {
