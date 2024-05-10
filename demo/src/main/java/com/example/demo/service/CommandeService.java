@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.categorie;
+import com.example.demo.modele.commande;
 import com.example.demo.modele.comptes;
 import com.example.demo.repository.CategorieRepository;
 import com.example.demo.repository.CommandeRepository;
@@ -18,5 +19,9 @@ public class CommandeService {
 
     public int count(comptes c){
         return commandeRepository.countCommandesByCompte(c);
+    }
+
+    public List<commande> getAllComm() {
+        return commandeRepository.findAll();
     }
 }

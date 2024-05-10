@@ -15,7 +15,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/categorie")
 public class CategorieController {
-
     @Autowired
     private CategorieService catService;
     @Autowired
@@ -37,12 +36,9 @@ public class CategorieController {
         // Create a new category object
         categorie categorie = new categorie();
         categorie.setCatname(catname);
-
-        // Check if the category already exists
         boolean isCategoryCreated = catService.createCategorie(categorie);
 
         if (isCategoryCreated) {
-            // Category created successfully, redirect to the desired page
             return "redirect:/products/products";
         } else {
             System.out.println("exists already");

@@ -392,62 +392,29 @@
 </style>
 <body>
   <div class="container">
-    <nav>
-<ul>
-        <a href="#" class="logo">
-          <img src="/logo.png">
-          <span class="nav-item">DASHBOARD</span>
-        </a>
-            <a href="dashboard_accounts.html">
-          <i class="fas fa-database"></i>
-          <span class="nav-item">Accounts</span>
-        </a>
-            <a href="dashboard_products.html">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Products</span>
-        </a>
-        <a href="dashboard_contact.html">
-          <i class="fas fa-comment"></i>
-          <span class="nav-item">Contact</span>
-        </a>
-        <a href="dashboard_analytics.html">
-          <i class="fas fa-database"></i>
-          <span class="nav-item">Analytics</span>
-        </a>
-         <a href="settings.html">
-          <i class="fas fa-cog"></i>
-          <span class="nav-item">Settings</span>
-        </a>
-        <a href="loginPage.html">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span>
-        </a>
-      </ul>
-    </nav>
     <section class="main">
 <div class="attendance-list">
     <h1>List of orders to deliver </h1>
     <table class="table">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>ID CUSTOMER</th>
+                <th>Customer</th>
                 <th>DELIVERING LOCATION</th>
                 <th>DELIVERING DATE</th>
                 <th>METHOD OF PAYMENT</th>
+                <th>Is it delivered?</th>
                 <th>Delivery Status</th>
             </tr>
         </thead>
       <tbody>
-    <tr th:each="produit : ${all}" class="productRow">
-        <td th:text="${commande.id}"></td>
-        <td th:text="${commande.idc}"></td>
-        <td th:text="${commande.location}"></td>
-        <td th:text="${commande.datedeliv}"></td>
-        <td th:text="${commande.methodepai}"></td>
+    <tr th:each="commande : ${all}" class="productRow">
+        <td th:text="${commande.compte?.username}"></td>
+        <td th:text="${commande.lieuLivraison}"></td>
+        <td th:text="${commande.dateLivraison}"></td>
+        <td th:text="${commande.méthodePaiement}"></td>
+        <td th:text="${commande.delivered}"></td>
         <td>
-            <input type="hidden" name="id" th:value="${produit.id}" />
-             <button id="yes" type="submit" value="delete">Delivered</button>
+             <button id="yes" type="submit" >Delivered</button>
             &nbsp;<button id="no" onclick="modifyRow(this)">Not delivered</button>
         </td>
     </tr>
