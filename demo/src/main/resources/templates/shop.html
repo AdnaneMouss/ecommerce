@@ -354,7 +354,7 @@ h3{
         grid-gap: 20px;
     }
     .wrapper img{
-width: 200px;
+        width: 200px;
         height: 200px;
     }
 </style>
@@ -367,9 +367,11 @@ width: 200px;
       <li><a href="">My Basket</a></li>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
+        <li><h3 style="color: white" th:text="${session.authenticatedUser}"></h3></li>
       <li><a href="mycomplaints.html">My complaints</a></li>
       <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
      
     </ul>
 
@@ -400,10 +402,12 @@ Discover our freshest selection of masks, crafted to combine both style and func
         <li data-filter="Mobile"><a href="#">Mobiles</a></li>
         <li data-filter="Accessories"><a href="#">Accessories</a></li>
 
+
       </ul>
   </div>
   </section>
   <section class="hero2">
+
       <form th:action="@{/products/viewdetails}">
           <div class="product-grid">
       <section id="prod1" class="section-p1" th:each="product : ${all}" >

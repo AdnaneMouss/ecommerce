@@ -252,6 +252,16 @@
       color: white;
       border: 1px solid red;
   }
+  .categbutton{
+      background: white;
+      color: red;
+      border: 2px solid red;
+  }
+  .categbutton:hover{
+      background: red;
+      color: white;
+      border: 1px solid red;
+  }
 
   .attendance{
       margin-top: 20px;
@@ -406,6 +416,10 @@
         <a href="#" class="logo">
           <img src="/logo.png">
           <span class="nav-item">DASHBOARD</span>
+        </a>
+        <a href="#">
+          <i class="fa-solid fa-user"></i>
+          Welcome<span th:text="${comptes.username}"></span>
         </a>
             <a href="dashboard_accounts.html">
           <i class="fas fa-database"></i>
@@ -664,8 +678,9 @@
 <form th:action="@{/categorie/addCategory}" method="post">
     <table class="table2">
         <tr>
-            <td><input type="text" placeholder="Name" name="catname"></td>
-            <td><button type="submit">Add Category</button></td>
+            <td><input type="text" placeholder="Name" name="catname"></td> </tr>
+        <tr>
+            <td><input class="categbutton" type="submit" value="Add Category"></td>
         </tr>
     </table>
 </form>
