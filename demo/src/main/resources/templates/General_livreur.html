@@ -394,29 +394,31 @@
   <div class="container">
     <section class="main">
 <div class="attendance-list">
-    <h1>List of orders to deliver </h1>
+    <h1>List of orders to deliver: </h1>
     <table class="table">
         <thead>
             <tr>
                 <th>Customer</th>
+                <th>GSM</th>
                 <th>DELIVERING LOCATION</th>
                 <th>DELIVERING DATE</th>
                 <th>METHOD OF PAYMENT</th>
-                <th>Is it delivered?</th>
                 <th>Delivery Status</th>
+                <th>Is it delivered?</th>
             </tr>
         </thead>
       <tbody>
     <tr th:each="commande : ${all}" class="productRow">
         <td th:text="${commande.compte?.username}"></td>
+        <td th:text="${commande.compte?.phone}"></td>
         <td th:text="${commande.lieuLivraison}"></td>
         <td th:text="${commande.dateLivraison}"></td>
         <td th:text="${commande.méthodePaiement}"></td>
-        <td th:text="${commande.delivered}"></td>
         <td>
              <button id="yes" type="submit" >Delivered</button>
             &nbsp;<button id="no" onclick="modifyRow(this)">Not delivered</button>
         </td>
+        <td th:text="${commande.delivered}"></td>
     </tr>
     </tbody>
     </table>

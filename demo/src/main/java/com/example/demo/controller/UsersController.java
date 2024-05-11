@@ -21,11 +21,20 @@ public class UsersController {
             System.out.println(compte.getUsername());
             System.out.println(session);
             model.addAttribute("authenticatedUser", compte);
-            return "shop";
+            if(compte.getType() == "Admin"){
+                return"dashboard_products";
+            }
+            else if(compte.getType() == "Customer"){
+                return "shop";
+            }
+            else if(compte.getType() == "Deliveryman"){
+                return "General_livreur";
+            }
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "loginPage";
         }
+        return null;
     }
     @GetMapping("/comptes/{username}")
     public String obtenirUtilisateurParNom(@PathVariable String nomUtilisateur, Model model) {
