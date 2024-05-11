@@ -541,16 +541,20 @@
         <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
     </select>
 </div>
+          <div>
+              <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput" onkeyup="searchByLabel()" placeholder="Search by Label...">
+          </div>
 <div class="attendance-list">
     <h1>List of products</h1>
+    <form id="deleteForm" th:action="@{/products/delete}" method="post">
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Label</th>
                 <th>Description</th>
-                <th>Stock</th>
-                <th>Price</th>
+                <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Category</th>
@@ -571,42 +575,14 @@
         <td th:text="${produit.categorie?.catname}"></td>
        <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
         <td>
-            <input type="hidden" name="id" th:value="${produit.id}" />
-             <button type="submit" value="delete">Delete</button>
+           <input type="hidden" id="productId" name="id" />
+             <button onclick="prepareDelete(this)">Delete</button>
             &nbsp;<button onclick="modifyRow(this)">Modify</button>
         </td>
     </tr>
 </tbody>
     </table>
          </form>
-
-</div>
-          <div class="attendance-list2">
-    <h1>List of categories</h1>
-              <form th:action="@{/categorie/delete}" method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-      <tbody>
-    <tr th:each="categorie : ${allc}" class="productRow">
-        <td th:text="${categorie.id}"></td>
-         <input type="hidden" name="idC" th:value="${categorie.id}" />
-        <td th:text="${categorie.catname}"></td>
-        <td>
-            <button>Delete</button>
-            &nbsp;<button onclick="modifyRow(this)">Modify</button>
-        </td>
-    </tr>
-</tbody>
-
-    </table>
-              </form>
-
 </div>
     <section class="main">
       <div class="main-top">
@@ -658,22 +634,6 @@
         </div>
         &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
         </div>
- <div class="addcat">
-        <div class="card">
-          <div class="per">
-<form th:action="@{/categorie/addCategory}" method="post">
-    <table class="table2">
-        <tr>
-            <td><input type="text" placeholder="Name" name="catname"></td>
-            <td><button type="submit">Add Category</button></td>
-        </tr>
-    </table>
-</form>
-
-          </div>
-        </div>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-        </div>
 </section>
     </section>
 
@@ -697,74 +657,52 @@
       imageWindow.document.body.innerHTML = "<img src='" + imageUrl + "' alt='Image'>";
   }
 </script>
+
 <script>
-  function modifyRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
+    function modifyRow(button) {
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+        for (var i = 1; i < cells.length - 1; i++) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.value = cells[i].innerText.trim();
+            cells[i].innerHTML = "";
+            cells[i].appendChild(input);
+        }
+        button.style.display = "none";
+    }
 
-      // Loop through each <td> element to replace text with input fields
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
-          var cell = cells[i];
-          var currentValue = cell.textContent.trim(); // Get the current text content
+    function saveChanges(button) {
+        var row = button.parentNode.parentNode;
+        var inputs = row.getElementsByTagName("input");
+        var formData = new FormData();
+        for (var i = 0; i < inputs.length; i++) {
+            formData.append(inputs[i].name, inputs[i].value);
+        }
 
-          // Replace text with input field, except for the last <td> containing the image
-          if (i !== cells.length - 2) {
-              cell.innerHTML = "<input type='text' value='" + currentValue + "' style='width: 100px;'>"; // Adjust the width as needed
-          } else {
-              cell.innerHTML = "<input type='file' accept='image/*' onchange='validateImageSize(this)'>";
-          }
-      }
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/products/modify", true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log("Product modified successfully.");
+                window.location.reload();
+            } else {
+                console.log("Failed to modify product.");
+            }
+        };
+        xhr.send(formData);
+    }
 
-      // Replace the "Modify" button with "Save" and "Cancel" buttons
-      var actionCell = row.querySelector('td:last-child');
-      actionCell.innerHTML = "<button onclick='saveRow(this)'>Save</button>&nbsp;<button onclick='cancelRow(this)'>Cancel</button>";
-  }
-
-  function saveRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
-
-      // Loop through each <td> element to replace input fields with text
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
-          var cell = cells[i];
-          var input = cell.querySelector('input'); // Get the input field within the cell
-          var newValue = input.value; // Get the value from the input field
-
-          // Replace input field with text, except for the last <td> containing the image
-          if (i !== cells.length - 2) {
-              cell.innerHTML = newValue;
-          } else {
-              cell.innerHTML = "<img src='" + newValue + "' alt='Image'>";
-          }
-      }
-      var actionCell = row.querySelector('td:last-child');
-      actionCell.innerHTML = "<button onclick='modifyRow(this)'>Delete</button>";
-
-      // Re-add the "Delete" button
-      actionCell.innerHTML += "&nbsp;<button onclick='deleteRow(this)'>Modify</button>";
-  }
-  function cancelRow(button) {
-      var row = button.closest('tr'); // Get the closest <tr> element
-      var cells = row.getElementsByTagName('td'); // Get all <td> elements in the row
-
-      // Loop through each <td> element to revert changes and restore original text
-      for (var i = 0; i < cells.length - 1; i++) { // Exclude the last <td> containing the action buttons
-          var cell = cells[i];
-          var input = cell.querySelector('input'); // Get the input field within the cell
-          var currentValue = input.getAttribute('value'); // Get the original value from the input field
-
-          // Replace input field with original text, except for the last <td> containing the image
-          if (i !== cells.length - 2) {
-              cell.innerHTML = currentValue;
-          } else {
-              cell.innerHTML = "<img src='" + currentValue + "' alt='Image'>";
-          }
-      }
-
-      // Replace the "Save" and "Cancel" buttons with "Modify" button
-      var actionCell = row.querySelector('td:last-child');
-      actionCell.innerHTML = "<button onclick='modifyRow(this)'>Modify</button>";
-  }
+    function cancelChanges(button) {
+        var row = button.parentNode.parentNode;
+        var inputs = row.getElementsByTagName("input");
+        var cells = row.getElementsByTagName("td");
+        for (var i = 1; i < cells.length - 1; i++) {
+            cells[i].innerHTML = inputs[i - 1].value;
+        }
+        var modifyButton = row.querySelector("button[type='button']");
+        modifyButton.style.display = "block";
+    }
 </script>
 <script>
     function applyCategoryFilter() {
@@ -785,9 +723,115 @@
         }
     }
 </script>
-  <script th:if="${errorMessage}">
-        alert([[${errorMessage}]]);
+    <script>
+        function prepareDelete(button) {
+            var categoryId = button.parentNode.parentNode.querySelector("td:first-child").innerText;
+            document.getElementById("productId").value = categoryId;
+            document.getElementById("deleteForm").submit();
+        }
     </script>
+<script>
+    function sortByPrice() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.querySelector(".table");
+        switching = true;
+        // Set the sorting direction to ascending:
+        var dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            // Loop through all table rows (except the first, which contains table headers):
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                // Get the two elements you want to compare, one from current row and one from the next:
+                x = rows[i].getElementsByTagName("TD")[4]; // Price column index is 4
+                y = rows[i + 1].getElementsByTagName("TD")[4];
+                // Check if the two rows should switch place, based on the direction, asc or desc:
+                if (dir === "asc") {
+                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                // If a switch has been marked, make the switch and mark that a switch has been done:
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        // Reverse the direction for next sorting iteration:
+        dir = (dir === "asc") ? "desc" : "asc";
+    }
+</script>
+<script>
+    function sortByStock() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.querySelector(".table");
+        switching = true;
+        // Set the sorting direction to ascending:
+        var dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            // Loop through all table rows (except the first, which contains table headers):
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                // Get the two elements you want to compare, one from current row and one from the next:
+                x = rows[i].getElementsByTagName("TD")[3]; // Price column index is 4
+                y = rows[i + 1].getElementsByTagName("TD")[3];
+                // Check if the two rows should switch place, based on the direction, asc or desc:
+                if (dir === "asc") {
+                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
+                        shouldSwitch= true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                // If a switch has been marked, make the switch and mark that a switch has been done:
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+        // Reverse the direction for next sorting iteration:
+        dir = (dir === "asc") ? "desc" : "asc";
+    }
+</script>
+<script>
+    function searchByLabel() {
+        // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+
+        // Parcourir toutes les lignes du tableau et masquer celles qui ne correspondent pas à la recherche
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1]; // La colonne du libellé est la deuxième (index 1)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
 </span>

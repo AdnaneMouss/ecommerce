@@ -74,6 +74,33 @@ public class ProduitController {
             return "redirect:/products/products";
     }
 
+    @PostMapping("/modify")
+    public String modify(@RequestParam int id, @RequestParam String label, @RequestParam String description,
+                         @RequestParam int stock, @RequestParam double price, @RequestParam String color,
+                         @RequestParam String size, @RequestParam String category) {
+        produit updated = new produit();
+        updated.setId(id);
+        updated.setLabel(label);
+        updated.setDescription(description);
+        updated.setColor(color);
+        updated.setQuantity(stock);
+        updated.setSize(size);
+        updated.setPrice(price);
+        categorie c = new categorie();
+        c.setCatname(category);
+        updated.setCategorie(c);
+        boolean isModified = produitService.updateProduit(id,updated);
+        if (isModified) {
+            System.out.println("Product modified successfully.");
+        } else {
+            System.out.println("Failed to modify product.");
+        }
+
+        return "redirect:/products/products";
+    }
+
+
+
     @GetMapping("/singleproduct/{id}")
     public String getSingleProduct(Model model, @PathVariable("id") int id) {
         Optional<produit> optionalProduct = produitService.getProduitById((long)id);
@@ -236,12 +263,10 @@ public class ProduitController {
             int com = commandeService.count(acc);
             accountName.add(acc.getNom());
             numOfCommands.add(com);
-            System.out.println("fghjklkjhgfdfg"+numOfCommands);
         }
 
         model.addAttribute("accNames", accountName);
         model.addAttribute("numOfCommands", numOfCommands);
-
 
 
         //getTypes
@@ -266,15 +291,12 @@ public class ProduitController {
         model.addAttribute("Energystudents",""+Energy);
         int Aerospace = daoComptes.countcompteByFiliere ("Aerospace");
         model.addAttribute("Aerospacestudents",""+Aerospace);
-        System.out.println("Aerospacestudents"+Aerospace);
 
         int Medicine = daoComptes.countcompteByFiliere ("Medecine");
         model.addAttribute("Medicinestudents",""+Medicine);
-        System.out.println("Medicinestudents"+Medicine);
 
         int Automobile = daoComptes.countcompteByFiliere ("Automobile");
         model.addAttribute("Automobilestudents",""+Automobile);
-        System.out.println("Automobile"+Automobile);
         return "dashboard_analytics";
     }
 

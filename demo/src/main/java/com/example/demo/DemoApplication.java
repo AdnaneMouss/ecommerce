@@ -110,10 +110,10 @@ public class DemoApplication {
 			System.out.println("Le catégorie n°:" + id + "\t n'existe pas!");
 		}
 	}*/
-	public static void testGetAllCategories() {
+	/*public static void testGetAllCategories() {
 		List<categorie> all = categorieController.getAllCategories();
 		System.out.println(all);
-	}
+	}*/
 	/*public static void testLogin(){
 		String username="usr";
 		String password="psw";
