@@ -21,6 +21,9 @@ public class commande {
     private String méthodePaiement;
     @Column
     private Boolean delivered;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", unique = true)
+    private produit p;
 
     public commande() {
     }

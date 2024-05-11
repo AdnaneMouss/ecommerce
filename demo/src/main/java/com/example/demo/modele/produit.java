@@ -29,6 +29,8 @@ public class produit {
     @ManyToOne
     @JoinColumn(name="category_id")
     private categorie categorie;
+    @OneToOne(mappedBy = "p", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private commande command;
 
     public produit(int id, String label, String description, double price, String color, String photo, int quantity,int rating, String size, categorie categorie) {
         this.id = id;
