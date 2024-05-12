@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:https="http://www.w3.org/1999/xhtml">
 <head>
   <title></title>
   <link rel="stylesheet" type="text/css" href="acceuil.css">
-  <link rel="stylesheet" href=""https://unpkg.com/boxicons@latest/css/boxicons.min.css>
-  <link href="https://cdn.jsdelivr.net/npm/remixion@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixion@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Font+Awesome">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-oXw5vOVaPvfVCIz6B4yLca0ThQEXsaRjzb5OMfFgFSJGgiFGtUgq3+Xzp2Fp0Dl/" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- External CSS for styling -->
 </head>
 <style type="text/css">
     :root {
@@ -24,7 +24,6 @@
   list-style: none;
   text-decoration: none;
 }
-
 header{
   position: absolute;
   right: 0;
@@ -44,11 +43,9 @@ body{
     background: var(--background-gradient);
 
 }
-
 header img{
   width:15%;
 }
-
 .logo{
   font-size: 30px;
   font-weight: 700;
@@ -66,11 +63,9 @@ header img{
     border-bottom: 2px;
     transition: all .55s ease;
 }
-
 .navlist a:hover{
   border-bottom: 2px solid white;
 }
-
 #menu-icon{
   color: white;
   font-size: 35px;
@@ -100,12 +95,9 @@ header img{
   align-items: center;
   gap: 2rem;
 }
-
 section{
   padding: 0 10%;
 }
-
-
 .hero-img{
   background-image: url('path/to/your/image.jpg');
   background-size: cover;
@@ -115,7 +107,6 @@ section{
     .hero-img img {
       animation: pulse 4s infinite;
     }
-
     @keyframes pulse {
       0% {
         transform: scale(1);
@@ -127,7 +118,6 @@ section{
         transform: scale(1);
       }
     }
-
 .merged-img {
   position: all;
   bottom: 60;
@@ -157,7 +147,6 @@ section{
     transition: all .55s ease;
     letter-spacing: 2px;
 }
-
 .hero-text{
   display: inline-black;
   border: 1px solid transparent;
@@ -176,13 +165,11 @@ section{
   line-height: 1;
   margin: 0 0 45px;
 }
-
 .hero-text a:hover{
   background: transparent;
   border: 1px solid white;
   transform: translateX(8p);
 }
-
     #prod1 {
       text-align: center;
       padding: 1px;
@@ -204,7 +191,6 @@ section{
       gap: 20px;
       border-radius: 20px;
     }
-
     .pro {
     background-color: white;
       padding: 20px;
@@ -222,7 +208,6 @@ section{
       border-radius: 8px;
  animation: pulse 4s infinite;
     }
-
     @keyframes pulse {
       0% {
         transform: scale(1);
@@ -241,7 +226,6 @@ section{
     .des span {
       color: #888;
       font-size: 14px;
-     
     }
     .des h5 {
       margin: 5px 0;
@@ -256,21 +240,16 @@ section{
     .rating input {
     display: none;
 }
-
-/* Style for the star labels */
 .rating label {
-    font-size: 19px; /* Adjust the size of the stars */
-    color: #ccc; /* Default color for empty stars */
+    font-size: 19px;
+    color: #ccc;
     cursor: pointer;
-    padding-right: 9px; /* Adjust space between stars */
+    padding-right: 9px;
 }
-
 .rating {
     display: flex;
     flex-direction: row-reverse;
 }
-
-/* Change color of selected stars */
 .rating input:checked ~ label {
     color: #ffcc00;
 }
@@ -287,7 +266,6 @@ section{
   transform: scale(0.9) translateY(-6px);
   border-radius: 2px solid black;
   background: transparent;
-
 }
 .fa-sharp.fa-solid.fa-cart-plus{
   color: white;
@@ -321,7 +299,6 @@ h3{
       font-size: 20px;
       border-radius: 35px;
       color: white;
-
     }
     .indicator a{
       color: white;
@@ -352,11 +329,88 @@ h3{
         max-width: 700px;
         max-height: 1400px;
     }
+    .btn{
+        font-weight: bold; background-color: white; padding: 15px; ;position: absolute;top: 300px; right: 510px; color: #007bff;
+    }
+    .btn:hover{
+        transform: scale(0.9) translateY(-6px);
+        border-radius: 2px solid black;
+        background: transparent;
+        color: white;
+    }
+
+    /* CSS styles for comment popup */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+    .popup-content {
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+    textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+        margin-bottom: 10px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+    .comment {
+        background-color: #f0f0f0;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+    #commentContainer {
+        max-width: 600px; /* Set maximum width */
+        margin: 0 auto; /* Center the container horizontally */
+        padding: 20px; /* Add some padding for spacing */
+        background-color: #f0f0f0; /* Set background color */
+        border-radius: 5px; /* Add border radius for rounded corners */
+        margin-top: 20px; /* Add margin at the top */
+        height: auto; /* Automatically adjust height based on content */
+        overflow: auto; /* Add scrollbars if content overflows */
+    }
+
+    /* Style for individual comments */
+    .comment {
+        margin-bottom: 10px; /* Add margin between comments */
+        padding: 10px; /* Add padding for spacing */
+        background-color: #fff; /* Set background color */
+        border-radius: 3px; /* Add border radius for rounded corners */
+    }
 </style>
 <body>
   <header>
-    <img class="logo" src="img/logo.png">
-
+    <img class="logo" src="/logo.png">
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
       <li><a href="">My Basket</a></li>
@@ -365,21 +419,19 @@ h3{
       <li><a href="mycomplaints.html">My complaints</a></li>
       <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-     
     </ul>
-
     <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 <br><br><br><br><br>
 
-  <section class="hero">
-      <div>
+  <section class="hero"  th:each="oneproduct : ${oneproduct}">
+      <div >
           <section id="prod1" class="section-p1">
               <div class="pro-container" >
                   <div class="pro">
                       <div class="container">
                           <div class="wrapper">
-                              <img src="img/markers.png" alt="Product Photo"/>
+                              <img th:src="${oneproduct.photo}" alt="Product Photo"/>
                           </div>
                       </div>
                       </div>
@@ -387,38 +439,86 @@ h3{
           </section>
       </div>
       <div>
-          <h3 style="color: white;position: absolute;top: 65px;">Category</h3>
-          <h4 style="color: white;position: absolute;top: 125px;">Product Label</h4>
-      <h2 style="color: white;position: absolute;top: 185px;">100.00 MAD</h2>
-          <select style="color: black;position: absolute;top: 225px; padding-bottom: 10px;padding-top: 10px">
-              <option value="" disabled selected>Select a size</option>
-              <option value="" >L</option>
-          </select>
-          <input placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
-          <button style="color: black; font-weight: bold; background-color: white; padding: 20px; ;position: absolute;top: 300px; right: 530px;">Add To cart</button>
-          <h4 style="color: white;position: absolute;top: 405px;">Product Details:</h4>
-          <p style="color: white;position: absolute;top: 450px;">Elevate your audio experience to new heights with our Premium Wireless Headphones. Immerse yourself in the rich, full-bodied sound and enjoy every detail of your favorite music, podcasts, and movies like never before.
-              Crafted with precision and engineered for performance, these headphones deliver exceptional sound quality with a perfect balance of clarity, depth, and punchy bass. Whether you're a discerning audiophile or a casual listener, our Premium Wireless Headphones are designed to exceed your expectations.</p>
+          <div><h3 style="color: white;position: absolute;top: 65px;">
+              <span th:text="${oneproduct.categorie?.catname}"></span>
+          </h3>
+              <h4 style="color: white;position: absolute;top: 125px;">
+                  <span th:text="${oneproduct.label}"></span>
+              </h4>
+              <h2 style="color: white;position: absolute;top: 185px;">
+                  <span th:text="${oneproduct.price}"></span>
+              </h2>
+              <select style="color: black;position: absolute;top: 225px; padding-bottom: 10px;padding-top: 10px">
+                  <option value="" disabled selected>Select a size</option>
+                  <option value="">L</option>
+              </select>
+              <input placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <button class="btn" style="">Add To cart</button>
+              <!-- Product Description -->
+              <h4 style="color: white;position: absolute;top: 405px;">Product Details:</h4>
+              <p style="color: white;position: absolute;top: 450px;">
+                  <span th:text="${oneproduct.description}"></span>
+              </p>
+              <!-- Rating Section -->
+              <div>
+                  <h4 style="color: white;position: absolute;top: 540px;">Rating:</h4>
+                  <p style="color: white;position: absolute;top: 580px;">
+                      <span th:text="${oneproduct.rating}"></span>/5
+                  </p>
+              </div>
+          </div>
+
+          <!-- Add Comment Button -->
+          <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
+          <div id="commentBox"></div>
+          <div id="commentPopup" class="popup">
+              <div class="popup-content">
+                  <span class="close" id="closePopup">&times;</span>
+                  <h2>Add Comment</h2>
+                  <textarea id="commentInput" placeholder="Enter your comment here..."></textarea>
+                  <button id="submitComment">Submit</button>
+              </div>
+          </div>
       </div>
   </section>
+  <div id="commentContainer"></div>
 
-<script type="text/javascript">
+  <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
   const indicatorItems = document.querySelectorAll(".indicator li");
-
   indicatorItems.forEach(function(item) {
     item.addEventListener("click", function() {
-      // Remove the 'active' class from all items
       indicatorItems.forEach(function(item) {
         item.classList.remove("active");
       });
-
-      // Add the 'active' class to the clicked item
       this.classList.add("active");
     });
   });
 });
 
+  // Show comment popup when "Add Comment" button is clicked
+  document.getElementById("openPopup").addEventListener("click", function() {
+      document.getElementById("commentPopup").style.display = "block";
+  });
+
+  // Close comment popup when close button is clicked
+  document.getElementById("closePopup").addEventListener("click", function() {
+      document.getElementById("commentPopup").style.display = "none";
+  });
+
+  // Submit comment and append to comment container at the bottom of the page
+  document.getElementById("submitComment").addEventListener("click", function() {
+      var comment = document.getElementById("commentInput").value;
+      console.log("Comment submitted:", comment);
+      document.getElementById("commentInput").value = "";
+      document.getElementById("commentPopup").style.display = "none";
+
+      var commentContainer = document.getElementById("commentContainer");
+      var newComment = document.createElement("div");
+      newComment.textContent = comment;
+      newComment.classList.add("comment");
+      commentContainer.appendChild(newComment);
+  });
 </script>
 </body>
 </html>

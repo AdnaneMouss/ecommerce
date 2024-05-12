@@ -20,8 +20,6 @@ public class Reclamation {
     private int id;
     @Column
     private String description;
-
-
     @ManyToOne
     @JoinColumn(name = "comptes_id")
     private comptes compte;
