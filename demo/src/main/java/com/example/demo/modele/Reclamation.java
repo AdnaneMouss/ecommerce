@@ -5,11 +5,13 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Reclamation {
-    public Reclamation(int id, String description, String nomUtilisateur) {
+    public Reclamation(int id, String description, comptes compte) {
+        this.id = id;
         this.description = description;
-        this.nomUtilisateur = nomUtilisateur;
+        this.compte = compte;
     }
-    public Reclamation(){
+
+    public Reclamation() {
 
     }
 
@@ -18,8 +20,27 @@ public class Reclamation {
     private int id;
     @Column
     private String description;
-    @Column
-    private String nomUtilisateur;
+
+
+    @ManyToOne
+    @JoinColumn(name = "comptes_id")
+    private comptes compte;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public comptes getCompte() {
+        return compte;
+    }
+
+    public void setCompte(comptes compte) {
+        this.compte = compte;
+    }
 
     public String getdescription() {
         return description;
@@ -27,14 +48,6 @@ public class Reclamation {
 
     public void setdescription(String description) {
         this.description = description;
-    }
-
-    public String getnomUtilisateur() {
-        return nomUtilisateur;
-    }
-
-    public void setnomUtilisateur(String nomUtilisateur) {
-        this.nomUtilisateur = nomUtilisateur;
     }
 
 
@@ -45,5 +58,7 @@ public class Reclamation {
     public int getId() {
         return id;
     }
+
+
 }
 

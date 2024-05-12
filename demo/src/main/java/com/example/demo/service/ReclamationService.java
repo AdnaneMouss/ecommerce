@@ -18,15 +18,30 @@ public class ReclamationService {
     }
 
     public Reclamation getReclamationById(int id) {
-        Optional<Reclamation> reclamation = ReclamationSer.findById((long) id);
+        Optional<Reclamation> reclamation = ReclamationSer.getReclamationById((long) id);
         return reclamation.orElse(null); // Return null if reclamation is not found
     }
 
-    public Reclamation createReclamation(Reclamation reclamation) {
-        return ReclamationSer.save(reclamation);
+    public boolean createReclamation(Reclamation reclamation) {
+        boolean res=false;
+        try{
+            ReclamationSer.save(reclamation);
+            res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return res;
     }
-
-    public void deleteReclamation(int id) {
+public boolean deleteReclamation(int id) {
+    boolean res;
+    if(ReclamationSer.existsById((long) id)) {
+        res=false;
+    }
+    else{
         ReclamationSer.deleteById((long) id);
+        res=true;
     }
+    return res;
+}
 }
