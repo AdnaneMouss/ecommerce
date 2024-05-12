@@ -1,8 +1,12 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.categorie;
+import com.example.demo.modele.commande;
+import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
 import com.example.demo.service.CategorieService;
+import com.example.demo.service.CommandeService;
+import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,12 +27,23 @@ public class ProduitController {
     private CategorieService catService;
     @Autowired
     private CategorieService categorieService;
+    @Autowired
+    private DaoComptes daoComptes;
+    @Autowired
+    private CommandeService commandeService;
+
 
     @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
         List<produit> produits = produitService.getAllProduits();
         model.addAttribute("all",produits);
         return "shop";
+    }
+
+    @GetMapping("/viewdetails")
+    public String details(@RequestParam("id") Long id) {
+        // Redirect to the singleproduct endpoint with the provided ID
+        return "redirect:/products/singleproduct/" + id;
     }
 
     @PostMapping("/addProduct")
@@ -57,6 +72,49 @@ public class ProduitController {
 
             // Redirect to the desired page
             return "redirect:/products/products";
+    }
+
+    @PostMapping("/modify")
+    public String modify(@RequestParam int id, @RequestParam String label, @RequestParam String description,
+                         @RequestParam int stock, @RequestParam double price, @RequestParam String color,
+                         @RequestParam String size, @RequestParam String category) {
+        produit updated = new produit();
+        updated.setId(id);
+        updated.setLabel(label);
+        updated.setDescription(description);
+        updated.setColor(color);
+        updated.setQuantity(stock);
+        updated.setSize(size);
+        updated.setPrice(price);
+        categorie c = new categorie();
+        c.setCatname(category);
+        updated.setCategorie(c);
+        boolean isModified = produitService.updateProduit(id,updated);
+        if (isModified) {
+            System.out.println("Product modified successfully.");
+        } else {
+            System.out.println("Failed to modify product.");
+        }
+
+        return "redirect:/products/products";
+    }
+
+
+
+    @GetMapping("/singleproduct/{id}")
+    public String getSingleProduct(Model model, @PathVariable("id") int id) {
+        Optional<produit> optionalProduct = produitService.getProduitById((long)id);
+
+        // Check if the product exists
+        if (optionalProduct.isPresent()) {
+            produit product = optionalProduct.get();
+            model.addAttribute("oneproduct", product);
+            return "command";
+        } else {
+            // Handle case when product with given ID is not found
+            // You can redirect to an error page or handle it based on your application's requirements
+            return "error"; // Assuming you have an "error" template
+        }
     }
 
     @PutMapping("/{id}")
@@ -112,7 +170,7 @@ public class ProduitController {
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
         //No category
-        categorie all = categorieService.findCategoieByName("Energy");
+        categorie all = categorieService.findCategoieByName("All");
         int countAll = produitService.countProduitsByCategorie(all);
         model.addAttribute("nocat", ""+countAll);
         //getall
@@ -177,6 +235,7 @@ public class ProduitController {
         model.addAttribute("all",produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc",c);
+
         //getRatings
         List<String> productNames = new ArrayList<>();
         List<Double> productRatings = new ArrayList<>();
@@ -186,14 +245,58 @@ public class ProduitController {
         }
         model.addAttribute("productNames", productNames);
         model.addAttribute("productRatings", productRatings);
-        //getRatings
+
+        //getStock
         List<Integer> productQuantity = new ArrayList<>();
         for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productQuantity.add(produit.getQuantity());
         }
-        model.addAttribute("productNames", productNames);
         model.addAttribute("productQuantity", productQuantity);
+
+        //getStock
+        List<comptes> comptes = daoComptes.getAllAccs();
+        List<String> accountName = new ArrayList<>();
+        List<Integer> numOfCommands = new ArrayList<>();
+
+        for (comptes acc : comptes) {
+            int com = commandeService.count(acc);
+            accountName.add(acc.getNom());
+            numOfCommands.add(com);
+        }
+
+        model.addAttribute("accNames", accountName);
+        model.addAttribute("numOfCommands", numOfCommands);
+
+
+        //getTypes
+        int Delivery = daoComptes.countcompteByType("DeliveryMan");
+        model.addAttribute("DeliveryMan",""+Delivery);
+        int Supplier = daoComptes.countcompteByType("Supplier");
+        model.addAttribute("Supplier",""+Supplier);
+        int Student = daoComptes.countcompteByType("Student");
+        model.addAttribute("Student",""+Student);
+        int Admin = daoComptes.countcompteByType("Admin");
+        model.addAttribute(" Admin",""+Admin);
+
+
+        //fields
+        int Architecture = daoComptes.countcompteByFiliere ("Architecture");
+        model.addAttribute("Architecturstudents",""+Architecture);
+
+        int CS = daoComptes.countcompteByFiliere ("CS");
+        model.addAttribute("CSstudents",""+CS);
+
+        int Energy = daoComptes.countcompteByFiliere ("Energy");
+        model.addAttribute("Energystudents",""+Energy);
+        int Aerospace = daoComptes.countcompteByFiliere ("Aerospace");
+        model.addAttribute("Aerospacestudents",""+Aerospace);
+
+        int Medicine = daoComptes.countcompteByFiliere ("Medecine");
+        model.addAttribute("Medicinestudents",""+Medicine);
+
+        int Automobile = daoComptes.countcompteByFiliere ("Automobile");
+        model.addAttribute("Automobilestudents",""+Automobile);
         return "dashboard_analytics";
     }
 

@@ -12,7 +12,6 @@
             margin: 0;
             padding: 0;
         }
-
         .container {
             width: 100%;
             max-width: 600px;
@@ -23,19 +22,16 @@
             padding: 30px;
             box-sizing: border-box;
         }
-
         h1 {
             text-align: center;
             color: #d9534f; /* Rouge */
             margin-bottom: 30px;
         }
-
         .profile-picture-container {
             text-align: center;
             margin-bottom: 30px;
             position: relative;
         }
-
         .profile-picture {
             width: 150px;
             height: 150px;
@@ -46,7 +42,6 @@
             display: block;
             margin: 0 auto;
         }
-
         .change-picture-button {
             background-color: rgba(0, 0, 0, 0.5);
             color: #fff;
@@ -61,31 +56,25 @@
             transform: translate(-50%, -50%);
             display: none;
         }
-
         .profile-picture-container:hover .change-picture-button {
             display: block;
         }
-
         .change-picture-button:hover {
             background-color: rgba(0, 0, 0, 0.7);
         }
-
         form {
             max-width: 400px;
             margin: 0 auto;
         }
-
         label {
             display: block;
             margin-bottom: 20px;
             color: #555;
         }
-
         label i {
             margin-right: 10px;
-            color: #d9534f; /* Rouge */
+            color: #d9534f;
         }
-
         input[type="text"],
         input[type="email"],
         input[type="tel"],
@@ -97,7 +86,6 @@
             box-sizing: border-box;
             margin-top: 5px;
         }
-
         select {
             width: 100%;
             padding: 10px;
@@ -106,7 +94,6 @@
             box-sizing: border-box;
             margin-top: 5px;
         }
-
         button {
             width: 100%;
             padding: 12px;
@@ -119,7 +106,6 @@
             transition: background-color 0.3s ease;
             margin-top: 20px;
         }
-
         button:hover {
             background-color: #c9302c;
         }
@@ -133,14 +119,12 @@
         <label for="profile-picture-input" class="change-picture-button"><i class="fas fa-camera"></i></label>
         <input type="file" id="profile-picture-input" style="display: none;">
     </div>
-
     <form id="profile-form" method="GET">
         <input type="hidden" value="myUsername" name="username">
         <table th:each="compte : ${comptes}" id="s">
             <tr>
                 <th><i class="fas fa-user"></i> Username</th>
                 <td th:text="${compte.username}">Nom d'utilisateur</td>
-
             </tr>
             <tr>
                 <th><i class="fas fa-envelope"></i> Email</th>
@@ -177,32 +161,22 @@
             field.innerHTML = "";
             field.appendChild(input);
         });
-
-
         document.getElementById("modifier-button").style.display = "none";
-        // Create and append Save and Cancel buttons
         var saveButton = document.createElement("button");
         saveButton.textContent = "Save";
         saveButton.type = "button";
         saveButton.onclick = saveProfile;
         document.getElementById("profile-form").appendChild(saveButton);
-
         var cancelButton = document.createElement("button");
         cancelButton.textContent = "Cancel";
         cancelButton.type = "button";
         cancelButton.onclick = cancelEdit;
         document.getElementById("profile-form").appendChild(cancelButton);
-
     }
-
     function saveProfile() {
-        // Logic to save the modified profile
         console.log("Profile saved!");
-        // You can implement the saving logic here
     }
-
     function cancelEdit() {
-        // Reload the page to cancel editing
         location.reload();
     }
 </script>
