@@ -24,4 +24,27 @@ public class CommandeService {
     public List<commande> getAllComm() {
         return commandeRepository.findAll();
     }
+
+    public double calculateTotalBenefit() {
+        List<commande> commands = commandeRepository.findAllByDelivered(true);
+        double totalBenefit = 0.0;
+        for (commande command : commands) {
+            double commandBenefit = command.getP().getPrice() * command.getQuantity();
+            totalBenefit += commandBenefit;
+        }
+        return totalBenefit;
+    }
+    public double calculateTotalBenefitPerMonth(String substring) {
+            double totalBenefit = 0.0;
+            List<commande> commands = commandeRepository.findByDateLivraisonContaining(substring);
+            for (commande command : commands) {
+                if (command.isDelivered()) {
+                    double commandBenefit = command.getP().getPrice() * command.getQuantity();
+                    totalBenefit += commandBenefit;
+                }
+            }
+        return totalBenefit;
+    }
+
+
 }

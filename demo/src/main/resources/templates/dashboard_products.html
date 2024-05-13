@@ -407,30 +407,33 @@
           <img src="/logo.png">
           <span class="nav-item">DASHBOARD</span>
         </a>
-            <a href="dashboard_accounts.html">
-          <i class="fas fa-database"></i>
-          <span class="nav-item">Accounts</span>
+            <a href="/comptes/count">
+          <i class="fas fa-solid fa-users"></i>
+          <span class="nav-item">Accounts</span><br><br><br><br>
         </a>
-            <a href="dashboard_products.html">
+            <a href="products/products">
           <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Products</span>
+          <span class="nav-item">Products</span><br><br><br><br>
         </a>
-        <a href="dashboard_contact.html">
-          <i class="fas fa-comment"></i>
-          <span class="nav-item">Contact</span>
+                <a href="categories/categories">
+          <i class="fas fa-sharp fa-regular fa-list"></i>
+          <span class="nav-item">Categories</span><br><br><br><br>
         </a>
-        <a href="dashboard_analytics.html">
-          <i class="fas fa-database"></i>
-          <span class="nav-item">Analytics</span>
+        <a href="products/analytics">
+            <i class="fas fa-solid fa-chart-simple"></i>
+          <span class="nav-item">Analytics</span><br><br><br><br>
         </a>
-         <a href="settings.html">
+        <a href="">
+                  <i class="fas fa-sharp fa-solid fa-envelope"></i>
+          <span class="nav-item">Contact</span><br><br><br><br>
+        </a>
+         <a href="">
           <i class="fas fa-cog"></i>
-          <span class="nav-item">Settings</span>
+          <span class="nav-item">Settings</span><br><br><br><br>
         </a>
-
-        <a href="#">
+        <a href="log/login">
           <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span>
+          <span class="nav-item">Log out</span><br><br><br><br>
         </a>
       </ul>
     </nav>
@@ -563,26 +566,27 @@
             </tr>
         </thead>
 
-      <tbody>
-    <tr th:each="produit : ${all}" class="productRow">
-        <td th:text="${produit.id}"></td>
-        <td th:text="${produit.label}"></td>
-        <td th:text="${produit.description}"></td>
-        <td th:text="${produit.quantity}"></td>
-        <td th:text="${produit.price}"></td>
-        <td th:text="${produit.color}"></td>
-        <td th:text="${produit.size}"></td>
-        <td th:text="${produit.categorie?.catname}"></td>
-       <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
-        <td>
-           <input type="hidden" id="productId" name="id" />
-             <button onclick="prepareDelete(this)">Delete</button>
-            &nbsp;<button onclick="modifyRow(this)">Modify</button>
-        </td>
-    </tr>
-</tbody>
+        <tbody>
+            <tr th:each="produit : ${all}" class="productRow">
+                <td th:text="${produit.id}"></td>
+                <td th:text="${produit.label}"></td>
+                <td th:text="${produit.description}"></td>
+                <td th:text="${produit.quantity}"></td>
+                <td th:text="${produit.price}"></td>
+                <td th:text="${produit.color}"></td>
+                <td th:text="${produit.size}"></td>
+                <td th:text="${produit.categorie?.catname}"></td>
+                <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
+                <td>
+                    <input type="hidden" id="productId" name="id" />
+                    <button onclick="prepareDelete(this)">Delete</button>
+                    &nbsp;<button onclick="fillFormFields(this)">Modify</button>
+                </td>
+            </tr>
+        </tbody>
     </table>
-         </form>
+</form>
+
 </div>
     <section class="main">
       <div class="main-top">
@@ -639,16 +643,6 @@
 
     </section>
   </div>
-<script>
-  function validateImageSize(input) {
-      const file = input.files[0];
-      const maxSizeInBytes = 500 * 500; // 1MB
-      if (file && file.size > maxSizeInBytes) {
-          alert("Please select an image smaller than 1MB.");
-          input.value = ""; // Clear the file input
-      }
-  }
-</script>
 <script th:inline="javascript">
   function showImage(imageUrl) {
       // Create a new window to display the image
@@ -723,20 +717,14 @@
         }
     }
 </script>
-    <script>
-        function prepareDelete(button) {
-            var categoryId = button.parentNode.parentNode.querySelector("td:first-child").innerText;
-            document.getElementById("productId").value = categoryId;
-            document.getElementById("deleteForm").submit();
-        }
-    </script>
 <script>
+    var priceSortDir = "asc";
     function sortByPrice() {
         var table, rows, switching, i, x, y, shouldSwitch;
         table = document.querySelector(".table");
         switching = true;
-        // Set the sorting direction to ascending:
-        var dir = "asc";
+        // Set the sorting direction:
+        var dir = priceSortDir;
         while (switching) {
             switching = false;
             rows = table.rows;
@@ -766,16 +754,17 @@
             }
         }
         // Reverse the direction for next sorting iteration:
-        dir = (dir === "asc") ? "desc" : "asc";
+        priceSortDir = (dir === "asc") ? "desc" : "asc";
     }
 </script>
 <script>
+    var stockSortDir = "asc";
     function sortByStock() {
         var table, rows, switching, i, x, y, shouldSwitch;
         table = document.querySelector(".table");
         switching = true;
-        // Set the sorting direction to ascending:
-        var dir = "asc";
+        // Set the sorting direction:
+        var dir = stockSortDir;
         while (switching) {
             switching = false;
             rows = table.rows;
@@ -783,7 +772,7 @@
             for (i = 1; i < (rows.length - 1); i++) {
                 shouldSwitch = false;
                 // Get the two elements you want to compare, one from current row and one from the next:
-                x = rows[i].getElementsByTagName("TD")[3]; // Price column index is 4
+                x = rows[i].getElementsByTagName("TD")[3]; // Stock column index is 3
                 y = rows[i + 1].getElementsByTagName("TD")[3];
                 // Check if the two rows should switch place, based on the direction, asc or desc:
                 if (dir === "asc") {
@@ -805,9 +794,10 @@
             }
         }
         // Reverse the direction for next sorting iteration:
-        dir = (dir === "asc") ? "desc" : "asc";
+        stockSortDir = (dir === "asc") ? "desc" : "asc";
     }
 </script>
+
 <script>
     function searchByLabel() {
         // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
@@ -830,8 +820,63 @@
             }
         }
     }
-</script>
+    function fillFormFields(button) {
+        var row = button.parentNode.parentNode;
+        var cells = row.getElementsByTagName("td");
+        var id = row.querySelector("input[name='id']").value;
 
+        document.getElementById("productId").value = id;
+
+        for (var i = 1; i < cells.length - 1; i++) {
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = cells[i].parentNode.getElementsByTagName("th")[i].textContent.toLowerCase();
+            input.value = cells[i].innerText.trim();
+            cells[i].innerHTML = "";
+            cells[i].appendChild(input);
+        }
+
+        var modifyButton = row.querySelector("button[type='button']");
+        modifyButton.style.display = "none";
+    }
+</script>
+<script>
+  const deleteButton = document.getElementById('deleteButton');
+  const confirmationPanel = document.getElementById('confirmationPanel');
+  const confirmDeleteButton = document.getElementById('confirmDelete');
+  const cancelDeleteButton = document.getElementById('cancelDelete');
+
+  deleteButton.addEventListener('click', function() {
+      confirmationPanel.style.display = 'block';
+  });
+
+  cancelDeleteButton.addEventListener('click', function() {
+      confirmationPanel.style.display = 'none';
+  });
+
+  confirmDeleteButton.addEventListener('click', function() {
+      // Code to delete the item goes here
+      confirmationPanel.style.display = 'none';
+      alert('Item deleted successfully.');
+  });
+</script>
+    <script>
+        function prepareDelete(button) {
+            var prodid = button.parentNode.parentNode.querySelector("td:first-child").innerText;
+            document.getElementById("productId").value = prodid;
+            document.getElementById("deleteForm").submit();
+        }
+    </script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+</script>
 </body>
 </html>
 </span>

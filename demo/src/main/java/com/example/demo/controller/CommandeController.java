@@ -27,4 +27,6 @@ public class CommandeController {
         model.addAttribute("all",c);
         return "General_livreur";
     }
+
+
 }
