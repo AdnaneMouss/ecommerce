@@ -23,8 +23,6 @@ public class comptes {
     private String filiere;
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<commande> commandes;
-
-
     public int getId() {
         return id;
     }

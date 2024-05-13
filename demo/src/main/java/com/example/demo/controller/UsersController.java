@@ -18,10 +18,10 @@ public class UsersController {
         comptes compte = usersService.authenticate(username, password);
         if (compte != null) {
             session.setAttribute("authenticatedUsername", compte.getUsername());
-            session.setAttribute("authenticatedPhoto", compte.getPhoto());
+            System.out.println(compte.getUsername());
             System.out.println(session);
             model.addAttribute("authenticatedUser", compte);
-            return "redirect:/products/catalogue";
+            return "shop";
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "loginPage";
