@@ -41,6 +41,7 @@ public DaoComptes(CompteRepository compteRepository){
         return res;
     }
 
+
     public boolean updateCompte(int id, comptes updatedCompte) {
         boolean res=false;
         try{
@@ -57,14 +58,16 @@ public DaoComptes(CompteRepository compteRepository){
     public boolean deleteCompte(int id) {
         boolean res;
         if(compteRepository.existsById((long) id)) {
-            res=false;
-        }
-        else{
             compteRepository.deleteById((long) id);
             res=true;
         }
+        else{
+
+            res=false;
+        }
         return res;
     }
+
     public int countcompte() {
         return (int) compteRepository.count();
     }

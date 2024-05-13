@@ -18,23 +18,14 @@ public class UsersController {
         comptes compte = usersService.authenticate(username, password);
         if (compte != null) {
             session.setAttribute("authenticatedUsername", compte.getUsername());
-            System.out.println(compte.getUsername());
+            session.setAttribute("authenticatedPhoto", compte.getPhoto());
             System.out.println(session);
             model.addAttribute("authenticatedUser", compte);
-            if(compte.getType() == "Admin"){
-                return"dashboard_products";
-            }
-            else if(compte.getType() == "Customer"){
-                return "shop";
-            }
-            else if(compte.getType() == "Deliveryman"){
-                return "General_livreur";
-            }
+            return "redirect:/products/catalogue";
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "loginPage";
         }
-        return null;
     }
     @GetMapping("/comptes/{username}")
     public String obtenirUtilisateurParNom(@PathVariable String nomUtilisateur, Model model) {
