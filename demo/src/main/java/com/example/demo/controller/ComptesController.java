@@ -22,9 +22,10 @@ public class ComptesController {
     }
 
     @GetMapping
-    public  List<comptes> getAllAccs() {
-        return daoComptes.getAllAccs();
+    public  List<comptes> getAllAccs() {return daoComptes.getAllAccs();
     }
+
+
 
     @GetMapping("/{id}")
     public comptes getComptesById(@PathVariable int id) {
@@ -114,6 +115,21 @@ System.out.println(""+countCompte);
         System.out.println("Automobile"+Automobile);
 
 
+        List<comptes> comptes = daoComptes.getAllAccs();
+        model.addAttribute("all",comptes);
+
         return "dashboard_accounts";
 }
+    @PostMapping("/delete")
+    public String delete(@RequestParam int id) {
+
+        boolean isDeleted = daoComptes.deleteCompte(id);
+        if (isDeleted) {
+            System.out.println("Account deleted successfully.");
+        } else {
+            System.out.println("Failed to delete account.");
+        }
+
+        return "redirect:/comptes/count";
+    }
 }
