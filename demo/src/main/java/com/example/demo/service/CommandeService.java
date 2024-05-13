@@ -46,5 +46,9 @@ public class CommandeService {
         return totalBenefit;
     }
 
+    public int countCommByfiliere(String filiere){
+        return commandeRepository.countByCompte_Filiere(filiere);
+    }
+
 
 }

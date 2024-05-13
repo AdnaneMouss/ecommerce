@@ -5,6 +5,7 @@ import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.produit;
+import com.example.demo.service.CommandeService;
 import com.example.demo.service.DaoComptes;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
@@ -19,14 +20,16 @@ public class DemoApplication {
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
 	private static DaoComptes DaoComptes=null;
+	private static CommandeService cs=null;
 
 
-	public DemoApplication( ProduitService produitService, ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
+	public DemoApplication( ProduitService produitService,CommandeService cs ,ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
+		this.cs=cs;
 	}
 
 	public static void main(String[] args) {
@@ -38,6 +41,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
+		test();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -156,4 +160,9 @@ public class DemoApplication {
 			System.out.println("Erreur lors de la mise à jour du compte!");
 		}
 	}*/
+	public static void test(){
+		String filiere="hh";
+		int count = cs.countCommByfiliere(filiere);
+		System.out.println(count);
+	}
 }
