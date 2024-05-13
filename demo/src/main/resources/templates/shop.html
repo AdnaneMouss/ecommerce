@@ -42,7 +42,6 @@ header{
 body{
     top:20px;
     background: var(--background-gradient);
-
 }
 
 header img{
@@ -54,18 +53,30 @@ header img{
   font-weight: 700;
   color: white;
 }
-.navlist{
-  display: flex;
-}
-.navlist a {
-  color: white;
-  padding: 20px;
-    margin-left: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    border-bottom: 2px;
-    transition: all .55s ease;
-}
+    .navlist {
+        display: flex;
+        align-items: center; /* Align items vertically */
+    }
+
+    .navlist li {
+        margin-left: 10px; /* Adjust spacing between list items */
+    }
+
+    .navlist img {
+        width: 30px; /* Adjust the width of the image */
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
 
 .navlist a:hover{
   border-bottom: 2px solid white;
@@ -328,7 +339,6 @@ h3{
       text-decoration: none;
     }
     .indicator .active{
-      background: ;
       color: white;
     }
     .indicator .active a{
@@ -357,6 +367,34 @@ h3{
         width: 200px;
         height: 200px;
     }
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
 </style>
 <body>
   <header>
@@ -367,11 +405,14 @@ h3{
       <li><a href="">My Basket</a></li>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
-        <li><h3 style="color: white" th:text="${session.authenticatedUser}"></h3></li>
       <li><a href="mycomplaints.html">My complaints</a></li>
-      <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
+        <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+        <div id="panel" class="panel">
+            <p th:text="${session.authenticatedUsername}"></p>
+            <button style="background-color: blue">Account information</button>
+            <button><a href="/log/login">Log out</a></button>
+        </div>
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-
      
     </ul>
 
@@ -381,6 +422,7 @@ h3{
       <section class="hero">
     <div class="hero-text">
  <h6 style="color: white">New arrivals</h6>
+
  <h1 style="color: white">New arrivals <br> Ready to Elevate Your Experience.</h1>
  <p style="font-family: arial"> 
 Discover our freshest selection of masks, crafted to combine both style and functionality seamlessly. Embrace comfort and protection with our latest arrivals, designed with precision and care. From chic designs to timeless classics, our new masks cater to every taste and need. Elevate your everyday look while staying safe with our innovative collection. Shop now and stay ahead with the latest trends in mask fashion.</p>
@@ -428,7 +470,6 @@ Discover our freshest selection of masks, crafted to combine both style and func
                               <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
                           </div>
                       </div>
-
                       <button class="fa-sharp fa-solid fa-cart-plus"></button>
                       <h3 th:text="${product.price}"></h3>
                   </div>
@@ -455,7 +496,16 @@ Discover our freshest selection of masks, crafted to combine both style and func
     });
   });
 });
-
+</script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
 </script>
 </body>
 </html>

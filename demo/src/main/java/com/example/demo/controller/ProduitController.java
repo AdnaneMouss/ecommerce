@@ -41,7 +41,7 @@ public class ProduitController {
     }
 
     @GetMapping("/viewdetails")
-    public String details(@RequestParam("id") Long id) {
+    public String details(@RequestParam int id) {
         // Redirect to the singleproduct endpoint with the provided ID
         return "redirect:/products/singleproduct/" + id;
     }
@@ -297,6 +297,55 @@ public class ProduitController {
 
         int Automobile = daoComptes.countcompteByFiliere ("Automobile");
         model.addAttribute("Automobilestudents",""+Automobile);
+
+        //benefit
+        double chiffreAffaires=commandeService.calculateTotalBenefit();
+        model.addAttribute("CA",""+chiffreAffaires);
+
+        //benefitPerMonth
+        double january = commandeService.calculateTotalBenefitPerMonth("January");
+        model.addAttribute("january", "" + january);
+
+        double february = commandeService.calculateTotalBenefitPerMonth("February");
+        model.addAttribute("february", "" + february);
+
+        double march = commandeService.calculateTotalBenefitPerMonth("March");
+        model.addAttribute("march", "" + march);
+
+        double april = commandeService.calculateTotalBenefitPerMonth("April");
+        model.addAttribute("april", "" + april);
+
+        double may = commandeService.calculateTotalBenefitPerMonth("May");
+        model.addAttribute("may", "" + may);
+
+        double june = commandeService.calculateTotalBenefitPerMonth("June");
+        model.addAttribute("june", "" + june);
+
+        double july = commandeService.calculateTotalBenefitPerMonth("July");
+        model.addAttribute("july", "" + july);
+
+        double august = commandeService.calculateTotalBenefitPerMonth("August");
+        model.addAttribute("august", "" + august);
+
+        double september = commandeService.calculateTotalBenefitPerMonth("September");
+        model.addAttribute("september", "" + september);
+
+        double october = commandeService.calculateTotalBenefitPerMonth("October");
+        model.addAttribute("october", "" + october);
+
+        double november = commandeService.calculateTotalBenefitPerMonth("November");
+        model.addAttribute("november", "" + november);
+
+        double december = commandeService.calculateTotalBenefitPerMonth("December");
+        model.addAttribute("december", "" + december);
+
+        //benefitPerYear
+        double twentyfour= commandeService.calculateTotalBenefitPerMonth("2024");
+        model.addAttribute("twentyfour", "" + twentyfour);
+        double twentythree= commandeService.calculateTotalBenefitPerMonth("2025");
+        model.addAttribute("twentythree", "" + twentythree);
+
+
         return "dashboard_analytics";
     }
 

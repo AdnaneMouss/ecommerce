@@ -21,19 +21,23 @@ public class commande {
     private String méthodePaiement;
     @Column
     private Boolean delivered;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", unique = true)
+    @Column
+    private int quantity;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private produit p;
 
     public commande() {
     }
-    public commande(int id, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered) {
+    public commande(int id, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered) {
         this.id = id;
         this.compte = compte;
         this.dateLivraison = dateLivraison;
         this.lieuLivraison = lieuLivraison;
         this.méthodePaiement = méthodePaiement;
         this.delivered = delivered;
+        this.p=p;
+        this.quantity= quantity;
     }
     public int getId() {
         return id;
@@ -71,6 +75,27 @@ public class commande {
     public void setDelivered(Boolean delivered) {
         this.delivered = delivered;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public produit getP() {
+        return p;
+    }
+
+    public void setP(produit p) {
+        this.p = p;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
     @Override
     public String toString() {
         return "commande{" +
