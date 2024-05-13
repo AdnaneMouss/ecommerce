@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
 import com.example.demo.service.DaoComptes;
@@ -33,10 +34,7 @@ public class ComptesController {
         return comptes.orElse(null);
     }
 
-    @PostMapping("/addComptes")
-    public boolean addComptes(@RequestBody comptes comptes) {
-        return daoComptes.createCompte(comptes);
-    }
+
 
     @PutMapping("/{id}")
     public boolean updateComptes(@PathVariable int id, @RequestBody comptes updatedComptes) {
@@ -120,6 +118,50 @@ System.out.println(""+countCompte);
 
         return "dashboard_accounts";
 }
+    @PostMapping("/addcompteuser")
+    public String addProduct( @RequestParam int phone, @RequestParam String fullname,@RequestParam String emailadress,
+                             @RequestParam String photo, @RequestParam String username, @RequestParam String password, @RequestParam String field) {
+
+
+        // Create a product object and set its properties
+        comptes account = new comptes();
+account.setType("Student");
+account.setFiliere(field);
+account.setEmail(emailadress);
+account.setUsername(username);
+account.setNom(fullname);
+account.setPhone(phone);
+account.setPhoto(photo);
+
+        // Save the product to the database
+        daoComptes.createCompte(account);
+
+        // Redirect to the desired page
+        return "redirect:/comptes/count";
+    }
+
+    @PostMapping("/addcompteforothers")
+    public String addProductall( @RequestParam int phone, @RequestParam String fullname,@RequestParam String emailadress,
+                               @RequestParam String username, @RequestParam String password,@RequestParam String type, @RequestParam String photo) {
+
+
+
+        // Create a product object and set its properties
+        comptes account = new comptes();
+        account.setType(type);
+        account.setPassword(password);
+        account.setEmail(emailadress);
+        account.setUsername(username);
+        account.setNom(fullname);
+        account.setPhone(phone);
+        account.setPhoto(photo);
+
+        // Save the product to the database
+        daoComptes.createCompte(account);
+
+        // Redirect to the desired page
+        return "redirect:/comptes/count";
+    }
     @PostMapping("/delete")
     public String delete(@RequestParam int id) {
 

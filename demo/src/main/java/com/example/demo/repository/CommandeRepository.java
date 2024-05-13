@@ -12,4 +12,5 @@ int countCommandesByCompte(comptes compte);
 List<commande> findAllByDelivered(Boolean delivered);
 List<commande> findAllByDeliveredAndDateLivraison(Boolean delivered, String dateLivraison);
 List<commande> findByDateLivraisonContaining(String keyword);
+
 }
