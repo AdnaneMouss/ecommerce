@@ -3,7 +3,7 @@
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="acceuil.css">
-    <link rel="stylesheet" href=""https://unpkg.com/boxicons@latest/css/boxicons.min.css>
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/remixion@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -392,13 +392,45 @@ h3{
     top: 210px; /* Ajustez la valeur en fonction de votre conception */
     right: 10%; /* Ajustez la distance par rapport à la droite */
 }
-
+.complaint-form {
+            width: fit-content;
+            padding: 30px;
+            margin: 50px auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+        }
+        .complaint-form label {
+            margin-bottom: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        .complaint-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .complaint-form input[type="submit"] {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .complaint-form input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
 
 </style>
 <body>
 <header>
     <img class="logo" src="img/logo.png">
-
     <ul class="navlist">
         <li><a href="">Catalog</a></li>
         <li><a href="">My Basket</a></li>
@@ -407,9 +439,7 @@ h3{
         <li><a href="mycomplaints.html">My complaints</a></li>
         <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
         <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-
     </ul>
-
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <br><br><br><br><br>
@@ -417,20 +447,72 @@ h3{
     <div class="hero-text">
         <h1 style="color: white; margin-top: 100px;">My complaints</h1>
     </div>
-
     <div class="add-complaint-container">
-        <button class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
+        <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
+    </div>
+    <div class="card" id="complaint-form" style="display: none;">
+        <h2>Add Complaint</h2>
+        <form id="actual-complaint-form">
+            <!-- Ajoutez ici les champs du formulaire pour ajouter une réclamation -->
+            <label for="service-concerned">Service concerné:</label><br>
+            <input type="text" id="service-concerned" name="service-concerned"><br>
+            <label for="complaint-description">Description:</label><br>
+            <textarea id="complaint-description" name="complaint-description" rows="4" cols="50"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 
-    <div class="card">
-        <h2>Reclamation Num 1</h2>
-        <p><strong>Date :</strong> 5 mai 2024</p>
-        <p><strong>Service concerné :</strong> Service client</p>
-        <p><strong>Description :</strong> Problème avec la livraison</p>
+    <div class="card" id="complaint-card" style="display: none;">
+        <h2>Complaint</h2>
+        <label for="service-concerned">Service concerné:</label><br>
+        <p id="service-concerned-display"></p>
+        <label for="complaint-description">Description:</label><br>
+        <p id="complaint-description-display"></p>
+        <button id="delete-complaint-button"><i class="fas fa-trash"></i> Delete</button>
     </div>
+
+
 </section>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const addComplaintButton = document.getElementById("add-complaint-button");
+        const complaintForm = document.getElementById("complaint-form");
+        const actualComplaintForm = document.getElementById("actual-complaint-form");
+        const complaintCard = document.getElementById("complaint-card");
 
+        addComplaintButton.addEventListener("click", function() {
+            if (complaintForm.style.display === "none") {
+                complaintForm.style.display = "block";
+                complaintCard.style.display = "none";
+            } else {
+                complaintForm.style.display = "none";
+            }
+        });
 
+        actualComplaintForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const complaintService = document.getElementById("service-concerned").value;
+            const complaintDescription = document.getElementById("complaint-description").value;
+            document.getElementById("service-concerned-display").textContent = complaintService;
+             document.getElementById("complaint-description-display").textContent = complaintDescription;
+            complaintCard.style.display = "block";
+            complaintForm.style.display = "none";
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function() {
+    const deleteButton = document.getElementById("delete-complaint-button");
+    const complaintCard = document.getElementById("complaint-card");
+
+    deleteButton.addEventListener("click", function() {
+        const confirmDelete = confirm("Are you sure you want to delete this complaint?");
+        if (confirmDelete) {
+            complaintCard.style.display = "none";
+            // Vous pouvez ajouter ici la logique pour supprimer la plainte du backend si nécessaire
+        }
+    });
+});
+
+</script>
 </body>
 </html>
