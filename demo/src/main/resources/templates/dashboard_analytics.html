@@ -149,7 +149,7 @@ a:hover i{
 }
 
 .users .card{
-  width: 50%;
+  width: 29%;
   margin: 10px;
   height: 100px;
   background: #fff;
@@ -332,59 +332,44 @@ table thead tr{
 
     <section class="main">
 <h2 style="color: white">ANALYTICS PAGE</h2> <h4 style="color: white">Discover fluidly crucial products' information</h4>
-     <!-- <section>
-      <div class="main-top">
-        <h1 style="color: white;">DASHBOARD</h1>
-      </div>
+     <section>
       <div class="users">
-        <div class="card">
+            <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${productCount}"></span></h1>
-          <h4>Sold products</h4>
-        </div>
-        <div class="second">
-          <img src="/dollars.png">
-        </div>
-      </section>
-    </div>
-
-        <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1>5300.83 MAD</h1>
-          <h4>Net profit</h4>
+          <h1 th:text="${CA}"></h1>
+          <h4>Net Profit</h4>
         </div>
         <div class="second">
           <img src="/arrowgain.png">
         </div>
       </section>
     </div>
-        <div class="card">
+                     <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1>15</h1>
-          <h4>Done deliveries</h4>
+          <h1 th:text="${twentythree}+ ' MAD '"></h1>
+          <h4>Net Profit (2023)</h4>
         </div>
         <div class="second">
-          <img src="/donedeliveries.png">
+          <img src="/arrowgain.png">
+        </div>
+      </section>
+    </div>
+                     <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1 th:text="${twentyfour}+ ' MAD '"></h1>
+          <h4>Net Profit (2024)</h4>
+        </div>
+        <div class="second">
+          <img src="/arrowgain.png">
         </div>
       </section>
     </div>
 
-            <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1>25</h1>
-          <h4>Remaining deliveries</h4>
-        </div>
-        <div class="second">
-          <img src="/remainingdeliveries.png">
-        </div>
-      </section>
-    </div>
       </div>
-    </section>-->
+    </section>
 <section class="charts">
     <div class="chart">
   <canvas id="quantity"></canvas>
@@ -398,12 +383,17 @@ table thead tr{
 </section>
        <section class="charts">
 <div class="chart">
-  <canvas id="graphiqueEnCourbes"></canvas>
+  <canvas id="command"></canvas>
 </div>
         <div class="piechart">
-  <canvas id="myPieChart2"></canvas>
+  <canvas id="usersPerField"></canvas>
 </div>
 </section>
+        <section class="charts">
+            <div class="chart">
+                <canvas id="benefitsChart"></canvas>
+            </div>
+        </section>
     </section>
   </div>
 </body>
@@ -462,6 +452,64 @@ table thead tr{
   };
 
   var ctx = document.getElementById('myPieChart').getContext('2d');
+
+  var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: data,
+      options: options
+  });
+  /*]]>*/
+</script>
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  // Get data from Thymeleaf attributes
+  var archiCount = /*[[${Architecturstudents}]]*/ '0'; // Default value if not provided
+  var autoCount = /*[[${Automobilestudents}]]*/ '0'; // Default value if not provided
+  var aeroCount = /*[[${Aerospacestudents}]]*/ '0'; // Default value if not provided  var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
+  var energyCount = /*[[${Energystudents}]]*/ '0'; // Default value if not provided
+  var csCount = /*[[${CSstudents}]]*/ '0'; // Default value if not provided
+  var medecineCount = /*[[${Medicinestudents}]]*/ '0'; // Default value if not provided
+
+  // Sample data for the pie chart
+  var data = {
+      labels: ['Architecture', 'Automobile', 'Aerospace', 'Computer science', 'Medecine', 'Energy'],
+      datasets: [{
+          label: 'Number of users',
+          data: [archiCount, autoCount, aeroCount, csCount, medecineCount, energyCount],
+          backgroundColor: [
+              'red',
+              '#ADFF2F',
+              'blue',
+              'white',
+              'black',
+              'orange',
+          ],
+          borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+          ],
+          borderWidth: 1
+      }]
+  };
+
+  var options = {
+      plugins: {
+          title: {
+              display: true,
+              text: 'Users per field',
+              font: {
+                  size: 25,
+                  weight: 'bold',
+                  family: 'Bradley Hand'
+              },
+              align: 'left',
+              color: 'red'
+          }
+      }
+  };
+
+  var ctx = document.getElementById('usersPerField').getContext('2d');
 
   var myPieChart = new Chart(ctx, {
       type: 'pie',
@@ -558,7 +606,6 @@ table thead tr{
   /*]]>*/
 </script>
 
-
 <script th:inline="javascript">
   /*<![CDATA[*/
   // Get data from Thymeleaf attributes
@@ -646,136 +693,156 @@ table thead tr{
   /*]]>*/
 </script>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    // Get data from Thymeleaf attributes
+    var productNames = /*[[${accNames}]]*/ [];
+    var productRatings = /*[[${numOfCommands}]]*/ [];
 
-
-
-<script>
-  // Sample data for the pie chart
-  var data = {
-    labels: ['Sold products', 'Remaining products'],
-    datasets: [{
-      label: 'My First Dataset',
-      data: [12, 19],
-      backgroundColor: [
-        'red',
-        '#ADFF2F',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-      ],
-      borderWidth: 1
-    }]
-  };
-      var options = {
-    plugins: {
-      title: {
-        display: true,
-        text: 'Sales status',
-        font: {
-          size: 25,
-          weight: 'bold',
-          family: 'Bradley Hand'
-        },
-        align: 'left',
-        color:'red'
-      }
+    // Create an array of objects to store both product names and ratings
+    var data = [];
+    for (var i = 0; i < productNames.length; i++) {
+        data.push({name: productNames[i], rating: productRatings[i]});
     }
-  };
 
-  var ctx = document.getElementById('myPieChart2').getContext('2d');
+    // Sort the data array based on ratings in descending order
+    data.sort(function(a, b) {
+        return b.rating - a.rating;
+    });
 
-  var myPieChart = new Chart(ctx, {
-    type: 'pie',
-    data: data,
-    options: options
-  });
+    // Extract sorted product names and ratings
+    var sortedProductNames = data.map(function(item) { return item.name; });
+    var sortedProductRatings = data.map(function(item) { return item.rating; });
+
+    // Data for the bar chart
+    var chartData = {
+        labels: sortedProductNames,
+        datasets: [{
+            label: 'Number of commands',
+            data: sortedProductRatings,
+            backgroundColor: 'red', // Change color here
+            borderColor: 'white', // Change color here
+            borderWidth: 1
+        }]
+    };
+
+    var options = {
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Commands'
+                },
+                ticks: {
+                    callback: function(value) {
+                        if (Number.isInteger(value)) {
+                            return value; // Display integer values as they are
+                        } else {
+                            return ''; // Display decimal values as empty string
+                        }
+                    }
+                }
+            },
+            x: {
+                display: false, // Hide x-axis labels
+                title: {
+                    display: false,
+                    text: 'Product'
+                }
+            }
+        },
+        plugins: {
+            title: {
+                display: true,
+                text: 'Most Loyal Clients',
+                font: {
+                    size: 25,
+                    weight: 'bold',
+                    family: 'Bradley Hand'
+                },
+                align: 'left',
+                color: 'red'
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.dataset.label + ': ' + context.formattedValue;
+                    }
+                }
+            }
+        }
+    };
+
+    var ctx = document.getElementById('command').getContext('2d');
+
+    var myBarChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: options
+    });
+
+    // Increase bar thickness
+    myBarChart.options.plugins.title.display = false;
+    myBarChart.options.scales.x.categoryPercentage = 0.9;
+    myBarChart.options.scales.x.barPercentage = 0.9;
+    /*]]>*/
 </script>
 
-<script>
-   var data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-    datasets: [{
-      label: 'Medicine sales',
-      data: [100, 20, 300, 40, 500, 0],
-      borderColor: 'red',
-      borderWidth: 2,
-      fill: false
-    },
-    {
-      label: 'Architecture sales',
-      data: [150, 140, 40, 50, 0, 0], // Données pour la deuxième ligne
-      borderColor: 'blue',
-      borderWidth: 2,
-      fill: false
-    },
-        {
-      label: 'Computer science sales',
-      data: [50, 250, 50, 450, 550, 250], // Données pour la deuxième ligne
-      borderColor: 'green',
-      borderWidth: 2,
-      fill: false
-    },
-        {
-      label: 'Energy sales',
-      data: [0, 50, 350, 150, 50, 350], // Données pour la deuxième ligne
-      borderColor: 'black',
-      borderWidth: 2,
-      fill: false
-    },
-        {
-      label: 'Automative sales',
-      data: [0, 0, 0, 0, 120, 230], // Données pour la deuxième ligne
-      borderColor: 'cyan',
-      borderWidth: 2,
-      fill: false
-    }]
-  };
+<script th:inline="javascript">
+    // Retrieve data from Thymeleaf model attributes
+    var january = [[${january}]];
+    var february = [[${february}]];
+    var march = [[${march}]];
+    var april = [[${april}]];
+    var may = [[${may}]];
+    var june = [[${june}]];
+    var july = [[${july}]];
+    var august = [[${august}]];
+    var september = [[${september}]];
+    var october = [[${october}]];
+    var november = [[${november}]];
+    var december = [[${december}]];
 
-  // Options pour le graphique en courbes
-  var options = {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        },
-              gridLines: {
-        display: false // Hide gridlines for the y-axis
-      }
-      }],
-          xAxes: [{
-      gridLines: {
-        display: false // Hide gridlines for the x-axis
-      }
-    }]
-  },
-    plugins: {
-      title: {
-        display: true,
-        text: 'Sales status',
-        font: {
-          size: 25,
-          weight: 'bold',
-          family: 'Bradley Hand'
-        },
-        align: 'left',
-        color:'red'
-      },
-              legend: {
-      position: 'bottom', // Position legend at the bottom
-      align: 'center', // Align legend items to center
-    }
-    }
-};
-  // Obtenir le contexte du canvas
-  var ctx = document.getElementById('graphiqueEnCourbes').getContext('2d');
+    // Chart data
+    var chartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [{
+            label: 'Monthly Benefits',
+            data: [january, february, march, april, may, june, july, august, september, october, november, december],
+            backgroundColor: 'red', // Change color here
+            borderColor: 'white', // Change color here
+            borderWidth: 1
+        }]
+    };
 
-  // Créer le graphique en courbes
-  var graphiqueEnCourbes = new Chart(ctx, {
-    type: 'line',
-    data: data,
-    options: options
-  });
+    // Chart options (customize as needed)
+    var chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                },
+                gridLines: {
+                    display: false // Remove horizontal grid lines
+                }
+            }]
+        }
+    };
+
+    // Get the canvas element
+    var canvas = document.getElementById('benefitsChart').getContext('2d');
+
+    // Create the chart
+    var myChart = new Chart(canvas, {
+        type: 'bar', // Change to your desired chart type
+        data: chartData,
+        options: chartOptions
+    });
 </script>
+
+
 
 </span>
