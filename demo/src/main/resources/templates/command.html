@@ -460,12 +460,12 @@ h3{
                   <span th:text="${oneproduct.description}"></span>
               </p>
               <!-- Rating Section -->
-              <div>
+             <!-- <div id="ratingDisplay">
                   <h4 style="color: white;position: absolute;top: 540px;">Rating:</h4>
-                  <p style="color: white;position: absolute;top: 580px;">
-                      <span th:text="${oneproduct.rating}"></span>/5
-                  </p>
+                  <p style="color: white;position: absolute;top: 580px;">0/5</p>
               </div>
+              -->
+
           </div>
 
           <!-- Add Comment Button -->
@@ -476,12 +476,24 @@ h3{
                   <span class="close" id="closePopup">&times;</span>
                   <h2>Add Comment</h2>
                   <textarea id="commentInput" placeholder="Enter your comment here..."></textarea>
+                  <!-- Rating Selection -->
+                  <label for="rating">Rating:</label>
+                  <select id="rating" name="rating">
+                      <option value="1">1 Star</option>
+                      <option value="2">2 Stars</option>
+                      <option value="3">3 Stars</option>
+                      <option value="4">4 Stars</option>
+                      <option value="5">5 Stars</option>
+                  </select>
                   <button id="submitComment">Submit</button>
               </div>
           </div>
+
       </div>
   </section>
   <div id="commentContainer"></div>
+
+  <br>
 
   <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
@@ -506,19 +518,38 @@ h3{
       document.getElementById("commentPopup").style.display = "none";
   });
 
-  // Submit comment and append to comment container at the bottom of the page
+  // Submit comment and rating
   document.getElementById("submitComment").addEventListener("click", function() {
       var comment = document.getElementById("commentInput").value;
+      var rating = parseInt(document.getElementById("rating").value); // Get selected rating as an integer
       console.log("Comment submitted:", comment);
+      console.log("Rating:", rating);
       document.getElementById("commentInput").value = "";
       document.getElementById("commentPopup").style.display = "none";
 
+      // Append comment and rating to comment container
       var commentContainer = document.getElementById("commentContainer");
       var newComment = document.createElement("div");
-      newComment.textContent = comment;
+      newComment.textContent = "Rating: " + rating + "/5 - " + comment;
       newComment.classList.add("comment");
       commentContainer.appendChild(newComment);
+
+      // Update average rating display
+      updateAverageRating(rating);
   });
+
+  // Function to update the average rating display
+  function updateAverageRating(newRating) {
+      var currentRating = parseFloat(document.getElementById("ratingDisplay").textContent);
+      var currentRatingCount = parseInt(document.getElementById("ratingCount").textContent);
+
+      // Calculate new average rating
+      var newAverageRating = ((currentRating * currentRatingCount) + newRating) / (currentRatingCount + 1);
+
+      // Update average rating display
+      document.getElementById("ratingDisplay").textContent = newAverageRating.toFixed(1) + "/5";
+      document.getElementById("ratingCount").textContent = currentRatingCount + 1;
+  }
 </script>
 </body>
 </html>
