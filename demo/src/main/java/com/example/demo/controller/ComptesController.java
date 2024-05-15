@@ -1,10 +1,8 @@
 package com.example.demo.controller;
 
-import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
-import com.example.demo.modele.produit;
+import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
-import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +15,10 @@ import java.util.Optional;
 public class ComptesController {
     @Autowired
     private ComptesService daoComptes;
+    @Autowired
+    private CommandeService commandeService;
+    @Autowired
+    private ComptesService comptesService;
 
     public ComptesController(ComptesService daoComptes) {
         this.daoComptes = daoComptes;
@@ -45,22 +47,25 @@ public class ComptesController {
     public boolean deleteComptes(@PathVariable int id) {
         return daoComptes.deleteCompte(id);
     }
-    @GetMapping("/profile")
-    public String getProfilePage(Model model, String username) {
 
-        comptes compte = daoComptes.findByUsername("myUsername");
-
+    @GetMapping("/information")
+    public String getProfilePae(Model model, @RequestParam String username) {
+        return "redirect:/comptes/profile"+username;
+    }
+    @GetMapping("/profile{username}")
+    public String getProfilePage(Model model, @PathVariable("username") String username) {
+        comptes compte = daoComptes.findByUsername(username);
         // Passer les données à la vue
         model.addAttribute("comptes", compte);
-
         return "compte";
     }
+
     @GetMapping("/count")
     public String countCompte(Model model) {
         // Récupérer le nombre total de comptes
         int countCompte = daoComptes.countcompte();
         model.addAttribute("compteCount",""+countCompte);
-System.out.println(""+countCompte);
+        System.out.println(""+countCompte);
         // Renvoyer le nom de la vue à afficher
 
 
@@ -88,7 +93,7 @@ System.out.println(""+countCompte);
 
 
 
-    int Architecture = daoComptes.countcompteByFiliere ("Architecture");
+        int Architecture = daoComptes.countcompteByFiliere ("Architecture");
         model.addAttribute("Architecturstudents",""+Architecture);
         System.out.println("Architecturstudents"+Architecture);
 
@@ -117,21 +122,21 @@ System.out.println(""+countCompte);
         model.addAttribute("all",comptes);
 
         return "dashboard_accounts";
-}
+    }
     @PostMapping("/addcompteuser")
     public String addProduct( @RequestParam int phone, @RequestParam String fullname,@RequestParam String emailadress,
-                             @RequestParam String photo, @RequestParam String username, @RequestParam String password, @RequestParam String field) {
+                              @RequestParam String photo, @RequestParam String username, @RequestParam String password, @RequestParam String field) {
 
 
         // Create a product object and set its properties
         comptes account = new comptes();
-account.setType("Student");
-account.setFiliere(field);
-account.setEmail(emailadress);
-account.setUsername(username);
-account.setNom(fullname);
-account.setPhone(phone);
-account.setPhoto(photo);
+        account.setType("Student");
+        account.setFiliere(field);
+        account.setEmail(emailadress);
+        account.setUsername(username);
+        account.setNom(fullname);
+        account.setPhone(phone);
+        account.setPhoto(photo);
 
         // Save the product to the database
         daoComptes.createCompte(account);
@@ -142,7 +147,7 @@ account.setPhoto(photo);
 
     @PostMapping("/addcompteforothers")
     public String addProductall( @RequestParam int phone, @RequestParam String fullname,@RequestParam String emailadress,
-                               @RequestParam String username, @RequestParam String password,@RequestParam String type, @RequestParam String photo) {
+                                 @RequestParam String username, @RequestParam String password,@RequestParam String type, @RequestParam String photo) {
 
 
 
@@ -173,5 +178,14 @@ account.setPhoto(photo);
         }
 
         return "redirect:/comptes/count";
+    }
+
+    @GetMapping("/contact")
+    public String getByType(Model model){
+        List<comptes> supplier = comptesService.findByType("Supplier");
+        List<comptes> delivery = comptesService.findByType("DeliveryMan");
+        model.addAttribute("supplier",supplier);
+        model.addAttribute("delivery",delivery);
+        return "dashboard_contact";
     }
 }

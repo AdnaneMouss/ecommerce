@@ -412,7 +412,10 @@ h3{
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/information}">
+                <input th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
+            </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
