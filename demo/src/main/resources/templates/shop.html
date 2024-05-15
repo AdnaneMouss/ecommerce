@@ -339,15 +339,15 @@ h3{
       text-decoration: none;
     }
     .indicator .active{
-        color: white;
-        background-color: #3498db;
-        font-weight: bold;
-        border: 3px solid white;
-        border-radius: 90%;
-        padding: 10px;
+      color: white;
     }
     .indicator .active a{
-
+      color: white;
+      background-color: #3498db;
+      font-weight: bold;
+      border: 3px solid white;
+      border-radius: 90%;
+      padding: 10px;
     }
     #star1{
     color: yellow;
@@ -402,20 +402,14 @@ h3{
 
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
-        <form th:action="@{/panier/getpanier}">
-            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-      <button><li><a href="">My Basket</a></li></button>
-        </form>
+      <li><a href="">My Basket</a></li>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
       <li><a href="mycomplaints.html">My complaints</a></li>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
-            <form th:action="@{/comptes/information}">
-                <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
-            </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
@@ -440,16 +434,19 @@ Discover our freshest selection of masks, crafted to combine both style and func
         <img  src="/colors.png" alt="Image 2">
 
   </div>
-          <div>
-              <ul class="indicator">
-                  <!-- Loop through categories and add 'active' class to the selected category -->
-                  <li style="font-weight: bold;color: white" th:each="category : ${allc}"
-                      th:class="${selectedCategory == category.catname} ? 'active' : ''"
-                      data-filter="all"
-                      th:text="${category.catname}">
-                  </li>
-              </ul>
-          </div>
+  <div>
+
+          <ul class="indicator">
+        <li data-filter="all" class="active"><a href="">All</a></li>
+        <li data-filter="Blazer"><a href="#">Blazzer</a></li>
+        <li data-filter="Watch"><a href="#">Watch</a></li>
+        <li data-filter="Shoes"><a href="#">Shoes</a></li>
+        <li data-filter="Mobile"><a href="#">Mobiles</a></li>
+        <li data-filter="Accessories"><a href="#">Accessories</a></li>
+
+
+      </ul>
+  </div>
   </section>
   <section class="hero2">
 
