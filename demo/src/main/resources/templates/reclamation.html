@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="acceuil.css">
@@ -453,9 +453,6 @@ h3{
     <div class="card" id="complaint-form" style="display: none;">
         <h2>Add Complaint</h2>
         <form id="actual-complaint-form">
-            <!-- Ajoutez ici les champs du formulaire pour ajouter une réclamation -->
-            <label for="service-concerned">Service concerné:</label><br>
-            <input type="text" id="service-concerned" name="service-concerned"><br>
             <label for="complaint-description">Description:</label><br>
             <textarea id="complaint-description" name="complaint-description" rows="4" cols="50"></textarea><br>
             <input type="submit" value="Submit">
@@ -464,55 +461,22 @@ h3{
 
     <div class="card" id="complaint-card" style="display: none;">
         <h2>Complaint</h2>
-        <label for="service-concerned">Service concerné:</label><br>
-        <p id="service-concerned-display"></p>
         <label for="complaint-description">Description:</label><br>
         <p id="complaint-description-display"></p>
         <button id="delete-complaint-button"><i class="fas fa-trash"></i> Delete</button>
     </div>
-
+    <section class="hero2">
+        <div class="product-grid">
+            <!-- Loop over each complaint -->
+            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${allReclamations}" >
+                <div class="card">
+                    <h2>Reclamation</h2>
+                    <p>Description de la reclamation : <span th:text="${reclamation.description}"></span></p>
+                </div>
+            </section>
+        </div>
+    </section>
 
 </section>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addComplaintButton = document.getElementById("add-complaint-button");
-        const complaintForm = document.getElementById("complaint-form");
-        const actualComplaintForm = document.getElementById("actual-complaint-form");
-        const complaintCard = document.getElementById("complaint-card");
-
-        addComplaintButton.addEventListener("click", function() {
-            if (complaintForm.style.display === "none") {
-                complaintForm.style.display = "block";
-                complaintCard.style.display = "none";
-            } else {
-                complaintForm.style.display = "none";
-            }
-        });
-
-        actualComplaintForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const complaintService = document.getElementById("service-concerned").value;
-            const complaintDescription = document.getElementById("complaint-description").value;
-            document.getElementById("service-concerned-display").textContent = complaintService;
-             document.getElementById("complaint-description-display").textContent = complaintDescription;
-            complaintCard.style.display = "block";
-            complaintForm.style.display = "none";
-        });
-    });
-    document.addEventListener("DOMContentLoaded", function() {
-    const deleteButton = document.getElementById("delete-complaint-button");
-    const complaintCard = document.getElementById("complaint-card");
-
-    deleteButton.addEventListener("click", function() {
-        const confirmDelete = confirm("Are you sure you want to delete this complaint?");
-        if (confirmDelete) {
-            complaintCard.style.display = "none";
-            // Vous pouvez ajouter ici la logique pour supprimer la plainte du backend si nécessaire
-        }
-    });
-});
-
-</script>
 </body>
 </html>
