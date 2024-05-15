@@ -19,6 +19,7 @@ public class UsersController {
         if (compte != null) {
             session.setAttribute("authenticatedUsername", compte.getUsername());
             session.setAttribute("authenticatedPhoto", compte.getPhoto());
+            session.setAttribute("authenticatedId", compte.getId());
             System.out.println(session);
             model.addAttribute("authenticatedUser", compte);
             return "redirect:/products/catalogue";

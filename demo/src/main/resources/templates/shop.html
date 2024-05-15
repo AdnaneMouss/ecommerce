@@ -402,14 +402,20 @@ h3{
 
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
-      <li><a href="">My Basket</a></li>
+        <form th:action="@{/panier/getpanier}">
+            <input th:value="${session.authenticatedUsername}">
+      <button><li><a href="">My Basket</a></li></button>
+        </form>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
       <li><a href="mycomplaints.html">My complaints</a></li>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/information}">
+                <input th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
+            </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
       <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DaoComptes{
-    public DaoComptes(){}
+public class ComptesService {
+    public ComptesService(){}
 
-public DaoComptes(CompteRepository compteRepository){
+public ComptesService(CompteRepository compteRepository){
         this.compteRepository=compteRepository;
 }
 @Autowired
@@ -76,6 +76,10 @@ public DaoComptes(CompteRepository compteRepository){
 }
     public int countcompteByFiliere(String fill) {
         return compteRepository.countByFiliere (fill);
+}
+
+public List<comptes> findByType(String type){
+        return compteRepository.findAllByType(type);
 }
 }
 

@@ -3,15 +3,11 @@ package com.example.demo;
 import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
-import com.example.demo.modele.categorie;
-import com.example.demo.modele.produit;
 import com.example.demo.service.CommandeService;
-import com.example.demo.service.DaoComptes;
+import com.example.demo.service.ComptesService;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -19,11 +15,11 @@ public class DemoApplication {
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
 	private static ComptesController ComptesController=null;
-	private static DaoComptes DaoComptes=null;
+	private static ComptesService DaoComptes=null;
 	private static CommandeService cs=null;
 
 
-	public DemoApplication( ProduitService produitService,CommandeService cs ,ProduitController produitController,CategorieController categorieController,ComptesController ComptesController,DaoComptes DaoComptes) {
+	public DemoApplication(ProduitService produitService, CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
