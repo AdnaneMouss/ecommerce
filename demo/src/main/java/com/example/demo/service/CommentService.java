@@ -44,7 +44,7 @@ public class CommentService {
         boolean res=false;
         try{
             CommentRepository.save(updatedComment);
-            updatedComment.setId(id);
+            updatedComment.setId((long) id);
             res=true;
         }
         catch(Exception e){

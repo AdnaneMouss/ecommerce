@@ -1,22 +1,20 @@
 package com.example.demo.modele;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
+    @Column(name = "content")
     private String content;
 
     public Comment() {}
 
-    public Comment(int id, String content){
+    public Comment(Long id, String content){
         this.id=id;
         this.content=content;
     }
@@ -29,11 +27,11 @@ public class Comment {
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
