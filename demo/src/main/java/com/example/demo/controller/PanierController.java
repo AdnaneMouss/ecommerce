@@ -19,14 +19,21 @@ public class PanierController {
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
     }
+    @GetMapping("/getpanier")
+    public String getPanierById(@RequestParam String username) {
+        return "redirect:/panier/" + username;
+    }
+
     @GetMapping("/panier")
-    public String getPanierById(@PathVariable int id, Model model) {
+    public String getPanierByUsername(@PathVariable ("username") String username, Model model) {
         comptes c = new comptes();
-        c.setId(id);
-        List<Panier> avoir = panierservice.getPanierById(c);
+        c.setUsername(username);
+        List<Panier> avoir = panierservice.getPanierByUsername(c);
         model.addAttribute("panier", ""+avoir);
         return "Panier";
     }
+
+
     @DeleteMapping("/{id}")
     public boolean deleteProduit(@PathVariable int id) {
         return panierservice.deleteprod(id);
