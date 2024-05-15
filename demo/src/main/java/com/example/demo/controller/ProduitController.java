@@ -1,12 +1,11 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.categorie;
-import com.example.demo.modele.commande;
 import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
 import com.example.demo.service.CategorieService;
 import com.example.demo.service.CommandeService;
-import com.example.demo.service.DaoComptes;
+import com.example.demo.service.ComptesService;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,7 @@ public class ProduitController {
     @Autowired
     private CategorieService categorieService;
     @Autowired
-    private DaoComptes daoComptes;
+    private ComptesService daoComptes;
     @Autowired
     private CommandeService commandeService;
 
@@ -37,6 +36,8 @@ public class ProduitController {
     public String getAllProduits(Model model) {
         List<produit> produits = produitService.getAllProduits();
         model.addAttribute("all",produits);
+        List<categorie> c = catService.getAllCategories();
+        model.addAttribute("allc", c);
         return "shop";
     }
 
