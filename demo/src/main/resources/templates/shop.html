@@ -402,7 +402,10 @@ h3{
 
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
-      <li><a href="">My Basket</a></li>
+        <form th:action="@{/panier/getpanier}">
+            <input th:value="${session.authenticatedUsername}">
+      <button><li><a href="">My Basket</a></li></button>
+        </form>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
       <li><a href="mycomplaints.html">My complaints</a></li>
