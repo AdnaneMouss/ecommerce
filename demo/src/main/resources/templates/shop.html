@@ -1,10 +1,9 @@
-adnane
 <!DOCTYPE html>
 <html>
 <head>
   <title></title>
   <link rel="stylesheet" type="text/css" href="acceuil.css">
-  <link rel="stylesheet" href=""https://unpkg.com/boxicons@latest/css/boxicons.min.css>
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
   <link href="https://cdn.jsdelivr.net/npm/remixion@2.5.0/fonts/remixicon.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -444,46 +443,44 @@ Discover our freshest selection of masks, crafted to combine both style and func
         <img  src="/colors.png" alt="Image 2">
 
   </div>
-  <div >
-
-          <ul class="indicator" >
-        <li data-filter="all"  th:each="categorie : ${allc}" class="active" th:text="${categorie.catname}"></li>
-
-      </ul>
-  </div>
-  </section>
-  <section class="hero2">
-
-      <form th:action="@{/products/viewdetails}">
-          <div class="product-grid">
-      <section id="prod1" class="section-p1" th:each="product : ${all}" >
-          <div class="pro-container">
-              <div class="pro">
-                  <div class="container">
-                      <div class="wrapper">
-                          <img th:src="${product.photo}" alt="Product Photo"/>
-                      </div>
-                  </div>
-                  <div class="des">
-                      <input type="hidden" name="id" th:value="${product.id}" />
-                      <span th:text="${product.categorie?.catname}"></span>
-                      <h5 th:text="${product.label}"></h5>
-                      <span th:text="${product.color}"></span>
-                      <div>
-                          <div style="color: yellow">
-                              <!-- Loop to generate solid star icons based on product rating -->
-                              <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
-                          </div>
-                      </div>
-                      <button class="fa-sharp fa-solid fa-cart-plus"></button>
-                      <h3 th:text="${product.price}"></h3>
-                  </div>
-              </div>
+          <div>
+              <ul class="indicator">
+                  <li data-filter="all" class="active">All</li>
+                  <!-- Add buttons for each category -->
+                  <li th:each="categorie : ${allc}" th:text="${categorie.catname}" th:data-filter="${categorie.catname}"></li>
+              </ul>
           </div>
       </section>
-          </div>
-      </form>
-  </section>
+          <section class="hero2">
+              <div class="product-grid">
+                  <section th:id="'prod' + ${product.id}" class="section-p1" th:each="product : ${all}" th:data-category="${product.categorie?.catname}">
+                      <div class="pro-container">
+                          <div class="pro">
+                              <div class="container">
+                                  <div class="wrapper">
+                                      <img th:src="${product.photo}" alt="Product Photo"/>
+                                  </div>
+                              </div>
+                              <div class="des">
+                                  <input type="hidden" name="id" th:value="${product.id}" />
+                                  <span th:text="${product.categorie?.catname}"></span>
+                                  <h5 th:text="${product.label}"></h5>
+                                  <span th:text="${product.color}"></span>
+                                  <div>
+                                      <div style="color: yellow">
+                                          <!-- Loop to generate solid star icons based on product rating -->
+                                          <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
+                                      </div>
+                                  </div>
+                                  <button class="fa-sharp fa-solid fa-cart-plus"></button>
+                                  <h3 th:text="${product.price}"></h3>
+                              </div>
+                          </div>
+                      </div>
+                  </section>
+              </div>
+          </section>
+
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
@@ -511,6 +508,33 @@ Discover our freshest selection of masks, crafted to combine both style and func
             panel.style.display = "block";
         }
     }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var filterButtons = document.querySelectorAll('.indicator li');
+
+        filterButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(function(btn) {
+                    btn.classList.remove('active');
+                });
+                button.classList.add('active');
+
+                var selectedCategory = button.getAttribute('data-filter');
+
+                var products = document.querySelectorAll('.section-p1');
+                products.forEach(function(product) {
+                    var category = product.getAttribute('data-category');
+                    if (selectedCategory === 'all' || category === selectedCategory) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+    });
+
 </script>
 </body>
 </html>
