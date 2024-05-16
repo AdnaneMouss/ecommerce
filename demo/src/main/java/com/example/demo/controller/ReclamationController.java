@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Reclamation;
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
 import com.example.demo.service.ReclamationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -90,13 +94,24 @@ public class ReclamationController {
         model.addAttribute("Aerospacestudents",""+Aerospace);
         System.out.println("Aerospacestudents"+Aerospace);
 
-        int Medicine = ReclamationSer.countByCompte_Filiere ("Medecine");
-        model.addAttribute("Medicinestudents",""+Medicine);
-        System.out.println("Medicinestudents"+Medicine);
+        int Medecine = ReclamationSer.countByCompte_Filiere ("Medecine");
+        model.addAttribute("Medecinestudents",""+Medecine);
+        System.out.println("Medecinestudents"+Medecine);
 
         int Automobile = ReclamationSer.countByCompte_Filiere ("Automobile");
         model.addAttribute("Automobilestudents",""+Automobile);
         System.out.println("Automobile"+Automobile);
+
+        int Dentistry = ReclamationSer.countByCompte_Filiere ("Dentistry");
+        model.addAttribute("Dentistrystudents",""+Dentistry);
+        System.out.println("Dentistry"+Dentistry);
+
+
+        List<Reclamation> reclamations = ReclamationSer.getAllReclamations();
+        model.addAttribute("all",reclamations);
+
+
+
 
 
         return "dashboard_complaints";
