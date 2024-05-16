@@ -32,7 +32,6 @@ public class PanierController {
         return "Panier";
     }
 
-
     @DeleteMapping("/{id}")
     public boolean deleteProduit(@PathVariable int id) {
         return panierservice.deleteprod(id);
