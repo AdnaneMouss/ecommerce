@@ -47,9 +47,9 @@ public boolean deleteReclamation(int id) {
     public int countcomplaint() {
         return (int) ReclamationSer.count();
     }
-    public int countcomplaintByType(String type) {
-        return ReclamationSer.countByType  (type);
+    public int countByCompte_Type(String Type) {
+        return ReclamationSer.countByCompte_Type  (Type);
     }
-    public int countcomplaintByFiliere(String fill) {return ReclamationSer.countByFiliere (fill);
+    public int countByCompte_Filiere(String Filiere) {return ReclamationSer.countByCompte_Filiere (Filiere);
     }
 }
