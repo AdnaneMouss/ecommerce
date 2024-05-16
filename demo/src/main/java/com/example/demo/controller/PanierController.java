@@ -21,6 +21,7 @@ public class PanierController {
     }
     @GetMapping("/getpanier")
     public String getPanierById(@RequestParam String username) {
+
         return "redirect:/panier/panier/" + username;
     }
 

@@ -403,8 +403,8 @@ h3{
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
         <form th:action="@{/panier/getpanier}">
-            <input th:value="${session.authenticatedUsername}">
-      <button><li><a href="">My Basket</a></li></button>
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>My Basket</button></li>
         </form>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
@@ -413,7 +413,7 @@ h3{
         <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
             <form th:action="@{/comptes/information}">
-                <input th:value="${session.authenticatedUsername}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
             </form>
             <button><a href="/log/login">Log out</a></button>
@@ -470,6 +470,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
                       <input type="hidden" name="id" th:value="${product.id}" />
                       <span th:text="${product.categorie?.catname}"></span>
                       <h5 th:text="${product.label}"></h5>
+                      <span th:text="${product.color}"></span>
                       <div>
                           <div style="color: yellow">
                               <!-- Loop to generate solid star icons based on product rating -->

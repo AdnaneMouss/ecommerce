@@ -61,6 +61,12 @@
         border-bottom: 2px;
         transition: all .55s ease;
     }
+    .navlist img {
+        width: 30px; /* Adjust the width of the image */
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
     .navlist a:hover{
         border-bottom: 2px solid white;
     }
@@ -403,7 +409,7 @@
 </style>
 <body>
 <header>
-    <img class="logo" src="img/logo.png">
+    <img class="logo" src="/logo.png">
     <ul class="navlist">
         <li><a href="">Catalog</a></li>
         <li><a href="">My Basket</a></li>
@@ -411,7 +417,7 @@
         <li><a href="mycomments.html">My comments</a></li>
         <li><a href="mycomplaints.html">My complaints</a></li>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
-        <div id="panel" class="panel">
+        <div id="panel" class="panel" style="display: none">
             <p th:text="${session.authenticatedUsername}"></p>
             <button style="background-color: blue">Account information</button>
             <button><a href="/log/login">Log out</a></button>
@@ -434,14 +440,8 @@
                 <div class="des">
                     <span th:text="${product.prod.categorie?.catname}"></span>
                     <h5 th:text="${product.prod.label}"></h5>
-
-                    <div>
-                        <div style="color: yellow">
-                            <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
-                        </div>
-                    </div>
                     <button class="fa-sharp fa-solid fa-cart-plus"></button>
-                    <h3 th:text="${product.price}"></h3>
+                    <h3 th:text="${product.prod.price}"></h3>
                 </div>
             </div>
         </div>
