@@ -432,7 +432,7 @@ h3{
  <h1 style="color: white">New arrivals <br> Ready to Elevate Your Experience.</h1>
  <p style="font-family: arial"> 
 Discover our freshest selection of masks, crafted to combine both style and functionality seamlessly. Embrace comfort and protection with our latest arrivals, designed with precision and care. From chic designs to timeless classics, our new masks cater to every taste and need. Elevate your everyday look while staying safe with our innovative collection. Shop now and stay ahead with the latest trends in mask fashion.</p>
- <button class="btn">Shop now -></button>
+  <button class="btn" onclick="scrollToSection()">Shop now</button>
     </div>
 
 <div class="hero-img">
@@ -441,21 +441,14 @@ Discover our freshest selection of masks, crafted to combine both style and func
 
   </div>
   <div>
-
-          <ul class="indicator">
-        <li data-filter="all" class="active"><a href="">All</a></li>
-        <li data-filter="Blazer"><a href="#">Blazzer</a></li>
-        <li data-filter="Watch"><a href="#">Watch</a></li>
-        <li data-filter="Shoes"><a href="#">Shoes</a></li>
-        <li data-filter="Mobile"><a href="#">Mobiles</a></li>
-        <li data-filter="Accessories"><a href="#">Accessories</a></li>
-
-
-      </ul>
+      <div >
+          <ul class="indicator" >
+              <li data-filter="all"  th:each="categorie : ${allc}" class="active" th:text="${categorie.catname}"></li>
+          </ul>
+      </div>
   </div>
   </section>
   <section class="hero2">
-
       <form th:action="@{/products/viewdetails}">
           <div class="product-grid">
       <section id="prod1" class="section-p1" th:each="product : ${all}" >
@@ -514,5 +507,12 @@ Discover our freshest selection of masks, crafted to combine both style and func
         }
     }
 </script>
+  <script>
+      function scrollToSection() {
+          var section = document.querySelector('.hero2');
+          section.scrollIntoView({ behavior: 'smooth' });
+      }
+  </script>
+
 </body>
 </html>
