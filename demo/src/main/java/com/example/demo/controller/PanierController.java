@@ -21,15 +21,13 @@ public class PanierController {
     }
     @GetMapping("/getpanier")
     public String getPanierById(@RequestParam String username) {
-        return "redirect:/panier/" + username;
+        return "redirect:/panier/panier/" + username;
     }
 
-    @GetMapping("/panier")
+    @GetMapping("/panier/{username}")
     public String getPanierByUsername(@PathVariable ("username") String username, Model model) {
-        comptes c = new comptes();
-        c.setUsername(username);
-        List<Panier> avoir = panierservice.getPanierByUsername(c);
-        model.addAttribute("panier", ""+avoir);
+        List<Panier> avoir = panierservice.getPanierByUsername(username);
+        model.addAttribute("panier", avoir);
         return "Panier";
     }
 

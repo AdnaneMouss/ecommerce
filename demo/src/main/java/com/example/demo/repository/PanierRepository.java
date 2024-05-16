@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface  PanierRepository extends JpaRepository<Panier, Long> {
-    List<Panier> findByCompte(comptes compte);
+    List<Panier> findByCompteUsername(String username);
 }

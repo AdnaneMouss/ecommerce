@@ -16,8 +16,8 @@ public class PanierService{
     }
     @Autowired
     private PanierRepository panierRepository;
-    public List<Panier> getPanierByUsername(comptes c){
-        return panierRepository.findByCompte(c);
+    public List<Panier> getPanierByUsername(String username){
+        return panierRepository.findByCompteUsername(username);
     }
     public boolean deleteprod(int id) {
         boolean res;
