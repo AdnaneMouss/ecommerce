@@ -334,12 +334,17 @@ h3{
       color: white;
 
     }
-    .indicator a{
+    .indicator li{
       color: white;
       text-decoration: none;
     }
     .indicator .active{
-      color: white;
+        color: white;
+        background-color: #3498db;
+        font-weight: bold;
+        border: 3px solid white;
+        border-radius: 90%;
+        padding: 10px;
     }
     .indicator .active a{
       color: white;
@@ -349,9 +354,7 @@ h3{
       border-radius: 90%;
       padding: 10px;
     }
-    #star1{
-    color: yellow;
-    }
+
     .fa-arrow-right-from-bracket{
         color: white;
     }
@@ -440,16 +443,10 @@ Discover our freshest selection of masks, crafted to combine both style and func
         <img  src="/colors.png" alt="Image 2">
 
   </div>
-  <div>
+  <div >
 
-          <ul class="indicator">
-        <li data-filter="all" class="active"><a href="">All</a></li>
-        <li data-filter="Blazer"><a href="#">Blazzer</a></li>
-        <li data-filter="Watch"><a href="#">Watch</a></li>
-        <li data-filter="Shoes"><a href="#">Shoes</a></li>
-        <li data-filter="Mobile"><a href="#">Mobiles</a></li>
-        <li data-filter="Accessories"><a href="#">Accessories</a></li>
-
+          <ul class="indicator" >
+        <li data-filter="all"  th:each="categorie : ${allc}" class="active" th:text="${categorie.catname}"></li>
 
       </ul>
   </div>
