@@ -29,7 +29,6 @@ public class UsersController {
             } else if (compte.getType().equalsIgnoreCase("Deliveryman")) {
                 return "redirect:/commande/dashboard";
             }
-
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "loginPage";
