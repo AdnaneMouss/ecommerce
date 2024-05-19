@@ -29,10 +29,9 @@ public class ReclamationController {
         return ReclamationSer.getAllReclamations();
     }
 
-    @GetMapping("/{id}")
-    public Reclamation getReclamationById(@PathVariable int id) {
-        Reclamation Reclamation = ReclamationSer.getReclamationById(id);
-        return Reclamation;
+    @GetMapping("/{username}")
+    public List<Reclamation> getReclamationsByUsername(@PathVariable String username) {
+        return ReclamationSer.getReclamationsByUsername(username);
     }
 
     @PostMapping("/addReclamation")
@@ -109,6 +108,7 @@ public class ReclamationController {
 
         List<Reclamation> reclamations = ReclamationSer.getAllReclamations();
         model.addAttribute("all",reclamations);
+
 
 
 

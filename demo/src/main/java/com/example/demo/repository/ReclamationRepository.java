@@ -5,11 +5,12 @@ import com.example.demo.modele.categorie;
 import com.example.demo.modele.produit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
+import java.util.List;
+
 
 public interface ReclamationRepository extends JpaRepository<Reclamation, Long> {
 
-    Optional<Reclamation> getReclamationById(long id);
+    List<Reclamation> findReclamationByUsername(String username);
 
     int countByCompte_Filiere(String Filiere);
     int countByCompte_Type(String Type);

@@ -468,15 +468,18 @@ h3{
     <section class="hero2">
         <div class="product-grid">
             <!-- Loop over each complaint -->
-            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${allReclamations}" >
+            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${complaint.compte.username.description}" >
                 <div class="card">
                     <h2>Reclamation</h2>
-                    <p>Description de la reclamation : <span th:text="${reclamation.description}"></span></p>
+                    <p>Description de la reclamation : <span th:text="${complaint.compte.username.description}"></span></p>
                 </div>
             </section>
         </div>
     </section>
 
 </section>
+<script>
+
+</script>
 </body>
 </html>

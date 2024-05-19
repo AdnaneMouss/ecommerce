@@ -5,7 +5,6 @@ import com.example.demo.repository.ReclamationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ReclamationService {
@@ -17,10 +16,10 @@ public class ReclamationService {
         return ReclamationSer.findAll();
     }
 
-    public Reclamation getReclamationById(int id) {
-        Optional<Reclamation> reclamation = ReclamationSer.getReclamationById((long) id);
-        return reclamation.orElse(null); // Return null if reclamation is not found
+    public List<Reclamation> getReclamationsByUsername(String username) {
+        return ReclamationSer.findReclamationByUsername(username); // Return null if reclamation is not found
     }
+
 
     public boolean createReclamation(Reclamation reclamation) {
         boolean res=false;
