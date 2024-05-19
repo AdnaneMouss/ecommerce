@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+/*package com.example.demo.controller;
 
 import com.example.demo.modele.Comment;
 import com.example.demo.service.CommentService;
@@ -86,4 +86,4 @@ public class CommentControllerImpl {
 
         return "dashboard_comments";
     }
-}
+}*/

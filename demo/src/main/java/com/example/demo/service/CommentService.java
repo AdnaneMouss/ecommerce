@@ -1,4 +1,4 @@
-package com.example.demo.service;
+/*package com.example.demo.service;
 
 import com.example.demo.modele.Comment;
 import com.example.demo.repository.CommentRepository;
@@ -77,3 +77,4 @@ public class CommentService {
         return commentRepository.countByCompte_Type(Type);
     }
 }
+*/
