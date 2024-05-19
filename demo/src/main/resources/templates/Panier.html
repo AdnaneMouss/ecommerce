@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title></title>
+    <title>Panier</title>
     <link rel="stylesheet" type="text/css" href="acceuil.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixion@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Font+Awesome">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-oXw5vOVaPvfVCIz6B4yLca0ThQEXsaRjzb5OMfFgFSJGgiFGtUgq3+Xzp2Fp0Dl/" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-5b3mbs8DMN1z+IFg0pc6w7FJljKjgzt58G3pqnpYwaEZvqVvGDw3kzP5I2+Yz0U7" crossorigin="anonymous">
 </head>
 <style type="text/css">
     :root {
@@ -429,9 +421,7 @@
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<br><br><br><br><br>
 <section class="hero2">
-    <input type="hidden" name="id" th:value="${session.authenticatedId}" />
     <section id="prod1" class="section-p1" th:each="product : ${panier}" >
         <div class="pro-container">
             <div class="pro">
@@ -441,58 +431,43 @@
                     </div>
                 </div>
                 <div class="des">
+                    <form action="/confirmOrder" method="post">
                     <span th:text="${product.prod.categorie?.catname}"></span>
                     <h5 th:text="${product.prod.label}"></h5>
                     <h3 th:text="${product.prod.price}"></h3>
+                        <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
+                        <button class="confirm" onclick="confirmProduct('${product.prod.label}', ${product.prod.price})">Confirmer le produit</button>
+                    </form>
                 </div>
-                <button class="confirm" type="submit">Confirmer le produit</button>
             </div>
         </div>
-    </section>
 </section>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addComplaintButton = document.getElementById("add-complaint-button");
-        const complaintForm = document.getElementById("complaint-form");
-        const actualComplaintForm = document.getElementById("actual-complaint-form");
-        const complaintCard = document.getElementById("complaint-card");
-        addComplaintButton.addEventListener("click", function() {
-            if (complaintForm.style.display === "none") {
-                complaintForm.style.display = "block";
-                complaintCard.style.display = "none";
-            } else {
-                complaintForm.style.display = "none";
-            }
-        });
-        actualComplaintForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const complaintService = document.getElementById("service-concerned").value;
-            const complaintDescription = document.getElementById("complaint-description").value;
-            document.getElementById("service-concerned-display").textContent = complaintService;
-            document.getElementById("complaint-description-display").textContent = complaintDescription;
-            complaintCard.style.display = "block";
-            complaintForm.style.display = "none";
-        });
-    });
-    document.addEventListener("DOMContentLoaded", function() {
-        const deleteButton = document.getElementById("delete-complaint-button");
-        const complaintCard = document.getElementById("complaint-card");
-        deleteButton.addEventListener("click", function() {
-            const confirmDelete = confirm("Are you sure you want to delete this product from your basket?");
-            if (confirmDelete) {
-                complaintCard.style.display = "none";
-            }
-        });
-    });
-</script>
-<script>
-    function prepareDelete(button) {
-        var prodid = button.parentNode.parentNode.querySelector("td:first-child").innerText;
-        document.getElementById("productId").value = prodid;
-        document.getElementById("deleteForm").submit();
+    function confirmProduct(productName, price) {
+        const orderData = {
+            productName: productName,
+            price: price,
+            quantity: 1,
+            customerName: 'Username'  // Replace with actual username
+        };
+
+        fetch('/api/confirmOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Order confirmed:', data);
+                // Redirect to the next page or update the UI accordingly
+            })
+            .catch(error => {
+                console.error('Error confirming order:', error);
+            });
     }
-</script>
-<script>
+
     function togglePanel() {
         var panel = document.getElementById("panel");
         if (panel.style.display === "block") {
