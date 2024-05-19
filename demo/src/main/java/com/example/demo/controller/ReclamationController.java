@@ -53,7 +53,6 @@ public class ReclamationController {
         // Renvoyer le nom de la vue à afficher
 
 
-
         int Delivery = ReclamationSer.countByCompte_Type ("DeliveryMan");
         model.addAttribute("DeliveryMan",""+Delivery);
         System.out.println("DeliveryMan"+Delivery);

@@ -343,7 +343,7 @@ public class ProduitController {
         //benefitPerYear
         double twentyfour= commandeService.calculateTotalBenefitPerMonth("2024");
         model.addAttribute("twentyfour", "" + twentyfour);
-        double twentythree= commandeService.calculateTotalBenefitPerMonth("2025");
+        double twentythree= commandeService.calculateTotalBenefitPerMonth("2023");
         model.addAttribute("twentythree", "" + twentythree);
 
 

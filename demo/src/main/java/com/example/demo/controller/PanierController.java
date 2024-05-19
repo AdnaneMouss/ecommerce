@@ -21,6 +21,7 @@ public class PanierController {
     }
     @GetMapping("/getpanier")
     public String getPanierById(@RequestParam String username) {
+
         return "redirect:/panier/panier/" + username;
     }
 
@@ -30,7 +31,6 @@ public class PanierController {
         model.addAttribute("panier", avoir);
         return "Panier";
     }
-
 
     @DeleteMapping("/{id}")
     public boolean deleteProduit(@PathVariable int id) {

@@ -22,11 +22,18 @@ public class UsersController {
             session.setAttribute("authenticatedId", compte.getId());
             System.out.println(session);
             model.addAttribute("authenticatedUser", compte);
-            return "redirect:/products/catalogue";
+            if (compte.getType().equalsIgnoreCase("Student")) {
+                return "redirect:/products/catalogue";
+            } else if (compte.getType().equalsIgnoreCase("Admin")) {
+                return "redirect:/products/products";
+            } else if (compte.getType().equalsIgnoreCase("Deliveryman")) {
+                return "redirect:/commande/dashboard";
+            }
         } else {
             model.addAttribute("error", "Invalid username or password");
             return "loginPage";
         }
+        return "loginPage";
     }
     @GetMapping("/comptes/{username}")
     public String obtenirUtilisateurParNom(@PathVariable String nomUtilisateur, Model model) {

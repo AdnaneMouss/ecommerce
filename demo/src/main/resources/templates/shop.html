@@ -334,6 +334,18 @@ h3{
       color: white;
 
     }
+    .indicator li{
+        color: white;
+        text-decoration: none;
+    }
+    .indicator .active{
+        color: white;
+        background-color: #3498db;
+        font-weight: bold;
+        border: 3px solid white;
+        border-radius: 90%;
+        padding: 10px;
+    }
     .indicator a{
       color: white;
       text-decoration: none;
@@ -395,16 +407,20 @@ h3{
         margin: 4px 2px;
         cursor: pointer;
     }
+    .low-quantity {
+        background-color: red;
+        color: white;
+    }
 </style>
 <body>
   <header>
     <img class="logo" src="/logo.png">
-
+<p></p>
     <ul class="navlist">
       <li><a href="">Catalog</a></li>
         <form th:action="@{/panier/getpanier}">
-            <input th:value="${session.authenticatedUsername}">
-      <button><li><a href="">My Basket</a></li></button>
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>My Basket</button></li>
         </form>
       <li><a href="mydeliveries.html">My Pending deliveries</a></li>
       <li><a href="mycomments.html">My comments</a></li>
@@ -413,7 +429,7 @@ h3{
         <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
             <form th:action="@{/comptes/information}">
-                <input th:value="${session.authenticatedUsername}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
             </form>
             <button><a href="/log/login">Log out</a></button>
@@ -432,7 +448,7 @@ h3{
  <h1 style="color: white">New arrivals <br> Ready to Elevate Your Experience.</h1>
  <p style="font-family: arial"> 
 Discover our freshest selection of masks, crafted to combine both style and functionality seamlessly. Embrace comfort and protection with our latest arrivals, designed with precision and care. From chic designs to timeless classics, our new masks cater to every taste and need. Elevate your everyday look while staying safe with our innovative collection. Shop now and stay ahead with the latest trends in mask fashion.</p>
- <button class="btn">Shop now -></button>
+        <button  class="btn" onclick="scrollToSection()">Shop now -></button>
     </div>
 
 <div class="hero-img">
@@ -440,50 +456,46 @@ Discover our freshest selection of masks, crafted to combine both style and func
         <img  src="/colors.png" alt="Image 2">
 
   </div>
-  <div>
-
-          <ul class="indicator">
-        <li data-filter="all" class="active"><a href="">All</a></li>
-        <li data-filter="Blazer"><a href="#">Blazzer</a></li>
-        <li data-filter="Watch"><a href="#">Watch</a></li>
-        <li data-filter="Shoes"><a href="#">Shoes</a></li>
-        <li data-filter="Mobile"><a href="#">Mobiles</a></li>
-        <li data-filter="Accessories"><a href="#">Accessories</a></li>
-
-
-      </ul>
-  </div>
+          <div>
+              <ul class="indicator">
+                  <li data-filter="all" class="active">All</li>
+                  <li th:each="categorie : ${allc}" th:text="${categorie.catname}" th:data-filter="${categorie.catname}"></li>
+              </ul>
+          </div>
   </section>
   <section class="hero2">
 
-      <form th:action="@{/products/viewdetails}">
-          <div class="product-grid">
-      <section id="prod1" class="section-p1" th:each="product : ${all}" >
-          <div class="pro-container">
-              <div class="pro">
-                  <div class="container">
-                      <div class="wrapper">
-                          <img th:src="${product.photo}" alt="Product Photo"/>
-                      </div>
-                  </div>
-                  <div class="des">
-                      <input type="hidden" name="id" th:value="${product.id}" />
-                      <span th:text="${product.categorie?.catname}"></span>
-                      <h5 th:text="${product.label}"></h5>
-                      <div>
-                          <div style="color: yellow">
-                              <!-- Loop to generate solid star icons based on product rating -->
-                              <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
+      <div class="product-grid">
+          <section id="prod1" class="section-p1" th:each="product : ${all}" th:data-category="${product.categorie?.catname}">
+              <form th:action="@{/products/viewdetails}">
+                  <div class="pro-container">
+                      <div class="pro" th:classappend="${product.quantity == 0} ? 'low-quantity' : ''">
+                          <div class="container">
+                              <div class="wrapper">
+                                  <img th:src="${product.photo}" alt="Product Photo"/>
+                              </div>
+                          </div>
+                          <div class="des">
+                              <input type="hidden" name="id" th:value="${product.id}" />
+                              <span th:text="${product.categorie?.catname}"></span>
+                              <h5 th:text="${product.label}"></h5>
+                              Color:<span th:text="${product.color}"></span>
+                              <div>
+                                  <div style="color: yellow">
+                                      <!-- Loop to generate solid star icons based on product rating -->
+                                      <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
+                                  </div>
+                              </div>
+                              <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>
+                              <h3 th:text="${product.price}"></h3>
                           </div>
                       </div>
-                      <button class="fa-sharp fa-solid fa-cart-plus"></button>
-                      <h3 th:text="${product.price}"></h3>
                   </div>
-              </div>
-          </div>
-      </section>
-          </div>
-      </form>
+              </form>
+          </section>
+      </div>
+
+
   </section>
 
 <script type="text/javascript">
@@ -513,5 +525,37 @@ Discover our freshest selection of masks, crafted to combine both style and func
         }
     }
 </script>
+  <script>
+      function scrollToSection() {
+          var section = document.querySelector('.hero2');
+          section.scrollIntoView({ behavior: 'smooth' });
+      }
+  </script>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+      var filterButtons = document.querySelectorAll('.indicator li');
+
+      filterButtons.forEach(function(button) {
+          button.addEventListener('click', function() {
+              filterButtons.forEach(function(btn) {
+                  btn.classList.remove('active');
+              });
+              button.classList.add('active');
+
+              var selectedCategory = button.getAttribute('data-filter');
+
+              var products = document.querySelectorAll('.section-p1');
+              products.forEach(function(product) {
+                  var category = product.getAttribute('data-category');
+                  if (selectedCategory === 'all' || category === selectedCategory) {
+                      product.style.display = 'block';
+                  } else {
+                      product.style.display = 'none';
+                  }
+              });
+          });
+      });
+  });
+  </script>
 </body>
 </html>
