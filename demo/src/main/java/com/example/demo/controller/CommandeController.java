@@ -22,10 +22,9 @@ public class CommandeController {
     @Autowired
     private CommandeService commandeService;
     @GetMapping("/commande")
-    public String getAllAccs(Model model) {
+    public String getAll(Model model) {
         List<commande> c = commandeService.getAllComm();
         model.addAttribute("all",c);
-
         return "dashboard_commandes";
     }
     @GetMapping("/dashboard")

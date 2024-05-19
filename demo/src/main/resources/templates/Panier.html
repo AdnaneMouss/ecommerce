@@ -406,6 +406,9 @@
         text-decoration: underline;
         color: white;
     }
+    .confirm{
+
+    }
 </style>
 <body>
 <header>
@@ -440,9 +443,9 @@
                 <div class="des">
                     <span th:text="${product.prod.categorie?.catname}"></span>
                     <h5 th:text="${product.prod.label}"></h5>
-                    <button class="fa-sharp fa-solid fa-cart-plus"></button>
                     <h3 th:text="${product.prod.price}"></h3>
                 </div>
+                <button class="confirm" type="submit">Confirmer le produit</button>
             </div>
         </div>
     </section>
