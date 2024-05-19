@@ -589,57 +589,50 @@
               </div>
 
       <section class="attendance">
+     <br>
 <div>
-    <label style="color: white" for="categorySelect">Filter by Category:</label>
-    <select id="categorySelect" onchange="applyCategoryFilter()">
-        <option value="">All Categories</option>
-        <!-- Populate dropdown options dynamically with Thymeleaf -->
-        <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
-    </select>
+<div style="display: flex">
+    <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput" placeholder="Search by Label..." onkeyup="searchByLabel()">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+    <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput2" placeholder="Search by Category..." onkeyup="searchByCateg()">
 </div>
-          <div>
-              <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput" onkeyup="searchByLabel()" placeholder="Search by Label...">
-          </div>
 <div class="attendance-list">
     <h1>List of products</h1>
     <form id="deleteForm" th:action="@{/products/delete}" method="post">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Label</th>
-                <th>Description</th>
-                <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
-                <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
-                <th>Color</th>
-                <th>Size</th>
-                <th>Category</th>
-                <th>Image</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr th:each="produit : ${all}" class="productRow">
-                <td th:text="${produit.id}"></td>
-                <td th:text="${produit.label}"></td>
-                <td th:text="${produit.description}"></td>
-                <td th:text="${produit.quantity}"></td>
-                <td th:text="${produit.price}"></td>
-                <td th:text="${produit.color}"></td>
-                <td th:text="${produit.size}"></td>
-                <td th:text="${produit.categorie?.catname}"></td>
-                <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
-                <td>
-                    <input type="hidden" id="productId" name="id" />
-                    <button onclick="prepareDelete(this)">Delete</button>
-                    &nbsp;<button onclick="fillFormFields(this)">Modify</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</form>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Label</th>
+                    <th>Description</th>
+                    <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
+                    <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
+                    <th>Color</th>
+                    <th>Size</th>
+                    <th>Category</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="produit : ${all}" class="productRow">
+                    <td th:text="${produit.id}"></td>
+                    <td th:text="${produit.label}"></td>
+                    <td th:text="${produit.description}"></td>
+                    <td th:text="${produit.quantity}"></td>
+                    <td th:text="${produit.price}"></td>
+                    <td th:text="${produit.color}"></td>
+                    <td th:text="${produit.size}"></td>
+                    <td th:text="${produit.categorie?.catname}"></td>
+                    <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
+                    <td>
+                        <input type="hidden" id="productId" name="id" />
+                        <button onclick="prepareDelete(this)">Delete</button>
+                        &nbsp;<button onclick="fillFormFields(this)">Modify</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
 </div>
     <section class="main">
       <div class="main-top">
@@ -850,7 +843,47 @@
         stockSortDir = (dir === "asc") ? "desc" : "asc";
     }
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      // Apply category filter when the select dropdown changes
+      document.getElementById('categorySelect').addEventListener('change', function() {
+          applyCategoryFilter();
+      });
 
+      // Apply label search when typing in the search input
+      document.getElementById('searchInput').addEventListener('keyup', function() {
+          searchByLabel();
+      });
+  });
+
+  function applyCategoryFilter() {
+      var selectedCategory = document.getElementById('categorySelect').value;
+      var rows = document.querySelectorAll('.productRow');
+
+      rows.forEach(function(row) {
+          var category = row.querySelector('td:nth-child(8)').textContent.trim(); // Assuming 8th column is category
+          if (selectedCategory === '' || category === selectedCategory) {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  }
+
+  function searchByLabel() {
+      var input = document.getElementById('searchInput').value.toLowerCase();
+      var rows = document.querySelectorAll('.productRow');
+
+      rows.forEach(function(row) {
+          var label = row.querySelector('td:nth-child(2)').textContent.toLowerCase(); // Assuming 2nd column is label
+          if (label.includes(input)) {
+              row.style.display = '';
+          } else {
+              row.style.display = 'none';
+          }
+      });
+  }
+</script>
 <script>
     function searchByLabel() {
         // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
@@ -863,6 +896,27 @@
         // Parcourir toutes les lignes du tableau et masquer celles qui ne correspondent pas à la recherche
         for (i = 1; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[1]; // La colonne du libellé est la deuxième (index 1)
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function searchByCateg() {
+        // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput2");
+        filter = input.value.toUpperCase();
+        table = document.querySelector(".table");
+        tr = table.getElementsByTagName("tr");
+
+        // Parcourir toutes les lignes du tableau et masquer celles qui ne correspondent pas à la recherche
+        for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[7]; // La colonne du libellé est la deuxième (index 1)
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -920,16 +974,6 @@
             document.getElementById("deleteForm").submit();
         }
     </script>
-<script>
-    function togglePanel() {
-        var panel = document.getElementById("panel");
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    }
-</script>
 <script>
     function togglePanel() {
         var panel = document.getElementById("panel");
