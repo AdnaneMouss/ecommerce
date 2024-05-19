@@ -69,11 +69,11 @@ public class CommentService {
         return (int) commentRepository.count();
     }
 
-    public int countByUserType(String userType) {
-        return commentRepository.countByUserType(userType);
+    public int countByCompte_Filiere(String Filiere) {
+        return commentRepository.countByCompte_Filiere(Filiere);
     }
 
-    public int countByCategory(String category) {
-        return commentRepository.countByCategory(category);
+    public int countByCompte_Type(String Type) {
+        return commentRepository.countByCompte_Type(Type);
     }
 }

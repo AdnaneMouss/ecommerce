@@ -69,16 +69,16 @@ public class CommentControllerImpl {
         int totalComments = commentService.countComments();
         model.addAttribute("totalComments", totalComments);
 
-        String[] userTypes = {"Admin", "User", "Moderator"};
-        for (String userType : userTypes) {
-            int count = commentService.countByUserType(userType);
-            model.addAttribute(userType + "Count", count);
+        String[] Filieres = {"Admin", "User", "Moderator"};
+        for (String Filiere : Filieres) {
+            int count = commentService.countByCompte_Filiere(Filiere);
+            model.addAttribute(Filiere + "Count", count);
         }
 
-        String[] categories = {"General", "Feedback", "Issue", "Suggestion"};
-        for (String category : categories) {
-            int count = commentService.countByCategory(category);
-            model.addAttribute(category + "Count", count);
+        String[] Types = {"General", "Feedback", "Issue", "Suggestion"};
+        for (String Type : Types) {
+            int count = commentService.countByCompte_Type(Type);
+            model.addAttribute(Type + "Count", count);
         }
 
         List<Comment> allComments = commentService.getAllComments();
