@@ -375,7 +375,15 @@ h3{
         grid-template-columns: repeat(4, 1fr);
         grid-gap: 20px;
     }
+    .wrapper {
+        position: relative;
+        width: 200px;
+        height: 200px;
+    }
     .wrapper img{
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 200px;
         height: 200px;
     }
@@ -473,13 +481,16 @@ Discover our freshest selection of masks, crafted to combine both style and func
                           <div class="container">
                               <div class="wrapper">
                                   <img th:src="${product.photo}" alt="Product Photo"/>
+                                  <img src="/soldout.png" th:if="${product.quantity == 0}" class="soldout">
                               </div>
                           </div>
                           <div class="des">
                               <input type="hidden" name="id" th:value="${product.id}" />
                               <span th:text="${product.categorie?.catname}"></span>
                               <h5 th:text="${product.label}"></h5>
-                              Color:<span th:text="${product.color}"></span>
+                              <span th:text="'Color:'+${product.color}"></span><br>
+                              <span th:text="'Remaining stock:'+${product.quantity}"></span>
+
                               <div>
                                   <div style="color: yellow">
                                       <!-- Loop to generate solid star icons based on product rating -->
@@ -487,6 +498,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
                                   </div>
                               </div>
                               <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>
+                              <a class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity == 0}"></a>
                               <h3 th:text="${product.price}"></h3>
                           </div>
                       </div>
