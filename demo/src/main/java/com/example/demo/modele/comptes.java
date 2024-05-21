@@ -25,6 +25,8 @@ public class comptes {
     private List<Panier> paniers;
     @OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
     private List<commande> commandes;
+    @OneToMany(mappedBy = "deliveryman", cascade = CascadeType.ALL)
+    private List<commande> commandesd;
     public int getId() {
         return id;
     }
