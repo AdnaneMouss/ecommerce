@@ -589,42 +589,40 @@
 </div>
 <div class="attendance-list">
     <h1>List of products</h1>
-    <form id="deleteForm" th:action="@{/products/delete}" method="post">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Label</th>
-                    <th>Description</th>
-                    <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
-                    <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
-                    <th>Color</th>
-                    <th>Size</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="produit : ${all}" class="productRow">
-                    <td th:text="${produit.id}"></td>
-                    <td th:text="${produit.label}"></td>
-                    <td th:text="${produit.description}"></td>
-                    <td th:text="${produit.quantity}"></td>
-                    <td th:text="${produit.price}"></td>
-                    <td th:text="${produit.color}"></td>
-                    <td th:text="${produit.size}"></td>
-                    <td th:text="${produit.categorie?.catname}"></td>
-                    <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
-                    <td>
-                        <input type="hidden" id="productId" name="id" />
-                        <button onclick="prepareDelete(this)">Delete</button>
-                        &nbsp;<button onclick="fillFormFields(this)">Modify</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
+    <form id="modifyForm" th:action="@{/products/modify}" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Label</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="produit : ${all}" class="productRow">
+                <td th:text="${produit.id}"></td>
+                <td><input type="text" name="label" th:value="${produit.label}" /></td>
+                <td><input type="text" name="description" th:value="${produit.description}" /></td>
+                <td><input type="number" name="stock" th:value="${produit.quantity}" /></td>
+                <td><input type="number" name="price" step="0.01" th:value="${produit.price}" /></td>
+                <td><input type="text" name="color" th:value="${produit.color}" /></td>
+                <td><input type="text" name="size" th:value="${produit.size}" /></td>
+                <td><input type="text" name="category" th:value="${produit.categorie?.catname}" /></td>
+                <td><img th:src="${produit.photo}" /></td>
+                <input type="hidden" id="productId" name="id" th:value="${produit.id}"/>
+                <td><button type="submit">Modify</button></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+
 </div>
     <section class="main">
       <div class="main-top">
@@ -974,6 +972,40 @@
         } else {
             panel.style.display = "block";
         }
+    }
+</script>
+<script>
+    function editProfile(productId) {
+        var fields = document.querySelectorAll("#s td");
+        // Hide the Modifier button
+        fields.forEach(function(field) {
+            var input = document.createElement("input");
+            input.value = field.innerText;
+            field.innerHTML = "";
+            field.appendChild(input);
+        });
+        document.getElementById("modifier-button").style.display = "none";
+        var saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.type = "button";
+        saveButton.onclick = function() {
+            saveProfile(productId);
+        };
+        document.getElementById("profile-form").appendChild(saveButton);
+        var cancelButton = document.createElement("button");
+        cancelButton.textContent = "Cancel";
+        cancelButton.type = "button";
+        cancelButton.onclick = cancelEdit;
+        document.getElementById("profile-form").appendChild(cancelButton);
+        document.getElementById("productId").value = productId;
+    }
+
+    function saveProfile(productId) {
+        document.getElementById("deleteForm").submit();
+    }
+
+    function cancelEdit() {
+        location.reload();
     }
 </script>
 </body>
