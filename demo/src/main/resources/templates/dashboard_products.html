@@ -608,7 +608,7 @@
         <tbody>
             <tr th:each="produit : ${all}" class="productRow">
                 <td th:text="${produit.id}"></td>
-                <td><input type="text" name="label" th:value="${produit.label}" /></td>
+                <td><input type="text" name="label" th:value="${produit.label}" maxlength="50" /></td>
                 <td><input type="text" name="description" th:value="${produit.description}" /></td>
                 <td><input type="number" name="stock" th:value="${produit.quantity}" /></td>
                 <td><input type="number" name="price" step="0.01" th:value="${produit.price}" /></td>
@@ -666,8 +666,12 @@
             <td><input type="number" placeholder="Stock" name="stock" required></td>
             <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
         </tr>
+        <tr>
+            <td><button type="submit">Add Product</button></td>
+            <td><button type="reset">Clear All</button></td>
+        </tr>
     </table>
-    <button>Add Product</button>
+
 </form>
 
           </div>

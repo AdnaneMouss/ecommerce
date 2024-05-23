@@ -37,14 +37,14 @@ public class ProduitService {
     }
 
     public boolean updateProduit(int id, produit updatedProduit) {
-        boolean res=false;
-        try{
+        boolean res;
+        if(produitRepository.existsById((long) id)) {
             produitRepository.save(updatedProduit);
             updatedProduit.setId(id);
             res=true;
         }
-        catch(Exception e){
-            System.out.println(e);
+        else{
+            res=false;
         }
         return res;
     }

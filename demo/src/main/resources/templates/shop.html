@@ -470,6 +470,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
                   <li th:each="categorie : ${allc}" th:text="${categorie.catname}" th:data-filter="${categorie.catname}"></li>
               </ul>
           </div>
+          <input style="border-color: blue; border-radius: 3px;padding: 6px" type="text" placeholder="Search a product..." id="searchInput" onkeyup="searchByLabel()">
   </section>
   <section class="hero2">
 
@@ -569,5 +570,21 @@ Discover our freshest selection of masks, crafted to combine both style and func
       });
   });
   </script>
+  <script>
+      function searchByLabel() {
+          var input = document.getElementById('searchInput').value.toLowerCase();
+          var sections = document.querySelectorAll('.product-grid section');
+
+          sections.forEach(function(section) {
+              var label = section.querySelector('.des h5').textContent.toLowerCase();
+              if (label.includes(input)) {
+                  section.style.display = 'block';
+              } else {
+                  section.style.display = 'none';
+              }
+          });
+      }
+  </script>
+
 </body>
 </html>

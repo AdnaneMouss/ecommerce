@@ -41,6 +41,15 @@ public class ProduitController {
         return "shop";
     }
 
+    @GetMapping("/catalogueForAll")
+    public String getAllProduitsForAll(Model model) {
+        List<produit> produits = produitService.getAllProduits();
+        model.addAttribute("all",produits);
+        List<categorie> c = catService.getAllCategories();
+        model.addAttribute("allc", c);
+        return "catalogue";
+    }
+
     @GetMapping("/viewdetails")
     public String details(@RequestParam int id) {
         // Redirect to the singleproduct endpoint with the provided ID
@@ -78,7 +87,8 @@ public class ProduitController {
     @PostMapping("/modify")
     public String modify(@RequestParam int id, @RequestParam String label, @RequestParam String description,
                          @RequestParam int stock, @RequestParam double price, @RequestParam String color,
-                         @RequestParam String size, @RequestParam String category) {
+                         @RequestParam String size) {
+
         produit updated = new produit();
         updated.setLabel(label);
         updated.setDescription(description);
@@ -86,10 +96,8 @@ public class ProduitController {
         updated.setQuantity(stock);
         updated.setSize(size);
         updated.setPrice(price);
-        categorie c = new categorie();
-        c.setCatname(category);
-        updated.setCategorie(c);
-        boolean isModified = produitService.updateProduit(id,updated);
+        System.out.println("description:"+description);
+        boolean isModified = produitService.updateProduit(id, updated);
         if (isModified) {
             System.out.println("Product modified successfully.");
         } else {
@@ -98,6 +106,7 @@ public class ProduitController {
 
         return "redirect:/products/products";
     }
+
 
 
 
