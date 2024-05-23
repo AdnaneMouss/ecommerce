@@ -22,11 +22,39 @@ public class CommandeController {
     @Autowired
     private CommandeService commandeService;
     @GetMapping("/commande")
-    public String getAll(Model model) {
+    public String getall(Model model) {
         List<commande> c = commandeService.getAllComm();
         model.addAttribute("all",c);
-        return "dashboard_commandes";
+
+
+            // Récupérer le nombre total de commandes
+            int countCommByfiliere = commandeService.countCommByfiliere("");
+            model.addAttribute("commcount",""+countCommByfiliere);
+            System.out.println(""+countCommByfiliere);
+            int Architecture = commandeService.countCommByfiliere ("Architecture");
+            model.addAttribute("Architecturecommande",""+Architecture);
+            System.out.println("Architecturecommande"+Architecture);
+            int CS = commandeService.countCommByfiliere ("CS");
+            model.addAttribute("CScommande",""+CS);
+            System.out.println("CScommande"+CS);
+            int Automobile = commandeService.countCommByfiliere ("Automobile");
+        model.addAttribute("Automobilecommande",""+Automobile);
+        System.out.println("Automobilecommande"+Automobile);
+            int Aerospace = commandeService.countCommByfiliere ("Aerospace");
+        model.addAttribute("Aerospacecommande",""+Aerospace);
+        System.out.println("Aerospacecommande"+Aerospace);
+        int Medecine = commandeService.countCommByfiliere ("Medecine");
+        model.addAttribute("Medecinecommande",""+Medecine);
+        System.out.println("Medecinecommande"+Medecine);
+            int Energy = commandeService.countCommByfiliere ("Energy");
+            model.addAttribute("Energycommande",""+Energy);
+            System.out.println("Energycommande"+Energy);
+            return "dashboard_commandes";
+
+
     }
+
+
     @GetMapping("/dashboard")
     public String getAllProduits(Model model) {
         List<commande> c = commandeService.getAllComm();
@@ -34,5 +62,6 @@ public class CommandeController {
         return "General_livreur";
     }
 
+    }
 
-}
+

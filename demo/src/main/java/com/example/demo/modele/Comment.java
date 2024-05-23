@@ -12,11 +12,21 @@ public class Comment {
     @Column(name = "content")
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "compte_id", nullable = false)
+    private comptes compte;
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private produit produit;
+
     public Comment() {}
 
-    public Comment(Long id, String content){
-        this.id=id;
-        this.content=content;
+    public Comment(Long id, String content, comptes compte) {
+        this.id = id;
+        this.content = content;
+        this.compte = compte;
+        this.produit = produit;
     }
 
     @Override
@@ -24,6 +34,7 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
+                ", compte=" + compte +
                 '}';
     }
 
@@ -41,5 +52,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public comptes getCompte() {
+        return compte;
+    }
+
+    public void setCompte(comptes compte) {
+        this.compte = compte;
     }
 }
