@@ -85,29 +85,10 @@ public class ProduitController {
     }
 
     @PostMapping("/modify")
-    public String modify(@RequestParam int id, @RequestParam String label, @RequestParam String description,
-                         @RequestParam int stock, @RequestParam double price, @RequestParam String color,
-                         @RequestParam String size) {
-
-        produit updated = new produit();
-        updated.setLabel(label);
-        updated.setDescription(description);
-        updated.setColor(color);
-        updated.setQuantity(stock);
-        updated.setSize(size);
-        updated.setPrice(price);
-        System.out.println("description:"+description);
-        boolean isModified = produitService.updateProduit(id, updated);
-        if (isModified) {
-            System.out.println("Product modified successfully.");
-        } else {
-            System.out.println("Failed to modify product.");
-        }
-
+    public String modifyProduct(@ModelAttribute produit product,@RequestParam int categoryid) {
+        produitService.updateProduit(product.getId(), product, categoryid);
         return "redirect:/products/products";
     }
-
-
 
 
     @GetMapping("/singleproduct/{id}")
@@ -126,10 +107,6 @@ public class ProduitController {
         }
     }
 
-    @PutMapping("/{id}")
-    public boolean updateProduit(@PathVariable int id, @RequestBody produit updatedProduit) {
-        return produitService.updateProduit(id, updatedProduit);
-    }
 
     @PostMapping("/delete")
     public String delete(@RequestParam int id) {
