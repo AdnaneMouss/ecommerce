@@ -596,6 +596,7 @@
 <div class="attendance-list">
     <h1>List of products</h1>
     <form th:action="@{/products/modify}"  id="modifyForm" method="post">
+    <form th:action="@{/products/delete}"  id="" method="post">
     <table class="table">
         <thead>
             <tr>
@@ -613,34 +614,41 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="produit : ${all}" class="productRow">
-                <form th:action="@{/products/modify}" method="post">
-                    <td th:text="${produit.id}"></td>
-                    <td><input style="" type="text" name="label" th:value="${produit.label}" maxlength="50" required/></td>
-                    <td><input type="text" name="description" th:value="${produit.description}"/></td>
-                    <td><input type="number" name="quantity" onkeyup="sortByStock()" th:value="${produit.quantity}" required/></td>
-                    <td><input type="number" name="price" step="0.01" onkeyup="sortByPrice()" th:value="${produit.price}" required/></td>
-                    <td><input type="text" name="color" th:value="${produit.color}" required/></td>
-                    <td><input type="text" name="size"  th:value="${produit.size}" required/></td>
-                    <td><select name="categoryid">
-                        <option disabled selected th:text="${produit.categorie?.catname}" th:value="${produit.categorie?.catname}"></option>
-                        <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
-                    </select></td>
-                    <td><input type="text" name="photo" th:value="${produit.photo}"></td>
-                    <td><img th:src="${produit.photo}" /></td>
-                    <input type="hidden" name="id" th:value="${produit.id}"/>
-                    <td><button type="submit">Modify</button>
-                                        <form th:action="@{/products/delete}"  id="deleteForm" method="post">
-               <input type="hidden" id="productId" name="id" />
-             <button onclick="prepareDelete(this)">Delete</button>
-                                        </form>   </td></form>
-            </tr>
+        <tr th:each="produit : ${all}" class="productRow">
+    <form th:action="@{/products/modify}" method="post">
+        <td th:text="${produit.id}"></td>
+        <td><input style="" type="text" name="label" th:value="${produit.label}" maxlength="50" required/></td>
+        <td><input type="text" name="description" th:value="${produit.description}"/></td>
+        <td><input type="number" name="quantity" onkeyup="sortByStock()" th:value="${produit.quantity}" required/></td>
+        <td><input type="number" name="price" step="0.01" onkeyup="sortByPrice()" th:value="${produit.price}" required/></td>
+        <td><input type="text" name="color" th:value="${produit.color}" required/></td>
+        <td><input type="text" name="size"  th:value="${produit.size}" required/></td>
+        <td>
+            <select name="categoryid">
+                <option disabled selected th:text="${produit.categorie?.catname}" th:value="${produit.categorie?.catname}"></option>
+                <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
+            </select>
+        </td>
+        <td><input type="text" name="photo" th:value="${produit.photo}"></td>
+        <td><img th:src="${produit.photo}" /></td>
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td><button type="submit">Modify</button></td>
+    </form>
+    <form th:action="@{/products/delete}" method="post">
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td>
+    <button type="button">Delete</button>
+</td>
+
+    </form>
+</tr>
         </tbody>
     </table>
+        <p></p>
 </form>
-
-
+    </form>
 </div>
+
     <section class="main">
       <div class="main-top">
         &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
@@ -995,6 +1003,11 @@
         }
     }
 </script>
+                      <script type="text/javascript">
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
 <script>
     function editProfile(productId) {
         var fields = document.querySelectorAll("#s td");
