@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
+   <title>Dashboard | Accounts</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -155,18 +155,19 @@ a:hover i{
   padding: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
    background-image: url('/students.jpg');
-   height: 350px;
+   height: 430px;
 }
 .users2 .card2{
   width: 39%;
   margin: 10px;
   background: #fff;
+
   text-align: left;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
    background-image: url('/furnitures.jpg');
-   height: 350px;
+   height: 430px;
 }
 .users2 .card img{
   width: 70px;
@@ -218,8 +219,7 @@ a:hover i{
   padding-right: 15px;
 }
 .users2 .card button{
-  width: 100%;
-  margin-top: 8px;
+  width: 70%;
   padding: 7px;
   cursor: pointer;
   border-radius: 10px;
@@ -434,17 +434,6 @@ table thead tr{
     </div>
               </div>
          <div class="users">
-        <div class="card">
-          <section class="mysection">
-            <div class="first">
-          <h1><span th:text="${Architecturstudents}"></span></h1>
-          <h4>Architecture students</h4>
-        </div>
-        <div class="second">
-          <img src="/archistudents.png">
-        </div>
-      </section>
-    </div>
                          <div class="card">
           <section class="mysection">
             <div class="first">
@@ -467,9 +456,7 @@ table thead tr{
         </div>
       </section>
     </div>
-              </div>
-         <div class="users">
-        <div class="card">
+                 <div class="card">
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Automobilestudents}"></span></h1>
@@ -477,6 +464,19 @@ table thead tr{
         </div>
         <div class="second">
           <img src="/autostudents.png">
+        </div>
+      </section>
+    </div>
+         </div>
+                         <div class="users">
+                                            <div class="card">
+          <section class="mysection">
+            <div class="first">
+          <h1><span th:text="${Architecturstudents}"></span></h1>
+          <h4>Architecture students</h4>
+        </div>
+        <div class="second">
+          <img src="/archistudents.png">
         </div>
       </section>
     </div>
@@ -504,7 +504,6 @@ table thead tr{
     </div>
 
               </div>
-
       <section class="attendance">
         <div class="attendance-list">
           <h1>List of accounts</h1>
@@ -530,12 +529,10 @@ table thead tr{
         <td th:text="${compte.phone}"></td>
         <td th:text="${compte.email}"></td>
         <td th:text="${compte.type}"></td>
-                  <td><button style="background-color: white"><img th:src="${compte.photo}"></button></td>
-
+                  <td><button style="background-color: white"><img style="width:80px;height: 80px;" th:src="${compte.photo}"></button></td>
                    <td>
            <input type="hidden" id="compteId" name="id" />
              <button onclick="prepareDelete(this)">Delete</button>
-            &nbsp;<button onclick="modifyRow(this)">suspend</button>
         </td>
               </tr>
             </tbody>
@@ -578,9 +575,11 @@ table thead tr{
                 <tr>
                     <td><input type="text"name="photo" placeholder="Image link"></td>
                 </tr>
- 
+ <tr>
+     <td><button type="submit">Add account</button></td>
+     <td><button type="reset">Add account</button></td>
+ </tr>
             </table>
-                  <button>ggg</button>
               </form>
           </div>
         </div>

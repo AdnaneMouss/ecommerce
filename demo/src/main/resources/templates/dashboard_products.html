@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
+  <title>Dashboard | Products</title>
   <link rel="stylesheet" href="style.css" />
     <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -62,9 +62,9 @@
   nav .fas{
       position: relative;
       width: 70px;
-      height: 40px;
+      height: 30px;
       top: 20px;
-      font-size: 20px;
+      font-size: 15px;
       text-align: center;
       color: white;
   }
@@ -398,6 +398,12 @@
       width:50px;
       height: 50px;
   }
+  .productRow input, select{
+      width: 100px;
+      padding: 5px;
+      margin: 2px;
+      border-color: red;
+  }
   .divide{
       display: grid;
       grid-template-columns: repeat(2,1fr);
@@ -434,11 +440,6 @@
   }
 </style>
 <body>
-  <div class="container">
-    <nav class="navlist">
-<ul>
-        <a href="#" class="logo">
-         <img th:src="${session.authenticatedPhoto}" onclick="togglePanel()">
                   <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
             <form th:action="@{/comptes/information}">
@@ -447,46 +448,43 @@
             </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
+  <div class="container">
+    <nav class="navlist">
+<ul>
+        <a href="#" class="logo">
+         <img th:src="${session.authenticatedPhoto}" onclick="togglePanel()">
                </a>
-            <a href="products/products">
+            <a href="/products/products">
           <i class="fas fa-chart-bar"></i>
           <span class="nav-item">Products</span>
-        </a>
+        </a><br>
                 <a href="/categories/categories">
           <i class="fas fa-sharp fa-regular fa-list"></i>
           <span class="nav-item">Categories</span>
-        </a>
-        <a href="products/analytics">
+        </a><br>
+        <a href="/products/analytics">
             <i class="fas fa-solid fa-chart-simple"></i>
           <span class="nav-item">Analytics</span>
-        </a>
-               <a href="comptes/count">
+        </a><br>
+               <a href="/comptes/count">
           <i class="fas fa-solid fa-users"></i>
           <span class="nav-item">Accounts</span>
-        </a>
-            <a href="">
+        </a><br>
+            <a href="/commande/commande">
                   <i class="fas fa-sharp fa-solid fa-envelope"></i>
           <span class="nav-item">Commands</span>
-        </a>
-            <a href="reclamation/count">
+        </a><br>
+            <a href="/reclamation/count">
            <i class="fas fa-solid fa-face-angry"></i>
           <span class="nav-item">Complaints</span>
-        </a>
-            <a href="products/analytics">
+        </a><br>
+            <a href="/products/analytics">
             <i class="fas fa-solid fa-comments"></i>
           <span class="nav-item">Comments</span>
-        </a>
+        </a><br>
         <a href="">
                   <i class="fas fa-sharp fa-solid fa-envelope"></i>
           <span class="nav-item">Contact</span>
-        </a>
-         <a href="">
-          <i class="fas fa-cog"></i>
-          <span class="nav-item">Settings</span>
-        </a>
-        <a href="log/login">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span>
         </a>
       </ul>
     </nav>
@@ -597,43 +595,60 @@
 </div>
 <div class="attendance-list">
     <h1>List of products</h1>
-    <form id="deleteForm" th:action="@{/products/delete}" method="post">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Label</th>
-                    <th>Description</th>
-                    <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
-                    <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
-                    <th>Color</th>
-                    <th>Size</th>
-                    <th>Category</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="produit : ${all}" class="productRow">
-                    <td th:text="${produit.id}"></td>
-                    <td th:text="${produit.label}"></td>
-                    <td th:text="${produit.description}"></td>
-                    <td th:text="${produit.quantity}"></td>
-                    <td th:text="${produit.price}"></td>
-                    <td th:text="${produit.color}"></td>
-                    <td th:text="${produit.size}"></td>
-                    <td th:text="${produit.categorie?.catname}"></td>
-                    <td><button style="background-color: white"><img th:src="${produit.photo}"></button></td>
-                    <td>
-                        <input type="hidden" id="productId" name="id" />
-                        <button onclick="prepareDelete(this)">Delete</button>
-                        &nbsp;<button onclick="fillFormFields(this)">Modify</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <form th:action="@{/products/modify}"  id="modifyForm" method="post">
+    <form th:action="@{/products/delete}"  id="" method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Label</th>
+                <th>Description</th>
+                <th>Stock</th>
+                <th>Price</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Category</th>
+                <th>Image(lien)</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="produit : ${all}" class="productRow">
+    <form th:action="@{/products/modify}" method="post">
+        <td th:text="${produit.id}"></td>
+        <td><input style="" type="text" name="label" th:value="${produit.label}" maxlength="50" required/></td>
+        <td><input type="text" name="description" th:value="${produit.description}"/></td>
+        <td><input type="number" name="quantity" onkeyup="sortByStock()" th:value="${produit.quantity}" required/></td>
+        <td><input type="number" name="price" step="0.01" onkeyup="sortByPrice()" th:value="${produit.price}" required/></td>
+        <td><input type="text" name="color" th:value="${produit.color}" required/></td>
+        <td><input type="text" name="size"  th:value="${produit.size}" required/></td>
+        <td>
+            <select name="categoryid">
+                <option disabled selected th:text="${produit.categorie?.catname}" th:value="${produit.categorie?.catname}"></option>
+                <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
+            </select>
+        </td>
+        <td><input type="text" name="photo" th:value="${produit.photo}"></td>
+        <td><img th:src="${produit.photo}" /></td>
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td><button type="submit">Modify</button></td>
+    </form>
+    <form th:action="@{/products/delete}" method="post">
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td>
+    <button type="button">Delete</button>
+</td>
+
+    </form>
+</tr>
+        </tbody>
+    </table>
+        <p></p>
+</form>
     </form>
 </div>
+
     <section class="main">
       <div class="main-top">
         &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
@@ -676,8 +691,12 @@
             <td><input type="number" placeholder="Stock" name="stock" required></td>
             <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
         </tr>
+        <tr>
+            <td><button type="submit">Add Product</button></td>
+            <td><button type="reset">Clear All</button></td>
+        </tr>
     </table>
-    <button>Add Product</button>
+
 </form>
 
           </div>
@@ -982,6 +1001,45 @@
         } else {
             panel.style.display = "block";
         }
+    }
+</script>
+                      <script type="text/javascript">
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+<script>
+    function editProfile(productId) {
+        var fields = document.querySelectorAll("#s td");
+        // Hide the Modifier button
+        fields.forEach(function(field) {
+            var input = document.createElement("input");
+            input.value = field.innerText;
+            field.innerHTML = "";
+            field.appendChild(input);
+        });
+        document.getElementById("modifier-button").style.display = "none";
+        var saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.type = "button";
+        saveButton.onclick = function() {
+            saveProfile(productId);
+        };
+        document.getElementById("profile-form").appendChild(saveButton);
+        var cancelButton = document.createElement("button");
+        cancelButton.textContent = "Cancel";
+        cancelButton.type = "button";
+        cancelButton.onclick = cancelEdit;
+        document.getElementById("profile-form").appendChild(cancelButton);
+        document.getElementById("productId").value = productId;
+    }
+
+    function saveProfile(productId) {
+        document.getElementById("deleteForm").submit();
+    }
+
+    function cancelEdit() {
+        location.reload();
     }
 </script>
 </body>

@@ -236,57 +236,117 @@
             display: inline-block;
             transform: rotate(90deg); /* Rotate the icon 90 degrees to the right */
         }
+        .hero img{
+            width: 100%;
+            height: 70%;
+            border-radius: 50%;
+        }
+        .people-section {
+            padding: 240px 5%;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .person {
+            text-align: center;
+        }
+
+        .person img {
+            width: 80%;
+            max-width: 200px; /* Adjust the max-width as needed */
+            height: auto;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .person img:hover {
+            transform: scale(1.1);
+        }
+
+        .person p {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333; /* Adjust the text color as needed */
+        }
+
+        /* Adjust the grid layout for smaller screens */
+        @media (max-width: 768px) {
+            .people-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .people-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .person p{
+           color: white;
+            font-weight: bold;
+        }
+        .person span{
+            color: navajowhite;
+            font-family: 'Poppins', sans-serif;
+        }
+
     </style>
 <body>
 <header>
     <img class="logo" src="/logo.png">
-
     <ul class="navlist">
         <li><a href="acceuil.html">Home</a></li>
         <li><a href="/products/catalogueForAll">Our products</a></li>
         <li><a href="faq.jsp">FAQ & Support</a></li>
-        <li><a href="/log/apropos">About us</a></li>
+        <li><a href="/log/aboutus">About us</a></li>
     </ul>
-
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<section class="hero">
-    <div class="hero-img">
-        <img src="/img.png">
-    </div>
-    <div class="hero-text">
-        <form th:action="@{/log/login}" method="">
-            <h2 style="color: white; padding-bottom: 20px; font-size: 26px">Log into your account</h2>
-            <i class="fa-solid fa-user"></i><input type="text" name="username" placeholder="Enter your username"><br><br>
-            <i class="fa-solid fa-lock"></i><input type="password" name="password" placeholder="Enter your password"><br><br>
-            <button type="submit">Login</button>
-            <p>Don't have an account? Request one! &nbsp<i class="fa-regular fa-hand-point-up rotate-right"></i>&nbsp &nbsp<a href="mailto:adminuirsuppy@uir.ac.ma" class="fa-solid fa-envelope"></a></p>
-        </form><br>
+
+<section class="people-section">
+    <div class="people-grid">
+            <div class="person">
+                <img src="https://winkeyecare.com/wp-content/uploads/2013/03/Empty-Profile-Picture-450x450.jpg" alt="Person 1">
+                <p>NAJIB Mehdi</p>
+                <span>Project Coordinator</span>
+            </div>
+        <div class="person">
+            <img src="/adnane.png" alt="Person 1">
+            <p>MOUSSADDEK Adnane</p>
+            <span>Project Manager</span>
+        </div>
+        <div class="person">
+            <img src="/issam.jpg" alt="Person 1">
+            <p>SBABOU Issam</p>
+            <span>Communication Manager</span>
+        </div>
+        <div class="person">
+            <img src="/morad.png" alt="Person 1">
+            <p>MAHMOUDI Morad</p>
+            <span>Developer</span>
+        </div>
+        <div class="person">
+            <img src="/marwa.png" alt="Person 1">
+            <p>TRABELSI Marwa</p>
+            <span>Developer</span>
+        </div>
+        <div class="person">
+            <img src="/amira.png" alt="Person 1">
+            <p>BELBSIR Amira</p>
+            <span>Developer</span>
+        </div>
+
+
     </div>
 </section>
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('error')) {
-            const alertDiv = document.createElement('div');
-            alertDiv.textContent = "WRONG INFORMATION!";
-            alertDiv.style.backgroundColor = 'red';
-            alertDiv.style.color = 'white';
-            alertDiv.style.padding = '10px';
-            alertDiv.style.position = 'fixed';
-            alertDiv.style.top = '50%';
-            alertDiv.style.left = '50%';
-            alertDiv.style.transform = 'translate(-50%, -50%)';
-            alertDiv.style.zIndex = '1000';
-            alertDiv.style.borderRadius = '5px';
-            alertDiv.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-            alertDiv.style.fontFamily = 'Arial, sans-serif';
-            document.body.appendChild(alertDiv);
-            setTimeout(function() {
-                alertDiv.remove();
-            }, 3000);
-        }
-    };
-</script>
 </body>
+
 </html>

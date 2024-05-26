@@ -84,6 +84,35 @@ public class CommentControllerImpl {
         List<Comment> allComments = commentService.getAllComments();
         model.addAttribute("allComments", allComments);
 
+
+        int Architecture = commentService.countByCompte_Filiere ("Architecture");
+        model.addAttribute("Architecturstudents",""+Architecture);
+        System.out.println("Architecturstudents"+Architecture);
+
+        int CS = commentService.countByCompte_Filiere ("CS");
+        model.addAttribute("CSstudents",""+CS);
+        System.out.println("CSstudents"+CS);
+
+        int Energy = commentService.countByCompte_Filiere ("Energy");
+        model.addAttribute("Energystudents",""+Energy);
+        System.out.println("Energystudents"+Energy);
+
+        int Aerospace = commentService.countByCompte_Filiere ("Aerospace");
+        model.addAttribute("Aerospacestudents",""+Aerospace);
+        System.out.println("Aerospacestudents"+Aerospace);
+
+        int Medecine = commentService.countByCompte_Filiere ("Medecine");
+        model.addAttribute("Medecinestudents",""+Medecine);
+        System.out.println("Medecinestudents"+Medecine);
+
+        int Automobile = commentService.countByCompte_Filiere ("Automobile");
+        model.addAttribute("Automobilestudents",""+Automobile);
+        System.out.println("Automobile"+Automobile);
+
+        int Dentistry = commentService.countByCompte_Filiere ("Dentistry");
+        model.addAttribute("Dentistrystudents",""+Dentistry);
+        System.out.println("Dentistry"+Dentistry);
+
         return "dashboard_comments";
     }
 }

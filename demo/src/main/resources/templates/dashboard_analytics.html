@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
-  <title>Attendance Dashboard | By Code Info</title>
+   <title>Dashboard | Analytics</title>
   <link rel="stylesheet" href="style.css" />
   <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
@@ -337,7 +337,7 @@ table thead tr{
             <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1 th:text="${CA}"></h1>
+          <h1 th:text="${CA}+ ' MAD '"></h1>
           <h4>Net Profit</h4>
         </div>
         <div class="second">
@@ -400,12 +400,11 @@ table thead tr{
 </html>
 
 <script th:inline="javascript">
-  /*<![CDATA[*/
   // Get data from Thymeleaf attributes
   var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
   var autoCount = /*[[${auto}]]*/ '0'; // Default value if not provided
   var allCount = /*[[${nocat}]]*/ '0'; // Default value if not provided
-  var aeroCount = /*[[${aero}]]*/ '0'; // Default value if not provided  var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
+  var aeroCount = /*[[${aero}]]*/ '0'; // Default value if not provided  // Default value if not provided
   var energyCount = /*[[${energie}]]*/ '0'; // Default value if not provided
   var csCount = /*[[${cs}]]*/ '0'; // Default value if not provided
   var dentistryCount = /*[[${dentistry}]]*/ '0'; // Default value if not provided
@@ -458,7 +457,6 @@ table thead tr{
       data: data,
       options: options
   });
-  /*]]>*/
 </script>
 
 <script th:inline="javascript">
@@ -466,7 +464,7 @@ table thead tr{
   // Get data from Thymeleaf attributes
   var archiCount = /*[[${Architecturstudents}]]*/ '0'; // Default value if not provided
   var autoCount = /*[[${Automobilestudents}]]*/ '0'; // Default value if not provided
-  var aeroCount = /*[[${Aerospacestudents}]]*/ '0'; // Default value if not provided  var archiCount = /*[[${archi}]]*/ '0'; // Default value if not provided
+  var aeroCount = /*[[${Aerospacestudents}]]*/ '0'; // Default value if not provided
   var energyCount = /*[[${Energystudents}]]*/ '0'; // Default value if not provided
   var csCount = /*[[${CSstudents}]]*/ '0'; // Default value if not provided
   var medecineCount = /*[[${Medicinestudents}]]*/ '0'; // Default value if not provided

@@ -10,9 +10,6 @@ public class commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    @JoinColumn(name="account_id")
-    private comptes compte;
     @Column
     private String dateLivraison;
     @Column
@@ -23,13 +20,21 @@ public class commande {
     private Boolean delivered;
     @Column
     private int quantity;
+    @Column
+    private Boolean confirmed;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private produit p;
+    @ManyToOne
+    @JoinColumn(name="customer_id")
+    private comptes compte;
+    @ManyToOne
+    @JoinColumn(name="deliveryman_id")
+    private comptes deliveryman;
 
     public commande() {
     }
-    public commande(int id, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered) {
+    public commande(int id,comptes deliveryman, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered) {
         this.id = id;
         this.compte = compte;
         this.dateLivraison = dateLivraison;
@@ -38,10 +43,20 @@ public class commande {
         this.delivered = delivered;
         this.p=p;
         this.quantity= quantity;
+        this.deliveryman=deliveryman;
     }
     public int getId() {
         return id;
     }
+
+    public comptes getDeliveryman() {
+        return deliveryman;
+    }
+
+    public void setDeliveryman(comptes deliveryman) {
+        this.deliveryman = deliveryman;
+    }
+
     public comptes getCompte() {
         return compte;
     }

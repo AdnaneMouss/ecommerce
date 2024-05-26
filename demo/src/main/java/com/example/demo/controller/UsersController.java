@@ -1,5 +1,7 @@
 package com.example.demo.controller;
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
 import com.example.demo.service.UsersService;
 import jakarta.servlet.http.HttpSession;
 import org.hibernate.Session;
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/log")
@@ -40,5 +44,12 @@ public class UsersController {
         comptes username = usersService.trouverParNomUtilisateur(nomUtilisateur);
         model.addAttribute("utilisateur", username);
         return "";
+    }
+
+
+    //apropos
+    @GetMapping("/apropos")
+    public String apropos() {
+        return "aboutus";
     }
 }

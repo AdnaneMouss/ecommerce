@@ -3,6 +3,7 @@ package com.example.demo;
 import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
+import com.example.demo.service.CategorieService;
 import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
 import com.example.demo.service.ProduitService;
@@ -14,18 +15,20 @@ public class DemoApplication {
 	private static ProduitService produitService=null;
 	private static ProduitController produitController=null;
 	private static CategorieController categorieController=null;
+	private static CategorieService cat=null;
 	private static ComptesController ComptesController=null;
 	private static ComptesService DaoComptes=null;
 	private static CommandeService cs=null;
 
 
-	public DemoApplication(ProduitService produitService, CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
+	public DemoApplication(ProduitService produitService,CategorieService c, CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
 		this.ComptesController = ComptesController;
 		this.DaoComptes = DaoComptes;
 		this.cs=cs;
+		this.cat=c;
 	}
 
 	public static void main(String[] args) {
@@ -37,7 +40,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
-		test();
+		//test();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -160,5 +163,8 @@ public class DemoApplication {
 		String filiere="hh";
 		int count = cs.countCommByfiliere(filiere);
 		System.out.println(count);
+	}
+	public static void test2(){
+
 	}
 }

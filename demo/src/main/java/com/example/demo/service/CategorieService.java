@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.categorie;
-import com.example.demo.modele.produit;
 import com.example.demo.repository.CategorieRepository;
-import com.example.demo.repository.ProduitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,7 +59,7 @@ public class CategorieService {
         }
         return res;
     }
-    public categorie findCategoieByName(String name){
+    public categorie findCategorieByName(String name){
         return categRepository.findCategorieByCatname(name);
     }
 

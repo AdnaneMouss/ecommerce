@@ -41,6 +41,15 @@ public class ProduitController {
         return "shop";
     }
 
+    @GetMapping("/catalogueForAll")
+    public String getAllProduitsForAll(Model model) {
+        List<produit> produits = produitService.getAllProduits();
+        model.addAttribute("all",produits);
+        List<categorie> c = catService.getAllCategories();
+        model.addAttribute("allc", c);
+        return "catalogue";
+    }
+
     @GetMapping("/viewdetails")
     public String details(@RequestParam int id) {
         // Redirect to the singleproduct endpoint with the provided ID
@@ -76,30 +85,10 @@ public class ProduitController {
     }
 
     @PostMapping("/modify")
-    public String modify(@RequestParam int id, @RequestParam String label, @RequestParam String description,
-                         @RequestParam int stock, @RequestParam double price, @RequestParam String color,
-                         @RequestParam String size, @RequestParam String category) {
-        produit updated = new produit();
-        updated.setId(id);
-        updated.setLabel(label);
-        updated.setDescription(description);
-        updated.setColor(color);
-        updated.setQuantity(stock);
-        updated.setSize(size);
-        updated.setPrice(price);
-        categorie c = new categorie();
-        c.setCatname(category);
-        updated.setCategorie(c);
-        boolean isModified = produitService.updateProduit(id,updated);
-        if (isModified) {
-            System.out.println("Product modified successfully.");
-        } else {
-            System.out.println("Failed to modify product.");
-        }
-
+    public String modifyProduct(@ModelAttribute produit product,@RequestParam int categoryid) {
+        produitService.updateProduit(product.getId(), product, categoryid);
         return "redirect:/products/products";
     }
-
 
 
     @GetMapping("/singleproduct/{id}")
@@ -118,21 +107,17 @@ public class ProduitController {
         }
     }
 
-    @PutMapping("/{id}")
-    public boolean updateProduit(@PathVariable int id, @RequestBody produit updatedProduit) {
-        return produitService.updateProduit(id, updatedProduit);
-    }
 
     @PostMapping("/delete")
-    public String delete(@RequestParam int id) {
-
-            boolean isDeleted = produitService.deleteProduit(id);
-            if (isDeleted) {
-                System.out.println("Product deleted successfully.");
-            } else {
-                System.out.println("Failed to delete product.");
-            }
-
+    public String delete(@RequestParam int id,Model model) {
+        String erreur = "hh";
+try {
+    boolean isDeleted = produitService.deleteProduit(id);
+    model.addAttribute("error", erreur);
+}
+catch(Exception e){
+    model.addAttribute("error", erreur);
+        }
         return "redirect:/products/products";
     }
 
@@ -143,35 +128,35 @@ public class ProduitController {
         int productCount = produitService.countProduits();
         model.addAttribute("productCount", ""+productCount);
         //Archi
-        categorie archi = categorieService.findCategoieByName("Archi");
+        categorie archi = categorieService.findCategorieByName("Archi");
         int countArchi = produitService.countProduitsByCategorie(archi);
         model.addAttribute("archi", ""+countArchi);
         //Auto
-        categorie auto = categorieService.findCategoieByName("Auto");
+        categorie auto = categorieService.findCategorieByName("Auto");
         int countAuto = produitService.countProduitsByCategorie(auto);
         model.addAttribute("auto", ""+countAuto);
         //Aero
-        categorie aero = categorieService.findCategoieByName("Aero");
+        categorie aero = categorieService.findCategorieByName("Aero");
         int countAero = produitService.countProduitsByCategorie(aero);
         model.addAttribute("aero", ""+countAero);
         //CS
-        categorie cs = categorieService.findCategoieByName("CS");
+        categorie cs = categorieService.findCategorieByName("CS");
         int countCS = produitService.countProduitsByCategorie(cs);
         model.addAttribute("cs", ""+countCS);
         //Dentaire
-        categorie dentistry = categorieService.findCategoieByName("Dentistry");
+        categorie dentistry = categorieService.findCategorieByName("Dentistry");
         int countDentistry = produitService.countProduitsByCategorie(dentistry);
         model.addAttribute("dentistry", ""+countDentistry);
         //Générale
-        categorie medecine = categorieService.findCategoieByName("Medecine");
+        categorie medecine = categorieService.findCategorieByName("Medecine");
         int countMedecine = produitService.countProduitsByCategorie(medecine);
         model.addAttribute("medecine", ""+countMedecine);
         //Energie
-        categorie energie = categorieService.findCategoieByName("Energy");
+        categorie energie = categorieService.findCategorieByName("Energy");
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
         //No category
-        categorie all = categorieService.findCategoieByName("All");
+        categorie all = categorieService.findCategorieByName("All");
         int countAll = produitService.countProduitsByCategorie(all);
         model.addAttribute("nocat", ""+countAll);
         //getall
@@ -200,35 +185,35 @@ public class ProduitController {
         int productCount = produitService.countProduits();
         model.addAttribute("productCount", ""+productCount);
         //Archi
-        categorie archi = categorieService.findCategoieByName("Archi");
+        categorie archi = categorieService.findCategorieByName("Archi");
         int countArchi = produitService.countProduitsByCategorie(archi);
         model.addAttribute("archi", ""+countArchi);
         //Auto
-        categorie auto = categorieService.findCategoieByName("Auto");
+        categorie auto = categorieService.findCategorieByName("Auto");
         int countAuto = produitService.countProduitsByCategorie(auto);
         model.addAttribute("auto", ""+countAuto);
         //Aero
-        categorie aero = categorieService.findCategoieByName("Aero");
+        categorie aero = categorieService.findCategorieByName("Aero");
         int countAero = produitService.countProduitsByCategorie(aero);
         model.addAttribute("aero", ""+countAero);
         //CS
-        categorie cs = categorieService.findCategoieByName("CS");
+        categorie cs = categorieService.findCategorieByName("CS");
         int countCS = produitService.countProduitsByCategorie(cs);
         model.addAttribute("cs", ""+countCS);
         //Dentaire
-        categorie dentistry = categorieService.findCategoieByName("Dentistry");
+        categorie dentistry = categorieService.findCategorieByName("Dentistry");
         int countDentistry = produitService.countProduitsByCategorie(dentistry);
         model.addAttribute("dentistry", ""+countDentistry);
-        //Générale
-        categorie medecine = categorieService.findCategoieByName("Medecine");
+        //Medecine
+        categorie medecine = categorieService.findCategorieByName("Medecine");
         int countMedecine = produitService.countProduitsByCategorie(medecine);
         model.addAttribute("medecine", ""+countMedecine);
         //Energie
-        categorie energie = categorieService.findCategoieByName("Energy");
+        categorie energie = categorieService.findCategorieByName("Energy");
         int countEnergie = produitService.countProduitsByCategorie(energie);
         model.addAttribute("energie", ""+countEnergie);
-        //No category
-        categorie all = categorieService.findCategoieByName("Energy");
+        //Générale
+        categorie all = categorieService.findCategorieByName("All");
         int countAll = produitService.countProduitsByCategorie(all);
         model.addAttribute("nocat", ""+countAll);
         //getall
