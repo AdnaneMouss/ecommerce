@@ -29,14 +29,26 @@ public class ReclamationController {
         return ReclamationSer.getAllReclamations();
     }
 
-    @GetMapping("/{username}")
-    public List<Reclamation> getReclamationsByUsername(@PathVariable String username) {
-        return ReclamationSer.getReclamationsByUsername(username);
+    @GetMapping("/myreclamation/{username}")
+    public  String getReclamationsByUsername(@PathVariable String username,Model model) {
+        List<Reclamation> r = ReclamationSer.getReclamationsByUsername(username);
+        model.addAttribute("reclam",r);
+        return  "reclamation";
+    }
+    @GetMapping("/viewdetails")
+    public String details(@RequestParam String username) {
+        return "redirect:/reclamation/myreclamation/" + username;
     }
 
     @PostMapping("/addReclamation")
-    public boolean createReclamation(@RequestBody Reclamation reclamation) {
-        return ReclamationSer.createReclamation(reclamation);
+    public String addReclamation(@RequestParam String description, @RequestParam int idCompte) {
+        Reclamation complaint = new Reclamation();
+        complaint.setdescription(description);
+        comptes compte = new comptes();
+        compte.setId(idCompte);
+        complaint.setCompte(compte);
+        ReclamationSer.createReclamation(complaint);
+        return "redirect:/reclamation/viewdetails";
     }
 
     @DeleteMapping("/{id}")

@@ -382,16 +382,15 @@ h3{
     transition: background-color 0.3s;
     display: flex;
     align-items: center;
+     position: absolute;
+     top: 250px; /* Augmentez cette valeur pour déplacer le bouton vers le bas */
+        right: 10%; /* Adjusting top position for visibility */
     }
 
 .add-complaint-icon {
     margin-right: 5px; /* Espacement entre l'icône et le texte */
 }
-   .add-complaint-container {
-    position: absolute;
-    top: 210px; /* Ajustez la valeur en fonction de votre conception */
-    right: 10%; /* Ajustez la distance par rapport à la droite */
-}
+
 .complaint-form {
             width: fit-content;
             padding: 30px;
@@ -426,6 +425,20 @@ h3{
         .complaint-form input[type="submit"]:hover {
             background-color: #27ae60;
         }
+.card {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0; /* Réduire la marge entre les cartes */
+    padding: 30px;
+    background-color: #f9f9f9;
+    margin-left: -200px;
+}
+
+.section-reclamation {
+    padding: 5px; /* Ajouter du padding pour éviter que les cartes ne soient trop proches des bords */
+}
 
 </style>
 <body>
@@ -443,42 +456,63 @@ h3{
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <br><br><br><br><br>
-<section class="hero">
-    <div class="hero-text">
-        <h1 style="color: white; margin-top: 100px;">My complaints</h1>
-    </div>
+<section class="hero"><div class="hero-text">
+    <h1 style="color: white; margin-top: 100px;">      My complaints</h1>
+</div>
     <div class="add-complaint-container">
         <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
     </div>
     <div class="card" id="complaint-form" style="display: none;">
         <h2>Add Complaint</h2>
-        <form id="actual-complaint-form">
+        <form th:action="@{/reclamation/addReclamation}" id="actual-complaint-form" >
+            <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <label for="complaint-description">Description:</label><br>
-            <textarea id="complaint-description" name="complaint-description" rows="4" cols="50"></textarea><br>
-            <input type="submit" value="Submit">
+            <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
+            <button type="submit">Submit</button>
         </form>
     </div>
 
-    <div class="card" id="complaint-card" style="display: none;">
-        <h2>Complaint</h2>
-        <label for="complaint-description">Description:</label><br>
-        <p id="complaint-description-display"></p>
-        <button id="delete-complaint-button"><i class="fas fa-trash"></i> Delete</button>
-    </div>
     <section class="hero2">
         <div class="product-grid">
             <!-- Loop over each complaint -->
-            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${complaint.compte.username.description}" >
+            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${reclam}" >
                 <div class="card">
                     <h2>Reclamation</h2>
-                    <p>Description de la reclamation : <span th:text="${complaint.compte.username.description}"></span></p>
+                    <p>Description de la reclamation : <span th:text="${reclamation.description}"></span></p>
                 </div>
             </section>
         </div>
     </section>
 
 </section>
+
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+           const addComplaintButton = document.getElementById("add-complaint-button");
+           const complaintForm = document.getElementById("complaint-form");
+           const actualComplaintForm = document.getElementById("actual-complaint-form");
+           const complaintCard = document.getElementById("complaint-card");
+
+           addComplaintButton.addEventListener("click", function() {
+               if (complaintForm.style.display === "none") {
+                   complaintForm.style.display = "block";
+                   complaintCard.style.display = "none";
+               } else {
+                   complaintForm.style.display = "none";
+               }
+           });
+
+ actualComplaintForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const complaintService = document.getElementById("service-concerned").value;
+            const complaintDescription = document.getElementById("complaint-description").value;
+            document.getElementById("service-concerned-display").textContent = complaintService;
+             document.getElementById("complaint-description-display").textContent = complaintDescription;
+            complaintCard.style.display = "block";
+            complaintForm.style.display = "none";
+        });
+    });
 
 </script>
 </body>

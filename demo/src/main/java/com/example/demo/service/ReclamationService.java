@@ -17,7 +17,7 @@ public class ReclamationService {
     }
 
     public List<Reclamation> getReclamationsByUsername(String username) {
-        return ReclamationSer.findReclamationByUsername(username); // Return null if reclamation is not found
+        return ReclamationSer.findAllByCompteUsername(username); // Return null if reclamation is not found
     }
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ReclamationRepository extends JpaRepository<Reclamation, Long> {
 
-    List<Reclamation> findReclamationByUsername(String username);
+    List<Reclamation> findAllByCompteUsername(String username);
 
     int countByCompte_Filiere(String Filiere);
     int countByCompte_Type(String Type);
