@@ -462,16 +462,23 @@ h3{
     <div class="add-complaint-container">
         <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
     </div>
-    <div class="card" id="complaint-form" style="display: none;">
+    <form th:action="@{/reclamation/addReclamation}" id="actual-complaint-form" method="post" >
+    <div class="card" id="complaint-form" style="display: none">
         <h2>Add Complaint</h2>
-        <form th:action="@{/reclamation/addReclamation}" id="actual-complaint-form" >
             <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <label for="complaint-description">Description:</label><br>
             <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
             <button type="submit">Submit</button>
-        </form>
-    </div>
+
+    </div> </form>
+
+    <form th:action="@{/reclamation/addReclamation}" method="post" >
+        <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+        <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+        <textarea id="complaint-" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
+        <button type="submit">submit</button>
+    </form>
 
     <section class="hero2">
         <div class="product-grid">

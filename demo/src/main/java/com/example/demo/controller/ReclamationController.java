@@ -41,14 +41,14 @@ public class ReclamationController {
     }
 
     @PostMapping("/addReclamation")
-    public String addReclamation(@RequestParam String description, @RequestParam int idCompte) {
+    public String addReclamation(@RequestParam String username,@RequestParam String description, @RequestParam int idCompte) {
         Reclamation complaint = new Reclamation();
         complaint.setdescription(description);
         comptes compte = new comptes();
         compte.setId(idCompte);
         complaint.setCompte(compte);
         ReclamationSer.createReclamation(complaint);
-        return "redirect:/reclamation/viewdetails";
+        return "redirect:/reclamation/myreclamation/" + username;
     }
 
     @DeleteMapping("/{id}")
