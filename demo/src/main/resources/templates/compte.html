@@ -114,40 +114,46 @@
 <body>
 <div class="container">
     <h1>Modifier le Profil</h1>
-    <div class="profile-picture-container">
-        <img src="" alt="Profile Picture" class="profile-picture">
-        <label for="profile-picture-input" class="change-picture-button"><i class="fas fa-camera"></i></label>
-        <input type="file" id="profile-picture-input" style="display: none;">
-    </div>
     <form id="profile-form" method="GET">
-        <input type="text" name="username" value="issam">
+        <input type="hidden" name="username">
         <table th:each="compte : ${comptes}" id="s">
+            <div class="profile-picture-container">
+                <img th:src="${compte.photo}" class="profile-picture">
+            </div>
+            <tr>
+                <th><i class="fas fa-user"></i> Image link </th>
+                <td><input th:value="${compte.photo}" readonly></td>
+            </tr>
+            <tr>
+                <th><i class="fas fa-user"></i> Full name</th>
+                <td><input th:value="${compte.nom}" readonly></td>
+            </tr>
             <tr>
                 <th><i class="fas fa-user"></i> Username</th>
-                <td th:text="${compte.username}">Nom d'utilisateur</td>
+                <td><input th:value="${compte.username}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-envelope"></i> Email</th>
-                <td th:text="${compte.email}">Adresse email</td>
+                <td><input th:value="${compte.email}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-phone" style="transform: rotate(180deg);"></i> Phone</th>
-                <td th:text="${compte.phone}">Numéro de téléphone</td>
+                <td><input th:value="${compte.phone}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-lock"></i> Password</th>
-                <td th:text="${compte.password}">Mot de passe</td>
+                <td><input th:value="${compte.password}"></td>
             </tr>
             <tr>
-                <th><i class="fas fa-user"></i> Type</th>
-                <td th:text="${compte.type}">Type d'utilisateur</td>
+                <th><i class="fas fa-user"></i>User Type</th>
+                <td><input th:value="${compte.type}" readonly></td>
             </tr>
             <tr>
-                <th><i class="fas fa-book"></i> Filière</th>
-                <td th:text="${compte.filiere}">Filière</td>
+                <th><i class="fas fa-book"></i>Field</th>
+                <td><input th:value="${compte.filiere}" readonly></td>
             </tr>
         </table>
-        <button type="button" id="modifier-button" onclick="editProfile()">Modifier</button>
+        <button type="button" id="modifier-button">Modifier</button>
     </form>
 </div>
 </body>

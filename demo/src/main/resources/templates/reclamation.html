@@ -55,22 +55,32 @@ header img{
   font-weight: 700;
   color: white;
 }
-.navlist{
-  display: flex;
-}
-.navlist a {
-  color: white;
-  padding: 20px;
-    margin-left: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    border-bottom: 2px;
-    transition: all .55s ease;
-}
+    .navlist {
+        display: flex;
+        align-items: center; /* Align items vertically */
+    }
 
-.navlist a:hover{
-  border-bottom: 2px solid white;
-}
+    .navlist li {
+        margin-left: 10px; /* Adjust spacing between list items */
+    }
+
+    .navlist img {
+        width: 30px; /* Adjust the width of the image */
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+
+
 
 #menu-icon{
   color: white;
@@ -107,12 +117,6 @@ section{
 }
 
 
-.hero-img{
-  background-image: url('path/to/your/image.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
     .hero-img img {
       animation: pulse 4s infinite;
     }
@@ -129,11 +133,6 @@ section{
       }
     }
 
-.merged-img {
-  position: all;
-  bottom: 60;
-  left: 0;
-}
 .hero-text h1{
 
 }
@@ -439,19 +438,86 @@ h3{
 .section-reclamation {
     padding: 5px; /* Ajouter du padding pour éviter que les cartes ne soient trop proches des bords */
 }
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
 
 </style>
 <body>
 <header>
-    <img class="logo" src="img/logo.png">
+    <img class="logo" src="/logo.png">
     <ul class="navlist">
-        <li><a href="">Catalog</a></li>
-        <li><a href="">My Basket</a></li>
-        <li><a href="mydeliveries.html">My Pending deliveries</a></li>
-        <li><a href="mycomments.html">My comments</a></li>
-        <li><a href="mycomplaints.html">My complaints</a></li>
-        <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
+        <form th:action="@{/products/catalogue}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>Catalog</button></li>
+        </form>
+        <form th:action="@{/panier/getpanier}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Basket</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Pending Deliveries</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Comments</button></li>
+        </form>
+        <form th:action="@{/reclamation/viewdetails}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My reclamations</button></li>
+        </form>
+        <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+        <div id="panel" class="panel">
+            <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/information}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                <button style="background-color: blue">Account information</button>
+            </form>
+            <button><a href="/log/login">Log out</a></button>
+        </div>
         <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
@@ -471,14 +537,8 @@ h3{
             <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
             <button type="submit">Submit</button>
 
-    </div> </form>
+    </div>
 
-    <form th:action="@{/reclamation/addReclamation}" method="post" >
-        <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
-        <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-        <textarea id="complaint-" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
-        <button type="submit">submit</button>
-    </form>
 
     <section class="hero2">
         <div class="product-grid">
@@ -509,18 +569,28 @@ h3{
                    complaintForm.style.display = "none";
                }
            });
-
- actualComplaintForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const complaintService = document.getElementById("service-concerned").value;
-            const complaintDescription = document.getElementById("complaint-description").value;
-            document.getElementById("service-concerned-display").textContent = complaintService;
-             document.getElementById("complaint-description-display").textContent = complaintDescription;
-            complaintCard.style.display = "block";
-            complaintForm.style.display = "none";
-        });
     });
 
+</script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+</script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
 </script>
 </body>
 </html>
