@@ -87,10 +87,20 @@ header img{
     .navlist{
         display: flex;
     }
+    .navlist li {
+        margin-left: 130px; /* Adjust spacing between list items */
+    }
+
+    .navlist img {
+        width: 30px; /* Adjust the width of the image */
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
     .navlist a {
         color: white;
-        margin-left: 60px;
-        font-size: 15px;
+        padding: 20px;
+        font-size: 20px;
         font-weight: 600;
         border-bottom: 2px;
         transition: all .55s ease;
@@ -120,14 +130,6 @@ header img{
 section{
     padding: 0 10%;
 }
-
-
-.hero-img{
-    background-image: url('path/to/your/image.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
     img {
       animation: pulse 4s infinite;
     }
@@ -144,11 +146,6 @@ section{
       }
     }
 
-.merged-img {
-  position: all;
-  bottom: 60;
-  left: 0;
-}
 .hero-text h1{
   font-family: Georgia, serif;
     font-size: 30px;
@@ -180,12 +177,12 @@ section{
 }
 
 .hero-text{
-    display: inline-black;
+    display: inline-block;
     color: white;
     border: 1px solid transparent;
     padding: 20px;
     line-height: 1.4;
-    font-size: 14px
+    font-size: 14px;
     font-weight: 500;
     border-radius: 30px;
     transition: all .55s ease;
@@ -194,18 +191,17 @@ section{
 .hero-text a:hover{
     background: transparent;
     border: 1px solid white;
-    transform: translateX(8p);
+    transform: translateX(8px);
 }
 </style>
 <body>
   <header>
-     <img class="logo" src="img/logo.png">
-    <ul class="navlist">
-      <li><a href="homePage.html">Home</a></li>
-      <li><a id="button">Our products</a></li>
-      <li><a href="faq.jsp">FAQ & Support</a></li>
-      <li><a href="apropos.jsp">About us</a></li>
-    </ul>
+     <img class="logo" src="/logo.png">
+      <ul class="navlist">
+          <li><a href="/log/home">Home</a></li>
+          <li><a href="/products/catalogueForAll">Our products</a></li>
+          <li><a href="/log/apropos">About us</a></li>
+      </ul>
 
     <div class="bx bx-menu" id="menu-icon"></div>
   </header><br><br><br>
@@ -218,11 +214,12 @@ section{
 
 <div class="container">
     <div class="wrapper">
-        <img src="img/archi.png" alt="Image 1">
-        <img  src="img/nurse.png" alt="Image 2">
-        <img  src="img/archis.png" alt="Image 3">
-<img src="doctor.png" alt="Image 3">
+        <img src="/archi.png" alt="Image 1">
+        <img  src="/nurse.png" alt="Image 2">
+        <img  src="/archis.png" alt="Image 3">
+<img src="/doctor.png" alt="Image 3">
     </div>
 </div>
+  </section>
 </body>
 </html>

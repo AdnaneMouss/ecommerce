@@ -47,9 +47,14 @@ public class UsersController {
     }
 
 
-    //apropos
+    //aboutus
     @GetMapping("/apropos")
     public String apropos() {
         return "aboutus";
+    }
+    //home
+    @GetMapping("/home")
+    public String home() {
+        return "homePage";
     }
 }

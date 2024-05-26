@@ -82,8 +82,8 @@ public class ProduitService {
         return (int) produitRepository.count();
     }
 
-    public int countProduitsByCategorie(categorie cat) {
-        return produitRepository.countByCategorie(cat);
+    public int countProduitsByCategorie(String cat) {
+        return produitRepository.countByCategorie_Catname(cat);
     }
 
 }

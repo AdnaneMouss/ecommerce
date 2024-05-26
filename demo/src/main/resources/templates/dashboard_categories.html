@@ -154,7 +154,7 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('/addproduct.jpg');
+      background-image: url('/addcategory.jpg');
       height: 445px;
   }
   .addcat .card{
@@ -165,7 +165,7 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('/addproduct.jpg');
+      background-image: url('/addcategory.jpg');
       height: 445px;
   }
   .addprod .card2{
@@ -179,9 +179,9 @@
       background-image: url('/furnitures.jpg');
       height: 350px;
   }
-  .addprod .card img{
-      width: 70px;
-      height: 70px;
+  .addcat .card img{
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
   }
   .addprod button{
@@ -257,17 +257,9 @@
       margin-top: 20px;
       text-transform: capitalize;
   }
-  .attendance-list{
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-  }
 
   .attendance-list2{
-      width: 25%;
+      width: 50%;
       padding: 10px;
       margin-top: 10px;
       background: #fff;
@@ -439,7 +431,8 @@
       <section class="main">
         <h2 style="color: white">CATEGORIES PAGE</h2>
         <h4 style="color: white">Display, add and delete categories easily</h4>
-
+<section style="display: grid;grid-template-columns: repeat(2,4fr);">
+    <div>
         <section class="attendance">
             <div class="attendance-list2">
                 <h1>List of categories</h1>
@@ -458,7 +451,6 @@
                                 <td th:text="${categorie.catname}"></td>
                                 <td>
                                     <button onclick="prepareDelete(this)">Delete</button>
-                                    &nbsp;<button onclick="modifyRow(this)">Modify</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -467,7 +459,8 @@
                 </form>
             </div>
         </section>
-
+</div>
+    <div>
         <section class="main">
             <div class="main-top">
                 &nbsp;<h1 style="color: white;">ADD CATEGORIES</h1>
@@ -479,7 +472,9 @@
                             <form action="/categories/addCategory" method="post">
                                 <table class="table2">
                                     <tr>
-                                        <td><input type="text" placeholder="Name" name="catname"></td>
+                                        <td><input type="text" placeholder="Name" name="catname" required></td>
+                                    </tr>
+                                    <tr>
                                         <td><button type="submit">Add Category</button></td>
                                     </tr>
                                 </table>
@@ -489,9 +484,9 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
             </section>
-        </section>
+        </section></div>
     </section>
-
+</section>
     <script>
         function prepareDelete(button) {
             var categoryId = button.parentNode.parentNode.querySelector("td:first-child").innerText;

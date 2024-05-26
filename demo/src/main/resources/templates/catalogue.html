@@ -54,7 +54,7 @@
         }
 
         .navlist li {
-            margin-left: 10px; /* Adjust spacing between list items */
+            margin-left: 130px; /* Adjust spacing between list items */
         }
 
         .navlist img {
@@ -66,12 +66,11 @@
         .navlist a {
             color: white;
             padding: 20px;
-            font-size: 15px;
+            font-size: 20px;
             font-weight: 600;
             border-bottom: 2px;
             transition: all .55s ease;
         }
-
 
         .navlist a:hover{
             border-bottom: 2px solid white;
@@ -134,11 +133,6 @@
             }
         }
 
-        .merged-img {
-            position: all;
-            bottom: 60;
-            left: 0;
-        }
         .hero-text h1{
 
         }
@@ -186,7 +180,7 @@
         .hero-text a:hover{
             background: transparent;
             border: 1px solid white;
-            transform: translateX(8p);
+            transform: translateX(8px);
         }
 
         #prod1 {
@@ -194,6 +188,7 @@
             padding: 1px;
             margin-left: -20px;
         }
+
         #prod1:hover{
             transform: scale(1.2);
         }
@@ -216,7 +211,7 @@
             background-color: white;
             padding: 20px;
             border-radius: 19px;
-            box-shadow: 5 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: rgba(0, 0, 0, 0.1);
             width: 250px;
         }
         .pro img {
@@ -251,7 +246,7 @@
         }
         .des h5 {
             margin: 5px 0;
-            font-size: 18px;
+            font-size: 16px;
             text-align: start;
         }
         .star {
@@ -418,12 +413,10 @@
 <body>
 <header>
     <img class="logo" src="/logo.png">
-    <p></p>
     <ul class="navlist">
-        <li><a href="acceuil.html">Home</a></li>
+        <li><a href="/log/home">Home</a></li>
         <li><a href="/products/catalogueForAll">Our products</a></li>
-        <li><a href="faq.jsp">FAQ & Support</a></li>
-        <li><a href="apropos.jsp">About us</a></li>
+        <li><a href="/log/apropos">About us</a></li>
     </ul>
 
 </header>
@@ -439,7 +432,6 @@
 <section class="hero2">
     <div class="product-grid">
         <section id="prod1" class="section-p1" th:each="product : ${all}" th:data-category="${product.categorie?.catname}">
-            <form th:action="@{/products/viewdetails}">
                 <div class="pro-container">
                     <div class="pro" th:classappend="${product.quantity == 0} ? 'low-quantity' : ''">
                         <div class="container">
@@ -461,13 +453,12 @@
                                     <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
                                 </div>
                             </div>
-                            <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>
+                            <button type="submit" class="fa-sharp fa-solid fa-cart-plus" onclick="alert('You need to login before purchasing products!')"></button>
                             <a class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity == 0}"></a>
                             <h3 th:text="${product.price}"></h3>
                         </div>
                     </div>
                 </div>
-            </form>
         </section>
     </div>
 

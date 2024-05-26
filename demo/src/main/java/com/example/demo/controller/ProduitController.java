@@ -128,36 +128,28 @@ catch(Exception e){
         int productCount = produitService.countProduits();
         model.addAttribute("productCount", ""+productCount);
         //Archi
-        categorie archi = categorieService.findCategorieByName("Archi");
-        int countArchi = produitService.countProduitsByCategorie(archi);
+        int countArchi = produitService.countProduitsByCategorie("Archi");
         model.addAttribute("archi", ""+countArchi);
         //Auto
-        categorie auto = categorieService.findCategorieByName("Auto");
-        int countAuto = produitService.countProduitsByCategorie(auto);
+        int countAuto = produitService.countProduitsByCategorie("Auto");
         model.addAttribute("auto", ""+countAuto);
         //Aero
-        categorie aero = categorieService.findCategorieByName("Aero");
-        int countAero = produitService.countProduitsByCategorie(aero);
+        int countAero = produitService.countProduitsByCategorie("Aero");
         model.addAttribute("aero", ""+countAero);
         //CS
-        categorie cs = categorieService.findCategorieByName("CS");
-        int countCS = produitService.countProduitsByCategorie(cs);
+        int countCS = produitService.countProduitsByCategorie("CS");
         model.addAttribute("cs", ""+countCS);
         //Dentaire
-        categorie dentistry = categorieService.findCategorieByName("Dentistry");
-        int countDentistry = produitService.countProduitsByCategorie(dentistry);
+        int countDentistry = produitService.countProduitsByCategorie("Dentistry");
         model.addAttribute("dentistry", ""+countDentistry);
-        //Générale
-        categorie medecine = categorieService.findCategorieByName("Medecine");
-        int countMedecine = produitService.countProduitsByCategorie(medecine);
+        //Medecine
+        int countMedecine = produitService.countProduitsByCategorie("Medecine");
         model.addAttribute("medecine", ""+countMedecine);
         //Energie
-        categorie energie = categorieService.findCategorieByName("Energy");
-        int countEnergie = produitService.countProduitsByCategorie(energie);
+        int countEnergie = produitService.countProduitsByCategorie("Energy");
         model.addAttribute("energie", ""+countEnergie);
-        //No category
-        categorie all = categorieService.findCategorieByName("All");
-        int countAll = produitService.countProduitsByCategorie(all);
+        //Générale
+        int countAll = produitService.countProduitsByCategorie("All");
         model.addAttribute("nocat", ""+countAll);
         //getall
         List<produit> produits = produitService.getAllProduits();
@@ -185,36 +177,28 @@ catch(Exception e){
         int productCount = produitService.countProduits();
         model.addAttribute("productCount", ""+productCount);
         //Archi
-        categorie archi = categorieService.findCategorieByName("Archi");
-        int countArchi = produitService.countProduitsByCategorie(archi);
+        int countArchi = produitService.countProduitsByCategorie("Archi");
         model.addAttribute("archi", ""+countArchi);
         //Auto
-        categorie auto = categorieService.findCategorieByName("Auto");
-        int countAuto = produitService.countProduitsByCategorie(auto);
+        int countAuto = produitService.countProduitsByCategorie("Auto");
         model.addAttribute("auto", ""+countAuto);
         //Aero
-        categorie aero = categorieService.findCategorieByName("Aero");
-        int countAero = produitService.countProduitsByCategorie(aero);
+        int countAero = produitService.countProduitsByCategorie("Aero");
         model.addAttribute("aero", ""+countAero);
         //CS
-        categorie cs = categorieService.findCategorieByName("CS");
-        int countCS = produitService.countProduitsByCategorie(cs);
+        int countCS = produitService.countProduitsByCategorie("CS");
         model.addAttribute("cs", ""+countCS);
         //Dentaire
-        categorie dentistry = categorieService.findCategorieByName("Dentistry");
-        int countDentistry = produitService.countProduitsByCategorie(dentistry);
+        int countDentistry = produitService.countProduitsByCategorie("Dentistry");
         model.addAttribute("dentistry", ""+countDentistry);
         //Medecine
-        categorie medecine = categorieService.findCategorieByName("Medecine");
-        int countMedecine = produitService.countProduitsByCategorie(medecine);
+        int countMedecine = produitService.countProduitsByCategorie("Medecine");
         model.addAttribute("medecine", ""+countMedecine);
         //Energie
-        categorie energie = categorieService.findCategorieByName("Energy");
-        int countEnergie = produitService.countProduitsByCategorie(energie);
+        int countEnergie = produitService.countProduitsByCategorie("Energy");
         model.addAttribute("energie", ""+countEnergie);
         //Générale
-        categorie all = categorieService.findCategorieByName("All");
-        int countAll = produitService.countProduitsByCategorie(all);
+        int countAll = produitService.countProduitsByCategorie("All");
         model.addAttribute("nocat", ""+countAll);
         //getall
         List<produit> produits = produitService.getAllProduits();
