@@ -398,26 +398,56 @@
         text-decoration: underline;
         color: white;
     }
-    .confirm{
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
 
+    .navlist button:hover{
+        border-bottom: 2px solid white;
     }
 </style>
 <body>
 <header>
     <img class="logo" src="/logo.png">
     <ul class="navlist">
-        <li><a href="/products/catalogue">Catalog</a></li>
-        <li><a href="">My Basket</a></li>
-        <li><a href="mydeliveries.html">My Pending deliveries</a></li>
-        <li><a href="mycomments.html">My comments</a></li>
-        <li><a href="mycomplaints.html">My complaints</a></li>
+        <form th:action="@{/products/catalogue}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>Catalog</button></li>
+        </form>
+        <form th:action="@{/panier/getpanier}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Basket</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Pending Deliveries</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Comments</button></li>
+        </form>
+        <form th:action="@{/reclamation/viewdetails}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My reclamations</button></li>
+        </form>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
-        <div id="panel" class="panel" style="display: none">
+        <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
-            <button style="background-color: blue">Account information</button>
+            <form th:action="@{/comptes/information}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                <button style="background-color: blue">Account information</button>
+            </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
         <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>

@@ -55,22 +55,32 @@ header img{
   font-weight: 700;
   color: white;
 }
-.navlist{
-  display: flex;
-}
-.navlist a {
-  color: white;
-  padding: 20px;
-    margin-left: 30px;
-    font-size: 15px;
-    font-weight: 600;
-    border-bottom: 2px;
-    transition: all .55s ease;
-}
+    .navlist {
+        display: flex;
+        align-items: center; /* Align items vertically */
+    }
 
-.navlist a:hover{
-  border-bottom: 2px solid white;
-}
+    .navlist li {
+        margin-left: 10px; /* Adjust spacing between list items */
+    }
+
+    .navlist img {
+        width: 30px; /* Adjust the width of the image */
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+
+
 
 #menu-icon{
   color: white;
@@ -107,12 +117,6 @@ section{
 }
 
 
-.hero-img{
-  background-image: url('path/to/your/image.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
     .hero-img img {
       animation: pulse 4s infinite;
     }
@@ -129,11 +133,6 @@ section{
       }
     }
 
-.merged-img {
-  position: all;
-  bottom: 60;
-  left: 0;
-}
 .hero-text h1{
 
 }
@@ -382,16 +381,15 @@ h3{
     transition: background-color 0.3s;
     display: flex;
     align-items: center;
+     position: absolute;
+     top: 250px; /* Augmentez cette valeur pour déplacer le bouton vers le bas */
+        right: 10%; /* Adjusting top position for visibility */
     }
 
 .add-complaint-icon {
     margin-right: 5px; /* Espacement entre l'icône et le texte */
 }
-   .add-complaint-container {
-    position: absolute;
-    top: 210px; /* Ajustez la valeur en fonction de votre conception */
-    right: 10%; /* Ajustez la distance par rapport à la droite */
-}
+
 .complaint-form {
             width: fit-content;
             padding: 30px;
@@ -426,60 +424,173 @@ h3{
         .complaint-form input[type="submit"]:hover {
             background-color: #27ae60;
         }
+.card {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0; /* Réduire la marge entre les cartes */
+    padding: 30px;
+    background-color: #f9f9f9;
+    margin-left: -200px;
+}
+
+.section-reclamation {
+    padding: 5px; /* Ajouter du padding pour éviter que les cartes ne soient trop proches des bords */
+}
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
 
 </style>
 <body>
 <header>
-    <img class="logo" src="img/logo.png">
+    <img class="logo" src="/logo.png">
     <ul class="navlist">
-        <li><a href="">Catalog</a></li>
-        <li><a href="">My Basket</a></li>
-        <li><a href="mydeliveries.html">My Pending deliveries</a></li>
-        <li><a href="mycomments.html">My comments</a></li>
-        <li><a href="mycomplaints.html">My complaints</a></li>
-        <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
+        <form th:action="@{/products/catalogue}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>Catalog</button></li>
+        </form>
+        <form th:action="@{/panier/getpanier}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Basket</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Pending Deliveries</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Comments</button></li>
+        </form>
+        <form th:action="@{/reclamation/viewdetails}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My reclamations</button></li>
+        </form>
+        <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+        <div id="panel" class="panel">
+            <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/information}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                <button style="background-color: blue">Account information</button>
+            </form>
+            <button><a href="/log/login">Log out</a></button>
+        </div>
         <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <br><br><br><br><br>
-<section class="hero">
-    <div class="hero-text">
-        <h1 style="color: white; margin-top: 100px;">My complaints</h1>
-    </div>
+<section class="hero"><div class="hero-text">
+    <h1 style="color: white; margin-top: 100px;">      My complaints</h1>
+</div>
     <div class="add-complaint-container">
         <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
     </div>
-    <div class="card" id="complaint-form" style="display: none;">
+    <form th:action="@{/reclamation/addReclamation}" id="actual-complaint-form" method="post" >
+    <div class="card" id="complaint-form" style="display: none">
         <h2>Add Complaint</h2>
-        <form id="actual-complaint-form">
+            <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <label for="complaint-description">Description:</label><br>
-            <textarea id="complaint-description" name="complaint-description" rows="4" cols="50"></textarea><br>
-            <input type="submit" value="Submit">
-        </form>
+            <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
+            <button type="submit">Submit</button>
+
     </div>
 
-    <div class="card" id="complaint-card" style="display: none;">
-        <h2>Complaint</h2>
-        <label for="complaint-description">Description:</label><br>
-        <p id="complaint-description-display"></p>
-        <button id="delete-complaint-button"><i class="fas fa-trash"></i> Delete</button>
-    </div>
+
     <section class="hero2">
         <div class="product-grid">
             <!-- Loop over each complaint -->
-            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${complaint.compte.username.description}" >
+            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${reclam}" >
                 <div class="card">
                     <h2>Reclamation</h2>
-                    <p>Description de la reclamation : <span th:text="${complaint.compte.username.description}"></span></p>
+                    <p>Description de la reclamation : <span th:text="${reclamation.description}"></span></p>
                 </div>
             </section>
         </div>
     </section>
 
 </section>
-<script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+           const addComplaintButton = document.getElementById("add-complaint-button");
+           const complaintForm = document.getElementById("complaint-form");
+           const actualComplaintForm = document.getElementById("actual-complaint-form");
+           const complaintCard = document.getElementById("complaint-card");
+
+           addComplaintButton.addEventListener("click", function() {
+               if (complaintForm.style.display === "none") {
+                   complaintForm.style.display = "block";
+                   complaintCard.style.display = "none";
+               } else {
+                   complaintForm.style.display = "none";
+               }
+           });
+    });
+
+</script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+</script>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
 </script>
 </body>
 </html>

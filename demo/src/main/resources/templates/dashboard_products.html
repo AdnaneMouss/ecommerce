@@ -145,30 +145,12 @@
       display: flex;
       width: 100%;
   }
+  .addprod .card {
+      display: inline-block; /* Ensure the card only takes the necessary space */
+  }
+
 
   .addprod .card{
-      width: 79%;
-      margin: 10px;
-      background: #fff;
-      text-align: left;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('/addproduct.jpg');
-      height: 445px;
-  }
-  .addcat .card{
-      width: 79%;
-      margin: 10px;
-      background: #fff;
-      text-align: left;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('/addproduct.jpg');
-      height: 445px;
-  }
-  .addprod .card2{
       width: 39%;
       margin: 10px;
       background: #fff;
@@ -176,8 +158,8 @@
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      background-image: url('/furnitures.jpg');
-      height: 350px;
+      background-image: url('/addproduct.jpg');
+      height: 445px;
   }
   .addprod .card img{
       width: 70px;
@@ -203,6 +185,10 @@
       border-radius: 10px;
       background: rgb(223, 223, 223);
   }
+  .addprod .card .per {
+      padding: 15px; /* Add padding to the card content */
+  }
+
 
   .table2 td input, select, textarea{
       width:200px;
@@ -398,6 +384,12 @@
       width:50px;
       height: 50px;
   }
+  .productRow input, select{
+      width: 100px;
+      padding: 5px;
+      margin: 2px;
+      border-color: red;
+  }
   .divide{
       display: grid;
       grid-template-columns: repeat(2,1fr);
@@ -589,41 +581,59 @@
 </div>
 <div class="attendance-list">
     <h1>List of products</h1>
-    <form id="modifyForm" th:action="@{/products/modify}" method="post">
+    <form th:action="@{/products/modify}"  id="modifyForm" method="post">
+    <form th:action="@{/products/delete}"  id="" method="post">
     <table class="table">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Label</th>
                 <th>Description</th>
-                <th>Stock</th>
-                <th>Price</th>
+                <th onclick="sortByStock()">Stock<i class="fa-solid fa-sort"></i></th>
+                <th onclick="sortByPrice()">Price<i class="fa-solid fa-sort"></i></th>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Category</th>
+                <th>Image(lien)</th>
                 <th>Image</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="produit : ${all}" class="productRow">
-                <td th:text="${produit.id}"></td>
-                <td><input type="text" name="label" th:value="${produit.label}" /></td>
-                <td><input type="text" name="description" th:value="${produit.description}" /></td>
-                <td><input type="number" name="stock" th:value="${produit.quantity}" /></td>
-                <td><input type="number" name="price" step="0.01" th:value="${produit.price}" /></td>
-                <td><input type="text" name="color" th:value="${produit.color}" /></td>
-                <td><input type="text" name="size" th:value="${produit.size}" /></td>
-                <td><input type="text" name="category" th:value="${produit.categorie?.catname}" /></td>
-                <td><img th:src="${produit.photo}" /></td>
-                <input type="hidden" id="productId" name="id" th:value="${produit.id}"/>
-                <td><button type="submit">Modify</button></td>
-            </tr>
+        <tr th:each="produit : ${all}" class="productRow">
+    <form th:action="@{/products/modify}" method="post">
+        <td th:text="${produit.id}"></td>
+        <td><input style="" type="text" name="label" th:value="${produit.label}" maxlength="50" required/></td>
+        <td><input type="text" name="description" th:value="${produit.description}"/></td>
+        <td><input type="number" name="quantity" th:value="${produit.quantity}" required/></td>
+        <td><input type="number" name="price" step="0.01" th:value="${produit.price}" required/></td>
+        <td><input type="text" name="color" th:value="${produit.color}" required/></td>
+        <td><input type="text" name="size"  th:value="${produit.size}" required/></td>
+        <td>
+            <select name="categoryid">
+                <option disabled selected th:text="${produit.categorie?.catname}" th:value="${produit.categorie?.catname}"></option>
+                <option th:each="category : ${allc}" th:value="${category.id}" th:text="${category.catname}"></option>
+            </select>
+        </td>
+        <td><input type="text" name="photo" th:value="${produit.photo}"></td>
+        <td><img th:src="${produit.photo}" /></td>
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td><button type="submit">Modify</button></td>
+    </form>
+    <form th:action="@{/products/delete}" method="post" onsubmit="return handleSubmit(this)">
+        <input type="hidden" name="id" th:value="${produit.id}"/>
+        <td>
+    <button type="submit">Delete</button>
+</td>
+    </form>
+</tr>
         </tbody>
     </table>
+        <p></p>
 </form>
-
+    </form>
 </div>
+
     <section class="main">
       <div class="main-top">
         &nbsp<h1 style="color: white;">ADD PRODUCTS</h1>
@@ -666,17 +676,22 @@
             <td><input type="number" placeholder="Stock" name="stock" required></td>
             <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
         </tr>
+        <tr>
+            <td><button type="submit">Add Product</button></td>
+            <td><button type="reset">Clear All</button></td>
+        </tr>
     </table>
-    <button>Add Product</button>
+
 </form>
 
           </div>
         </div>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+
         </div>
 </section>
     </section>
-
+</div>
+      </section>
     </section>
   </div>
 <script th:inline="javascript">
@@ -688,151 +703,6 @@
   }
 </script>
 
-<script>
-    function modifyRow(button) {
-        var row = button.parentNode.parentNode;
-        var cells = row.getElementsByTagName("td");
-        for (var i = 1; i < cells.length - 1; i++) {
-            var input = document.createElement("input");
-            input.type = "text";
-            input.value = cells[i].innerText.trim();
-            cells[i].innerHTML = "";
-            cells[i].appendChild(input);
-        }
-        button.style.display = "none";
-    }
-
-    function saveChanges(button) {
-        var row = button.parentNode.parentNode;
-        var inputs = row.getElementsByTagName("input");
-        var formData = new FormData();
-        for (var i = 0; i < inputs.length; i++) {
-            formData.append(inputs[i].name, inputs[i].value);
-        }
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/products/modify", true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                console.log("Product modified successfully.");
-                window.location.reload();
-            } else {
-                console.log("Failed to modify product.");
-            }
-        };
-        xhr.send(formData);
-    }
-
-    function cancelChanges(button) {
-        var row = button.parentNode.parentNode;
-        var inputs = row.getElementsByTagName("input");
-        var cells = row.getElementsByTagName("td");
-        for (var i = 1; i < cells.length - 1; i++) {
-            cells[i].innerHTML = inputs[i - 1].value;
-        }
-        var modifyButton = row.querySelector("button[type='button']");
-        modifyButton.style.display = "block";
-    }
-</script>
-<script>
-    function applyCategoryFilter() {
-        var select = document.getElementById("categorySelect");
-        var categoryId = select.value;
-        var rows = document.getElementsByClassName("productRow");
-
-        for (var i = 0; i < rows.length; i++) {
-            var row = rows[i];
-            var categoryCell = row.getElementsByTagName("td")[5]; // Assuming Category column is at index 5
-            var category = categoryCell.textContent.trim();
-
-            if (categoryId === "" || categoryId === category) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-        }
-    }
-</script>
-<script>
-    var priceSortDir = "asc";
-    function sortByPrice() {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.querySelector(".table");
-        switching = true;
-        // Set the sorting direction:
-        var dir = priceSortDir;
-        while (switching) {
-            switching = false;
-            rows = table.rows;
-            // Loop through all table rows (except the first, which contains table headers):
-            for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                // Get the two elements you want to compare, one from current row and one from the next:
-                x = rows[i].getElementsByTagName("TD")[4]; // Price column index is 4
-                y = rows[i + 1].getElementsByTagName("TD")[4];
-                // Check if the two rows should switch place, based on the direction, asc or desc:
-                if (dir === "asc") {
-                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
-                        shouldSwitch= true;
-                        break;
-                    }
-                } else if (dir === "desc") {
-                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
-                        shouldSwitch= true;
-                        break;
-                    }
-                }
-            }
-            if (shouldSwitch) {
-                // If a switch has been marked, make the switch and mark that a switch has been done:
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-            }
-        }
-        // Reverse the direction for next sorting iteration:
-        priceSortDir = (dir === "asc") ? "desc" : "asc";
-    }
-</script>
-<script>
-    var stockSortDir = "asc";
-    function sortByStock() {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.querySelector(".table");
-        switching = true;
-        // Set the sorting direction:
-        var dir = stockSortDir;
-        while (switching) {
-            switching = false;
-            rows = table.rows;
-            // Loop through all table rows (except the first, which contains table headers):
-            for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                // Get the two elements you want to compare, one from current row and one from the next:
-                x = rows[i].getElementsByTagName("TD")[3]; // Stock column index is 3
-                y = rows[i + 1].getElementsByTagName("TD")[3];
-                // Check if the two rows should switch place, based on the direction, asc or desc:
-                if (dir === "asc") {
-                    if (parseFloat(x.innerText) > parseFloat(y.innerText)) {
-                        shouldSwitch= true;
-                        break;
-                    }
-                } else if (dir === "desc") {
-                    if (parseFloat(x.innerText) < parseFloat(y.innerText)) {
-                        shouldSwitch= true;
-                        break;
-                    }
-                }
-            }
-            if (shouldSwitch) {
-                // If a switch has been marked, make the switch and mark that a switch has been done:
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-            }
-        }
-        // Reverse the direction for next sorting iteration:
-        stockSortDir = (dir === "asc") ? "desc" : "asc";
-    }
-</script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
       // Apply category filter when the select dropdown changes
@@ -917,25 +787,6 @@
             }
         }
     }
-    function fillFormFields(button) {
-        var row = button.parentNode.parentNode;
-        var cells = row.getElementsByTagName("td");
-        var id = row.querySelector("input[name='id']").value;
-
-        document.getElementById("productId").value = id;
-
-        for (var i = 1; i < cells.length - 1; i++) {
-            var input = document.createElement("input");
-            input.type = "text";
-            input.name = cells[i].parentNode.getElementsByTagName("th")[i].textContent.toLowerCase();
-            input.value = cells[i].innerText.trim();
-            cells[i].innerHTML = "";
-            cells[i].appendChild(input);
-        }
-
-        var modifyButton = row.querySelector("button[type='button']");
-        modifyButton.style.display = "none";
-    }
 </script>
 <script>
   const deleteButton = document.getElementById('deleteButton');
@@ -974,39 +825,64 @@
         }
     }
 </script>
+                 <script>
+        var stockSortDir = "asc";
+        var priceSortDir = "asc";
+
+        function sortByStock() {
+            sortTable(3, stockSortDir);
+            stockSortDir = (stockSortDir === "asc") ? "desc" : "asc";
+        }
+
+        function sortByPrice() {
+            sortTable(4, priceSortDir);
+            priceSortDir = (priceSortDir === "asc") ? "desc" : "asc";
+        }
+
+        function sortTable(columnIndex, sortDir) {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.querySelector(".table");
+            switching = true;
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[columnIndex];
+                    y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+
+                    if (sortDir === "asc") {
+                        if (parseFloat(x.getElementsByTagName("input")[0].value) > parseFloat(y.getElementsByTagName("input")[0].value)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (sortDir === "desc") {
+                        if (parseFloat(x.getElementsByTagName("input")[0].value) < parseFloat(y.getElementsByTagName("input")[0].value)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                }
+            }
+        }
+    </script>
+
 <script>
-    function editProfile(productId) {
-        var fields = document.querySelectorAll("#s td");
-        // Hide the Modifier button
-        fields.forEach(function(field) {
-            var input = document.createElement("input");
-            input.value = field.innerText;
-            field.innerHTML = "";
-            field.appendChild(input);
-        });
-        document.getElementById("modifier-button").style.display = "none";
-        var saveButton = document.createElement("button");
-        saveButton.textContent = "Save";
-        saveButton.type = "button";
-        saveButton.onclick = function() {
-            saveProfile(productId);
-        };
-        document.getElementById("profile-form").appendChild(saveButton);
-        var cancelButton = document.createElement("button");
-        cancelButton.textContent = "Cancel";
-        cancelButton.type = "button";
-        cancelButton.onclick = cancelEdit;
-        document.getElementById("profile-form").appendChild(cancelButton);
-        document.getElementById("productId").value = productId;
+function handleSubmit(form) {
+    if (confirm('Are you sure you want to delete this product?')) {
+        alert('The product was deleted successfully');
+        form.submit();
     }
-
-    function saveProfile(productId) {
-        document.getElementById("deleteForm").submit();
-    }
-
-    function cancelEdit() {
-        location.reload();
-    }
+    // Prevent default form submission
+    return false;
+}
 </script>
 </body>
 </html>

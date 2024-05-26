@@ -134,14 +134,6 @@
       display: grid;
       grid-template-columns: repeat(2,1fr);
   }
-  .gridoffour{
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-  }
-  .main-top{
-      display: flex;
-      width: 100%;
-  }
   .main-top i{
       position: absolute;
       right: 0;
@@ -166,13 +158,13 @@
   }
   .users2 .card2{
       width: 90%;
-      margin: 10px;
+      margin: 40px;
       background: #fff;
       text-align: left;
       border-radius: 10px;
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-      height: 350px;
+      height: 380px;
   }
   .users2 .card2 img{
       width: 100px;
@@ -358,6 +350,94 @@
       width:50px;
       height: 50px;
   }
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f5f5f5;
+  }
+
+  .openModalBtn {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+  }
+
+  .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: black;
+      text-decoration: none;
+  }
+
+  .livreur-item {
+      list-style: none;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+  }
+
+  .livreur-item:hover {
+      background-color: #e0e0e0;
+  }
+
+  #assignBtn {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+  }
+  .first h1{
+      color: red;
+  }
+  .first span{
+      color: black;
+
+  }
   </span>
 </style>
 <body>
@@ -396,19 +476,17 @@
       </ul>
     </nav>
 
-
-
     <section class="main">
-                <h2>ACCOUNTS PAGE</h2> <h4>Display,add and delete accounts easily</h4>
+                <h2 style="color: white">Commands PAGE</h2> <h4 style="color: white">Display,add and delete Commands easily</h4>
         <div class="users">
                        <div class="card">
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Architecturecommande}"></span></h1>
-          <h4>Architecture commande</h4>
+          <h4>Architecture Commands</h4>
         </div>
         <div class="second">
-          <img src="/suppliertotal.png">
+          <img src="/archistudents.png">
         </div>
       </section>
     </div>
@@ -416,7 +494,7 @@
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${CScommande}"></span></h1>
-          <h4>CScommande</h4>
+          <h4>CS Commands</h4>
         </div>
         <div class="second">
           <img src="/csstudents.png">
@@ -427,10 +505,10 @@
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Automobilecommande}"></span></h1>
-          <h4>Automobile commande</h4>
+          <h4>Automobile Commands</h4>
         </div>
         <div class="second">
-          <img src="/csstudents.png">
+          <img src="/autostudents.png">
         </div>
       </section>
     </div>
@@ -440,10 +518,10 @@
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Aerospacecommande}"></span></h1>
-          <h4>Aerospace commande </h4>
+          <h4>Aerospace Commands </h4>
         </div>
         <div class="second">
-          <img src="/csstudents.png">
+          <img src="/aerostudents.png">
         </div>
       </section>
     </div>
@@ -451,10 +529,10 @@
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Medecinecommande}"></span></h1>
-          <h4>Medecine commande </h4>
+          <h4>Medecine Commands </h4>
         </div>
         <div class="second">
-          <img src="/csstudents.png">
+          <img src="/medecinestudents.png">
         </div>
       </section>
     </div>
@@ -462,7 +540,7 @@
           <section class="mysection">
             <div class="first">
           <h1><span th:text="${Energycommande}"></span></h1>
-          <h4>Energy commande</h4>
+          <h4>Energy Commands</h4>
         </div>
         <div class="second">
           <img src="/energystudents.png">
@@ -470,32 +548,53 @@
       </section>
                          </div>
         </div>
-
-
-        <section class="gridoftwo">
-              <div class="users2"  th:each="commande : ${all}">
-        <div class="card2" >
-          <section class="mysection">
-            <div class="first">
-          <h1>id:<span th:text="${commande.id}"></span></h1>
-          <h1><span th:text="${commande.dateLivraison}"></span></h1>
-          <h1><span th:text="${commande.lieuLivraison}"></span></h1>
-          <h1><span th:text="${commande.méthodePaiement}"></span></h1>
-          <h1><span th:text="${commande.delivered}"></span></h1>
-          <h1><span th:text="${commande.quantity}"></span></h1>
-          <h1><span th:text="${commande.p.label}"></span></h1>
-          <h1><span th:text="${commande.compte.id}"></span></h1>
-        </div>
-        <div class="second">
-          <img th:src="${commande.compte.photo}">
-        </div>
-          </section>
-                 </div>
-              </div>
+      <section class="attendance">
+<div></div>
       </section>
 
 
+<section class="main">
+        <section class="gridoftwo">
+    <div class="users2" th:each="commande : ${all}">
+        <div class="card2">
+            <section class="mysection">
+                <div class="first">
+                    <h1>Command N°:<span th:text="${commande.id}"></span></h1>
+                    <h1>Customer :<span th:text="${commande.compte.username}"></span></h1>
+                    <h1>Product :<span th:text="${commande.p.label}"></span></h1>
+                    <h1>Quantity :<span th:text="${commande.quantity}"></span></h1>
+                    <h1>Sold for :<span th:text="${commande.quantity * commande.p.price}"></span></h1>
+                    <h1>Delivery Date : <span th:text="${commande.dateLivraison}"></span></h1>
+                    <h1>Delivery Location :<span th:text="${commande.lieuLivraison}"></span></h1>
+                    <h1>Delivery status :<span th:if="commande.delivered==1">Delivered</span><span th:if="commande.delivered==0">Not delivered</span></h1>
+                    <h1>DeliveryMan :<span th:if="${commande.deliveryman==null}">Not set yet.</span><span th:if="${commande.deliveryman!=null}" th:text="${commande.deliveryman.nom}"></span></h1>
+                </div>
+                <div class="second">
+                    <img th:src="${commande.p.photo}">
+                </div>
+            </section>
+            <button class="openModalBtn">Assign a delivery Man</button>
+        </div>
+        <form th:action="@{/commande/assignCommand}" method="post">
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Delivery Men list</h2>
+                    <select name="idD">
+                        <option th:each="deliveryman : ${delivery}" th:value="${deliveryman.id}" th:text="${deliveryman.nom}"></option>
+                        <input type="hidden" th:value="${commande.id}" name="id">
+                    </select>
+                    <button class="assignBtn">Assign command</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+</section></section>
+  </div>
 </body>
+
         <script>
         function prepareDelete(button) {
             var categoryId = button.parentNode.parentNode.querySelector("td:first-child").innerText;
@@ -503,5 +602,34 @@
             document.getElementById("deleteForm").submit();
         }
     </script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const openModalBtns = document.querySelectorAll(".openModalBtn");
+        const modals = document.querySelectorAll(".modal");
+        const closeBtns = document.querySelectorAll(".close");
+
+        openModalBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                modals[index].style.display = "block";
+            });
+        });
+
+        closeBtns.forEach((btn, index) => {
+            btn.addEventListener("click", () => {
+                modals[index].style.display = "none";
+            });
+        });
+
+        window.addEventListener("click", (event) => {
+            modals.forEach((modal) => {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    });
+</script>
+
 </html>
+
 </span>

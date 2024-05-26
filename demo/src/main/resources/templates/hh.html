@@ -3,50 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stylish Basket</title>
+    <title>User Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
             margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
             padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
             text-align: center;
         }
-        .basket {
-            width: 200px;
-            height: auto;
+        .container {
+            max-width: 600px;
             margin: 0 auto;
         }
-        .basket-items {
-            display: flex;
-            justify-content: center;
+        form {
             margin-top: 20px;
-            flex-wrap: wrap;
         }
-        .basket-item {
-            width: 80px;
-            margin: 10px;
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <img class="basket" src="https://th.bing.com/th/id/R.47a9ddc804f6a27f8a121d1a17727122?rik=%2fkmDpYA%2bIh7f6w&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2ftransparent-basket%2ftransparent-basket-11.png&ehk=53D2%2bUzveLXvYAaaxkP5pebZS260d3ha%2bXCLXRZ3p5Y%3d&risl=&pid=ImgRaw&r=0" alt="Basket">
-    <div class="basket-items">
-        <img class="basket-item" src="https://th.bing.com/th/id/R.47a9ddc804f6a27f8a121d1a17727122?rik=%2fkmDpYA%2bIh7f6w&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2ftransparent-basket%2ftransparent-basket-11.png&ehk=53D2%2bUzveLXvYAaaxkP5pebZS260d3ha%2bXCLXRZ3p5Y%3d&risl=&pid=ImgRaw&r=0" alt="Item 1">
-        <img class="basket-item" src="item2.png" alt="Item 2">
-        <img class="basket-item" src="item3.png" alt="Item 3">
-        <img class="basket-item" src="item4.png" alt="Item 4">
-        <!-- Add more items as needed -->
+    <h1>User Information</h1>
+    <div id="display-info">
+        <!-- User information will be displayed here -->
     </div>
+    <form id="update-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required>
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age">
+        <input type="submit" value="Update Information">
+    </form>
 </div>
+
+<script>
+    // JavaScript for fetching and updating user information
+    // Replace this with actual backend code to fetch and update user info
+    const userInfo = {
+        username: "JohnDoe",
+        email: "john.doe@example.com",
+        age: 30
+    };
+
+    // Display user information
+    function displayUserInfo() {
+        document.getElementById("username").value = userInfo.username;
+        document.getElementById("email").value = userInfo.email;
+        document.getElementById("age").value = userInfo.age || '';
+    }
+
+    // Update user information
+    document.getElementById("update-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        userInfo.username = document.getElementById("username").value;
+        userInfo.email = document.getElementById("email").value;
+        userInfo.age = document.getElementById("age").value;
+        // Here you would typically send this data to your backend to update the user information
+        // For demo purpose, we will just display an alert
+        alert("User information updated successfully!");
+    });
+
+    // Display user information on page load
+    displayUserInfo();
+</script>
 </body>
 </html>

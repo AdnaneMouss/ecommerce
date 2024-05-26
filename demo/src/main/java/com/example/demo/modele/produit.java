@@ -1,5 +1,6 @@
 package com.example.demo.modele;
 import jakarta.persistence.*;
+import org.thymeleaf.processor.comment.ICommentStructureHandler;
 
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class produit {
     @OneToMany(mappedBy = "p")
     private List<commande> command;
 
+    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     public produit(int id, String label, String description, double price, String color, String photo, int quantity,int rating, String size, categorie categorie) {
         this.id = id;
@@ -44,7 +47,7 @@ public class produit {
         this.categorie = categorie;
         this.rating=rating;
         this.quantity=quantity;
-
+        this.comments = comments;
     }
 
     public produit() {}
