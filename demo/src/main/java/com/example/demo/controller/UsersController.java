@@ -18,9 +18,10 @@ public class UsersController {
     @Autowired
     private UsersService usersService;
     @GetMapping("/login")
-    public String authenticateUser(String username, String password, Model model, HttpSession session) {
-        comptes compte = usersService.authenticate(username, password);
+    public String authenticateUser(String email, String password, Model model, HttpSession session) {
+        comptes compte = usersService.authenticate(email, password);
         if (compte != null) {
+            model.addAttribute("this",compte);
             session.setAttribute("authenticatedUsername", compte.getUsername());
             session.setAttribute("authenticatedPhoto", compte.getPhoto());
             session.setAttribute("authenticatedId", compte.getId());

@@ -6,21 +6,427 @@
     <title>Modifier le Profil</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
+        :root {
+            --background-gradient: linear-gradient(to right, #0B1480, #0B1480);
+        }
+        *{
             padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        header{
+            position: absolute;
+            right: 0;
+            bottom: 600px;
+            z-index: 1000;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px 10%;
+            background: linear-gradient(to top, #040A4C, #0B1480);
+
+            box-shadow: 0 1px 6px 0 rgb(32 33 56 / 5%);
+        }
+        body{
+            top:20px;
+            background: var(--background-gradient);
+        }
+
+        header img{
+            width:15%;
+        }
+
+        .logo{
+            font-size: 30px;
+            font-weight: 700;
+            color: white;
+        }
+        .navlist {
+            display: flex;
+            align-items: center; /* Align items vertically */
+        }
+
+        .navlist li {
+            margin-left: 10px; /* Adjust spacing between list items */
+        }
+
+        .navlist img {
+            width: 30px; /* Adjust the width of the image */
+            height: auto;
+            border-radius: 15px;/* Maintain aspect ratio */
+        }
+
+        .navlist a {
+            color: white;
+            padding: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+
+
+        .navlist a:hover{
+            border-bottom: 2px solid white;
+        }
+
+        #menu-icon{
+            color: white;
+            font-size: 35px;
+            z-index: 10001;
+            cursor: pointer;
+            display: none;
+        }
+        .hero{
+            height: 100%;
+            width: 100%;
+            min-height: 100vh;
+            background: var(--background-gradient);
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(2, 4fr);
+            align-items: center;
+            gap: 2rem;
+        }
+        .hero2{
+            height: 100%;
+            width: 100%;
+            min-height: 100vh;
+            background: var(--background-gradient);
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: center;
+            gap: 2rem;
+        }
+
+        section{
+            padding: 0 10%;
+        }
+
+
+        .hero-img{
+            background-image: url('path/to/your/image.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .hero-img img {
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .merged-img {
+            position: all;
+            bottom: 60;
+            left: 0;
+        }
+        .hero-text h1{
+
+        }
+        .hero-text p{
+            font-family: 'Rubik Doodle Shadow';
+            font-size: 15px;
+            line-height: 1;
+            color: white;
+            margin: 0 0 45px;
+            line-height: 1.5;
+        }
+        .hero-text a{
+            display: inline-block;
+            color: white;
+            border: 1px solid transparent;
+            padding: 12px 30px;
+            line-height: 1.4;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 30px;
+            text-transform: uppercase;
+            transition: all .55s ease;
+            letter-spacing: 2px;
+        }
+
+        .hero-text{
+            display: inline-block;
+            border: 1px solid transparent;
+            padding: 20px;
+            line-height: 1.4;
+            font-weight: 500;
+            border-radius: 30px;
+            transition: all .55s ease;
+        }
+        .hero-text h1{
+            margin-bottom: 20px;
+            color: black;
+            font-weight: 700;
+            font-family: Georgia, serif;
+            font-size: 60px;
+            line-height: 1;
+            margin: 0 0 45px;
+        }
+
+        .hero-text a:hover{
+            background: transparent;
+            border: 1px solid white;
+            transform: translateX(8p);
+        }
+
+        #prod1 {
+            text-align: center;
+            padding: 1px;
+            margin-left: -20px;
+        }
+        #prod1:hover{
+            transform: scale(1.2);
+        }
+        .section-p1 {
+            background-color: transparent;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+        .pro-container {
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+            margin: 1px;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-radius: 20px;
+        }
+        .pro {
+            background-color: white;
+            padding: 20px;
+            border-radius: 19px;
+            box-shadow: 5 4px 8px rgba(0, 0, 0, 0.1);
+            width: 250px;
+        }
+        .pro img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .pro img:hover {
+            width: 100%;
+            border-radius: 8px;
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        .des {
+            margin-top: 10px;
+            text-align: left;
+        }
+        .des span {
+            color: #888;
+            font-size: 14px;
+
+        }
+        .des h5 {
+            margin: 5px 0;
+            font-size: 16px;
+            text-align: start;
+        }
+        .star {
+            color: #f8ce0b;
+            font-size: 24px;
+            display: flex;
+        }
+        .rating input {
+            display: none;
+        }
+
+        /* Style for the star labels */
+        .rating label {
+            font-size: 19px; /* Adjust the size of the stars */
+            color: #ccc; /* Default color for empty stars */
+            cursor: pointer;
+            padding-right: 9px; /* Adjust space between stars */
+        }
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        /* Change color of selected stars */
+        .rating input:checked ~ label {
+            color: #ffcc00;
+        }
+        .btn{
+            display: inline-block;
+            padding: 14px 42px;
+            color: black;
+            border: 2px solid transparent;
+            transition: all .6s;
+            font-weight: 500;
+            font-size:15px;
+        }
+        .btn:hover{
+            transform: scale(0.9) translateY(-6px);
+            border-radius: 2px solid black;
+            background: transparent;
+
+        }
+        h3{
+            text-align: left;
+            font-size: 15px;
+        }
+        .indicator{
+            width: 100%;
+            height: 100px;
+            border-bottom: 2px solid #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .indicator ul li{
+            list-style: none;
+            padding: 20px;
+            margin: 10px;
+            float: left;
+            font-size: 20px;
+            border-radius: 35px;
+            color: white;
+
+        }
+        .indicator li{
+            color: white;
+            text-decoration: none;
+        }
+        .indicator .active{
+            color: white;
+            background-color: #3498db;
+            font-weight: bold;
+            border: 3px solid white;
+            border-radius: 90%;
+            padding: 10px;
+        }
+        .indicator a{
+            color: white;
+            text-decoration: none;
+        }
+        .indicator .active{
+            color: white;
+        }
+        .indicator .active a{
+            color: white;
+            background-color: #3498db;
+            font-weight: bold;
+            border: 3px solid white;
+            border-radius: 90%;
+            padding: 10px;
+        }
+        #star1{
+            color: yellow;
+        }
+        .fa-arrow-right-from-bracket{
+            color: white;
+        }
+        .fa-user{
+            color: white;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+        }
+        .wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+        .wrapper img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+        }
+        .panel {
+            display: none; /* Initially hide the panel */
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 200px;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .panel p {
+            margin: 5px 0;
+        }
+
+        .panel button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .low-quantity {
+            background-color: red;
+            color: white;
+        }
+        .navlist button{
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            margin-left: 40px;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+
+        .navlist button:hover{
+            border-bottom: 2px solid white;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
+            width: 350%;
+            max-width: 1200px;
             margin: 50px auto;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
             box-sizing: border-box;
+        }
+        .container input{
+            padding:7px;
+            width: 300px;
         }
         h1 {
             text-align: center;
@@ -109,40 +515,105 @@
         button:hover {
             background-color: #c9302c;
         }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            vertical-align: middle;
+        }
+        th i {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .fas{
+            color: darkblue;
+        }
     </style>
 </head>
+
 <body>
+<header>
+    <img class="logo" src="/logo.png">
+    <p></p>
+    <ul class="navlist">
+        <form th:action="@{/products/catalogue}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>Catalog</button></li>
+        </form>
+        <form th:action="@{/panier/getpanier}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Basket</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Pending Deliveries</button></li>
+        </form>
+        <form th:action="@{//}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My Comments</button></li>
+        </form>
+        <form th:action="@{/reclamation/viewdetails}">
+            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <li><button>My reclamations</button></li>
+        </form>
+        <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+        <div id="panel" class="panel">
+            <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/information}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                <button style="background-color: blue">Account information</button>
+            </form>
+            <button><a href="/log/login">Log out</a></button>
+        </div>
+        <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
+    </ul>
+
+    <div class="bx bx-menu" id="menu-icon"></div>
+</header>
+<br><br><br><br><br>
+
+
+<section class="hero">
 <div class="container">
-    <h1>Modifier le Profil</h1>
-    <form id="profile-form" method="GET">
+    <h1 style="color: darkblue">Modifier le Profil</h1>
+    <form id="profile-form" th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
+        <input type="hidden" th:value="${session.authenticatedId}" name="id">
         <input type="hidden" name="username">
         <table th:each="compte : ${comptes}" id="s">
+            <form th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
             <div class="profile-picture-container">
                 <img th:src="${compte.photo}" class="profile-picture">
             </div>
             <tr>
-                <th><i class="fas fa-user"></i> Image link </th>
-                <td><input th:value="${compte.photo}" readonly></td>
+                <th><i class="fas fa-envelope"></i> Image link </th>
+                <td><input name="photo" th:value="${compte.photo}"></td>
             </tr>
             <tr>
-                <th><i class="fas fa-user"></i> Full name</th>
-                <td><input th:value="${compte.nom}" readonly></td>
+                <th><i class="fas fa-envelope"></i> Full name</th>
+                <td><input name="nom" th:value="${compte.nom}" readonly></td>
             </tr>
             <tr>
-                <th><i class="fas fa-user"></i> Username</th>
-                <td><input th:value="${compte.username}"></td>
+                <th><i class="fas fa-envelope"></i> Username</th>
+                <td><input name="username" th:value="${compte.username}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-envelope"></i> Email</th>
-                <td><input th:value="${compte.email}"></td>
+                <td><input name="email" th:value="${compte.email}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-phone" style="transform: rotate(180deg);"></i> Phone</th>
-                <td><input th:value="${compte.phone}"></td>
+                <td><input name="photo" th:value="${compte.phone}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-lock"></i> Password</th>
-                <td><input th:value="${compte.password}"></td>
+                <td><input name="password" th:value="${compte.password}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-user"></i>User Type</th>
@@ -152,10 +623,12 @@
                 <th><i class="fas fa-book"></i>Field</th>
                 <td><input th:value="${compte.filiere}" readonly></td>
             </tr>
+            </form>
         </table>
-        <button type="button" id="modifier-button">Modifier</button>
+        <button type="submit" id="modifier-button" style="background-color: darkblue">Modifier</button>
     </form>
 </div>
+</section>
 </body>
 <script>
     function editProfile() {

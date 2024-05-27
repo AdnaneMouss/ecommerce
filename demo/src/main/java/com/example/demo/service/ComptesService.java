@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
 import com.example.demo.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,10 @@ public ComptesService(CompteRepository compteRepository){
         return compteRepository.findById(id);
     }
 
+    public comptes getAccountById(Long id) {
+        return compteRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
     public boolean createCompte(comptes compte) {
         boolean res=false;
         try{
@@ -40,7 +46,15 @@ public ComptesService(CompteRepository compteRepository){
         }
         return res;
     }
-
+    public comptes updatecompte(int id, comptes newaccountData ) {
+        comptes existingAccount = getAccountById((long)id);
+        existingAccount.setUsername(newaccountData.getUsername());
+        existingAccount.setEmail(newaccountData.getEmail());
+        existingAccount.setPassword(newaccountData.getPassword());
+        existingAccount.setPhone(newaccountData.getPhone());
+        existingAccount.setPhoto(newaccountData.getPhoto());
+        return compteRepository.save(existingAccount);
+    }
 
     public boolean updateCompte(int id, comptes updatedCompte) {
         boolean res=false;

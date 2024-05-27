@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.modele.comptes;
+import com.example.demo.modele.produit;
 import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,31 @@ public class ComptesController {
     public String getProfilePae(Model model, @RequestParam String username) {
         return "redirect:/comptes/profile"+username;
     }
-    @GetMapping("/profile{username}")
+
+
+
+    @GetMapping("/profile/{username}")
     public String getProfilePage(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
         return "compte";
     }
+
+    @GetMapping("/profile2/{username}")
+    public String getProfilePage2(Model model, @PathVariable("username") String username) {
+        comptes compte = daoComptes.findByUsername(username);
+        model.addAttribute("comptes", compte);
+        return "dashboard_accInformation";
+    }
+
+    @GetMapping("/profile3/{username}")
+    public String getProfilePage3(Model model, @PathVariable("username") String username) {
+        comptes compte = daoComptes.findByUsername(username);
+        model.addAttribute("comptes", compte);
+        return "";
+    }
+
+
     @GetMapping("/count")
     public String countCompte(Model model) {
         // Récupérer le nombre total de comptes
@@ -124,6 +144,24 @@ public class ComptesController {
         }
         return "redirect:/comptes/count";
     }
+    @PostMapping("/modify")
+    public String modifycompte(@ModelAttribute comptes account) {
+        comptesService.updatecompte(account.getId(),account);
+        return "redirect:/comptes/profile/"+account.getUsername();
+    }
+
+    @PostMapping("/modify2")
+    public String modifycompte2(@ModelAttribute comptes account) {
+        comptesService.updatecompte(account.getId(),account);
+        return "redirect:/comptes/profile2/"+account.getUsername();
+    }
+
+    @PostMapping("/modify3")
+    public String modifycompte3(@ModelAttribute comptes account) {
+        comptesService.updatecompte(account.getId(),account);
+        return "redirect:/comptes/profile3/"+account.getUsername();
+    }
+
     @GetMapping("/contact")
     public String getByType(Model model){
         List<comptes> supplier = comptesService.findByType("Supplier");

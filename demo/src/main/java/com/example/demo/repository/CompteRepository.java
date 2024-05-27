@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface  CompteRepository extends JpaRepository<comptes, Long> {
     comptes findByUsername(String username);
-    comptes findByUsernameAndPassword(String username, String password);
+    comptes findByEmailAndPassword(String username, String password);
     int countByType(String type);
     int countByFiliere(String fill);
     List<comptes> findAllByType(String type);
