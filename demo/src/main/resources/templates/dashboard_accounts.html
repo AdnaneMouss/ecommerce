@@ -507,7 +507,7 @@
       <section class="attendance">
         <div class="attendance-list">
           <h1>List of accounts</h1>
-             <form id="deleteForm" th:action="@{/comptes/delete}" method="post">
+             <form id="deleteForm" th:action="@{/comptes/delete}" onsubmit="handleSubmit(this)" method="post">
           <table class="table">
             <thead>
               <tr>
@@ -577,7 +577,7 @@
                 </tr>
  <tr>
      <td><button type="submit">Add account</button></td>
-     <td><button type="reset">Add account</button></td>
+     <td><button type="reset">Reset</button></td>
  </tr>
             </table>
               </form>
@@ -630,5 +630,17 @@
             document.getElementById("deleteForm").submit();
         }
     </script>
+
+<script th:inline="javascript">
+function handleSubmit(form) {
+    if (confirm('Are you sure you want to delete this account?')) {
+
+        alert('The account was deleted successfully');
+        form.submit();
+    }
+    return false;
+}
+</script>
+
 </html>
 </span>

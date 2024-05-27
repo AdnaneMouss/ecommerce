@@ -37,6 +37,9 @@ public class ComptesController {
     public boolean deleteComptes(@PathVariable int id) {
         return daoComptes.deleteCompte(id);
     }
+
+
+
     @GetMapping("/information")
     public String getProfilePae(Model model, @RequestParam String username) {
         return "redirect:/comptes/profile"+username;
@@ -135,15 +138,17 @@ public class ComptesController {
         return "redirect:/comptes/count";
     }
     @PostMapping("/delete")
-    public String delete(@RequestParam int id) {
-        boolean isDeleted = daoComptes.deleteCompte(id);
-        if (isDeleted) {
-            System.out.println("Account deleted successfully.");
-        } else {
-            System.out.println("Failed to delete account.");
+    public String delete(@RequestParam int id,Model model) {
+        try {
+            boolean isDeleted = comptesService.deleteCompte(id);
+            model.addAttribute("deleted", isDeleted);
+        }
+        catch(Exception e){
+            e.printStackTrace();
         }
         return "redirect:/comptes/count";
     }
+
     @PostMapping("/modify")
     public String modifycompte(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);

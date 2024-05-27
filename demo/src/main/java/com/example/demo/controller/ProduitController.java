@@ -110,13 +110,13 @@ public class ProduitController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam int id,Model model) {
-        String erreur = "hh";
+        boolean isDeleted=false;
 try {
-    boolean isDeleted = produitService.deleteProduit(id);
-    model.addAttribute("error", erreur);
+     isDeleted = produitService.deleteProduit(id);
+    model.addAttribute("deleted", isDeleted);
 }
 catch(Exception e){
-    model.addAttribute("error", erreur);
+  e.printStackTrace();
         }
         return "redirect:/products/products";
     }
