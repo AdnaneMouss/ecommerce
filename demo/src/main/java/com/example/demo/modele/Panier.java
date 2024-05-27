@@ -11,9 +11,8 @@ public class Panier {
     @ManyToOne
     @JoinColumn(name="account_id")
     private comptes compte;
-    @ManyToOne
-    @JoinColumn(name="commande_id")
-    private commande commandes;
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<commande> commandes;
     @ManyToOne
     @JoinColumn(name="product_id")
     private produit prod;
@@ -29,12 +28,6 @@ public class Panier {
     public void setCompte(comptes compte) {
         this.compte = compte;
     }
-    public commande getCommandes() {
-        return commandes;
-    }
-    public void setCommandes(commande commandes) {
-        this.commandes = commandes;
-    }
     public produit getProd() {
         return prod;
     }
@@ -46,7 +39,6 @@ public class Panier {
     public Panier(int id, comptes compte, commande commandes, produit prod) {
         this.id = id;
         this.compte = compte;
-        this.commandes = commandes;
         this.prod = prod;
     }
     @Override

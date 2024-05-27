@@ -31,6 +31,10 @@ public class commande {
     @ManyToOne
     @JoinColumn(name="deliveryman_id")
     private comptes deliveryman;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "panier_id")
+    private Panier panier;
+
 
     public commande() {
     }
