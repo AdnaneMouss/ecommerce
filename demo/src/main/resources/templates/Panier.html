@@ -453,7 +453,8 @@
 </header>
 <section class="hero2">
     <section id="prod1" class="section-p1" th:each="command : ${panier}" >
-        <input type="hidden" th:value="${session.authenticatedId}" name="idu">
+        <input type="hidden" th:value="${session.authenticatedId}" name="id">
+        <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
         <div class="pro-container">
             <div class="pro">
                 <div class="container">

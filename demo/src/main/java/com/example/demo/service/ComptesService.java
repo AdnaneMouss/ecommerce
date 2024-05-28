@@ -35,6 +35,10 @@ public ComptesService(CompteRepository compteRepository){
         return compteRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
+    public comptes getAccountByusername(String username) {
+        return compteRepository.findByUsername(username);
+    }
+
 
     public boolean createCompte(comptes compte) {
         boolean res=false;

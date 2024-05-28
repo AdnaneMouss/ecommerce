@@ -49,7 +49,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
-		test2();
+		//test2();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -173,10 +173,10 @@ public class DemoApplication {
 		int count = cs.countCommByfiliere(filiere);
 		System.out.println(count);
 	}
-	public static void test2(){
+	/*public static void test2(){
 		comptes c = new comptes();
-		c.setId(2);
+		c.setUsername("aa");
 		List<commande> cd =cs.findAllByPanierCompteEquals(c);
 		System.out.println("c:"+cd);
-	}
+	}*/
 }

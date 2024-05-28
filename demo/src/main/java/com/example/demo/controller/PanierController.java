@@ -29,25 +29,26 @@ public class PanierController {
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
     }
+
+    //PANIER
     @GetMapping("/getpanier")
-    public String getPanierById(@RequestParam String username) {
-
-        return "redirect:/panier/panier/" + username;
+    public String getPanierById(@RequestParam int id, @RequestParam String username) {
+        return "redirect:/panier/panier/" + id + "/" +username;
     }
-
-    @GetMapping("/panier/{username}")
-    public String getPanierByUsername(@PathVariable ("username") String username, Model model) {
-        Optional<comptes> categoryOptional = comptesService.getAccById(2L);
+    @GetMapping("/panier/{id}/{username}")
+    public String getPanierByUsername(@PathVariable ("id") int id,@PathVariable ("username") String username ,Model model) {
+        Optional<comptes> categoryOptional = comptesService.getAccById((long)id);
         comptes c = categoryOptional.get();
         List<commande> avoir = comm.findAllByPanierCompteEquals(c);
         model.addAttribute("panier", avoir);
         return "Panier";
     }
 
-    @DeleteMapping("/{id}")
-    public boolean deleteProduit(@PathVariable int id) {
-        return panierservice.deleteprod(id);
-    }
+    //PENDINGDELIVERIES
+
+
+
+
     @GetMapping("/panier2")
     public String getPanierPage(Model model, String username) {
         Panier panier = new Panier();
