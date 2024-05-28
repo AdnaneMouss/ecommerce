@@ -44,8 +44,21 @@ public class PanierController {
         return "Panier";
     }
 
-    //PENDINGDELIVERIES
 
+
+    //PENDINGDELIVERIES
+    @GetMapping("/getpending")
+    public String getPendingById(@RequestParam int id, @RequestParam String username) {
+        return "redirect:/panier/pending/" + id + "/" +username;
+    }
+    @GetMapping("/pending/{id}/{username}")
+    public String getPendingByUsername(@PathVariable ("id") int id,@PathVariable ("username") String username ,Model model) {
+        Optional<comptes> categoryOptional = comptesService.getAccById((long)id);
+        comptes c = categoryOptional.get();
+        List<commande> avoir = comm.findAllByPanierCompteEquals(c);
+        model.addAttribute("pending", avoir);
+        return "Pending";
+    }
 
 
 

@@ -448,8 +448,9 @@ h3{
               <input name="id" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Basket</button></li>
           </form>
-          <form th:action="@{//}">
+          <form th:action="@{/panier/getpending}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <input name="id" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Pending Deliveries</button></li>
           </form>
           <form th:action="@{//}">

@@ -35,10 +35,17 @@ public class commande {
     @JoinColumn(name = "panier_id")
     private Panier panier;
 
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
+    }
 
     public commande() {
     }
-    public commande(int id,comptes deliveryman, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered) {
+    public commande(int id,comptes deliveryman, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered, Boolean confirmed) {
         this.id = id;
         this.compte = compte;
         this.dateLivraison = dateLivraison;
@@ -48,6 +55,7 @@ public class commande {
         this.p=p;
         this.quantity= quantity;
         this.deliveryman=deliveryman;
+        this.confirmed=confirmed;
     }
     public int getId() {
         return id;
