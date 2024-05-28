@@ -452,21 +452,22 @@
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <section class="hero2">
-    <section id="prod1" class="section-p1" th:each="product : ${panier}" >
+    <section id="prod1" class="section-p1" th:each="command : ${panier}" >
+        <input type="hidden" th:value="${session.authenticatedId}" name="idu">
         <div class="pro-container">
             <div class="pro">
                 <div class="container">
                     <div class="wrapper">
-                        <img th:src="${product.prod.photo}"/>
+                        <img th:src="${command.p.photo}"/>
                     </div>
                 </div>
                 <div class="des">
                     <form action="/confirmOrder" method="post">
-                    <span th:text="${product.prod.categorie?.catname}"></span>
-                    <h5 th:text="${product.prod.label}"></h5>
-                    <h3 th:text="${product.prod.price}"></h3>
+                    <span th:text="${command.p.categorie?.catname}"></span>
+                    <h5 th:text="${command.p.label}"></h5>
+                    <h3 th:text="${command.p.price}"></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
-                        <button class="confirm" onclick="confirmProduct('${product.prod.label}', ${product.prod.price})">Confirmer le produit</button>
+                        <button class="confirm" onclick="confirmProduct('${command.p.label}', ${command.p.price})">Confirmer le produit</button>
                     </form>
                 </div>
             </div>

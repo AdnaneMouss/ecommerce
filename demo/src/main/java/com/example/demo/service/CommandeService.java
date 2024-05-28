@@ -70,4 +70,8 @@ public class CommandeService {
     }
 
 
+    public List<commande> findAllByPanierCompteEquals(comptes compte) {
+        return commandeRepository.findAllByPanierCompteEquals(compte);
+    }
+
 }

@@ -106,19 +106,4 @@ public class comptes {
         return Objects.hash(id, username, email, phone, password, type, photo, nom, filiere, commandes);
     }
 
-    @Override
-    public String toString() {
-        return "comptes{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", phone=" + phone +
-                ", password='" + password + '\'' +
-                ", type='" + type + '\'' +
-                ", photo='" + photo + '\'' +
-                ", nom='" + nom + '\'' +
-                ", filiere='" + filiere + '\'' +
-                ", commandes=" + commandes +
-                '}';
-    }
 }

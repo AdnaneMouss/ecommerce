@@ -3,12 +3,19 @@ package com.example.demo;
 import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
+import com.example.demo.modele.Panier;
+import com.example.demo.modele.commande;
+import com.example.demo.modele.comptes;
+import com.example.demo.repository.PanierRepository;
 import com.example.demo.service.CategorieService;
 import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
 import com.example.demo.service.ProduitService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -19,9 +26,10 @@ public class DemoApplication {
 	private static ComptesController ComptesController=null;
 	private static ComptesService DaoComptes=null;
 	private static CommandeService cs=null;
+	private static PanierRepository pr=null;
 
 
-	public DemoApplication(ProduitService produitService,CategorieService c, CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
+	public DemoApplication(ProduitService produitService,CategorieService c,PanierRepository pr ,CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
@@ -29,6 +37,7 @@ public class DemoApplication {
 		this.DaoComptes = DaoComptes;
 		this.cs=cs;
 		this.cat=c;
+		this.pr=pr;
 	}
 
 	public static void main(String[] args) {
@@ -40,7 +49,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
-		//test();
+		test2();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -165,6 +174,9 @@ public class DemoApplication {
 		System.out.println(count);
 	}
 	public static void test2(){
-
+		comptes c = new comptes();
+		c.setId(2);
+		List<commande> cd =cs.findAllByPanierCompteEquals(c);
+		System.out.println("c:"+cd);
 	}
 }

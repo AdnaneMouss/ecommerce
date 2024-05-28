@@ -9,13 +9,10 @@ public class Panier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    @JoinColumn(name="account_id")
+    @JoinColumn(name="customer_id")
     private comptes compte;
-    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<commande> commandes;
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    private produit prod;
     public int getId() {
         return id;
     }
@@ -28,26 +25,17 @@ public class Panier {
     public void setCompte(comptes compte) {
         this.compte = compte;
     }
-    public produit getProd() {
-        return prod;
-    }
-    public void setProd(produit prod) {
-        this.prod = prod;
-    }
     public Panier() {
     }
-    public Panier(int id, comptes compte, commande commandes, produit prod) {
+    public Panier(int id, comptes compte) {
         this.id = id;
         this.compte = compte;
-        this.prod = prod;
     }
     @Override
     public String toString() {
         return "Panier{" +
                 "id=" + id +
                 ", compte=" + compte +
-                ", commandes=" + commandes +
-                ", prod=" + prod +
-                '}';
+                ", commandes=" + commandes;
     }
 }

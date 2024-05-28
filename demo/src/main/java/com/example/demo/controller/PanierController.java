@@ -1,13 +1,18 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Panier;
+import com.example.demo.modele.categorie;
+import com.example.demo.modele.commande;
 import com.example.demo.modele.comptes;
+import com.example.demo.service.CommandeService;
+import com.example.demo.service.ComptesService;
 import com.example.demo.service.PanierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +21,11 @@ import java.util.Optional;
 public class PanierController {
     @Autowired
     private PanierService panierservice;
+    @Autowired
+    private CommandeService comm;
+    @Autowired
+    private ComptesService comptesService;
+
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
     }
@@ -27,7 +37,9 @@ public class PanierController {
 
     @GetMapping("/panier/{username}")
     public String getPanierByUsername(@PathVariable ("username") String username, Model model) {
-        List<Panier> avoir = panierservice.getPanierByUsername(username);
+        Optional<comptes> categoryOptional = comptesService.getAccById(2L);
+        comptes c = categoryOptional.get();
+        List<commande> avoir = comm.findAllByPanierCompteEquals(c);
         model.addAttribute("panier", avoir);
         return "Panier";
     }

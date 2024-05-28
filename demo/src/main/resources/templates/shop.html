@@ -445,6 +445,7 @@ h3{
           </form>
           <form th:action="@{/panier/getpanier}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <input name="idu" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Basket</button></li>
           </form>
           <form th:action="@{//}">
