@@ -22,7 +22,7 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(Long id, String content, comptes compte) {
+    public Comment(Long id, String content, comptes compte, produit produit) {
         this.id = id;
         this.content = content;
         this.compte = compte;
@@ -44,6 +44,14 @@ public class Comment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public com.example.demo.modele.produit getProduit() {
+        return produit;
+    }
+
+    public void setProduit(com.example.demo.modele.produit produit) {
+        this.produit = produit;
     }
 
     public String getContent() {
