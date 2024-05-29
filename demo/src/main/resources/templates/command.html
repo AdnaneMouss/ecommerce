@@ -423,7 +423,7 @@ h3{
     <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 <br><br><br><br><br>
-
+  <form th:action="@{/panier/addtocard}" method="post">
   <section class="hero"  th:each="oneproduct : ${oneproduct}">
       <div >
           <section id="prod1" class="section-p1">
@@ -440,6 +440,7 @@ h3{
       </div>
       <div>
           <div><h3 style="color: white;position: absolute;top: 65px;">
+
               <span th:text="${oneproduct.categorie?.catname}"></span>
           </h3>
               <h4 style="color: white;position: absolute;top: 125px;">
@@ -448,9 +449,11 @@ h3{
               <h2 style="color: white;position: absolute;top: 185px;">
                   <span th:text="${oneproduct.price}"></span>
               </h2>
-              <input placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input  name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input type="hidden" th:value="${oneproduct.id}" name="productId">
+
               <a class="btn" style="" href="">Add To cart</a>
-              <!-- Product Description -->
+              </form>
               <h4 style="color: white;position: absolute;top: 405px;">Product Details:</h4>
               <p style="color: white;position: absolute;top: 450px;">
                   <span th:text="${oneproduct.description}"></span>

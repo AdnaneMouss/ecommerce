@@ -78,8 +78,8 @@ public class PanierController {
         }
         return "redirect:/categories/categories";
     }
-    @PostMapping("/addProduct")
-    public String addProduct(@RequestParam int quantity, @RequestParam int productId) {
+    @PostMapping("/addtocard")
+    public String addtoCard(@RequestParam int quantity, @RequestParam int productId) {
 
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
@@ -89,7 +89,7 @@ public class PanierController {
         comm.setP(p);
         Panier pan = new Panier();
         comm.setPanier(pan);
-        return "redirect:/panier/products";
+        return "redirect:/panier/getpanier";
     }
 
 }
