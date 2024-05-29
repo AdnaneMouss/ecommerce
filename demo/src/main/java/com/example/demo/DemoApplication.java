@@ -3,10 +3,7 @@ package com.example.demo;
 import com.example.demo.controller.CategorieController;
 import com.example.demo.controller.ProduitController;
 import com.example.demo.controller.ComptesController;
-import com.example.demo.modele.Panier;
-import com.example.demo.modele.Rating;
-import com.example.demo.modele.commande;
-import com.example.demo.modele.comptes;
+import com.example.demo.modele.*;
 import com.example.demo.repository.PanierRepository;
 import com.example.demo.service.*;
 import org.springframework.boot.SpringApplication;
@@ -49,7 +46,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
-		test();
+		//test();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -168,14 +165,17 @@ public class DemoApplication {
 			System.out.println("Erreur lors de la mise à jour du compte!");
 		}
 	}*/
-	public static void test(){
+	public static void test2(){
 int c = rs.getAvg(4);
 System.out.println(c);
 	}
-	/*public static void test2(){
-		comptes c = new comptes();
-		c.setUsername("aa");
-		List<commande> cd =cs.findAllByPanierCompteEquals(c);
-		System.out.println("c:"+cd);
-	}*/
+	public static void test(){
+commande c = new commande();
+produit p = new produit();
+p.setId(7);
+c.setP(p);
+c.setQuantity(2);
+cs.createCommand(c);
+c.setDelivered(true);
+	}
 }

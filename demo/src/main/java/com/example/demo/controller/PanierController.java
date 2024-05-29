@@ -81,16 +81,23 @@ public class PanierController {
         return "redirect:/categories/categories";
     }
     @PostMapping("/addtocard")
-    public String addtoCard(@RequestParam int quantity, @RequestParam int productId) {
+    public String addtoCard(@RequestParam int quantity, @RequestParam int productId, @RequestParam int compteId) {
 
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
 
         commande comm = new commande();
-        comm.setQuantity(quantity);
-        comm.setP(p);
         Panier pan = new Panier();
+        comptes c = new comptes();
+
+
+        c.setId(compteId);
+        comm.setQuantity(quantity);
+        comm.setCompte(c);
         comm.setPanier(pan);
+        comm.setP(p);
+        pan.setCompte(c);
+        panierservice.createPanier(pan);
         cs.createCommand(comm);
         return "Panier";
     }

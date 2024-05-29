@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.Panier;
+import com.example.demo.modele.commande;
 import com.example.demo.modele.produit;
 import com.example.demo.repository.PanierRepository;
 import com.example.demo.repository.ProduitRepository;
@@ -25,6 +26,18 @@ public class PanierService {
         }
         else{
             res=false;
+        }
+        return res;
+    }
+
+    public boolean createPanier(Panier panier) {
+        boolean res=false;
+        try{
+            panierRepository.save(panier);
+            res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
         }
         return res;
     }
