@@ -534,7 +534,7 @@
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${countcomments}"></spanth:text></span></h1>
+          <h1><span th:text="${totalComments}"></spanth:text></span></h1>
           <h4>Number of comments</h4>
         </div>
         <div class="second">
@@ -630,16 +630,16 @@
 
 
    <section class="gridoftwo" >
-              <div class="users2" th:each="comment : ${all}" >
+              <div class="users2" th:each="comment : ${allComments}" th:if="${comment.compte.id==session.authenticatedId}" >
         <div class="card2" >
           <section class="mysection">
             <div class="first">
-                <h1>comment num: <span th:text="${comments.id}"></span></h1>
+                <h1>comment num: <span th:text="${comment.id}"></span></h1>
           <h1>Username:<span th:text="${comment.compte.username}"></span></h1>
           <h1>filiere:<span th:text="${comment.compte.filiere}"></span></h1>
           <h1>type:<span th:text="${comment.compte.type}"></span></h1>
-          <h1>description:<span th:text="${comment.description}"></span></h1>
-                <h1>Produit: <span th:text="{comment.produit.name}"></span></h1>
+          <h1>description:<span th:text="${comment.content}"></span></h1>
+                <h1>Produit: <span th:text="${comment.produit.label}"></span></h1>
         </div>
                <div class="second">
           <img th:src="${comment.compte.photo}">
