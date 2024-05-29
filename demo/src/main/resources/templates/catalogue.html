@@ -449,9 +449,15 @@
 
                             <div>
                                 <div style="color: yellow">
-                                    <!-- Loop to generate solid star icons based on product rating -->
-                                    <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
+                                    <!-- Loop to generate solid and hollow star icons based on product rating -->
+                                    <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}">
+        <!-- Solid star icon for ratings less than or equal to the product rating -->
+        <span th:if="${i le rating}">&#9733;&nbsp;</span>
+                                        <!-- Hollow star icon for ratings greater than the product rating -->
+        <span th:unless="${i le rating}">&#9734;&nbsp;</span>
+    </span>
                                 </div>
+
                             </div>
                             <button type="submit" class="fa-sharp fa-solid fa-cart-plus" onclick="alert('You need to login before purchasing products!')"></button>
                             <a class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity == 0}"></a>
