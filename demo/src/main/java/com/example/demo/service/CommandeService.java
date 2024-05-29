@@ -70,6 +70,19 @@ public class CommandeService {
     }
 
 
+    public boolean createCommand(commande commande) {
+        boolean res=false;
+        try{
+            commandeRepository.save(commande);
+            res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return res;
+    }
+
+
     public List<commande> findAllByPanierCompteEquals(comptes compte) {
         return commandeRepository.findAllByPanierCompteEquals(compte);
     }

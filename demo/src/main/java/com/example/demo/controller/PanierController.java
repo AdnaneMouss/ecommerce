@@ -25,6 +25,8 @@ public class PanierController {
     private ComptesService comptesService;
     @Autowired
     private ProduitService produitService;
+    @Autowired
+    private CommandeService cs;
 
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
@@ -89,7 +91,8 @@ public class PanierController {
         comm.setP(p);
         Panier pan = new Panier();
         comm.setPanier(pan);
-        return "redirect:/panier/getpanier";
+        cs.createCommand(comm);
+        return "Panier";
     }
 
 }
