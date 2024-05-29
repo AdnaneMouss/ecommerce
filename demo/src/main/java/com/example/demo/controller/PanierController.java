@@ -4,6 +4,7 @@ import com.example.demo.modele.*;
 import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
 import com.example.demo.service.PanierService;
+import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class PanierController {
     private CommandeService comm;
     @Autowired
     private ComptesService comptesService;
+    @Autowired
+    private ProduitService produitService;
 
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
@@ -76,18 +79,16 @@ public class PanierController {
         return "redirect:/categories/categories";
     }
     @PostMapping("/addProduct")
-    public String addProduct(@RequestParam String label, @RequestParam int price, @RequestParam String color,
-                             @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId, @RequestParam int stock,@RequestParam String description) {
+    public String addProduct(@RequestParam int quantity, @RequestParam int productId) {
 
-        commande commandee = new commande();
-        commandee.setP(produit );
-        commandee.setPrice(price);
-        commandee.setColor(color);
-        commandee.setPhoto(photo);
-        commandee.setSize(size);
-        commandee.setQuantity(stock);
-        commandee.setDescription(description);
-        panierservice.createCart(product);
+        Optional<produit> produitOptional = produitService.getProduitById((long)productId);
+        produit p = produitOptional.get();
+
+        commande comm = new commande();
+        comm.setQuantity(quantity);
+        comm.setP(p);
+        Panier pan = new Panier();
+        comm.setPanier(pan);
         return "redirect:/panier/products";
     }
 
