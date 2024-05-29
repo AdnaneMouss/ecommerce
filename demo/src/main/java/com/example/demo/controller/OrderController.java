@@ -1,26 +1,24 @@
 package com.example.demo.controller;
-import com.example.demo.modele.Order;
-import com.example.demo.modele.comptes;
-import com.example.demo.service.CommandeService;
-import com.example.demo.service.ComptesService;
 import com.example.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
-@RestController
-@RequestMapping("/api")
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+@Controller
+@RequestMapping("/orders")
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
-
-    @PostMapping("/confirmOrder")
-    public ResponseEntity<Order> confirmOrder(@RequestBody Order order) {
-        Order savedOrder = orderService.saveOrder(order);
-        return ResponseEntity.ok(savedOrder);
+    @PostMapping("/confirm-delivery/{orderId}")
+    public ResponseEntity<String> confirmDelivery(@PathVariable Long orderId) {
+        try {
+            orderService.confirmDelivery(orderId);
+            return new ResponseEntity<>("Delivery confirmed", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error confirming delivery", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
