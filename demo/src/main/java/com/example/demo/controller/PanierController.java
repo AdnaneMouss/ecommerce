@@ -81,25 +81,35 @@ public class PanierController {
         return "redirect:/categories/categories";
     }
     @PostMapping("/addtocard")
-    public String addtoCard(@RequestParam int quantity, @RequestParam int productId, @RequestParam int compteId) {
+    public String addtoCard(@RequestParam int quantity, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
 
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
 
+        Optional<Panier> existingPanier = panierservice.findPanierByCompteId(id);
+        Panier pan;
+        if (existingPanier.isPresent()) {
+            pan = existingPanier.get();
+        } else {
+            pan = new Panier();
+            comptes c = new comptes();
+            c.setId(id);
+            pan.setCompte(c);
+            panierservice.createPanier(pan);
+        }
+
         commande comm = new commande();
-        Panier pan = new Panier();
         comptes c = new comptes();
+        c.setId(id);
 
-
-        c.setId(compteId);
         comm.setQuantity(quantity);
         comm.setCompte(c);
         comm.setPanier(pan);
         comm.setP(p);
-        pan.setCompte(c);
-        panierservice.createPanier(pan);
+
         cs.createCommand(comm);
-        return "Panier";
+
+        return "redirect:/panier/panier/" + id + "/" + username;
     }
 
 }

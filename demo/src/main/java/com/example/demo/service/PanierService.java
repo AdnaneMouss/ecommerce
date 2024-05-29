@@ -41,4 +41,8 @@ public class PanierService {
         }
         return res;
     }
+
+    public Optional<Panier> findPanierByCompteId(int id) {
+        return panierRepository.findByCompteId(id);
+    }
 }
