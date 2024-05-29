@@ -11,8 +11,18 @@ public class Panier {
     @ManyToOne
     @JoinColumn(name="customer_id")
     private comptes compte;
+
     @OneToMany(mappedBy = "panier", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<commande> commandes;
+    public List<commande> getCommandes() {
+        return commandes;
+    }
+
+
+    public void setCommandes(List<commande> commandes) {
+        this.commandes = commandes;
+    }
+
     public int getId() {
         return id;
     }
@@ -27,8 +37,10 @@ public class Panier {
     }
     public Panier() {
     }
-    public Panier(int id, comptes compte) {
+
+    public Panier(int id, comptes compte, List<commande> commandes) {
         this.id = id;
+        this.commandes=commandes;
         this.compte = compte;
     }
     @Override

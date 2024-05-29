@@ -523,7 +523,7 @@ Discover our freshest selection of masks, crafted to combine both style and func
                               <div>
                                   <div style="color: yellow">
                                       <!-- Loop to generate solid star icons based on product rating -->
-                                      <span style="color: #ffcc00; font-weight: bold; font-size: 20px" th:each="i : ${#numbers.sequence(1, 5)}" th:if="${i le product.rating}">&#9733;&nbsp;</span>
+
                                   </div>
                               </div>
                               <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>

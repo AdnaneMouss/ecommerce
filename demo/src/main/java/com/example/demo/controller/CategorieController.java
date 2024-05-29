@@ -35,7 +35,6 @@ public class CategorieController {
 
     @PostMapping("/addCategory")
     public String addCategory(@RequestParam String catname, Model model) {
-        // Create a new category object
         categorie categorie = new categorie();
         categorie.setCatname(catname);
         boolean isCategoryCreated = catService.createCategorie(categorie);
@@ -44,7 +43,6 @@ public class CategorieController {
             return "redirect:/categories/categories";
         } else {
             System.out.println("exists already");
-            // Category already exists, add error message to the model
             model.addAttribute("errorMessage", "Category already exists!");
         }
         return "redirect:/categories/categories";
@@ -59,8 +57,6 @@ public class CategorieController {
         } else {
             System.out.println("Failed to delete categ.");
         }
-
         return "redirect:/categories/categories";
     }
-
 }

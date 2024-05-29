@@ -44,31 +44,24 @@ public class ComptesController {
     public String getProfilePae(Model model, @RequestParam String username) {
         return "redirect:/comptes/profile"+username;
     }
-
-
-
     @GetMapping("/profile/{username}")
     public String getProfilePage(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
         return "compte";
     }
-
     @GetMapping("/profile2/{username}")
     public String getProfilePage2(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
         return "dashboard_accInformation";
     }
-
     @GetMapping("/profile3/{username}")
     public String getProfilePage3(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
         return "";
     }
-
-
     @GetMapping("/count")
     public String countCompte(Model model) {
         // Récupérer le nombre total de comptes

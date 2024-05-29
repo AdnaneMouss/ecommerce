@@ -42,6 +42,12 @@ public class commande {
     public void setConfirmed(Boolean confirmed) {
         this.confirmed = confirmed;
     }
+    public Panier getPanier() {
+        return panier;
+    }
+    public void setPanier(Panier panier) {
+        this.panier = panier;
+    }
 
     public commande() {
     }

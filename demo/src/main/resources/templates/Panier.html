@@ -464,12 +464,13 @@
                     </div>
                 </div>
                 <div class="des">
-                    <form action="/confirmOrder" method="post">
                     <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
                     <h3 th:text="${command.p.price}"></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
-                        <button class="delete" onclick="DeleteProduct('${command.p.label}', ${command.p.price})">Delete the product from the basket</button>
+                    <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
+                        <button onclick="prepareDelete(this)">Delete</button>
+                        <input type="hidden" th:value="${commande.id}" name="id">
                     </form>
                      </div>
             </div>

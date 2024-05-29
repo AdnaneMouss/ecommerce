@@ -9,4 +9,5 @@ import java.util.List;
 public interface  PanierRepository extends JpaRepository<Panier, Long> {
     List<Panier> findByCompteUsername(String username);
     List<Panier> findAllByIdInAndCompteUsername(List<Integer> panierIds, String username);
+    Panier findByCommandesId(int productId);
 }

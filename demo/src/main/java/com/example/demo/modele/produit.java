@@ -51,6 +51,14 @@ public class produit {
 
     public produit() {}
 
+    public List<commande> getCommand() {
+        return command;
+    }
+
+    public void setCommand(List<commande> command) {
+        this.command = command;
+    }
+
     public List<Rating> getRatings() {
         return ratings;
     }
