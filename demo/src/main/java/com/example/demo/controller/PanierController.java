@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.modele.Panier;
-import com.example.demo.modele.commande;
-import com.example.demo.modele.comptes;
+import com.example.demo.modele.*;
 import com.example.demo.service.CommandeService;
 import com.example.demo.service.ComptesService;
 import com.example.demo.service.PanierService;
@@ -77,4 +75,20 @@ public class PanierController {
         }
         return "redirect:/categories/categories";
     }
+    @PostMapping("/addProduct")
+    public String addProduct(@RequestParam String label, @RequestParam int price, @RequestParam String color,
+                             @RequestParam String photo, @RequestParam String size, @RequestParam int categoryId, @RequestParam int stock,@RequestParam String description) {
+
+        commande commandee = new commande();
+        commandee.setP(produit );
+        commandee.setPrice(price);
+        commandee.setColor(color);
+        commandee.setPhoto(photo);
+        commandee.setSize(size);
+        commandee.setQuantity(stock);
+        commandee.setDescription(description);
+        panierservice.createCart(product);
+        return "redirect:/panier/products";
+    }
+
 }

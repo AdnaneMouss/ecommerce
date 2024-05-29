@@ -470,7 +470,7 @@
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
                     <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
                         <button onclick="prepareDelete(this)">Delete</button>
-                        <input type="hidden" th:value="${commande.id}" name="id">
+                        <input type="hidden" th:value="${command.id}" name="idPanier">
                     </form>
                      </div>
             </div>

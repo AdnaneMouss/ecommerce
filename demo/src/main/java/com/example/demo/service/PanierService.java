@@ -18,18 +18,13 @@ public class PanierService {
     private ProduitRepository produitRepository;
 
     public boolean deletePanier(int id) {
-        boolean res = false;
-        try {
-            if(panierRepository.existsById((long) id)) {
-                panierRepository.deleteById((long) id);
-                res=true;
-            }
-            else{
-                return res;
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception or handle it appropriately
-            return false; // Return false if deletion fails
+        boolean res;
+        if(panierRepository.existsById((long) id)) {
+            panierRepository.deleteById((long) id);
+            res=true;
+        }
+        else{
+            res=false;
         }
         return res;
     }
