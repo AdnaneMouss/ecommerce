@@ -4,6 +4,7 @@ package com.example.demo.modele;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,6 +28,11 @@ public class comptes {
     private List<commande> commandes;
     @OneToMany(mappedBy = "deliveryman", cascade = CascadeType.ALL)
     private List<commande> commandesd;
+    @OneToMany(mappedBy = "compte")
+    private List<Rating> ratings;
+
+
+
     public int getId() {
         return id;
     }

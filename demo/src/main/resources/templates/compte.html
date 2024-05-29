@@ -583,11 +583,10 @@
 <section class="hero">
 <div class="container">
     <h1 style="color: darkblue">Modifier le Profil</h1>
-    <form id="profile-form" th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
+    <form th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
         <input type="hidden" th:value="${session.authenticatedId}" name="id">
         <input type="hidden" name="username">
         <table th:each="compte : ${comptes}" id="s">
-            <form th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
             <div class="profile-picture-container">
                 <img th:src="${compte.photo}" class="profile-picture">
             </div>
@@ -623,7 +622,6 @@
                 <th><i class="fas fa-book"></i>Field</th>
                 <td><input th:value="${compte.filiere}" readonly></td>
             </tr>
-            </form>
         </table>
         <button type="submit" id="modifier-button" style="background-color: darkblue">Modifier</button>
     </form>

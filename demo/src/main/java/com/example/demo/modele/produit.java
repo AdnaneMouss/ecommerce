@@ -25,18 +25,17 @@ public class produit {
     private String size;
     @Column
     private int quantity;
-    @Column
-    private double rating;
     @ManyToOne
     @JoinColumn(name="category_id")
     private categorie categorie;
     @OneToMany(mappedBy = "p")
     private List<commande> command;
-
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
     private List<Comment> comments;
+    @OneToMany(mappedBy = "produit", fetch = FetchType.EAGER)
+    private List<Rating> ratings;
 
-    public produit(int id, String label, String description, double price, String color, String photo, int quantity,int rating, String size, categorie categorie) {
+    public produit(int id, String label, String description, double price, String color, String photo, int quantity,List<Rating> ratings, String size, categorie categorie) {
         this.id = id;
         this.label = label;
         this.description = description;
@@ -45,18 +44,20 @@ public class produit {
         this.photo = photo;
         this.size = size;
         this.categorie = categorie;
-        this.rating=rating;
+        this.ratings=ratings;
         this.quantity=quantity;
         this.comments = comments;
     }
 
     public produit() {}
 
-
-    public double getRating() {
-        return rating;
+    public List<Rating> getRatings() {
+        return ratings;
     }
-    public void setRating(double rating) {}
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
 
     public String getDescription() {
         return description;
@@ -66,9 +67,6 @@ public class produit {
         this.description = description;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
 
     public int getQuantity() {
         return quantity;

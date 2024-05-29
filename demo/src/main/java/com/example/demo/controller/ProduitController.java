@@ -1,12 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.modele.Rating;
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
-import com.example.demo.service.CategorieService;
-import com.example.demo.service.CommandeService;
-import com.example.demo.service.ComptesService;
-import com.example.demo.service.ProduitService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +28,8 @@ public class ProduitController {
     private ComptesService daoComptes;
     @Autowired
     private CommandeService commandeService;
+    @Autowired
+    private RatingService ratingService;
 
 
     @GetMapping("/catalogue")
@@ -44,11 +44,22 @@ public class ProduitController {
     @GetMapping("/catalogueForAll")
     public String getAllProduitsForAll(Model model) {
         List<produit> produits = produitService.getAllProduits();
-        model.addAttribute("all",produits);
+        int totalRatings = 0; // Total ratings for all products
+        int totalProducts = 0; // Total number of products
+        for(produit p : produits) {
+            int avgRating = ratingService.getAvg(p.getId());
+            totalRatings += avgRating;
+            totalProducts++;
+        }
+        // Calculate average rating for all products
+        int avgRatingForAllProducts = (totalProducts > 0) ? totalRatings / totalProducts : 0;
+        model.addAttribute("rating", avgRatingForAllProducts);
+        model.addAttribute("all", produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc", c);
         return "catalogue";
     }
+
 
     @GetMapping("/viewdetails")
     public String details(@RequestParam int id) {
@@ -101,9 +112,7 @@ public class ProduitController {
             model.addAttribute("oneproduct", product);
             return "command";
         } else {
-            // Handle case when product with given ID is not found
-            // You can redirect to an error page or handle it based on your application's requirements
-            return "error"; // Assuming you have an "error" template
+            return "error";
         }
     }
 
@@ -161,10 +170,10 @@ catch(Exception e){
         List<String> productNames = new ArrayList<>();
         List<Double> productRatings = new ArrayList<>();
 
-        for (produit produit : produits) {
+        /*for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productRatings.add(produit.getRating());
-        }
+        }*/
 
         model.addAttribute("productNames", productNames);
         model.addAttribute("productRatings", productRatings);
@@ -209,10 +218,10 @@ catch(Exception e){
         //getRatings
         List<String> productNames = new ArrayList<>();
         List<Double> productRatings = new ArrayList<>();
-        for (produit produit : produits) {
+        /*for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productRatings.add(produit.getRating());
-        }
+        }*/
         model.addAttribute("productNames", productNames);
         model.addAttribute("productRatings", productRatings);
 
