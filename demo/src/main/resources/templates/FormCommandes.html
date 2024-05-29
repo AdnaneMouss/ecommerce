@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Panier</title>
+    <title>Order informations</title>
     <link rel="stylesheet" type="text/css" href="acceuil.css">
 </head>
 <style type="text/css">
@@ -54,11 +54,10 @@
         transition: all .55s ease;
     }
     .navlist img {
-        width: 30px; /* Adjust the width of the image */
+        width: 30px;
         height: auto;
-        border-radius: 15px;/* Maintain aspect ratio */
+        border-radius: 15px;
     }
-
     .navlist a:hover{
         border-bottom: 2px solid white;
     }
@@ -465,51 +464,49 @@
                 </div>
                 <div class="des">
                     <form action="/confirmOrder" method="post">
-                    <span th:text="${command.p.categorie?.catname}"></span>
-                    <h5 th:text="${command.p.label}"></h5>
-                    <h3 th:text="${command.p.price}"></h3>
+                        <span th:text="${command.p.categorie?.catname}"></span>
+                        <h5 th:text="${command.p.label}"></h5>
+                        <h3 th:text="${command.p.price}"></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
-                        <button class="delete" onclick="DeleteProduct('${command.p.label}', ${command.p.price})">Delete the product from the basket</button>
+                        <button class="confirm" onclick="confirmProduct('${command.p.label}', ${command.p.price})">Confirmer la commande</button>
                     </form>
-                     </div>
+                </div>
             </div>
         </div>
-</section>
-    <button class="confirm" onclick="confirmProduct('${command.p.label}', ${command.p.price})">Confirm the basket</button>
+    </section>
     <script>
-    function confirmProduct(productName, price) {
-        const orderData = {
-            productName: productName,
-            price: price,
-            quantity: 1,
-            customerName: 'Username'  // Replace with actual username
-        };
+        function confirmProduct(productName, price) {
+            const orderData = {
+                productName: productName,
+                price: price,
+                quantity: 1,
+                customerName: 'Username'  // Replace with actual username
+            };
 
-        fetch('/api/confirmOrder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Order confirmed:', data);
-                // Redirect to the next page or update the UI accordingly
+            fetch('/api/confirmOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
             })
-            .catch(error => {
-                console.error('Error confirming order:', error);
-            });
-    }
-
-    function togglePanel() {
-        var panel = document.getElementById("panel");
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Order confirmed:', data);
+                })
+                .catch(error => {
+                    console.error('Error confirming order:', error);
+                });
         }
-    }
-</script>
+
+        function togglePanel() {
+            var panel = document.getElementById("panel");
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Panier</title>
+    <title>Pending deliveries</title>
     <link rel="stylesheet" type="text/css" href="acceuil.css">
 </head>
 <style type="text/css">
@@ -447,7 +447,6 @@
             <button><a href="/log/login">Log out</a></button>
         </div>
         <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
@@ -468,7 +467,6 @@
                     <h5 th:text="${command.p.label}"></h5>
                     <h3 th:text="${command.p.price}"></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
-                        <button class="confirm" onclick="confirmProduct('${command.p.label}', ${command.p.price})">Confirmer le produit</button>
                     </form>
                 </div>
             </div>
@@ -480,9 +478,8 @@
             productName: productName,
             price: price,
             quantity: 1,
-            customerName: 'Username'  // Replace with actual username
+            customerName: 'Username'
         };
-
         fetch('/api/confirmOrder', {
             method: 'POST',
             headers: {
@@ -493,13 +490,11 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Order confirmed:', data);
-                // Redirect to the next page or update the UI accordingly
             })
             .catch(error => {
                 console.error('Error confirming order:', error);
             });
     }
-
     function togglePanel() {
         var panel = document.getElementById("panel");
         if (panel.style.display === "block") {
