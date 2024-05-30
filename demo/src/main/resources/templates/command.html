@@ -410,17 +410,42 @@ h3{
 </style>
 <body>
   <header>
-    <img class="logo" src="/logo.png">
-    <ul class="navlist">
-      <li><a href="">Catalog</a></li>
-      <li><a href="">My Basket</a></li>
-      <li><a href="mydeliveries.html">My Pending deliveries</a></li>
-      <li><a href="mycomments.html">My comments</a></li>
-      <li><a href="mycomplaints.html">My complaints</a></li>
-      <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
-      <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-    </ul>
-    <div class="bx bx-menu" id="menu-icon"></div>
+      <img class="logo" src="/logo.png">
+      <ul class="navlist">
+          <form th:action="@{/products/catalogue}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>Catalog</button></li>
+          </form>
+          <form th:action="@{/panier/getpanier}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My Basket</button></li>
+          </form>
+          <form th:action="@{panier/getpending}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+
+              <li><button>My Pending Deliveries</button></li>
+          </form>
+          <form th:action="@{//}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My Comments</button></li>
+          </form>
+          <form th:action="@{/reclamation/viewdetails}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My reclamations</button></li>
+          </form>
+          <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+          <div id="panel" class="panel">
+              <p th:text="${session.authenticatedUsername}"></p>
+              <form th:action="@{/comptes/information}">
+                  <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                  <button style="background-color: blue">Account information</button>
+              </form>
+              <button><a href="/log/login">Log out</a></button>
+          </div>
+          <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
+      </ul>
+      <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 <br><br><br><br><br>
   <form th:action="@{/panier/addtocard}" method="post">

@@ -540,7 +540,6 @@
 <body>
 <header>
     <img class="logo" src="/logo.png">
-    <p></p>
     <ul class="navlist">
         <form th:action="@{/products/catalogue}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
@@ -550,7 +549,7 @@
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <li><button>My Basket</button></li>
         </form>
-        <form th:action="@{//}">
+        <form th:action="@{/panier/getpending}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <li><button>My Pending Deliveries</button></li>
         </form>
