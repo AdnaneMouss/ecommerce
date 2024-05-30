@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.Panier;
+import com.example.demo.modele.categorie;
 import com.example.demo.modele.commande;
 import com.example.demo.modele.produit;
 import com.example.demo.repository.PanierRepository;
@@ -17,6 +18,8 @@ public class PanierService {
 
     @Autowired
     private ProduitRepository produitRepository;
+    @Autowired
+    private ProduitService produitService;
 
     public boolean deletePanier(int id) {
         boolean res;
@@ -41,6 +44,9 @@ public class PanierService {
         }
         return res;
     }
+
+
+
 
     public Optional<Panier> findPanierByCompteId(int id) {
         return panierRepository.findByCompteId(id);

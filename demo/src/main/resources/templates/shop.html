@@ -525,9 +525,11 @@ Discover our freshest selection of masks, crafted to combine both style and func
                               <span th:text="'Remaining stock:'+${product.quantity}"></span>
 
                               <div>
-                                  <div style="color: yellow">
-                                      <!-- Loop to generate solid star icons based on product rating -->
-
+                                  <div class="stars">
+                        <span style="color: gold; font-size: 16px; margin: 3px" th:each="i : ${#numbers.sequence(1, 5)}">
+                            <i class="fa-star"
+                               th:classappend="${i <= ratings[product.id]} ? 'fas' : 'far'"></i>
+                        </span>
                                   </div>
                               </div>
                               <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>

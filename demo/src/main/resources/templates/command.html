@@ -449,8 +449,9 @@ h3{
               <h2 style="color: white;position: absolute;top: 185px;">
                   <span th:text="${oneproduct.price}"></span>
               </h2>
-              <input required name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input required th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
               <input type="hidden" th:value="${oneproduct.id}" name="productId">
+              <input type="hidden" th:value="${oneproduct.quantity}" name="stock">
               <input type="hidden" th:value="${session.authenticatedId}" name="id">
               <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
               <button type="submit" class="btn" style="" href="">Add To cart</button>
@@ -465,7 +466,8 @@ h3{
               </div>
               -->
           </div>
-
+      </div></section>
+</form>
 
           <!-- Add Comment Button -->
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
@@ -489,7 +491,7 @@ h3{
           </div>
 
       </div>
-  </section></form>
+  </section>
   <div id="commentContainer"></div>
 
   <br>

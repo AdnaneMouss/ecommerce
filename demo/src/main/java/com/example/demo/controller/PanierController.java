@@ -81,7 +81,7 @@ public class PanierController {
         return "redirect:/categories/categories";
     }
     @PostMapping("/addtocard")
-    public String addtoCard(@RequestParam int quantity, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
+    public String addtoCard(@RequestParam int quantity,@RequestParam int stock, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
 
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
@@ -105,6 +105,8 @@ public class PanierController {
         comm.setQuantity(quantity);
         comm.setCompte(c);
         comm.setPanier(pan);
+        int a = stock-quantity;
+        produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
 
         cs.createCommand(comm);
