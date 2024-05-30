@@ -412,6 +412,10 @@
     .navlist button:hover{
         border-bottom: 2px solid white;
     }
+    .delivered{
+        background-color: green;
+        color: white;
+    }
 </style>
 <body>
 <header>
@@ -455,10 +459,11 @@
         <input type="hidden" th:value="${session.authenticatedId}" name="id">
         <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
         <div class="pro-container">
-            <div class="pro">
+            <div class="pro" th:classappend="${command.delivered} ? 'delivered' : ''">
                 <div class="container">
                     <div class="wrapper">
                         <img th:src="${command.p.photo}"/>
+                        <img src="/soldout.png" th:if="${command.delivered}" class="soldout">
                     </div>
                 </div>
                 <div class="des">
