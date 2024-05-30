@@ -148,6 +148,7 @@ public class ComptesController {
         return "redirect:/comptes/profile/"+account.getUsername();
     }
 
+
     @PostMapping("/modify2")
     public String modifycompte2(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
