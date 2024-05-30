@@ -46,17 +46,22 @@
             font-weight: 700;
             color: white;
         }
+header{
+    position: fixed;
+}
         .navlist {
+            position: fixed;
             display: flex;
-            align-items: center; /* Align items vertically */
+            align-items: center;
+            margin-left: 330px;
         }
 
         .navlist li {
-            margin-left: 10px; /* Adjust spacing between list items */
+            margin-left: 20px;
         }
 
         .navlist img {
-            width: 30px; /* Adjust the width of the image */
+            width: 30px;
             height: auto;
             border-radius: 15px;/* Maintain aspect ratio */
         }
@@ -74,7 +79,6 @@
         .navlist a:hover{
             border-bottom: 2px solid white;
         }
-
         #menu-icon{
             color: white;
             font-size: 35px;
@@ -534,6 +538,52 @@
         .fas{
             color: darkblue;
         }
+        .panel {
+            display: none; /* Initially hide the panel */
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 200px;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .panel p {
+            margin: 5px 0;
+        }
+
+        .panel button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .low-quantity {
+            background-color: red;
+            color: white;
+        }
+        .navlist button{
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            margin-left: 40px;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+
+        .navlist button:hover{
+            border-bottom: 2px solid white;
+        }
     </style>
 </head>
 
@@ -548,10 +598,12 @@
         </form>
         <form th:action="@{/panier/getpanier}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Basket</button></li>
         </form>
-        <form th:action="@{//}">
+        <form th:action="@{/panier/getpending}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Pending Deliveries</button></li>
         </form>
         <form th:action="@{//}">
@@ -560,7 +612,7 @@
         </form>
         <form th:action="@{/reclamation/viewdetails}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-            <li><button>My reclamations</button></li>
+            <li><button>My Complaints</button></li>
         </form>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
@@ -571,7 +623,6 @@
             </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
-        <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
 
     </ul>
 
@@ -585,7 +636,6 @@
     <h1 style="color: darkblue">Modifier le Profil</h1>
     <form th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
         <input type="hidden" th:value="${session.authenticatedId}" name="id">
-        <input type="hidden" name="username">
         <table th:each="compte : ${comptes}" id="s">
             <div class="profile-picture-container">
                 <img th:src="${compte.photo}" class="profile-picture">
@@ -608,7 +658,7 @@
             </tr>
             <tr>
                 <th><i class="fas fa-phone" style="transform: rotate(180deg);"></i> Phone</th>
-                <td><input name="photo" th:value="${compte.phone}"></td>
+                <td><input name="phone" th:value="${compte.phone}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-lock"></i> Password</th>
@@ -628,6 +678,16 @@
 </div>
 </section>
 </body>
+<script>
+    function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+</script>
 <script>
     function editProfile() {
         var fields = document.querySelectorAll("#s td");
