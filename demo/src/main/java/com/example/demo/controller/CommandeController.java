@@ -70,6 +70,12 @@ public class CommandeController {
         model.addAttribute("all",c);
         return "General_livreur";
     }
+    @GetMapping("/formcom")
+    public String getFormcom(Model model) {
+        List<commande> c = commandeService.getAllComm();
+        model.addAttribute("all",c);
+        return "FormCommandes";
+    }
 
 }
 
