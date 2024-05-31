@@ -249,10 +249,12 @@
             font-size: 16px;
             text-align: start;
         }
-        .star {
-            color: #f8ce0b;
-            font-size: 24px;
+        .stars {
             display: flex;
+            gap: 0.2em;
+        }
+        .stars {
+            color: gold;
         }
         .rating input {
             display: none;
@@ -408,7 +410,7 @@
             color: white;
         }
         .hia {
-            margin-top: 80px;
+            margin-top: 30px;
         }
         footer {
             background: linear-gradient(to top, #040A4C, #0B1480);
@@ -459,14 +461,12 @@
                             <span th:text="'Color:'+${product.color}"></span><br>
                             <span th:text="'Remaining stock:'+${product.quantity}"></span>
                             <div>
-               <span class="stars">
-                <span th:each="i : ${#numbers.sequence(1, rating)}">
-                    <i class="fas fa-star"></i>
-                </span>
-                <span th:each="i : ${#numbers.sequence(1, 5-rating)}">
-                    <i class="far fa-star"></i>
-                </span>
-            </span>
+                                <div class="stars">
+                        <span style="color: gold; font-size: 16px; margin: 3px" th:each="i : ${#numbers.sequence(1, 5)}">
+                            <i class="fa-star"
+                               th:classappend="${i <= ratings[product.id]} ? 'fas' : 'far'"></i>
+                        </span>
+                                </div>
                             </div>
                             <button type="submit" class="fa-sharp fa-solid fa-cart-plus" onclick="alert('You need to login before purchasing products!')"></button>
 
