@@ -475,45 +475,78 @@
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<form th:action="@{/panier/addtocarde}" method="post">
+
 <section class="hero2">
-    <section id="prod1" class="section-p1" th:each="command : ${panier}" >
-        <input type="hidden" th:value="${session.authenticatedId}" name="id">
-        <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+    <section id="prod1" class="section-p1" th:each="command : ${panier}" th:if="${!command.confirmed}">
         <div class="pro-container">
             <div class="pro">
                 <div class="container">
                     <div class="wrapper">
-                        <img th:src="${command.p.photo}"/>
+                        <img th:src="${command.p.photo}" />
                     </div>
                 </div>
                 <div class="des">
                     <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
                     <h3 th:text="${command.p.price}"></h3>
-                        <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
                     <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
                         <button onclick="prepareDelete(this)">Delete</button>
                         <input type="hidden" th:value="${command.id}" name="idPanier">
                     </form>
-                     </div>
+                </div>
             </div>
         </div>
+    </section>
 </section>
-</section>
-    <button id="openPopup">Confirm those products</button>
-    <div id="commentBox"></div>
-    <div id="commentPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closePopup">&times;</span>
-            <h2>Fill your informations</h2>
-            <input type="date" name="date">
+
+<button id="openPopup">Confirm all products</button>
+
+<!-- Single form for all products -->
+<div id="commentPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Fill your information</h2>
+        <form th:action="@{/panier/addtocarde}" method="post">
+            <div th:each="command : ${panier}">
+                <input type="hidden" th:value="${command.id}" name="idCommandes">
+                <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
+
+                <input type="hidden" th:value="${session.authenticatedId}" name="id">
+                <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+
+            <label>Order:</label>
             <br>
-            <input type="text" name="lieu">
-            <button id="submitComment">Submit</button>
-        </div>
+            <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
+            <br>
+            <label>Total price:</label>
+            <br>
+            <input readonly type="text"  th:value="${totalPrice}">
+            <br>
+                <label>When do you want your product:></h2></label>
+            <br>
+                <input type="date" name="date">
+                <br>
+                <label>Where do you want your product:</label><br>
+                <select name="lieu">
+                    <option>Cité 1</option>
+                    <option>Cité 2</option>
+                    <option>Cité 3</option>
+                    <option>Cité 4</option>
+                    <option>Cité 5</option>
+                    <option>Barrière</option>
+                    <option>Bâtiment 1</option>
+                    <option>Bâtiment 2</option>
+                    <option>Bâtiment 3</option>
+                    <option>Bâtiment 4</option>
+                    <option>Bâtiment 5</option>
+                </select>
+                <br>
+            <button type="submit" id="submitComment">Submit All</button>
+        </form>
     </div>
-            </form>
+</div>
+
+
 <script>
     document.getElementById("openPopup").addEventListener("click", function() {
         document.getElementById("commentPopup").style.display = "block";

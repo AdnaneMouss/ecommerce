@@ -21,6 +21,11 @@ public class PanierService {
     @Autowired
     private ProduitService produitService;
 
+
+    public Optional<Panier> getPanierById(Long id) {
+        return panierRepository.findById((Long)id);
+    }
+
     public boolean deletePanier(int id) {
         boolean res;
         if(panierRepository.existsById((long) id)) {

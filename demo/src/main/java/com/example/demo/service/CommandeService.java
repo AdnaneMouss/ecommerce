@@ -90,4 +90,16 @@ public class CommandeService {
         return commandeRepository.findAllByPanierCompteEquals(compte);
     }
 
+    public commande updateDateAndLieu(int id, String date, String lieu, Boolean confirmed) {
+        commande existingProduct = getCommandById((long)id);
+        commande comm = new commande();
+        comm.setDateLivraison(date);
+        comm.setLieuLivraison(lieu);
+        comm.setConfirmed(confirmed);
+        existingProduct.setDateLivraison(comm.getDateLivraison());
+        existingProduct.setLieuLivraison(comm.getLieuLivraison());
+        existingProduct.setConfirmed(comm.getConfirmed());
+        return commandeRepository.save(existingProduct);
+    }
+
 }

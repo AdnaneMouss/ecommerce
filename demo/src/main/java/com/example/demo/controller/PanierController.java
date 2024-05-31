@@ -45,7 +45,13 @@ public class PanierController {
         Optional<comptes> categoryOptional = comptesService.getAccById((long) id);
         comptes c = categoryOptional.orElseThrow(() -> new RuntimeException("Compte not found"));
         List<commande> avoir = comm.findAllByPanierCompteEquals(c);
+        double totalPrice = 0;
+        for (commande command : avoir) {
+            totalPrice += command.getQuantity() * command.getP().getPrice();
+        }
+
         model.addAttribute("panier", avoir);
+        model.addAttribute("totalPrice", totalPrice);
         return "Panier";
     }
 
@@ -110,17 +116,20 @@ public class PanierController {
         int a = stock-quantity;
         produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
-
         cs.createCommand(comm);
 
         return "redirect:/panier/panier/" + id + "/" + username;
     }
     @PostMapping("/addtocarde")
-    public String ConfirmtoCommand(@RequestParam String date,@RequestParam String lieu, @RequestParam int productId, @RequestParam int id, @RequestParam int idCommande,@RequestParam String username) {
-        Optional<commande> commandeOptional = commandeService.getCommandeById((long)idCommande);
-        commande comm = commandeOptional.get();
-        comm.setDateLivraison(date);
-        comm.setLieuLivraison(lieu);
-        return "redirect:/panier/panier/" + id + "/" + username;
+    public String ConfirmtoCommand(@RequestParam String date, @RequestParam String lieu, @RequestParam List<Integer> idCommandes, @RequestParam int id, @RequestParam String username) {
+        for (int idCommande : idCommandes) {
+            Optional<commande> commandeOptional = commandeService.getCommandeById((long) idCommande);
+            if (commandeOptional.isPresent()) {
+                commande comm = commandeOptional.get();
+                commandeService.updateDateAndLieu(comm.getId(), date, lieu, true);
+            }
+        }
+        return "redirect:/panier/pending/" + id + "/" + username;
     }
+
 }
