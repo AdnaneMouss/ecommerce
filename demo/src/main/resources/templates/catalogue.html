@@ -21,7 +21,7 @@
         }
 
         header{
-            position: absolute;
+            position: fixed;
             right: 0;
             bottom: 600px;
             z-index: 1000;
@@ -50,11 +50,13 @@
         }
         .navlist {
             display: flex;
-            align-items: center; /* Align items vertically */
+            align-items: center;
+            position: fixed;
+            margin: 200px;/* Align items vertically */
         }
 
         .navlist li {
-            margin-left: 130px; /* Adjust spacing between list items */
+            margin-left: 170px; /* Adjust spacing between list items */
         }
 
         .navlist img {
@@ -456,10 +458,11 @@
                         </div>
                         <div class="des">
                             <input type="hidden" name="id" th:value="${product.id}" />
-                            <span th:text="${product.categorie?.catname}"></span>
+                            <span th:text="${product.categorie?.catname}"></span><span th:if="${product.categorie==null}">All categories</span>
                             <h5 th:text="${product.label}"></h5>
                             <span th:text="'Color:'+${product.color}"></span><br>
-                            <span th:text="'Remaining stock:'+${product.quantity}"></span>
+                            <span th:text="'Remaining stock:'+${product.quantity}"></span><br>
+                            <span th:text="'Available size:'+${product.size}"></span>
                             <div>
                                 <div class="stars">
                         <span style="color: gold; font-size: 16px; margin: 3px" th:each="i : ${#numbers.sequence(1, 5)}">
