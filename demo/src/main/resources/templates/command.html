@@ -410,17 +410,42 @@ h3{
 </style>
 <body>
   <header>
-    <img class="logo" src="/logo.png">
-    <ul class="navlist">
-      <li><a href="">Catalog</a></li>
-      <li><a href="">My Basket</a></li>
-      <li><a href="mydeliveries.html">My Pending deliveries</a></li>
-      <li><a href="mycomments.html">My comments</a></li>
-      <li><a href="mycomplaints.html">My complaints</a></li>
-      <li><i class="fa fa-user"></i></li> &nbsp &nbsp &nbsp &nbsp &nbsp
-      <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-    </ul>
-    <div class="bx bx-menu" id="menu-icon"></div>
+      <img class="logo" src="/logo.png">
+      <ul class="navlist">
+          <form th:action="@{/products/catalogue}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>Catalog</button></li>
+          </form>
+          <form th:action="@{/panier/getpanier}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My Basket</button></li>
+          </form>
+          <form th:action="@{panier/getpending}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+
+              <li><button>My Pending Deliveries</button></li>
+          </form>
+          <form th:action="@{//}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My Comments</button></li>
+          </form>
+          <form th:action="@{/reclamation/viewdetails}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <li><button>My reclamations</button></li>
+          </form>
+          <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+          <div id="panel" class="panel">
+              <p th:text="${session.authenticatedUsername}"></p>
+              <form th:action="@{/comptes/information}">
+                  <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                  <button style="background-color: blue">Account information</button>
+              </form>
+              <button><a href="/log/login">Log out</a></button>
+          </div>
+          <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
+      </ul>
+      <div class="bx bx-menu" id="menu-icon"></div>
   </header>
 <br><br><br><br><br>
   <form th:action="@{/panier/addtocard}" method="post">
@@ -449,8 +474,9 @@ h3{
               <h2 style="color: white;position: absolute;top: 185px;">
                   <span th:text="${oneproduct.price}"></span>
               </h2>
-              <input required name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input required th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
               <input type="hidden" th:value="${oneproduct.id}" name="productId">
+              <input type="hidden" th:value="${oneproduct.quantity}" name="stock">
               <input type="hidden" th:value="${session.authenticatedId}" name="id">
               <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
               <button type="submit" class="btn" style="" href="">Add To cart</button>
@@ -465,7 +491,8 @@ h3{
               </div>
               -->
           </div>
-
+      </div></section>
+</form>
 
           <!-- Add Comment Button -->
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
@@ -489,7 +516,7 @@ h3{
           </div>
 
       </div>
-  </section></form>
+  </section>
   <div id="commentContainer"></div>
 
   <br>

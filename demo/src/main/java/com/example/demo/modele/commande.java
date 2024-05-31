@@ -15,8 +15,6 @@ public class commande {
     @Column
     private String lieuLivraison;
     @Column
-    private String méthodePaiement;
-    @Column
     private Boolean delivered;
     @Column
     private int quantity;
@@ -51,12 +49,11 @@ public class commande {
 
     public commande() {
     }
-    public commande(int id,comptes deliveryman, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison, String méthodePaiement, Boolean delivered, Boolean confirmed) {
+    public commande(int id,comptes deliveryman, int quantity, produit p, comptes compte, String dateLivraison, String lieuLivraison,  Boolean delivered, Boolean confirmed) {
         this.id = id;
         this.compte = compte;
         this.dateLivraison = dateLivraison;
         this.lieuLivraison = lieuLivraison;
-        this.méthodePaiement = méthodePaiement;
         this.delivered = delivered;
         this.p=p;
         this.quantity= quantity;
@@ -84,9 +81,6 @@ public class commande {
     public String getLieuLivraison() {
         return lieuLivraison;
     }
-    public String getMéthodePaiement() {
-        return méthodePaiement;
-    }
     public Boolean isDelivered() {
         return delivered;
     }
@@ -101,9 +95,6 @@ public class commande {
     }
     public void setLieuLivraison(String lieuLivraison) {
         this.lieuLivraison = lieuLivraison;
-    }
-    public void setMéthodePaiement(String méthodePaiement) {
-        this.méthodePaiement = méthodePaiement;
     }
     public void setDelivered(Boolean delivered) {
         this.delivered = delivered;
@@ -136,7 +127,6 @@ public class commande {
                 ", compte=" + compte +
                 ", dateLivraison='" + dateLivraison + '\'' +
                 ", lieuLivraison='" + lieuLivraison + '\'' +
-                ", méthodePaiement='" + méthodePaiement + '\'' +
                 '}';
     }
     @Override
@@ -144,10 +134,10 @@ public class commande {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         commande commande = (commande) o;
-        return id == commande.id && Objects.equals(compte, commande.compte) && Objects.equals(dateLivraison, commande.dateLivraison) && Objects.equals(lieuLivraison, commande.lieuLivraison) && Objects.equals(méthodePaiement, commande.méthodePaiement);
+        return id == commande.id && Objects.equals(compte, commande.compte) && Objects.equals(dateLivraison, commande.dateLivraison) && Objects.equals(lieuLivraison, commande.lieuLivraison );
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, compte, dateLivraison, lieuLivraison, méthodePaiement);
+        return Objects.hash(id, compte, dateLivraison, lieuLivraison);
     }
 }

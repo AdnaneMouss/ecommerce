@@ -65,6 +65,14 @@ public class ProduitService {
             return produitRepository.save(existingProduct);
     }
 
+    public produit updateQuantity(int id, int quantity) {
+        produit existingProduct = getProductById((long)id);
+        produit p = new produit();
+        p.setQuantity(quantity);
+        existingProduct.setQuantity(p.getQuantity());
+        return produitRepository.save(existingProduct);
+    }
+
     public boolean deleteProduit(int id) {
         boolean res;
         if(produitRepository.existsById((long) id)) {

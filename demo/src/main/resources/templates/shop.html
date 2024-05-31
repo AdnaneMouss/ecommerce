@@ -53,17 +53,22 @@ header img{
   font-weight: 700;
   color: white;
 }
+header{
+    position: fixed;
+}
     .navlist {
+        position: fixed;
         display: flex;
-        align-items: center; /* Align items vertically */
+        align-items: center;
+        margin-left: 330px;
     }
 
     .navlist li {
-        margin-left: 10px; /* Adjust spacing between list items */
+        margin-left: 20px;
     }
 
     .navlist img {
-        width: 30px; /* Adjust the width of the image */
+        width: 30px;
         height: auto;
         border-radius: 15px;/* Maintain aspect ratio */
     }
@@ -459,7 +464,7 @@ h3{
           </form>
           <form th:action="@{/reclamation/viewdetails}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-              <li><button>My reclamations</button></li>
+              <li><button>My Complaints</button></li>
           </form>
           <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
           <div id="panel" class="panel">
@@ -470,7 +475,6 @@ h3{
               </form>
               <button><a href="/log/login">Log out</a></button>
           </div>
-          <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
 
       </ul>
 
@@ -521,9 +525,11 @@ Discover our freshest selection of masks, crafted to combine both style and func
                               <span th:text="'Remaining stock:'+${product.quantity}"></span>
 
                               <div>
-                                  <div style="color: yellow">
-                                      <!-- Loop to generate solid star icons based on product rating -->
-
+                                  <div class="stars">
+                        <span style="color: gold; font-size: 16px; margin: 3px" th:each="i : ${#numbers.sequence(1, 5)}">
+                            <i class="fa-star"
+                               th:classappend="${i <= ratings[product.id]} ? 'fas' : 'far'"></i>
+                        </span>
                                   </div>
                               </div>
                               <button type="submit" class="fa-sharp fa-solid fa-cart-plus" th:if="${product.quantity > 0}"></button>

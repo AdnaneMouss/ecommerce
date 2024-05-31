@@ -27,6 +27,8 @@ public class PanierController {
     private ProduitService produitService;
     @Autowired
     private CommandeService cs;
+    @Autowired
+    private CommandeService commandeService;
 
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
@@ -81,7 +83,7 @@ public class PanierController {
         return "redirect:/categories/categories";
     }
     @PostMapping("/addtocard")
-    public String addtoCard(@RequestParam int quantity, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
+    public String addtoCard(@RequestParam int quantity,@RequestParam int stock, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
 
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
@@ -105,11 +107,20 @@ public class PanierController {
         comm.setQuantity(quantity);
         comm.setCompte(c);
         comm.setPanier(pan);
+        int a = stock-quantity;
+        produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
 
         cs.createCommand(comm);
 
         return "redirect:/panier/panier/" + id + "/" + username;
     }
-
+    @PostMapping("/addtocarde")
+    public String ConfirmtoCommand(@RequestParam String date,@RequestParam String lieu, @RequestParam int productId, @RequestParam int id, @RequestParam int idCommande,@RequestParam String username) {
+        Optional<commande> commandeOptional = commandeService.getCommandeById((long)idCommande);
+        commande comm = commandeOptional.get();
+        comm.setDateLivraison(date);
+        comm.setLieuLivraison(lieu);
+        return "redirect:/panier/panier/" + id + "/" + username;
+    }
 }
