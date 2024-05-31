@@ -60,6 +60,9 @@ public class CommandeService {
         return commandeRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
+    public Optional<commande> getCommandeById(Long id) {
+        return commandeRepository.findById((Long)id);
+    }
 
     public commande affecterLivreur(int id, int idD) {
         commande existingCommand = getCommandById((long)id);

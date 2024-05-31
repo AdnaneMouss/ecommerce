@@ -27,6 +27,8 @@ public class PanierController {
     private ProduitService produitService;
     @Autowired
     private CommandeService cs;
+    @Autowired
+    private CommandeService commandeService;
 
     public PanierController(PanierService panierservice) {
         this.panierservice = panierservice;
@@ -113,5 +115,12 @@ public class PanierController {
 
         return "redirect:/panier/panier/" + id + "/" + username;
     }
-
+    @PostMapping("/addtocarde")
+    public String ConfirmtoCommand(@RequestParam String date,@RequestParam String lieu, @RequestParam int productId, @RequestParam int id, @RequestParam int idCommande,@RequestParam String username) {
+        Optional<commande> commandeOptional = commandeService.getCommandeById((long)idCommande);
+        commande comm = commandeOptional.get();
+        comm.setDateLivraison(date);
+        comm.setLieuLivraison(lieu);
+        return "redirect:/panier/panier/" + id + "/" + username;
+    }
 }

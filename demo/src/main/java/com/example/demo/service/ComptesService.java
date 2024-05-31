@@ -14,10 +14,10 @@ import java.util.Optional;
 public class ComptesService {
     public ComptesService(){}
 
-public ComptesService(CompteRepository compteRepository){
+    public ComptesService(CompteRepository compteRepository){
         this.compteRepository=compteRepository;
-}
-@Autowired
+    }
+    @Autowired
     private CompteRepository compteRepository;
 
     public List<comptes> getAllAccs() {
@@ -92,15 +92,12 @@ public ComptesService(CompteRepository compteRepository){
     }
     public int countcompteByType(String type) {
         return compteRepository.countByType  (type);
-}
+    }
     public int countcompteByFiliere(String fill) {
         return compteRepository.countByFiliere (fill);
-}
+    }
 
-public List<comptes> findByType(String type){
+    public List<comptes> findByType(String type){
         return compteRepository.findAllByType(type);
+    }
 }
-}
-
-
-
