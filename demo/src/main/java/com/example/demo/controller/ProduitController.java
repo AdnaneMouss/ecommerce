@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/products")
@@ -35,7 +33,15 @@ public class ProduitController {
     @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
         List<produit> produits = produitService.getAllProduits();
-        model.addAttribute("all",produits);
+        Map<Integer, Integer> productRatings = new HashMap<>(); // Map to store product ratings
+
+        for (produit p : produits) {
+            int avgRating = ratingService.getAvg(p.getId());
+            productRatings.put(p.getId(), avgRating);
+        }
+
+        model.addAttribute("ratings", productRatings);
+        model.addAttribute("all", produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc", c);
         return "shop";
@@ -44,16 +50,14 @@ public class ProduitController {
     @GetMapping("/catalogueForAll")
     public String getAllProduitsForAll(Model model) {
         List<produit> produits = produitService.getAllProduits();
-        int totalRatings = 0; // Total ratings for all products
-        int totalProducts = 0; // Total number of products
-        for(produit p : produits) {
+        Map<Integer, Integer> productRatings = new HashMap<>(); // Map to store product ratings
+
+        for (produit p : produits) {
             int avgRating = ratingService.getAvg(p.getId());
-            totalRatings += avgRating;
-            totalProducts++;
+            productRatings.put(p.getId(), avgRating);
         }
-        // Calculate average rating for all products
-        int avgRatingForAllProducts = (totalProducts > 0) ? totalRatings / totalProducts : 0;
-        model.addAttribute("rating", avgRatingForAllProducts);
+
+        model.addAttribute("ratings", productRatings);
         model.addAttribute("all", produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc", c);
@@ -217,13 +221,13 @@ catch(Exception e){
 
         //getRatings
         List<String> productNames = new ArrayList<>();
-        List<Double> productRatings = new ArrayList<>();
+        /*List<Double> productRatings = new ArrayList<>();
         /*for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productRatings.add(produit.getRating());
-        }*/
+        }
         model.addAttribute("productNames", productNames);
-        model.addAttribute("productRatings", productRatings);
+        model.addAttribute("productRatings", productRatings);*/
 
         //getStock
         List<Integer> productQuantity = new ArrayList<>();
@@ -324,6 +328,24 @@ catch(Exception e){
         double twentythree= commandeService.calculateTotalBenefitPerMonth("2023");
         model.addAttribute("twentythree", "" + twentythree);
 
+        int totalRatings = 0; // Total ratings for all products
+        int totalProducts = 0; // Total number of products
+        List<Integer> productRatings = new ArrayList<>();
+
+        for (produit p : produits) {
+            int avgRating = ratingService.getAvg(p.getId());
+            totalRatings += avgRating;
+            totalProducts++;
+            productNames.add(p.getLabel()); // Assuming 'getName()' gets the product's name
+            productRatings.add(avgRating);
+        }
+
+// Calculate average rating for all products
+        int avgRatingForAllProducts = (totalProducts > 0) ? totalRatings / totalProducts : 0;
+
+        model.addAttribute("rating", avgRatingForAllProducts);
+        model.addAttribute("productNames", productNames);
+        model.addAttribute("productRatings", productRatings);
 
         return "dashboard_analytics";
     }
