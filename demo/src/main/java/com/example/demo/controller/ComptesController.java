@@ -50,17 +50,17 @@ public class ComptesController {
         model.addAttribute("comptes", compte);
         return "compte";
     }
-    @GetMapping("/profile2/{username}")
+    @GetMapping("/profileAdmin/{username}")
     public String getProfilePage2(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
         return "dashboard_accInformation";
     }
-    @GetMapping("/profile3/{username}")
+    @GetMapping("/profileLivreur/{username}")
     public String getProfilePage3(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);
         model.addAttribute("comptes", compte);
-        return "";
+        return "profilelivreur";
     }
     @GetMapping("/count")
     public String countCompte(Model model) {
@@ -148,16 +148,16 @@ public class ComptesController {
         return "redirect:/comptes/profile/"+account.getUsername();
     }
 
-    @PostMapping("/modify2")
+    @PostMapping("/modifyAdmin")
     public String modifycompte2(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
-        return "redirect:/comptes/profile2/"+account.getUsername();
+        return "redirect:/comptes/profileAdmin/"+account.getUsername();
     }
 
-    @PostMapping("/modify3")
+    @PostMapping("/modifyLivreur")
     public String modifycompte3(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
-        return "redirect:/comptes/profile3/"+account.getUsername();
+        return "redirect:/comptes/profileLivreur/"+account.getUsername();
     }
 
     @GetMapping("/contact")

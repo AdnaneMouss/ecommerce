@@ -597,14 +597,13 @@
 
 
     <section class="main">
-         <h2 style="color: white">PRODUCTS PAGE</h2> <h4 style="color: white">Display,add and delete products easily</h4>
-        <div class="container2fas">
-    <h1 style="color: red">Modifier le Profil</h1>
-    <form id="profile-form" th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
+         <h2 style="color: white">My account </h2>
+        <div class="container2">
+    <h1 style="color: red">Edit profile</h1>
+    <form id="profile-form" th:action="@{/comptes/modifyAdmin}" method="post" onsubmit="alert('Your account information was updated!')">
         <input type="hidden" th:value="${session.authenticatedId}" name="id">
-        <input type="hidden" name="username">
         <table th:each="compte : ${comptes}" id="s">
-            <form th:action="@{/comptes/modify}" method="post" onsubmit="alert('Your account information was updated!')">
+            <form th:action="@{/comptes/modifyAdmin}" method="post" onsubmit="alert('Your account information was updated!')">
             <div class="profile-picture-container">
                 <img th:src="${compte.photo}" class="profile-picture">
             </div>
@@ -614,7 +613,7 @@
             </tr>
             <tr>
                 <th><i class="fas fa-envelope"></i> Full name</th>
-                <td><input name="nom" th:value="${compte.nom}" readonly></td>
+                <td><input name="nom" th:value="${compte.nom}" ></td>
             </tr>
             <tr>
                 <th><i class="fas fa-envelope"></i> Username</th>
@@ -626,7 +625,7 @@
             </tr>
             <tr>
                 <th><i class="fas fa-phone" style="transform: rotate(180deg);"></i> Phone</th>
-                <td><input name="photo" th:value="${compte.phone}"></td>
+                <td><input name="phone" th:value="${compte.phone}"></td>
             </tr>
             <tr>
                 <th><i class="fas fa-lock"></i> Password</th>
@@ -634,12 +633,9 @@
             </tr>
             <tr>
                 <th><i class="fas fa-user"></i>User Type</th>
-                <td><input th:value="${compte.type}" readonly></td>
+                <td><input th:value="${compte.type}" ></td>
             </tr>
-            <tr>
-                <th><i class="fas fa-book"></i>Field</th>
-                <td><input th:value="${compte.filiere}" readonly></td>
-            </tr>
+
             </form>
         </table>
         <button type="submit" id="modifier-button" style="background-color: red">Modifier</button>
