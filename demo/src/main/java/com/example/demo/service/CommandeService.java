@@ -85,6 +85,10 @@ public class CommandeService {
         return res;
     }
 
+    public List<commande> findallbyusername(String username){
+        return commandeRepository.findAllByDeliverymanUsername(username);
+    }
+
 
     public List<commande> findAllByPanierCompteEquals(comptes compte) {
         return commandeRepository.findAllByPanierCompteEquals(compte);

@@ -116,6 +116,7 @@ public class PanierController {
         int a = stock-quantity;
         produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
+        comm.setConfirmed(false);
         cs.createCommand(comm);
 
         return "redirect:/panier/panier/" + id + "/" + username;

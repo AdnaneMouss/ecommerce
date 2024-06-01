@@ -171,11 +171,6 @@ System.out.println(c);
 	}
 	public static void test(){
 commande c = new commande();
-produit p = new produit();
-p.setId(7);
-c.setP(p);
-c.setQuantity(2);
 cs.createCommand(c);
-c.setDelivered(true);
 	}
 }

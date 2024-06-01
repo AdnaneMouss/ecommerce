@@ -474,7 +474,7 @@ h3{
               <h2 style="color: white;position: absolute;top: 185px;">
                   <span th:text="${oneproduct.price}"></span>
               </h2>
-              <input required th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input required min="0" th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
               <input type="hidden" th:value="${oneproduct.id}" name="productId">
               <input type="hidden" th:value="${oneproduct.quantity}" name="stock">
               <input type="hidden" th:value="${session.authenticatedId}" name="id">
