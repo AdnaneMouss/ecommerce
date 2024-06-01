@@ -11,35 +11,88 @@
 <style type="text/css">
   <span style="font-family: verdana, geneva, sans-serif;">
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-*{
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
+  *{
+      margin: 0;
+      padding: 0;
+      outline: none;
+      border: none;
+      text-decoration: none;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+  }
+  body{
+      background: white;
+      background-image: url('/ecommerce.jpg');
+  }
+  nav{
+      position: sticky;
+      top: 0;
+      bottom: 0;
+      height: 100vh;
+      left: 0;
+      width: 90px;
+      /* width: 280px; */
+      background: linear-gradient(to bottom left, red, white);
+      overflow: hidden;
+      transition: 1s;
+  }
+  nav:hover{
+      width: 280px;
+      transition: 1s;
+  }
+
+  .logo img{
+      width: 80px;
+      height: 80px;
+  }
+  .logo span{
+      font-weight: bold;
+      padding-left: 15px;
+      font-size: 18px;
+      text-transform: uppercase;
+  }
+  a{
+      position: relative;
+      width: 280px;
+      font-size: 14px;
+      color: rgb(85, 83, 83);
+      display: table;
+      padding: 10px;
+  }
+  nav .fas{
+      position: relative;
+      width: 70px;
+      height: 40px;
+      top: 20px;
+      font-size: 20px;
+      text-align: center;
+      color: white;
+  }
+  .nav-item{
+      position: relative;
+      top: 12px;
+      margin-left: 10px;
+      color: white;
+  }
+  .nav-item:hover{
+      position: relative;
+      top: 12px;
+      margin-left: 10px;
+      color: red;
+  }
+  a:hover{
+      background: red;
+      color: white;
+  }
+  a:hover i{
+      color: white;
+      transition: 0.5s;
+  }
 .grid{
     display: grid;
     grid-template-columns: repeat(4,1fr);
 }
-body{
-  background: white;
-  background-image: url('/ecommerce.jpg');
-}
-nav{
-  position: sticky;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
-  left: 0;
-  width: 90px;
-  /* width: 280px; */
- background: linear-gradient(to bottom left, red, white);
-  overflow: hidden;
-  transition: 1s;
-}
+
   .panel {
       display: none; /* Initially hide the panel */
       position: absolute;
@@ -172,7 +225,7 @@ a:hover i{
 }
 
 .users .card{
-  width: 15%;
+  width: 25%;
   margin: 10px;
   background: #fff;
   text-align: center;
@@ -216,26 +269,60 @@ a:hover i{
   border: 1px solid red;
 }
 
-.attendance{
-  margin-top: 20px;
-  text-transform: capitalize;
-}
-.attendance-list{
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-}
-.table{
-  border-collapse: collapse;
-  margin: 25px 0;
-  font-size: 15px;
-  min-width: 100%;
-  overflow: hidden;
-  border-radius: 5px 5px 0 0;
-}
+  .grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+
+  .users {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+  }
+
+  .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+  }
+
+  .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 50%;
+      margin-bottom: 10px;
+  }
+
+  .per {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 10px;
+  }
+
+  .per table {
+      display: flex;
+      justify-content: center;
+  }
+
+  .per td {
+      padding-right:  30px; /* Adjust as needed for spacing */
+      padding-left:  55px;
+      align-items: center;
+      justify-content: center;/* Adjust as needed for spacing */
+  }
+
+  .fa-phone, .fa-envelope {
+      font-size: 15px; /* Adjust as needed for icon size */
+      color: #000; /* Adjust color as needed */
+  }
+
 table thead tr{
   color: #fff;
   background: #FF0000
@@ -399,35 +486,34 @@ table thead tr{
           <div class="per">
             <table>
               <tr>
-                <td style="padding-right: 20px;padding-left: 60px"><a th:href="'tel:'+ ${comptes.phone}" class="fa-solid fa-phone"></a></td>
-                <td style="padding-left: 40px;padding-right: 60px"><a th:href="'mailto:'+ ${comptes.email}" class="fa-solid fa-envelope"></a></td>
+                <td><a th:href="'tel:'+ ${comptes.phone}" class="fa-solid fa-phone"></a></td>
+                <td><a th:href="'mailto:'+ ${comptes.email}" class="fa-solid fa-envelope"></a></td>
               </tr>
             </table>
           </div>
         </div>
       </div>
 </section>
-          <section class="main2">
       <div class="main-top">
         <h1 style="color: white;">DELIVERY MEN</h1>
       </div>
-            <div class="users">
+              <section class="grid">
+      <div class="users">
                 <div class="card" th:each="comptes: ${delivery}">
           <img th:src="${comptes.photo}">
           <h4 th:text="${comptes.nom}"></h4>
           <div class="per">
             <table>
               <tr>
-                <td style="padding-right: 20px;padding-left: 60px"><a th:href="'tel:'+ ${comptes.phone}" class="fa-solid fa-phone"></a></td>
-                <td style="padding-left: 40px;padding-right: 60px"><a th:href="'mailto:'+ ${comptes.email}" class="fa-solid fa-envelope"></a></td>
+                <td><a th:href="'tel:'+ ${comptes.phone}" class="fa-solid fa-phone"></a></td>
+                <td><a th:href="'mailto:'+ ${comptes.email}" class="fa-solid fa-envelope"></a></td>
               </tr>
             </table>
           </div>
         </div>
       </div>
-
+</section>
      
-    </section>
     </section>
   </div>
 </body>

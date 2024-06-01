@@ -584,6 +584,94 @@ header{
         .navlist button:hover{
             border-bottom: 2px solid white;
         }
+        .navlist button{
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            margin-left: 40px;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+        .navlist button:hover{
+            border-bottom: 2px solid white;
+        }
+        .panel {
+            display: none; /* Initially hide the panel */
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 200px;
+            background-color: #f9f9f9;
+            min-width: 100px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .panel p {
+            margin: 5px 0;
+        }
+
+        .panel button {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .navlist button{
+            background-color: transparent;
+            color: white;
+            font-weight: bold;
+            font-size: 15px;
+            border: none;
+            margin-left: 40px;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+
+        .navlist button:hover{
+            border-bottom: 2px solid white;
+        }
+        header{
+            position: fixed;
+        }
+        .navlist {
+            position: fixed;
+            display: flex;
+            align-items: center;
+            margin-left: 330px;
+        }
+
+        .navlist li {
+            margin-left: 20px;
+        }
+
+        .navlist img {
+            width: 30px;
+            height: auto;
+            border-radius: 15px;/* Maintain aspect ratio */
+        }
+
+        .navlist a {
+            color: white;
+            padding: 20px;
+            font-size: 15px;
+            font-weight: 600;
+            border-bottom: 2px;
+            transition: all .55s ease;
+        }
+
+
+        .navlist a:hover{
+            border-bottom: 2px solid white;
+        }
     </style>
 </head>
 

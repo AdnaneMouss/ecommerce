@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/products")
@@ -35,7 +33,15 @@ public class ProduitController {
     @GetMapping("/catalogue")
     public String getAllProduits(Model model) {
         List<produit> produits = produitService.getAllProduits();
-        model.addAttribute("all",produits);
+        Map<Integer, Integer> productRatings = new HashMap<>(); // Map to store product ratings
+
+        for (produit p : produits) {
+            int avgRating = ratingService.getAvg(p.getId());
+            productRatings.put(p.getId(), avgRating);
+        }
+
+        model.addAttribute("ratings", productRatings);
+        model.addAttribute("all", produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc", c);
         return "shop";
@@ -44,16 +50,14 @@ public class ProduitController {
     @GetMapping("/catalogueForAll")
     public String getAllProduitsForAll(Model model) {
         List<produit> produits = produitService.getAllProduits();
-        int totalRatings = 0; // Total ratings for all products
-        int totalProducts = 0; // Total number of products
-        for(produit p : produits) {
+        Map<Integer, Integer> productRatings = new HashMap<>(); // Map to store product ratings
+
+        for (produit p : produits) {
             int avgRating = ratingService.getAvg(p.getId());
-            totalRatings += avgRating;
-            totalProducts++;
+            productRatings.put(p.getId(), avgRating);
         }
-        // Calculate average rating for all products
-        int avgRatingForAllProducts = (totalProducts > 0) ? totalRatings / totalProducts : 0;
-        model.addAttribute("rating", avgRatingForAllProducts);
+
+        model.addAttribute("ratings", productRatings);
         model.addAttribute("all", produits);
         List<categorie> c = catService.getAllCategories();
         model.addAttribute("allc", c);
@@ -158,7 +162,7 @@ catch(Exception e){
         int countEnergie = produitService.countProduitsByCategorie("Energy");
         model.addAttribute("energie", ""+countEnergie);
         //Générale
-        int countAll = produitService.countProduitsByCategorie("All");
+        int countAll = produitService.countProduitsByCategorie("None");
         model.addAttribute("nocat", ""+countAll);
         //getall
         List<produit> produits = produitService.getAllProduits();
@@ -207,7 +211,7 @@ catch(Exception e){
         int countEnergie = produitService.countProduitsByCategorie("Energy");
         model.addAttribute("energie", ""+countEnergie);
         //Générale
-        int countAll = produitService.countProduitsByCategorie("All");
+        int countAll = produitService.countProduitsByCategorie("None");
         model.addAttribute("nocat", ""+countAll);
         //getall
         List<produit> produits = produitService.getAllProduits();
@@ -217,13 +221,13 @@ catch(Exception e){
 
         //getRatings
         List<String> productNames = new ArrayList<>();
-        List<Double> productRatings = new ArrayList<>();
+        /*List<Double> productRatings = new ArrayList<>();
         /*for (produit produit : produits) {
             productNames.add(produit.getLabel());
             productRatings.add(produit.getRating());
-        }*/
+        }
         model.addAttribute("productNames", productNames);
-        model.addAttribute("productRatings", productRatings);
+        model.addAttribute("productRatings", productRatings);*/
 
         //getStock
         List<Integer> productQuantity = new ArrayList<>();
@@ -282,48 +286,68 @@ catch(Exception e){
         model.addAttribute("CA",""+chiffreAffaires);
 
         //benefitPerMonth
-        double january = commandeService.calculateTotalBenefitPerMonth("January");
+
+        double january = commandeService.calculateTotalBenefitPerMonth("01");
         model.addAttribute("january", "" + january);
 
-        double february = commandeService.calculateTotalBenefitPerMonth("February");
+        double february = commandeService.calculateTotalBenefitPerMonth("02");
         model.addAttribute("february", "" + february);
 
-        double march = commandeService.calculateTotalBenefitPerMonth("March");
+        double march = commandeService.calculateTotalBenefitPerMonth("03");
         model.addAttribute("march", "" + march);
 
-        double april = commandeService.calculateTotalBenefitPerMonth("April");
+        double april = commandeService.calculateTotalBenefitPerMonth("04");
         model.addAttribute("april", "" + april);
 
-        double may = commandeService.calculateTotalBenefitPerMonth("May");
+        double may = commandeService.calculateTotalBenefitPerMonth("05");
         model.addAttribute("may", "" + may);
 
-        double june = commandeService.calculateTotalBenefitPerMonth("June");
+        double june = commandeService.calculateTotalBenefitPerMonth("06");
         model.addAttribute("june", "" + june);
 
-        double july = commandeService.calculateTotalBenefitPerMonth("July");
+        double july = commandeService.calculateTotalBenefitPerMonth("07");
         model.addAttribute("july", "" + july);
 
-        double august = commandeService.calculateTotalBenefitPerMonth("August");
+        double august = commandeService.calculateTotalBenefitPerMonth("08");
         model.addAttribute("august", "" + august);
 
-        double september = commandeService.calculateTotalBenefitPerMonth("September");
+        double september = commandeService.calculateTotalBenefitPerMonth("09");
         model.addAttribute("september", "" + september);
 
-        double october = commandeService.calculateTotalBenefitPerMonth("October");
+        double october = commandeService.calculateTotalBenefitPerMonth("10");
         model.addAttribute("october", "" + october);
 
-        double november = commandeService.calculateTotalBenefitPerMonth("November");
+        double november = commandeService.calculateTotalBenefitPerMonth("11");
         model.addAttribute("november", "" + november);
 
-        double december = commandeService.calculateTotalBenefitPerMonth("December");
+        double december = commandeService.calculateTotalBenefitPerMonth("12");
         model.addAttribute("december", "" + december);
 
+
         //benefitPerYear
-        double twentyfour= commandeService.calculateTotalBenefitPerMonth("2024");
+        double twentyfour= commandeService.calculateTotalBenefitPerYear(2024);
         model.addAttribute("twentyfour", "" + twentyfour);
-        double twentythree= commandeService.calculateTotalBenefitPerMonth("2023");
+        double twentythree= commandeService.calculateTotalBenefitPerYear(2023);
         model.addAttribute("twentythree", "" + twentythree);
 
+        int totalRatings = 0; // Total ratings for all products
+        int totalProducts = 0; // Total number of products
+        List<Integer> productRatings = new ArrayList<>();
+
+        for (produit p : produits) {
+            int avgRating = ratingService.getAvg(p.getId());
+            totalRatings += avgRating;
+            totalProducts++;
+            productNames.add(p.getLabel()); // Assuming 'getName()' gets the product's name
+            productRatings.add(avgRating);
+        }
+
+// Calculate average rating for all products
+        int avgRatingForAllProducts = (totalProducts > 0) ? totalRatings / totalProducts : 0;
+
+        model.addAttribute("rating", avgRatingForAllProducts);
+        model.addAttribute("productNames", productNames);
+        model.addAttribute("productRatings", productRatings);
 
         return "dashboard_analytics";
     }

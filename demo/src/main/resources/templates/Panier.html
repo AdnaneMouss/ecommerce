@@ -5,28 +5,122 @@
     <link rel="stylesheet" type="text/css" href="acceuil.css">
 </head>
 <style type="text/css">
+    /* Style the popup container */
+    .popup {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scrolling if needed */
+        background-color: rgba(0,0,0,0.4); /* Black background with 40% opacity */
+        padding-top: 60px;
+        display: none;
+    }
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+    .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+
+    @-webkit-keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
+    }
+
+    .popup-content {
+        background-color: #f9f9f9;
+        color: #333;
+        text-align: center;
+        border-radius: 5px;
+        padding: 10px;
+        position: relative;
+        margin: 10px auto;
+        width: 300px;
+    }
+
+    .popup-content h2 {
+        margin: 0 0 10px;
+    }
+    .popup-content label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .popup-content input[type="text"],
+    .popup-content input[type="date"],
+    .popup-content select {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    .popup-content button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .popup-content button:hover {
+        background-color: #45a049;
+    }
+    .popuptext { /* White background */
+        margin: 5% auto; /* Center the popup text */
+        padding: 20px; /* Add some padding */
+        border: 1px solid #888; /* Add a border */
+        width: 80%; /* Set the width */
+        box-shadow: 0 0 10px rgba(0,0,0,0.2); /* Add some shadow */
+    }
+    .popuptext span {
+        font-size: 18px; /* Increase font size */
+        font-weight: bold; /* Make the text bold */
+        color: #333; /* Dark gray text */
+    }
+    .popuptext button {
+        background-color: #4CAF50; /* Green background */
+        color: #fff; /* White text */
+        padding: 10px 20px; /* Add some padding */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Add some rounded corners */
+        cursor: pointer; /* Change cursor to a pointing hand */
+    }
+    .popuptext button:hover {
+        background-color: #3e8e41; /* Darker green background on hover */
+    }
     :root {
         --background-gradient: linear-gradient(to right, #0B1480, #0B1480);
     }
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-    }
-    .popup-content {
-        background-color: white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        border-radius: 5px;
-    }
+
     .close {
         position: absolute;
         top: 10px;
@@ -52,6 +146,7 @@
         justify-content: space-between;
         padding: 2px 10%;
         background: linear-gradient(to top, #040A4C, #0B1480);
+
         box-shadow: 0 1px 6px 0 rgb(32 33 56 / 5%);
     }
     body{
@@ -65,27 +160,6 @@
         font-size: 30px;
         font-weight: 700;
         color: white;
-    }
-    .navlist{
-        display: flex;
-    }
-    .navlist a {
-        color: white;
-        padding: 20px;
-        margin-left: 30px;
-        font-size: 15px;
-        font-weight: 600;
-        border-bottom: 2px;
-        transition: all .55s ease;
-    }
-    .navlist img {
-        width: 30px; /* Adjust the width of the image */
-        height: auto;
-        border-radius: 15px;/* Maintain aspect ratio */
-    }
-
-    .navlist a:hover{
-        border-bottom: 2px solid white;
     }
     #menu-icon{
         color: white;
@@ -436,6 +510,81 @@
     .navlist button:hover{
         border-bottom: 2px solid white;
     }
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
+    header{
+        position: fixed;
+    }
+    .navlist {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        margin-left: 330px;
+    }
+
+    .navlist li {
+        margin-left: 20px;
+    }
+
+    .navlist img {
+        width: 30px;
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+
+    .navlist a:hover{
+        border-bottom: 2px solid white;
+    }
 </style>
 <body>
 <header>
@@ -447,11 +596,12 @@
         </form>
         <form th:action="@{/panier/getpanier}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Basket</button></li>
         </form>
-        <form th:action="@{panier/getpending}">
+        <form th:action="@{/panier/getpending}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Pending Deliveries</button></li>
         </form>
         <form th:action="@{//}">
@@ -460,7 +610,7 @@
         </form>
         <form th:action="@{/reclamation/viewdetails}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-            <li><button>My reclamations</button></li>
+            <li><button>My Complaints</button></li>
         </form>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
@@ -471,49 +621,95 @@
             </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
-        <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<form th:action="@{/panier/addtocarde}" method="post">
+
 <section class="hero2">
-    <section id="prod1" class="section-p1" th:each="command : ${panier}" >
-        <input type="hidden" th:value="${session.authenticatedId}" name="id">
-        <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+    <section id="prod1" class="section-p1" th:each="command : ${panier}" th:if="${!command.confirmed}">
         <div class="pro-container">
             <div class="pro">
                 <div class="container">
                     <div class="wrapper">
-                        <img th:src="${command.p.photo}"/>
+                        <img th:src="${command.p.photo}" />
                     </div>
                 </div>
                 <div class="des">
                     <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
                     <h3 th:text="${command.p.price}"></h3>
-                        <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
                     <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
                         <button onclick="prepareDelete(this)">Delete</button>
                         <input type="hidden" th:value="${command.id}" name="idPanier">
                     </form>
-                     </div>
+                </div>
             </div>
         </div>
+    </section>
 </section>
-</section>
-    <button id="openPopup">Confirm those products</button>
-    <div id="commentBox"></div>
-    <div id="commentPopup" class="popup">
-        <div class="popup-content">
-            <span class="close" id="closePopup">&times;</span>
-            <h2>Fill your informations</h2>
-            <input type="date" name="date">
+<button id="openPopup">Confirm all products</button>
+<div id="commentPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Fill your information</h2>
+        <form th:action="@{/panier/addtocarde}" method="post">
+            <div th:each="command : ${panier}">
+                <input type="hidden" th:value="${command.id}" name="idCommandes">
+                <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
+
+                <input type="hidden" th:value="${session.authenticatedId}" name="id">
+                <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+
+            <label>Order:</label>
             <br>
-            <input type="text" name="lieu">
-            <button id="submitComment">Submit</button>
-        </div>
+            <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
+            <br>
+            <label>Total price:</label>
+            <br>
+            <input readonly type="text"  th:value="${totalPrice}">
+            <br>
+                <label>When do you want your product:</label>
+            <br>
+                <input type="date" name="date">
+                <br>
+                <label>Where do you want your product:</label><br>
+                <select name="lieu">
+                    <option>Cité 1</option>
+                    <option>Cité 2</option>
+                    <option>Cité 3</option>
+                    <option>Cité 4</option>
+                    <option>Cité 5</option>
+                    <option>Barrière</option>
+                    <option>Bâtiment 1</option>
+                    <option>Bâtiment 2</option>
+                    <option>Bâtiment 3</option>
+                    <option>Bâtiment 4</option>
+                    <option>Bâtiment 5</option>
+                </select>
+                <br>
+            <button onclick="opeenPopup()" type="submit" id="submitComment" >Submit All
+                <div id="myPopup" class="popup">
+                <div class="popuptext" id="myPopupText">
+                    <span>Your order was confirmed!</span>
+                    <button onclick="closePopup()">Close</button>
+                </div>
+            </div>
+            </button>
+        </form>
     </div>
-            </form>
+</div>
+<script>
+    function opeenPopup() {
+        var popup = document.getElementById('myPopup');
+        popup.style.display = 'block';
+    }
+
+    function closeePopup() {
+        var popup = document.getElementById('myPopup');
+        popup.style.display = 'none';
+    }
+</script>
 <script>
     document.getElementById("openPopup").addEventListener("click", function() {
         document.getElementById("commentPopup").style.display = "block";
@@ -533,7 +729,7 @@
         commentBox.appendChild(newComment);
     });
 </script>
-    <script>
+<script>
         fetch('/api/getOrderData')
             .then(response => response.json())
             .then(data => {
@@ -555,7 +751,7 @@
                 console.error('Error getting order data:', error);
             });
     </script>
-    <script>
+<script>
     function confirmProduct(productName, price) {
         const orderData = {
             productName: productName,

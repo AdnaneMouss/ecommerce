@@ -16,4 +16,5 @@ int countByCompte_Filiere(String filiere);
 
     List<commande> findAllByPanierCompteEquals(comptes compte);
 
+    List<commande> findAllByDeliverymanUsername(String username);
 }

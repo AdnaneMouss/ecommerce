@@ -259,7 +259,7 @@ table thead tr{
   grid-template-columns: repeat(2,1fr);
 }
 .chart{
-      width: 600px;
+      width: 500px;
       border: 1px solid #ccc;
       border-radius: 8px;
       padding: 10px;
@@ -423,15 +423,13 @@ table thead tr{
 <div class="chart">
   <canvas id="command"></canvas>
 </div>
+                       <div class="chart">
+                <canvas id="benefitsChart"></canvas>
+            </div>
         <div class="piechart">
   <canvas id="usersPerField"></canvas>
 </div>
 </section>
-        <section class="charts">
-            <div class="chart">
-                <canvas id="benefitsChart"></canvas>
-            </div>
-        </section>
     </section>
   </div>
 </body>
@@ -695,7 +693,7 @@ table thead tr{
       plugins: {
           title: {
               display: true,
-              text: 'Stock Per Product Product',
+              text: 'Stock Per Product',
               font: {
                   size: 25,
                   weight: 'bold',
@@ -866,7 +864,7 @@ table thead tr{
                 }
             }]
         }
-    };
+    }
 
     // Get the canvas element
     var canvas = document.getElementById('benefitsChart').getContext('2d');

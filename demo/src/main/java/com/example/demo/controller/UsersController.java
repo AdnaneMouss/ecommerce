@@ -32,7 +32,7 @@ public class UsersController {
             } else if (compte.getType().equalsIgnoreCase("Admin")) {
                 return "redirect:/products/products";
             } else if (compte.getType().equalsIgnoreCase("Deliveryman")) {
-                return "redirect:/commande/dashboard";
+                return "redirect:/commande/livreur/" + compte.getUsername();
             }
         } else {
             model.addAttribute("error", "Invalid username or password");

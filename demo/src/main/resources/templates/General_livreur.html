@@ -200,7 +200,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="commande : ${all}" class="productRow" th:if="${commande.delivered && commande.confirmed && commande.deliveryman.id == session.authenticatedId}">
+                <tr th:each="commande : ${all}" class="productRow" th:if="${commande.delivered && commande.confirmed}">
+                    <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
                     <td th:text="${commande.compte?.username}"></td>
                     <td th:text="${commande.compte?.phone}"></td>
                     <td th:text="${commande.lieuLivraison}"></td>

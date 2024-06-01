@@ -10,6 +10,9 @@ import com.example.demo.repository.CompteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,13 +43,54 @@ public class CommandeService {
         }
         return totalBenefit;
     }
-    public double calculateTotalBenefitPerMonth(String substring) {
+    public double calculateTotalBenefitPerMonth(String month) {
         double totalBenefit = 0.0;
-        List<commande> commands = commandeRepository.findByDateLivraisonContaining(substring);
+        List<commande> commands = commandeRepository.findAll(); // Assume this method fetches all commands
         for (commande command : commands) {
-            if (command.isDelivered()) {
-                double commandBenefit = command.getP().getPrice() * command.getQuantity();
-                totalBenefit += commandBenefit;
+            try {
+                String dateLivraison = command.getDateLivraison();
+                if (dateLivraison == null) {
+                    // Skip this command and continue with the next one
+                    continue;
+                }
+                LocalDate date = LocalDate.parse(dateLivraison, DateTimeFormatter.ISO_DATE);
+                if (date.getMonthValue() == Integer.parseInt(month)) {
+                    if (command.isDelivered()) {
+                        double commandBenefit = command.getP().getPrice() * command.getQuantity();
+                        totalBenefit += commandBenefit;
+                    }
+                }
+            } catch (DateTimeParseException e) {
+                // Handle the exception if the date format is incorrect
+                e.printStackTrace();
+            }
+        }
+        return totalBenefit;
+    }
+
+
+    public double calculateTotalBenefitPerYear(int year) {
+        double totalBenefit = 0.0;
+        List<commande> commands = commandeRepository.findAll(); // Assuming this method fetches all commands
+
+        for (commande command : commands) {
+            try {
+                String dateLivraison = command.getDateLivraison();
+                if (dateLivraison == null) {
+                    // Skip this command and continue with the next one
+                    continue;
+                }
+
+                LocalDate date = LocalDate.parse(dateLivraison, DateTimeFormatter.ISO_DATE);
+                int commandYear = date.getYear();
+
+                if (commandYear == year && command.isDelivered()) {
+                    double commandBenefit = command.getP().getPrice() * command.getQuantity();
+                    totalBenefit += commandBenefit;
+                }
+            } catch (Exception e) {
+                // Handle parsing errors or other exceptions
+                e.printStackTrace(); // Log the exception for debugging
             }
         }
         return totalBenefit;
@@ -85,9 +129,25 @@ public class CommandeService {
         return res;
     }
 
+    public List<commande> findallbyusername(String username){
+        return commandeRepository.findAllByDeliverymanUsername(username);
+    }
+
 
     public List<commande> findAllByPanierCompteEquals(comptes compte) {
         return commandeRepository.findAllByPanierCompteEquals(compte);
+    }
+
+    public commande updateDateAndLieu(int id, String date, String lieu, Boolean confirmed) {
+        commande existingProduct = getCommandById((long)id);
+        commande comm = new commande();
+        comm.setDateLivraison(date);
+        comm.setLieuLivraison(lieu);
+        comm.setConfirmed(confirmed);
+        existingProduct.setDateLivraison(comm.getDateLivraison());
+        existingProduct.setLieuLivraison(comm.getLieuLivraison());
+        existingProduct.setConfirmed(comm.getConfirmed());
+        return commandeRepository.save(existingProduct);
     }
 
 }

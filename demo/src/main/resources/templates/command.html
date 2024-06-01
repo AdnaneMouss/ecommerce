@@ -399,13 +399,99 @@ h3{
         height: auto; /* Automatically adjust height based on content */
         overflow: auto; /* Add scrollbars if content overflows */
     }
-
-    /* Style for individual comments */
     .comment {
         margin-bottom: 10px; /* Add margin between comments */
         padding: 10px; /* Add padding for spacing */
         background-color: #fff; /* Set background color */
         border-radius: 3px; /* Add border radius for rounded corners */
+    }
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
+    header{
+        position: fixed;
+    }
+    .navlist {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        margin-left: 330px;
+    }
+
+    .navlist li {
+        margin-left: 20px;
+    }
+
+    .navlist img {
+        width: 30px;
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+
+    .navlist a:hover{
+        border-bottom: 2px solid white;
     }
 </style>
 <body>
@@ -418,11 +504,12 @@ h3{
           </form>
           <form th:action="@{/panier/getpanier}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <input name="id" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Basket</button></li>
           </form>
-          <form th:action="@{panier/getpending}">
+          <form th:action="@{/panier/getpending}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-
+              <input name="id" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Pending Deliveries</button></li>
           </form>
           <form th:action="@{//}">
@@ -431,7 +518,7 @@ h3{
           </form>
           <form th:action="@{/reclamation/viewdetails}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-              <li><button>My reclamations</button></li>
+              <li><button>My Complaints</button></li>
           </form>
           <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
           <div id="panel" class="panel">
@@ -442,7 +529,6 @@ h3{
               </form>
               <button><a href="/log/login">Log out</a></button>
           </div>
-          <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
 
       </ul>
       <div class="bx bx-menu" id="menu-icon"></div>
@@ -474,7 +560,7 @@ h3{
               <h2 style="color: white;position: absolute;top: 185px;">
                   <span th:text="${oneproduct.price}"></span>
               </h2>
-              <input required th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
+              <input required min="0" th:max="${oneproduct.quantity}" name="quantity" placeholder="Quantity" type="number" style="width: 80px; color: black; font-weight: bold; font-size: 14px; font-family: 'Britannic Bold'; text-align: center; background-color: white; padding-top: 20px; padding-bottom: 20px; position: absolute;top: 300px;">
               <input type="hidden" th:value="${oneproduct.id}" name="productId">
               <input type="hidden" th:value="${oneproduct.quantity}" name="stock">
               <input type="hidden" th:value="${session.authenticatedId}" name="id">
@@ -493,8 +579,6 @@ h3{
           </div>
       </div></section>
 </form>
-
-          <!-- Add Comment Button -->
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
           <div id="commentBox"></div>
           <div id="commentPopup" class="popup">
@@ -502,7 +586,6 @@ h3{
                   <span class="close" id="closePopup">&times;</span>
                   <h2>Add Comment</h2>
                   <textarea id="commentInput" placeholder="Enter your comment here..."></textarea>
-                  <!-- Rating Selection -->
                   <label for="rating">Rating:</label>
                   <select id="rating" name="rating">
                       <option value="1">1 Star</option>

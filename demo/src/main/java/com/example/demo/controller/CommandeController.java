@@ -64,12 +64,21 @@ public class CommandeController {
         return "redirect:/commande/commande";
     }
 
-    @GetMapping("/dashboard")
-    public String getAllProduits(Model model) {
-        List<commande> c = commandeService.getAllComm();
+    @GetMapping("/getcommliv")
+    public String getPendingById( @RequestParam String username) {
+        return "redirect:/commande/livreur/" + username;
+    }
+
+    @GetMapping("livreur/{username}")
+    public String getAllProduits(Model model,  @PathVariable("username") String username) {
+        List<commande> c = commandeService.findallbyusername(username);
         model.addAttribute("all",c);
         return "General_livreur";
     }
+
+
+
+
     @GetMapping("/formcom")
     public String getFormcom(Model model) {
         List<commande> c = commandeService.getAllComm();

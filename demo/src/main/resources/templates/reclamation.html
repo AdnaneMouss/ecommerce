@@ -481,6 +481,94 @@ h3{
     .navlist button:hover{
         border-bottom: 2px solid white;
     }
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
+    .panel {
+        display: none; /* Initially hide the panel */
+        position: absolute;
+        top: calc(100% + 5px);
+        right: 200px;
+        background-color: #f9f9f9;
+        min-width: 100px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 10px;
+        z-index: 1;
+    }
+
+    .panel p {
+        margin: 5px 0;
+    }
+
+    .panel button {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 12px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+    .navlist button{
+        background-color: transparent;
+        color: white;
+        font-weight: bold;
+        font-size: 15px;
+        border: none;
+        margin-left: 40px;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+    .navlist button:hover{
+        border-bottom: 2px solid white;
+    }
+    header{
+        position: fixed;
+    }
+    .navlist {
+        position: fixed;
+        display: flex;
+        align-items: center;
+        margin-left: 330px;
+    }
+
+    .navlist li {
+        margin-left: 20px;
+    }
+
+    .navlist img {
+        width: 30px;
+        height: auto;
+        border-radius: 15px;/* Maintain aspect ratio */
+    }
+
+    .navlist a {
+        color: white;
+        padding: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        border-bottom: 2px;
+        transition: all .55s ease;
+    }
+
+
+    .navlist a:hover{
+        border-bottom: 2px solid white;
+    }
 
 </style>
 <body>
@@ -493,10 +581,12 @@ h3{
         </form>
         <form th:action="@{/panier/getpanier}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Basket</button></li>
         </form>
-        <form th:action="@{//}">
+        <form th:action="@{/panier/getpending}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+            <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Pending Deliveries</button></li>
         </form>
         <form th:action="@{//}">
@@ -505,7 +595,7 @@ h3{
         </form>
         <form th:action="@{/reclamation/viewdetails}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-            <li><button>My reclamations</button></li>
+            <li><button>My Complaints</button></li>
         </form>
         <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
         <div id="panel" class="panel">
@@ -516,7 +606,6 @@ h3{
             </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
-        <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
 
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
