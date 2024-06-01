@@ -42,7 +42,7 @@ public class ComptesController {
 
     @GetMapping("/information")
     public String getProfilePae(Model model, @RequestParam String username) {
-        return "redirect:/comptes/profile"+username;
+        return "redirect:/comptes/profile/"+username;
     }
     @GetMapping("/profile/{username}")
     public String getProfilePage(Model model, @PathVariable("username") String username) {
@@ -145,19 +145,19 @@ public class ComptesController {
     @PostMapping("/modify")
     public String modifycompte(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
-        return "redirect:/comptes/profile/"+account.getUsername();
+        return "redirect:/log/login";
     }
 
     @PostMapping("/modifyAdmin")
     public String modifycompte2(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
-        return "redirect:/comptes/profileAdmin/"+account.getUsername();
+        return "redirect:/log/login";
     }
 
     @PostMapping("/modifyLivreur")
     public String modifycompte3(@ModelAttribute comptes account) {
         comptesService.updatecompte(account.getId(),account);
-        return "redirect:/comptes/profileLivreur/"+account.getUsername();
+        return "redirect:/log/login";
     }
 
     @GetMapping("/contact")
