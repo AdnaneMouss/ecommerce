@@ -5,28 +5,122 @@
     <link rel="stylesheet" type="text/css" href="acceuil.css">
 </head>
 <style type="text/css">
+    /* Style the popup container */
+    .popup {
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scrolling if needed */
+        background-color: rgba(0,0,0,0.4); /* Black background with 40% opacity */
+        padding-top: 60px;
+        display: none;
+    }
+    .popup .popuptext {
+        visibility: hidden;
+        width: 160px;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 8px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -80px;
+    }
+    .popup .popuptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+    }
+    .popup .show {
+        visibility: visible;
+        -webkit-animation: fadeIn 1s;
+        animation: fadeIn 1s;
+    }
+
+    @-webkit-keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0;}
+        to {opacity:1 ;}
+    }
+
+    .popup-content {
+        background-color: #f9f9f9;
+        color: #333;
+        text-align: center;
+        border-radius: 5px;
+        padding: 10px;
+        position: relative;
+        margin: 10px auto;
+        width: 300px;
+    }
+
+    .popup-content h2 {
+        margin: 0 0 10px;
+    }
+    .popup-content label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .popup-content input[type="text"],
+    .popup-content input[type="date"],
+    .popup-content select {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+    .popup-content button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .popup-content button:hover {
+        background-color: #45a049;
+    }
+    .popuptext { /* White background */
+        margin: 5% auto; /* Center the popup text */
+        padding: 20px; /* Add some padding */
+        border: 1px solid #888; /* Add a border */
+        width: 80%; /* Set the width */
+        box-shadow: 0 0 10px rgba(0,0,0,0.2); /* Add some shadow */
+    }
+    .popuptext span {
+        font-size: 18px; /* Increase font size */
+        font-weight: bold; /* Make the text bold */
+        color: #333; /* Dark gray text */
+    }
+    .popuptext button {
+        background-color: #4CAF50; /* Green background */
+        color: #fff; /* White text */
+        padding: 10px 20px; /* Add some padding */
+        border: none; /* Remove border */
+        border-radius: 5px; /* Add some rounded corners */
+        cursor: pointer; /* Change cursor to a pointing hand */
+    }
+    .popuptext button:hover {
+        background-color: #3e8e41; /* Darker green background on hover */
+    }
     :root {
         --background-gradient: linear-gradient(to right, #0B1480, #0B1480);
     }
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 9999;
-    }
-    .popup-content {
-        background-color: white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        border-radius: 5px;
-    }
+
     .close {
         position: absolute;
         top: 10px;
@@ -498,10 +592,7 @@
         </div>
     </section>
 </section>
-
 <button id="openPopup">Confirm all products</button>
-
-<!-- Single form for all products -->
 <div id="commentPopup" class="popup">
     <div class="popup-content">
         <span class="close" id="closePopup">&times;</span>
@@ -522,7 +613,7 @@
             <br>
             <input readonly type="text"  th:value="${totalPrice}">
             <br>
-                <label>When do you want your product:></h2></label>
+                <label>When do you want your product:</label>
             <br>
                 <input type="date" name="date">
                 <br>
@@ -541,12 +632,28 @@
                     <option>Bâtiment 5</option>
                 </select>
                 <br>
-            <button type="submit" id="submitComment">Submit All</button>
+            <button onclick="opeenPopup()" type="submit" id="submitComment" >Submit All
+                <div id="myPopup" class="popup">
+                <div class="popuptext" id="myPopupText">
+                    <span>Your order was confirmed!</span>
+                    <button onclick="closePopup()">Close</button>
+                </div>
+            </div>
+            </button>
         </form>
     </div>
 </div>
+<script>
+    function opeenPopup() {
+        var popup = document.getElementById('myPopup');
+        popup.style.display = 'block';
+    }
 
-
+    function closeePopup() {
+        var popup = document.getElementById('myPopup');
+        popup.style.display = 'none';
+    }
+</script>
 <script>
     document.getElementById("openPopup").addEventListener("click", function() {
         document.getElementById("commentPopup").style.display = "block";
@@ -566,7 +673,7 @@
         commentBox.appendChild(newComment);
     });
 </script>
-    <script>
+<script>
         fetch('/api/getOrderData')
             .then(response => response.json())
             .then(data => {
@@ -588,7 +695,7 @@
                 console.error('Error getting order data:', error);
             });
     </script>
-    <script>
+<script>
     function confirmProduct(productName, price) {
         const orderData = {
             productName: productName,

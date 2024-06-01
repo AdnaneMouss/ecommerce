@@ -1,4 +1,670 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Panier</title>
+  <link rel="stylesheet" type="text/css" href="acceuil.css">
+</head>
+<style type="text/css">
+  :root {
+    --background-gradient: linear-gradient(to right, #0B1480, #0B1480);
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+  }
+  .popup-content {
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+  }
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    list-style: none;
+    text-decoration: none;
+  }
+  header{
+    position: absolute;
+    right: 0;
+    bottom: 600px;
+    z-index: 1000;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 10%;
+    background: linear-gradient(to top, #040A4C, #0B1480);
+    box-shadow: 0 1px 6px 0 rgb(32 33 56 / 5%);
+  }
+  body{
+    top:20px;
+    background: var(--background-gradient);
+  }
+  header img{
+    width:15%;
+  }
+  .logo{
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+  }
+  .navlist{
+    display: flex;
+  }
+  .navlist a {
+    color: white;
+    padding: 20px;
+    margin-left: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    border-bottom: 2px;
+    transition: all .55s ease;
+  }
+  .navlist img {
+    width: 30px; /* Adjust the width of the image */
+    height: auto;
+    border-radius: 15px;/* Maintain aspect ratio */
+  }
+
+  .navlist a:hover{
+    border-bottom: 2px solid white;
+  }
+  #menu-icon{
+    color: white;
+    font-size: 35px;
+    z-index: 10001;
+    cursor: pointer;
+    display: none;
+  }
+  .hero{
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--background-gradient);
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 4fr);
+    align-items: center;
+    gap: 2rem;
+  }
+  .hero2{
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    background: var(--background-gradient);
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    gap: 2rem;
+  }
+  section{
+    padding: 0 10%;
+  }
+  .hero-img{
+    background-image: url('path/to/your/image.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  .hero-img img {
+    animation: pulse 4s infinite;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .merged-img {
+    position: all;
+    bottom: 60;
+    left: 0;
+  }
+  .hero-text h1{
+  }
+  .hero-text p{
+    font-family: 'Rubik Doodle Shadow';
+    font-size: 15px;
+    line-height: 1;
+    color: white;
+    margin: 0 0 45px;
+    line-height: 1.5;
+  }
+  .hero-text a{
+    display: inline-block;
+    color: white;
+    border: 1px solid transparent;
+    padding: 12px 30px;
+    line-height: 1.4;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 30px;
+    text-transform: uppercase;
+    transition: all .55s ease;
+    letter-spacing: 2px;
+  }
+  .hero-text{
+    display: inline-black;
+    border: 1px solid transparent;
+    padding: 20px;
+    line-height: 1.4;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: all .55s ease;
+  }
+  .hero-text h1{
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 30px;
+  }
+  .hero-text a:hover{
+    background: transparent;
+    border: 1px solid white;
+    transform: translateX(8p);
+  }
+  #prod1 {
+    text-align: center;
+    padding: 1px;
+    margin-left: -20px;
+  }
+  #prod1:hover{
+    transform: scale(1.2);
+  }
+  .section-p1 {
+    background-color: transparent;
+  }
+  .pro-container {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    margin: 1px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-radius: 20px;
+  }
+  .pro {
+    background-color: white;
+    padding: 20px;
+    border-radius: 19px;
+    box-shadow: 5 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+  }
+  .pro img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .pro img:hover {
+    width: 100%;
+    border-radius: 8px;
+    animation: pulse 4s infinite;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .des {
+    margin-top: 10px;
+    text-align: left;
+  }
+  .des span {
+    color: #888;
+    font-size: 14px;
+  }
+  .des h5 {
+    margin: 5px 0;
+    font-size: 18px;
+    text-align: start;
+  }
+  .star {
+    color: #f8ce0b;
+    font-size: 24px;
+    display: flex;
+  }
+  .rating input {
+    display: none;
+  }
+  .rating label {
+    font-size: 19px;
+    color: #ccc;
+    cursor: pointer;
+    padding-right: 9px;
+  }
+  .rating {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .rating input:checked ~ label {
+    color: #ffcc00;
+  }
+  .btn{
+    display: inline-block;
+    padding: 14px 42px;
+    color: black;
+    border: 2px solid transparent;
+    transition: all .6s;
+    font-weight: 500;
+    font-size:15px;
+  }
+  .btn:hover{
+    transform: scale(0.9) translateY(-6px);
+    border-radius: 2px solid black;
+    background: transparent;
+  }
+  .fa-sharp.fa-solid.fa-cart-plus{
+    color: white;
+    background-color: #2ecc71;
+    border-radius: 50px;
+    width: 25px;
+    line-height: 23px;
+    height: 22px;
+    border: 1px solid;
+    position: relative;
+    left: 190px;
+    top: 23px;
+  }
+  h3{
+    text-align: left;
+    font-size: 15px;
+  }
+  .indicator{
+    width: 100%;
+    height: 100px;
+    border-bottom: 2px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .indicator ul li{
+    list-style: none;
+    padding: 20px;
+    margin: 10px;
+    float: left;
+    font-size: 20px;
+    border-radius: 35px;
+    color: white;
+  }
+  .indicator a{
+    color: white;
+    text-decoration: none;
+  }
+  .indicator .active{
+    color: white;
+  }
+  .indicator .active a{
+    color: white;
+    background-color: #3498db;
+    font-weight: bold;
+    border: 3px solid white;
+    border-radius: 90%;
+    padding: 10px;
+  }
+  #star1{
+    color: yellow;
+  }
+  .fa-arrow-right-from-bracket{
+    color: white;
+  }
+  .fa-user{
+    color: white;
+  }
+  h2 {
+    margin-top: -10px;
+    color: white;
+  }
+  .card {
+    width: fit-content;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 250px 0;
+    padding: 30px;
+    background-color: #f9f9f9;
+    margin-left: -900px;
+  }
+  .card h2 {
+    color: #333;
+    font-size: 20px;
+    margin-top: 0;
+  }
+  .card p {
+    color: #666;
+    font-size: 16px;
+  }
+  .add-complaint-button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+  }
+  .add-complaint-icon {
+    margin-right: 5px;
+  }
+  .add-complaint-container {
+    position: absolute;
+    top: 210px;
+    right: 10%;
+  }
+  .complaint-form {
+    width: fit-content;
+    padding: 30px;
+    margin: 50px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+  }
+  .complaint-form label {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+  }
+  .complaint-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .complaint-form input[type="submit"] {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .complaint-form input[type="submit"]:hover {
+    background-color: #27ae60;
+  }
+  .active{
+    text-decoration: underline;
+    color: white;
+  }
+  .navlist button{
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    border: none;
+    margin-left: 40px;
+    border-bottom: 2px;
+    transition: all .55s ease;
+  }
+  .navlist button:hover{
+    border-bottom: 2px solid white;
+  }
+</style>
+<body>
+<header>
+  <img class="logo" src="/logo.png">
+  <ul class="navlist">
+    <form th:action="@{/products/catalogue}">
+      <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>Catalog</button></li>
+    </form>
+    <form th:action="@{/panier/getpanier}">
+      <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>My Basket</button></li>
+    </form>
+    <form th:action="@{panier/getpending}">
+      <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+
+      <li><button>My Pending Deliveries</button></li>
+    </form>
+    <form th:action="@{//}">
+      <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>My Comments</button></li>
+    </form>
+    <form th:action="@{/reclamation/viewdetails}">
+      <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+      <li><button>My reclamations</button></li>
+    </form>
+    <li><img alt="hh" th:src="${session.authenticatedPhoto}" onclick="togglePanel()"></li>
+    <div id="panel" class="panel">
+      <p th:text="${session.authenticatedUsername}"></p>
+      <form th:action="@{/comptes/information}">
+        <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+        <button style="background-color: blue">Account information</button>
+      </form>
+      <button><a href="/log/login">Log out</a></button>
+    </div>
+    <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
+  </ul>
+  <div class="bx bx-menu" id="menu-icon"></div>
+</header>
+
+<section class="hero2">
+  <section id="prod1" class="section-p1" th:each="command : ${panier}" th:if="${!command.confirmed}">
+    <div class="pro-container">
+      <div class="pro">
+        <div class="container">
+          <div class="wrapper">
+            <img th:src="${command.p.photo}" />
+          </div>
+        </div>
+        <div class="des">
+          <span th:text="${command.p.categorie?.catname}"></span>
+          <h5 th:text="${command.p.label}"></h5>
+          <h3 th:text="${command.p.price}"></h3>
+          <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
+            <button onclick="prepareDelete(this)">Delete</button>
+            <input type="hidden" th:value="${command.id}" name="idPanier">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<button id="openPopup">Confirm all products</button>
+<div id="commentPopup" class="popup">
+  <div class="popup-content">
+    <span class="close" id="closePopup">&times;</span>
+    <h2>Fill your information</h2>
+    <form th:action="@{/panier/addtocarde}" method="post">
+      <div th:each="command : ${panier}">
+        <input type="hidden" th:value="${command.id}" name="idCommandes">
+        <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
+
+      <input type="hidden" th:value="${session.authenticatedId}" name="id">
+      <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+
+      <label>Order:</label>
+      <br>
+      <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
+      <br>
+      <label>Total price:</label>
+      <br>
+      <input readonly type="text"  th:value="${totalPrice}">
+      <br>
+      <label><h2>When do you want your product:</h2></label>
+      <br>
+      <input type="date" name="date">
+      <br>
+      <label>Where do you want your product:</label><br>
+      <select name="lieu">
+        <option>Cité 1</option>
+        <option>Cité 2</option>
+        <option>Cité 3</option>
+        <option>Cité 4</option>
+        <option>Cité 5</option>
+        <option>Barrière</option>
+        <option>Bâtiment 1</option>
+        <option>Bâtiment 2</option>
+        <option>Bâtiment 3</option>
+        <option>Bâtiment 4</option>
+        <option>Bâtiment 5</option>
+      </select>
+      <br>
+      <button onclick="opeenPopup()" type="submit" id="submitComment" >Submit All
+        <div id="myPopup" class="popup">
+          <div class="popuptext" id="myPopupText">
+            <span>Your order was confirmed!</span>
+            <button onclick="closePopup()">Close</button>
+          </div>
+        </div>
+      </button>
+    </form>
+  </div>
+</div>
+<script>
+  function opeenPopup() {
+    var popup = document.getElementById('myPopup');
+    popup.style.display = 'block';
+  }
+
+  function closeePopup() {
+    var popup = document.getElementById('myPopup');
+    popup.style.display = 'none';
+  }
+</script>
+<script>
+  document.getElementById("openPopup").addEventListener("click", function() {
+    document.getElementById("commentPopup").style.display = "block";
+  });
+  document.getElementById("closePopup").addEventListener("click", function() {
+    document.getElementById("commentPopup").style.display = "none";
+  });
+  document.getElementById("submitComment").addEventListener("click", function() {
+    var comment = document.getElementById("commentInput").value;
+    console.log("Comment submitted:", comment);
+    document.getElementById("commentInput").value = "";
+    document.getElementById("commentPopup").style.display = "none";
+    var commentBox = document.getElementById("commentBox");
+    var newComment = document.createElement("div");
+    newComment.textContent = comment;
+    newComment.classList.add("comment");
+    commentBox.appendChild(newComment);
+  });
+</script>
+<script>
+  fetch('/api/getOrderData')
+          .then(response => response.json())
+          .then(data => {
+            const orderTable = document.getElementById('order-table');
+            const orderData = document.getElementById('order-data');
+
+            // Populate the table with the order data
+            data.forEach(item => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+            <td>${item.productName}</td>
+            <td>${item.price}</td>
+            <td>${item.quantity}</td>
+          `;
+              orderData.appendChild(row);
+            });
+          })
+          .catch(error => {
+            console.error('Error getting order data:', error);
+          });
+</script>
+<script>
+  function confirmProduct(productName, price) {
+    const orderData = {
+      productName: productName,
+      price: price,
+      quantity: 1,
+      customerName: 'Username'
+    };
+
+    fetch('/api/confirmOrder', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(orderData)
+    })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Order confirmed:', data);
+            })
+            .catch(error => {
+              console.error('Error confirming order:', error);
+            });
+  }
+  function togglePanel() {
+    var panel = document.getElementById("panel");
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  }
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>Résultat de Livraison</title>

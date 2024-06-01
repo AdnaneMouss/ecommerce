@@ -399,8 +399,6 @@ h3{
         height: auto; /* Automatically adjust height based on content */
         overflow: auto; /* Add scrollbars if content overflows */
     }
-
-    /* Style for individual comments */
     .comment {
         margin-bottom: 10px; /* Add margin between comments */
         padding: 10px; /* Add padding for spacing */
@@ -422,7 +420,6 @@ h3{
           </form>
           <form th:action="@{panier/getpending}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-
               <li><button>My Pending Deliveries</button></li>
           </form>
           <form th:action="@{//}">
@@ -443,7 +440,6 @@ h3{
               <button><a href="/log/login">Log out</a></button>
           </div>
           <li><i class="fa-solid fa-arrow-right-from-bracket"></i></li>
-
       </ul>
       <div class="bx bx-menu" id="menu-icon"></div>
   </header>
@@ -493,8 +489,6 @@ h3{
           </div>
       </div></section>
 </form>
-
-          <!-- Add Comment Button -->
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
           <div id="commentBox"></div>
           <div id="commentPopup" class="popup">
@@ -502,7 +496,6 @@ h3{
                   <span class="close" id="closePopup">&times;</span>
                   <h2>Add Comment</h2>
                   <textarea id="commentInput" placeholder="Enter your comment here..."></textarea>
-                  <!-- Rating Selection -->
                   <label for="rating">Rating:</label>
                   <select id="rating" name="rating">
                       <option value="1">1 Star</option>

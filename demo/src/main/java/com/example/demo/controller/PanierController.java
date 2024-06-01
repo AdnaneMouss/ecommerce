@@ -90,10 +90,8 @@ public class PanierController {
     }
     @PostMapping("/addtocard")
     public String addtoCard(@RequestParam int quantity,@RequestParam int stock, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
-
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);
         produit p = produitOptional.get();
-
         Optional<Panier> existingPanier = panierservice.findPanierByCompteId(id);
         Panier pan;
         if (existingPanier.isPresent()) {
@@ -105,11 +103,10 @@ public class PanierController {
             pan.setCompte(c);
             panierservice.createPanier(pan);
         }
-
         commande comm = new commande();
+        comm.setConfirmed(false);
         comptes c = new comptes();
         c.setId(id);
-
         comm.setQuantity(quantity);
         comm.setCompte(c);
         comm.setPanier(pan);
@@ -117,7 +114,6 @@ public class PanierController {
         produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
         cs.createCommand(comm);
-
         return "redirect:/panier/panier/" + id + "/" + username;
     }
     @PostMapping("/addtocarde")
