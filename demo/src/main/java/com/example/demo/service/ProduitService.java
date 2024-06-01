@@ -94,4 +94,5 @@ public class ProduitService {
         return produitRepository.countByCategorie_Catname(cat);
     }
 
+
 }
