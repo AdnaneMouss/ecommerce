@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Comment;
+import com.example.demo.modele.produit;
 import com.example.demo.service.CommentService;
+import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class CommentControllerImpl {
     public CommentControllerImpl(CommentService commentService) {
         this.commentService = commentService;
     }
+    @Autowired
+    private ProduitService produitService;
+
     @GetMapping("/commentaires")
     public String afficherCommentaires(Model model) {
         model.addAttribute("commentaires", commentService.obtenirTousLesCommentaires());
@@ -118,5 +123,14 @@ public class CommentControllerImpl {
         System.out.println("Dentistry"+Dentistry);
 
         return "dashboard_comments";
+    }
+
+    @GetMapping("/commentaires/{produitId}")
+    public String afficherCommentairesParProduit(@PathVariable Long produitId, Model model) {
+        Optional<produit> produit = produitService.getProduitById(produitId);
+        List<Comment> commentaires = commentService.obtenirCommentairesParProduit(produit);
+        model.addAttribute("commentaires", commentaires);
+        model.addAttribute("produit", produit);
+        return "catalogue";
     }
 }

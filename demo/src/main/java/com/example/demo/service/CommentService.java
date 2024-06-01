@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.Comment;
+import com.example.demo.modele.produit;
 import com.example.demo.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,7 +79,9 @@ public class CommentService {
         return commentRepository.countByCompte_Type(Type);
     }
 
-
+    public List<Comment> obtenirCommentairesParProduit(Optional<produit> produit) {
+        return commentRepository.findByProduit(produit);
+    }
 
     public List<Comment> obtenirTousLesCommentaires() {
         return commentRepository.findAll();
