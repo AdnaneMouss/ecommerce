@@ -36,7 +36,7 @@ public class CommentService {
     }
 
 
-    public boolean createComent(Comment comment) {
+    public boolean createComment(Comment comment) {
         boolean res=false;
         try{
             commentRepository.save(comment);
@@ -92,6 +92,8 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-
+    public List<Comment> getCommentByUsername(String username) {
+        return commentRepository.findAllByCompteUsername(username); // Return null if reclamation is not found
     }
 
+}

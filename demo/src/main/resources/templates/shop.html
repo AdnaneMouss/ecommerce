@@ -458,7 +458,7 @@ h3{
               <input name="id" type="hidden" th:value="${session.authenticatedId}">
               <li><button>My Pending Deliveries</button></li>
           </form>
-          <form th:action="@{/comment/mycommentaires}">
+          <form th:action="@{/Comment/viewdetails}">
               <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
               <li><button type="submit">My Comments</button></li>
           </form>

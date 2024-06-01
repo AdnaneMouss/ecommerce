@@ -118,20 +118,27 @@ public class CommentControllerImpl {
         return "catalogue";
     }
 
+    @GetMapping("/mycomment/{username}")
+    public  String getCommentByUsername(@PathVariable String username,Model model) {
+        List<Comment> r = commentService.getCommentByUsername(username);
+        model.addAttribute("com",r);
+        return  "comment";
+    }
     @GetMapping("/viewdetails")
     public String details(@RequestParam String username) {
-        return "redirect:/comment/commentaires/" + username;
+
+        return "redirect:/comment/mycomment/" + username;
     }
 
 
     @PostMapping("/addComment")
-    public String addComment(@RequestParam String username,@RequestParam String description, @RequestParam int idCompte) {
+    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte) {
         Comment comment = new Comment();
-        comment.setContent(description);
+        comment.setContent(content);
         comptes compte = new comptes();
         compte.setId(idCompte);
         comment.setCompte(compte);
-        commentService.createComent(comment);
-        return "catalogue";
+        commentService.createComment(comment);
+        return "redirect:/comment/mycomment/" + username;
     }
 }

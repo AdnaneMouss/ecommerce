@@ -37,6 +37,7 @@ public class ReclamationController {
     }
     @GetMapping("/viewdetails")
     public String details(@RequestParam String username) {
+
         return "redirect:/reclamation/myreclamation/" + username;
     }
 
