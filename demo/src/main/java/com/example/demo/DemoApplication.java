@@ -23,9 +23,10 @@ public class DemoApplication {
 	private static CommandeService cs=null;
 	private static PanierRepository pr=null;
 	private static RatingService rs=null;
+	private static ReclamationService recs=null;
 
 
-	public DemoApplication(RatingService rs, ProduitService produitService, CategorieService c, PanierRepository pr , CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
+	public DemoApplication(ReclamationService recs,RatingService rs, ProduitService produitService, CategorieService c, PanierRepository pr , CommandeService cs , ProduitController produitController, CategorieController categorieController, ComptesController ComptesController, ComptesService DaoComptes) {
 		this.produitService = produitService;
 		this.produitController = produitController;
 		this.categorieController = categorieController;
@@ -35,6 +36,7 @@ public class DemoApplication {
 		this.cat=c;
 		this.pr=pr;
 		this.rs=rs;
+		this.recs=recs;
 	}
 
 	public static void main(String[] args) {
@@ -46,7 +48,7 @@ public class DemoApplication {
 		//testAddCategory();
 		//testDeleteCategory();
 		//testLogin();
-		//test();
+		test();
 
 
 		// Test des fonctionnalités pour les comptes
@@ -170,7 +172,7 @@ int c = rs.getAvg(4);
 System.out.println(c);
 	}
 	public static void test(){
-commande c = new commande();
-cs.createCommand(c);
+Reclamation c = new Reclamation();
+recs.deleteReclam(26);
 	}
 }

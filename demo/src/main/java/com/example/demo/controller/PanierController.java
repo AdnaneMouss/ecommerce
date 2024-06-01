@@ -114,6 +114,7 @@ public class PanierController {
         produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
         comm.setConfirmed(false);
+        comm.setDelivered(false);
         cs.createCommand(comm);
         return "redirect:/panier/panier/" + id + "/" + username;
     }

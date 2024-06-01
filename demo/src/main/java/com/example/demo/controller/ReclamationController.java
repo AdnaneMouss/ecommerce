@@ -4,6 +4,7 @@ import com.example.demo.modele.Reclamation;
 import com.example.demo.modele.categorie;
 import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
+import com.example.demo.service.ProduitService;
 import com.example.demo.service.ReclamationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/reclamation")
@@ -19,6 +21,10 @@ public class ReclamationController {
 
     @Autowired
     private ReclamationService ReclamationSer;
+    @Autowired
+    private ReclamationService reclamationService;
+    @Autowired
+    private ProduitService produitService;
 
     public ReclamationController(ReclamationService reclamationService) {
         this.ReclamationSer = reclamationService;
@@ -32,6 +38,8 @@ public class ReclamationController {
     @GetMapping("/myreclamation/{username}")
     public  String getReclamationsByUsername(@PathVariable String username,Model model) {
         List<Reclamation> r = ReclamationSer.getReclamationsByUsername(username);
+        List<produit> p = produitService.getAllProduits();
+        model.addAttribute("produits", p);
         model.addAttribute("reclam",r);
         return  "reclamation";
     }
@@ -41,20 +49,45 @@ public class ReclamationController {
     }
 
     @PostMapping("/addReclamation")
-    public String addReclamation(@RequestParam String username,@RequestParam String description, @RequestParam int idCompte) {
+    public String addReclamation(@RequestParam String proof,@RequestParam String username,@RequestParam String description, @RequestParam int idCompte,@RequestParam int productId) {
+        Optional<produit> produitOptional = produitService.getProduitById((long)productId);
+        produit p = produitOptional.get();
         Reclamation complaint = new Reclamation();
         complaint.setdescription(description);
         comptes compte = new comptes();
+        complaint.setCompte(compte);
+        complaint.setProof(proof);
+        complaint.setProduit(p);
         compte.setId(idCompte);
         complaint.setCompte(compte);
         ReclamationSer.createReclamation(complaint);
         return "redirect:/reclamation/myreclamation/" + username;
     }
-    @DeleteMapping("/{id}")
-    public boolean deleteReclamation(@PathVariable int id) {
-        ReclamationSer.deleteReclamation(id);
-        return false;
+    @PostMapping("/delete")
+    public String delete(@RequestParam int idReclam,Model model,@RequestParam String usernamee) {
+        boolean isDeleted=false;
+        try {
+            isDeleted = reclamationService.deleteReclam(idReclam);
+            model.addAttribute("deleted", isDeleted);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/reclamation/myreclamation/" + usernamee;
     }
+    @PostMapping("/deletebyAdmin")
+    public String deleteByAdmin(@RequestParam int id,Model model) {
+        boolean isDeleted=false;
+        try {
+            isDeleted = reclamationService.deleteReclam(id);
+            model.addAttribute("deleted", isDeleted);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/reclamation/count";
+    }
+
     @GetMapping("/count")
     public String countcomplaint(Model model) {
         int countcomplaint = ReclamationSer.countcomplaint();

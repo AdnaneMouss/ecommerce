@@ -34,6 +34,8 @@ public class produit {
     private List<Comment> comments;
     @OneToMany(mappedBy = "produit", fetch = FetchType.EAGER)
     private List<Rating> ratings;
+    @OneToMany(mappedBy = "produit")
+    private List<Reclamation> reclamations;
 
     public produit(int id, String label, String description, double price, String color, String photo, int quantity,List<Rating> ratings, String size, categorie categorie) {
         this.id = id;

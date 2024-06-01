@@ -11,6 +11,8 @@ public class ReclamationService {
 
     @Autowired
     private ReclamationRepository ReclamationSer;
+    @Autowired
+    private ReclamationRepository reclamationRepository;
 
     public List<Reclamation> getAllReclamations() {
         return ReclamationSer.findAll();
@@ -32,17 +34,18 @@ public class ReclamationService {
         }
         return res;
     }
-public boolean deleteReclamation(int id) {
-    boolean res;
-    if(ReclamationSer.existsById((long) id)) {
-        res=false;
+    public boolean deleteReclam(int id) {
+        boolean res;
+        if(reclamationRepository.existsById((long) id)) {
+            reclamationRepository.deleteById((long) id);
+            res=true;
+        }
+        else{
+
+            res=false;
+        }
+        return res;
     }
-    else{
-        ReclamationSer.deleteById((long) id);
-        res=true;
-    }
-    return res;
-}
     public int countcomplaint() {
         return (int) ReclamationSer.count();
     }

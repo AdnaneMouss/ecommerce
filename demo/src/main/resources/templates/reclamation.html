@@ -354,10 +354,9 @@ h3{
             border: 1px solid #ccc;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 250px 0; /* Margin top/bottom 20px, margin left/right auto for centering */
             padding: 30px;
             background-color: #f9f9f9;
-            margin-left: -900px; /* Adjusting left margin to move the card to the left */
+         top:20px;
         }
 
         .card h2 {
@@ -610,38 +609,45 @@ h3{
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<br><br><br><br><br>
-<section class="hero"><div class="hero-text">
-    <h1 style="color: white; margin-top: 100px;">      My complaints</h1>
-</div>
-    <div class="add-complaint-container">
-        <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Complaint</button>
-    </div>
-    <form th:action="@{/reclamation/addReclamation}" id="actual-complaint-form" method="post" >
-    <div class="card" id="complaint-form" style="display: none">
-        <h2>Add Complaint</h2>
-            <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
-            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-            <label for="complaint-description">Description:</label><br>
-            <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
-            <button type="submit">Submit</button>
-
-    </div>
-
-
-    <section class="hero2">
-        <div class="product-grid">
+<br><br><br><br><br><br><br><br>
+    <section style="display: grid;grid-template-columns: repeat(2,1Fr)" class="hero2">
+        <div class="">
             <!-- Loop over each complaint -->
-            <section id="reclamation" class="section-reclamation" th:each="reclamation : ${reclam}" >
-                <div class="card">
+            <form th:action="@{/reclamation/delete}" method="post">
+            <section id="" class="" th:each="reclamation : ${reclam}" >
+                <div class="card" style="max-width: 500px; min-width: 500px">
                     <h2>Reclamation</h2>
-                    <p>Description de la reclamation : <span th:text="${reclamation.description}"></span></p>
+                    <input type="hidden" name="idReclam" th:value="${reclamation.id}">
+                    <input type="hidden" name="usernamee" th:value="${session.authenticatedUsername}">
+                    <p style="font-weight: bold;color: darkblue">Description : <span th:text="${reclamation.description}"></span></p>
+                    <p style="font-weight: bold;color:darkblue">About : <span th:text="${reclamation.produit.label}"></span></p>
+                    <p style="font-weight: bold;color: darkblue">Proof : <img style="width: 180px; height: 180px" th:src="${reclamation.proof}"></p>
+                    <button style="font-weight: bold;width:100px;color: white; background-color: darkblue" type="submit">Delete</button>
                 </div>
             </section>
+            </form>
+        </div>
+        <div class="card">
+            <form th:action="@{/reclamation/addReclamation}" method="post">
+                <div class="">
+                    <h2>Add Complaint</h2>
+                    <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+                    <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+                    <label>Description:</label><br>
+                    <textarea required name="description" rows="4" cols="50" placeholder="description"></textarea><br>
+                    <label>Product label:</label><br>
+                    <select required name="productId">
+                        <option value="" disabled selected>Product label</option>
+                        <option th:each="produit : ${produits}" th:value="${produit.id}" th:text="${produit.label}"></option>
+                    </select><br>
+                    <label>Proof(Image Link):</label><br>
+                    <input required type="text" name="proof"><br>
+                    <button style="font-weight: bold;width:100px;color: white; background-color: darkblue" type="submit">Submit</button>
+                </div>
+            </form>
         </div>
     </section>
 
-</section>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -673,6 +679,16 @@ h3{
 </script>
 <script>
     function togglePanel() {
+        var panel = document.getElementById("panel");
+        if (panel.style.display === "block") {
+            panel.style.display = "none";
+        } else {
+            panel.style.display = "block";
+        }
+    }
+</script>
+<script>
+    function togglePanel1() {
         var panel = document.getElementById("panel");
         if (panel.style.display === "block") {
             panel.style.display = "none";
