@@ -10,5 +10,6 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
     int countByCompte_Filiere(String Filiere);
     int countByCompte_Type(String Type);
-    List<Comment> findByProduit(Optional<produit> produit);
+    List<Comment> findByProduitId(Long produitId);
+
 }

@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.modele.Comment;
+import com.example.demo.modele.Reclamation;
 import com.example.demo.modele.produit;
 import com.example.demo.repository.CommentRepository;
+import com.example.demo.repository.ReclamationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,17 +35,18 @@ public class CommentService {
         return commentRepository.findById(id);
     }
 
-    public boolean createComment(Comment comment) {
-        boolean res = false;
-        try {
+
+    public boolean createComent(Comment comment) {
+        boolean res=false;
+        try{
             commentRepository.save(comment);
-            res = true;
-        } catch (Exception e) {
+            res=true;
+        }
+        catch(Exception e){
             System.out.println(e);
         }
         return res;
     }
-
     public boolean updateComment(int id, Comment updatedComment) {
         boolean res = false;
         try {
@@ -79,12 +82,16 @@ public class CommentService {
         return commentRepository.countByCompte_Type(Type);
     }
 
-    public List<Comment> obtenirCommentairesParProduit(Optional<produit> produit) {
-        return commentRepository.findByProduit(produit);
+
+
+    public List<Comment> obtenirCommentairesParProduitId(Long produitId) {
+        return commentRepository.findByProduitId(produitId);
     }
 
     public List<Comment> obtenirTousLesCommentaires() {
         return commentRepository.findAll();
     }
 
-}
+
+    }
+

@@ -1,14 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.modele.Comment;
+import com.example.demo.modele.Reclamation;
+import com.example.demo.modele.comptes;
 import com.example.demo.modele.produit;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,19 +20,20 @@ import java.util.Optional;
 public class CommentControllerImpl {
 
     private final CommentService commentService;
+    private final ProduitService produitService;
 
     @Autowired
-    public CommentControllerImpl(CommentService commentService) {
+    public CommentControllerImpl(CommentService commentService, ProduitService produitService) {
         this.commentService = commentService;
+        this.produitService = produitService;
     }
-    @Autowired
-    private ProduitService produitService;
 
     @GetMapping("/commentaires")
     public String afficherCommentaires(Model model) {
         model.addAttribute("commentaires", commentService.obtenirTousLesCommentaires());
         return "commentaires";
     }
+
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments() {
         List<Comment> comments = commentService.getAllComments();
@@ -43,15 +46,6 @@ public class CommentControllerImpl {
         return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Boolean> addComment(@RequestBody Comment comment) {
-        boolean isCreated = commentService.createComment(comment);
-        if (isCreated) {
-            return ResponseEntity.status(201).body(true);
-        } else {
-            return ResponseEntity.status(400).body(false);
-        }
-    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Boolean> updateComment(@PathVariable int id, @RequestBody Comment updatedComment) {
@@ -93,44 +87,51 @@ public class CommentControllerImpl {
         List<Comment> allComments = commentService.getAllComments();
         model.addAttribute("allComments", allComments);
 
+        int architecture = commentService.countByCompte_Filiere("Architecture");
+        model.addAttribute("Architecturstudents", "" + architecture);
 
-        int Architecture = commentService.countByCompte_Filiere ("Architecture");
-        model.addAttribute("Architecturstudents",""+Architecture);
-        System.out.println("Architecturstudents"+Architecture);
+        int cs = commentService.countByCompte_Filiere("CS");
+        model.addAttribute("CSstudents", "" + cs);
 
-        int CS = commentService.countByCompte_Filiere ("CS");
-        model.addAttribute("CSstudents",""+CS);
-        System.out.println("CSstudents"+CS);
+        int energy = commentService.countByCompte_Filiere("Energy");
+        model.addAttribute("Energystudents", "" + energy);
 
-        int Energy = commentService.countByCompte_Filiere ("Energy");
-        model.addAttribute("Energystudents",""+Energy);
-        System.out.println("Energystudents"+Energy);
+        int aerospace = commentService.countByCompte_Filiere("Aerospace");
+        model.addAttribute("Aerospacestudents", "" + aerospace);
 
-        int Aerospace = commentService.countByCompte_Filiere ("Aerospace");
-        model.addAttribute("Aerospacestudents",""+Aerospace);
-        System.out.println("Aerospacestudents"+Aerospace);
+        int medecine = commentService.countByCompte_Filiere("Medecine");
+        model.addAttribute("Medecinestudents", "" + medecine);
 
-        int Medecine = commentService.countByCompte_Filiere ("Medecine");
-        model.addAttribute("Medecinestudents",""+Medecine);
-        System.out.println("Medecinestudents"+Medecine);
+        int automobile = commentService.countByCompte_Filiere("Automobile");
+        model.addAttribute("Automobilestudents", "" + automobile);
 
-        int Automobile = commentService.countByCompte_Filiere ("Automobile");
-        model.addAttribute("Automobilestudents",""+Automobile);
-        System.out.println("Automobile"+Automobile);
-
-        int Dentistry = commentService.countByCompte_Filiere ("Dentistry");
-        model.addAttribute("Dentistrystudents",""+Dentistry);
-        System.out.println("Dentistry"+Dentistry);
+        int dentistry = commentService.countByCompte_Filiere("Dentistry");
+        model.addAttribute("Dentistrystudents", "" + dentistry);
 
         return "dashboard_comments";
     }
 
-    @GetMapping("/commentaires/{produitId}")
-    public String afficherCommentairesParProduit(@PathVariable Long produitId, Model model) {
-        Optional<produit> produit = produitService.getProduitById(produitId);
-        List<Comment> commentaires = commentService.obtenirCommentairesParProduit(produit);
+    @GetMapping("/mycommentaires/produit/{produitId}")
+    public String afficherCommentairesParProduitId(@PathVariable Long produitId, Model model) {
+        List<Comment> commentaires = commentService.obtenirCommentairesParProduitId(produitId);
         model.addAttribute("commentaires", commentaires);
-        model.addAttribute("produit", produit);
+        return "catalogue";
+    }
+
+    @GetMapping("/viewdetails")
+    public String details(@RequestParam String username) {
+        return "redirect:/comment/commentaires/" + username;
+    }
+
+
+    @PostMapping("/addComment")
+    public String addComment(@RequestParam String username,@RequestParam String description, @RequestParam int idCompte) {
+        Comment comment = new Comment();
+        comment.setContent(description);
+        comptes compte = new comptes();
+        compte.setId(idCompte);
+        comment.setCompte(compte);
+        commentService.createComent(comment);
         return "catalogue";
     }
 }

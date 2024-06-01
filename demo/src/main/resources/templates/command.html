@@ -581,26 +581,29 @@ h3{
 </form>
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
           <div id="commentBox"></div>
+  <form th:action="@{/comment/addComment}" id="actual-complaint-form" method="post" >
           <div id="commentPopup" class="popup">
               <div class="popup-content">
                   <span class="close" id="closePopup">&times;</span>
                   <h2>Add Comment</h2>
-                  <textarea id="commentInput" placeholder="Enter your comment here..."></textarea>
-                  <label for="rating">Rating:</label>
-                  <select id="rating" name="rating">
-                      <option value="1">1 Star</option>
-                      <option value="2">2 Stars</option>
-                      <option value="3">3 Stars</option>
-                      <option value="4">4 Stars</option>
-                      <option value="5">5 Stars</option>
-                  </select>
-                  <button id="submitComment">Submit</button>
+                  <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+                  <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+                  <label for="complaint-description">Description:</label><br>
+                  <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="description"></textarea><br>
+                  <button type="submit">Submit</button>
               </div>
           </div>
-
+  </form>
       </div>
   </section>
-  <div id="commentContainer"></div>
+  <div id="commentContainer">
+      <ul>
+          <li th:each="commentaires : ${commentaires}">
+              <span th:text="${commentaires.content}"></span> -
+              <span th:text="${commentaires.compte.nom}"></span>
+          </li>
+      </ul>
+  </div>
 
   <br>
 
