@@ -122,7 +122,7 @@ public class CommentControllerImpl {
     public  String getCommentByUsername(@PathVariable String username,Model model) {
         List<Comment> r = commentService.getCommentByUsername(username);
         model.addAttribute("com",r);
-        return  "comment";
+        return  "mycomments";
     }
     @GetMapping("/viewdetails")
     public String details(@RequestParam String username) {

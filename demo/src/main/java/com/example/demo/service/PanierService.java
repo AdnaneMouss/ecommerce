@@ -26,18 +26,22 @@ public class PanierService {
         return panierRepository.findById((Long)id);
     }
 
-    public boolean deletePanier(int id) {
-        boolean res;
-        if(panierRepository.existsById((long) id)) {
-            panierRepository.deleteById((long) id);
-            res=true;
-        }
-        else{
-            res=false;
+    public boolean deletefromPanier(int id) {
+        boolean res = false;
+        try {
+            if(panierRepository.existsById((long) id)) {
+                panierRepository.deleteById((long) id);
+                res=true;
+            }
+            else{
+                return res;
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception or handle it appropriately
+            return false; // Return false if deletion fails
         }
         return res;
     }
-
     public boolean createPanier(Panier panier) {
         boolean res=false;
         try{

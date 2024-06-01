@@ -76,17 +76,15 @@ public class PanierController {
         model.addAttribute("comptes", panier);
         return "panier";
     }
-
-    // Ajout de la méthode de suppression de produit du panier
-    @PostMapping("/deletePan")
-    public String delete(@RequestParam int idPanier) {
-        boolean isDeleted = panierservice.deletePanier(idPanier);
+    @PostMapping("/deletefrompan")
+    public String delete(@RequestParam int idP) {
+        boolean isDeleted = panierservice.deletefromPanier(idP);
         if (isDeleted) {
-            System.out.println("Product deleted successfully from basket.");
+            System.out.println("Product deleted successfully from Basket.");
         } else {
-            System.out.println("Failed to delete prod.");
+            System.out.println("Failed to delete product from Basket.");
         }
-        return "redirect:/categories/categories";
+        return "redirect:/panier/getpanier";
     }
     @PostMapping("/addtocard")
     public String addtoCard(@RequestParam int quantity,@RequestParam int stock, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {

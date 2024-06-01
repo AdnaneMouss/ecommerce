@@ -639,7 +639,7 @@
                     <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
                     <h3 th:text="${command.p.price}"></h3>
-                    <form id="deleteForm" th:action="@{/panier/deletePan}" method="post">
+                    <form id="deleteForm" th:action="@{/panier/deletefrompan}" method="post">
                         <button onclick="prepareDelete(this)">Delete</button>
                         <input type="hidden" th:value="${command.id}" name="idPanier">
                     </form>
