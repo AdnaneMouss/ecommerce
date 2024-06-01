@@ -21,7 +21,11 @@ public class CommentControllerImpl {
     public CommentControllerImpl(CommentService commentService) {
         this.commentService = commentService;
     }
-
+    @GetMapping("/commentaires")
+    public String afficherCommentaires(Model model) {
+        model.addAttribute("commentaires", commentService.obtenirTousLesCommentaires());
+        return "commentaires";
+    }
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments() {
         List<Comment> comments = commentService.getAllComments();

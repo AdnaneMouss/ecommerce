@@ -14,6 +14,7 @@ public class CommentService {
     @Autowired
     private final CommentRepository commentRepository;
 
+
     @Autowired
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
@@ -76,4 +77,11 @@ public class CommentService {
     public int countByCompte_Type(String Type) {
         return commentRepository.countByCompte_Type(Type);
     }
+
+
+
+    public List<Comment> obtenirTousLesCommentaires() {
+        return commentRepository.findAll();
+    }
+
 }
