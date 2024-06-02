@@ -59,6 +59,18 @@ public class CommentControllerImpl {
         }
         return "redirect:/comment/mycomment/" + username;
     }
+    @PostMapping("/deletecom")
+    public String deletecom(@RequestParam int id,Model model,@RequestParam String username) {
+        boolean isDeleted=false;
+        try {
+            isDeleted = commentService.deleteCommen(id);
+            model.addAttribute("deleted", isDeleted);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return "dashboard_comments";
+    }
     @GetMapping("/count")
     public String countComments(Model model) {
         int totalComments = commentService.countComments();

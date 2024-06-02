@@ -58,7 +58,6 @@ public class CommentService {
         }
         return res;
     }
-
     public boolean deleteComm(int id) {
         boolean res;
         if(commentRepository.existsById((long) id)) {
@@ -71,7 +70,18 @@ public class CommentService {
         }
         return res;
     }
+    public boolean deleteCommen(int id) {
+        boolean res;
+        if(commentRepository.existsById((long) id)) {
+            commentRepository.deleteById((long) id);
+            res=true;
+        }
+        else{
 
+            res=false;
+        }
+        return res;
+    }
     public int countComments() {
         return (int) commentRepository.count();
     }

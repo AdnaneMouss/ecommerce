@@ -487,6 +487,12 @@
       display: flex;
       width: 100%;
   }
+  .btnn{
+      background-color: red;
+      border-radius: 2px;
+      height: 30px;
+      width: 50px;
+  }
 </style>
 <body>
   <div class="container">
@@ -526,8 +532,6 @@
         </a>
       </ul>
     </nav>
-
-
     <section class="main">
         <h2 style="color: white">COMMENTS PAGE</h2> <h4 style="color: white">Display,add and delete comments easily</h4>
               <div class="users">
@@ -643,6 +647,12 @@
         <div class="second">
             <img th:src="${comment.compte.photo}">
         </div>
+              <form th:action="@{/comment/deletecom}" method="post">
+                        <button class="btnn" onclick="prepareDelete(this)">Delete</button>
+                        <input type="hidden" th:value="${comment.id}" name="id">
+                        <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+                        <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+                    </form>
             </section>
     </section>
   </div>
@@ -654,7 +664,6 @@
       imageWindow.document.body.innerHTML = "<img src='" + imageUrl + "' alt='Image'>";
   }
 </script>
-
 <script>
     function modifyRow(button) {
         var row = button.parentNode.parentNode;
@@ -800,7 +809,6 @@
         stockSortDir = (dir === "asc") ? "desc" : "asc";
     }
 </script>
-
 <script>
     function searchByLabel() {
         // Récupérer la valeur entrée par l'utilisateur dans le champ de recherche
@@ -863,7 +871,7 @@
       alert('Item deleted successfully.');
   });
 </script>
-    <script>
+  <script>
         function prepareDelete(button) {
             var prodid = button.parentNode.parentNode.querySelector("td:first-child").innerText;
             document.getElementById("productId").value = prodid;
