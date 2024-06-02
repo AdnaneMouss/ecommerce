@@ -567,7 +567,9 @@
                     <form action="/confirmOrder" method="post">
                     <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
-                    <h3 th:text="${command.p.price}"></h3>
+                    <h3 th:text="${command.p.price * command.quantity}"></h3>
+                    <h3 th:text="${command.deliveryman.nom}"></h3>
+                    <h3 th:text="${command.deliveryman.phone}"></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
                     </form>
                 </div>
