@@ -151,7 +151,7 @@
 
 
   .addprod .card{
-      width: 39%;
+      width: 89%;
       margin: 10px;
       background: #fff;
       text-align: left;
@@ -159,7 +159,7 @@
       padding: 10px;
       box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
       background-image: url('/addproduct.jpg');
-      height: 445px;
+      height: 485px;
   }
   .addprod .card img{
       width: 70px;
@@ -575,11 +575,11 @@
       <section class="attendance">
      <br>
 <div>
-<div style="display: flex">
+<!--<div style="display: flex">
     <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput" placeholder="Search by Label..." onkeyup="searchByLabel()">&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
     <input style="border-color: red; border-radius: 3px;padding: 9px" type="text" id="searchInput2" placeholder="Search by Category..." onkeyup="searchByCateg()">
-</div>
-<<div class="attendance-list">
+</div>-->
+<div class="attendance-list">
     <h1>List of products</h1>
     <form th:action="@{/products/modify}"  id="modifyForm" method="post">
     <form th:action="@{/products/delete}"  id="" method="post">
@@ -632,7 +632,7 @@
         <p></p>
 </form>
     </form>
-</div>>
+</div>
 
     <section class="main">
       <div class="main-top">
@@ -677,8 +677,8 @@
             <td><textarea placeholder="Description" cols="1" rows="1" name="description" required></textarea></td>
         </tr>
         <tr>
-            <td><button type="submit">Add Product</button></td>
-            <td><button type="reset">Clear All</button></td>
+            <td><input style="color: white;background-color: red" type="submit" value="Add product"></td>
+            <td><input style="color: white;background-color: red" type="reset" value="Reset"></td>
         </tr>
     </table>
 
@@ -776,7 +776,7 @@
 
         // Parcourir toutes les lignes du tableau et masquer celles qui ne correspondent pas à la recherche
         for (i = 1; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[7]; // La colonne du libellé est la deuxième (index 1)
+            td = tr[i].getElementsByTagName("input")[7]; // La colonne du libellé est la deuxième (index 1)
             if (td) {
                 txtValue = td.textContent || td.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
