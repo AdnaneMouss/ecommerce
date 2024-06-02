@@ -533,10 +533,6 @@ h3{
           </section>
       </div>
       <div>
-          <div><h3 style="color: white;position: absolute;top: 65px;">
-
-              <span th:text="${oneproduct.categorie?.catname}"></span>
-          </h3>
               <h4 style="color: white;position: absolute;top: 125px;">
                   <span th:text="${oneproduct.label}"></span>
               </h4>
@@ -556,9 +552,12 @@ h3{
           </div>
       </div></section>
 </form>
-          <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
+          <button id="openPopup" style="position: absolute; top: 800px; left:800px">Add Comment</button>
           <div id="commentBox"></div>
   <form th:action="@{/comment/addComment}" id="actual-complaint-form" method="post">
+      <div th:each="product : ${oneproduct}">
+          <input type="hidden" name="productId" th:value="${product.id}">
+      </div>
       <div id="commentPopup" class="popup">
           <div class="popup-content">
               <span class="close" id="closePopup">&times;</span>
@@ -576,12 +575,18 @@ h3{
           </div>
       </div>
   </form>
-  <div id="commentContainer">
+  <div id="commentContainer" style="margin-left: 210px; width: 1000px;">
       <ul>
           <li th:each="comm : ${comment}">
+              <section style="display: grid;grid-template-columns: repeat(2,1fr)">
+                  <div>
               <h2 th:text="${comm.compte.nom}"></h2>
               <span th:text="'Commented:'+${comm.content}"></span><br>
-              <span th:text="'Rated the product:'+${comm.rating}+'/5'"></span>
+              </div>
+                  <div>
+                      <img style="width:100px;height:100px;" th:src="${comm.compte.photo}">
+                  </div>
+              </section>
           </li>
       </ul>
   </div>

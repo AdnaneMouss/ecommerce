@@ -1,8 +1,5 @@
 package com.example.demo.controller;
-import com.example.demo.modele.Comment;
-import com.example.demo.modele.Reclamation;
-import com.example.demo.modele.comptes;
-import com.example.demo.modele.produit;
+import com.example.demo.modele.*;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,13 +130,19 @@ public class CommentControllerImpl {
         return "redirect:/comment/mycomment/" + username;
     }
     @PostMapping("/addComment")
-    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte, @RequestParam int rating) {
+    public String addComment(@RequestParam String username,@RequestParam int productId,@RequestParam String content, @RequestParam int idCompte, @RequestParam int rating) {
+        Optional<produit> produitOptional = produitService.getProduitById((long)productId);
+        produit p = produitOptional.get();
         Comment comment = new Comment();
+        Rating rat = new Rating();
         comment.setContent(content);
-        comment.setRating(rating);
+        rat.setRatingValue(rating);
         comptes compte = new comptes();
         compte.setId(idCompte);
+        comment.setProduit(p);
+        rat.setProduit(p);
         comment.setCompte(compte);
+        rat.setCompte(compte);
         commentService.createComment(comment);
         return "redirect:/comment/mycomment/" + username;
     }

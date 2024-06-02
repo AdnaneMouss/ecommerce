@@ -10,4 +10,5 @@ import java.util.List;
 public interface RatingRepository extends JpaRepository<Rating, Long> {
     @Query("SELECT AVG(r.ratingValue) FROM Rating r WHERE r.produit.id = :productId")
     Integer findAverageRatingByProduitId(@Param("productId") int productId);
+    List<Rating> findByProduitId(int produitId);
 }

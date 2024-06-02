@@ -110,6 +110,8 @@ public class ProduitController {
         Optional<produit> optionalProduct = produitService.getProduitById((long)id);
 List<Comment> comment= commentService.getAllCommentsById(id);
 model.addAttribute("comment", comment);
+List<Rating> rating=ratingService.getAllRatingsById(id);
+model.addAttribute("rating",rating);
         // Check if the product exists
         if (optionalProduct.isPresent()) {
             produit product = optionalProduct.get();
