@@ -571,12 +571,6 @@ h3{
               <p style="color: white;position: absolute;top: 450px;">
                   <span th:text="${oneproduct.description}"></span>
               </p>
-              <!-- Rating Section -->
-             <!-- <div id="ratingDisplay">
-                  <h4 style="color: white;position: absolute;top: 540px;">Rating:</h4>
-                  <p style="color: white;position: absolute;top: 580px;">0/5</p>
-              </div>
-              -->
           </div>
       </div></section>
 </form>
@@ -590,7 +584,7 @@ h3{
                   <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
                   <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
                   <label for="complaint-description">Description:</label><br>
-                  <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="Your comment"></textarea><br>
+                  <textarea id="complaint-description" name="content" rows="4" cols="50" placeholder="Your comment"></textarea><br>
                   <label for="rating">Rating</label><br>
                   <select id="rating" name="rating">
                       <option>1</option>

@@ -54,8 +54,6 @@ public class PanierController {
         model.addAttribute("totalPrice", totalPrice);
         return "Panier";
     }
-
-    //PENDINGDELIVERIES
     @GetMapping("/getpending")
     public String getPendingById(@RequestParam int id, @RequestParam String username) {
         return "redirect:/panier/pending/" + id + "/" + username;
@@ -76,16 +74,19 @@ public class PanierController {
         model.addAttribute("comptes", panier);
         return "panier";
     }
-    @PostMapping("/deletefrompan")
-    public String delete(@RequestParam int idP) {
-        boolean isDeleted = panierservice.deletefromPanier(idP);
-        if (isDeleted) {
-            System.out.println("Product deleted successfully from Basket.");
-        } else {
-            System.out.println("Failed to delete product from Basket.");
+    @PostMapping("/delete")
+    public String delete(Model model, @RequestParam int id) {
+        boolean isDeleted = false;
+        try {
+            isDeleted = panierservice.deleteProduitfromPanier(id);
+            model.addAttribute("deleted", isDeleted);
+        } catch(Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "An error occurred while deleting the product.");
         }
-        return "redirect:/panier/getpanier";
+        return "redirect:/panier/getpanier/";
     }
+
     @PostMapping("/addtocard")
     public String addtoCard(@RequestParam int quantity,@RequestParam int stock, @RequestParam int productId, @RequestParam int id, @RequestParam String username) {
         Optional<produit> produitOptional = produitService.getProduitById((long)productId);

@@ -26,19 +26,15 @@ public class PanierService {
         return panierRepository.findById((Long)id);
     }
 
-    public boolean deletefromPanier(int id) {
-        boolean res = false;
-        try {
-            if(panierRepository.existsById((long) id)) {
-                panierRepository.deleteById((long) id);
-                res=true;
-            }
-            else{
-                return res;
-            }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log the exception or handle it appropriately
-            return false; // Return false if deletion fails
+    public boolean deleteProduitfromPanier(int id) {
+        boolean res;
+        if(panierRepository.existsById((long) id)) {
+            panierRepository.deleteById((long) id);
+            res=true;
+        }
+        else{
+
+            res=false;
         }
         return res;
     }
@@ -53,10 +49,6 @@ public class PanierService {
         }
         return res;
     }
-
-
-
-
     public Optional<Panier> findPanierByCompteId(int id) {
         return panierRepository.findByCompteId(id);
     }
