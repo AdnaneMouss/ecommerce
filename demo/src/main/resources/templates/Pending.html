@@ -566,10 +566,14 @@
                 <div class="des">
                     <form action="/confirmOrder" method="post">
                     <span th:text="${command.p.categorie?.catname}"></span>
-                    <h5 th:text="${command.p.label}"></h5>
-                    <h3 th:text="${command.p.price * command.quantity}"></h3>
-                    <h3 th:text="${command.deliveryman.nom}"></h3>
-                    <h3 th:text="${command.deliveryman.phone}"></h3>
+                    <h3><span th:text="${command.p.label}"></span></h3>
+                    <h3>Quantity:<span th:text="${command.quantity}"></span></h3>
+                    <h3>Total:<span th:text="${command.p.price * command.quantity}+'MAD'"></span></h3>
+                    <h3>DeliveryMan:<span th:text="${command.deliveryman.nom}"></span></h3>
+                    <h3>Delivery Date:<span th:text="${command.dateLivraison}"></span></h3>
+                    <h3>Delivery Location:<span th:text="${command.lieuLivraison}"></span></h3>
+                        <h3>DeliveryMan number:
+                            <br><span th:text="${command.deliveryman.phone}"></span></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
                     </form>
                 </div>
