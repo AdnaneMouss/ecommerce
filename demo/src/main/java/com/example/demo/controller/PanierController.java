@@ -109,8 +109,6 @@ public class PanierController {
         comm.setQuantity(quantity);
         comm.setCompte(c);
         comm.setPanier(pan);
-        int a = stock-quantity;
-        produitService.updateQuantity(p.getId(),a);
         comm.setP(p);
         comm.setConfirmed(false);
         comm.setDelivered(false);
@@ -118,12 +116,16 @@ public class PanierController {
         return "redirect:/panier/panier/" + id + "/" + username;
     }
     @PostMapping("/addtocarde")
-    public String ConfirmtoCommand(@RequestParam String date, @RequestParam String lieu, @RequestParam List<Integer> idCommandes, @RequestParam int id, @RequestParam String username) {
+    public String ConfirmtoCommand(@RequestParam int stock,@RequestParam int quantity,@RequestParam int productId, @RequestParam String date, @RequestParam String lieu, @RequestParam List<Integer> idCommandes, @RequestParam int id, @RequestParam String username) {
+        Optional<produit> produitOptional = produitService.getProduitById((long)productId);
+        produit p = produitOptional.get();
         for (int idCommande : idCommandes) {
             Optional<commande> commandeOptional = commandeService.getCommandeById((long) idCommande);
             if (commandeOptional.isPresent()) {
                 commande comm = commandeOptional.get();
                 commandeService.updateDateAndLieu(comm.getId(), date, lieu, true);
+                int a = stock-quantity;
+                produitService.updateQuantity(p.getId(),a);
             }
         }
         return "redirect:/panier/pending/" + id + "/" + username;

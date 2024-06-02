@@ -320,7 +320,7 @@ table thead tr{
 <body>
                   <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
-            <form th:action="@{/comptes/information}">
+            <form th:action="@{/comptes/informationAdmin}">
                 <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
             </form>

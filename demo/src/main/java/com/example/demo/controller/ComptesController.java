@@ -44,6 +44,16 @@ public class ComptesController {
     public String getProfilePae(Model model, @RequestParam String username) {
         return "redirect:/comptes/profile/"+username;
     }
+
+    @GetMapping("/informationLivreur")
+    public String getProfilePaeL(Model model, @RequestParam String username) {
+        return "redirect:/comptes/profileLivreur/"+username;
+    }
+
+    @GetMapping("/informationAdmin")
+    public String getProfilePaeA(Model model, @RequestParam String username) {
+        return "redirect:/comptes/profileAdmin/"+username;
+    }
     @GetMapping("/profile/{username}")
     public String getProfilePage(Model model, @PathVariable("username") String username) {
         comptes compte = daoComptes.findByUsername(username);

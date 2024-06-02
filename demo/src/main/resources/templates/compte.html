@@ -693,7 +693,7 @@ header{
             <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Pending Deliveries</button></li>
         </form>
-        <form th:action="@{//}">
+        <form th:action="@{comment/viewdetails/}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <li><button>My Comments</button></li>
         </form>
@@ -728,15 +728,15 @@ header{
                 <img th:src="${compte.photo}" class="profile-picture">
             </div>
             <tr>
-                <th><i class="fas fa-envelope"></i> Image link </th>
+                <th><i class="fas fa-link"></i> Image link </th>
                 <td><input name="photo" th:value="${compte.photo}"></td>
             </tr>
             <tr>
-                <th><i class="fas fa-envelope"></i> Full name</th>
+                <th><i class="fas fa-user"></i> Full name</th>
                 <td><input name="nom" th:value="${compte.nom}" readonly></td>
             </tr>
             <tr>
-                <th><i class="fas fa-envelope"></i> Username</th>
+                <th><i class="fas fa-user"></i> Username</th>
                 <td><input name="username" th:value="${compte.username}"></td>
             </tr>
             <tr>
@@ -750,10 +750,6 @@ header{
             <tr>
                 <th><i class="fas fa-lock"></i> Password</th>
                 <td><input name="password" th:value="${compte.password}"></td>
-            </tr>
-            <tr>
-                <th><i class="fas fa-user"></i>User Type</th>
-                <td><input th:value="${compte.type}" readonly></td>
             </tr>
             <tr>
                 <th><i class="fas fa-book"></i>Field</th>

@@ -391,7 +391,7 @@
 <body>
                   <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
-            <form th:action="@{/comptes/information}">
+            <form th:action="@{/comptes/informationAdmin}">
                 <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
             </form>
@@ -601,15 +601,15 @@
               <form th:action="@{/comptes/addcompteuser}" method="post">
             <table class="table2">
               <tr>
-                <td><input type="text" name="fullname" placeholder="Full name"></td>
-                <td><input type="text" name="emailadress" placeholder="Email address"></td>
+                <td><input required type="text" name="fullname" placeholder="Full name"></td>
+                <td><input required  type="text" name="emailadress" placeholder="Email address"></td>
               </tr>
               <tr>
-                <td><input type="text" name="username" placeholder="Username"></td>
-                <td><input type="text" name="password" placeholder="Password"></td>
+                <td><input required type="text" name="username" placeholder="Username"></td>
+                <td><input required type="text" name="password" placeholder="Password"></td>
               </tr>
                                          <tr>
-                <td><input type="text" name="phone" placeholder="Phone number"></td>
+                <td><input required type="text" name="phone" placeholder="Phone number"></td>
                                 <td><select name="field">
                   <option value="" disabled selected>Field</option>
                   <option value="option1">Architecture</option>
@@ -617,11 +617,11 @@
                 </select></td>
               </tr>
                 <tr>
-                    <td><input type="text"name="photo" placeholder="Image link"></td>
+                    <td><input required type="text" name="photo" placeholder="Image link"></td>
                 </tr>
  <tr>
-     <td><button type="submit">Add account</button></td>
-     <td><button type="reset">Reset</button></td>
+     <td><input style="border-color:white;font-weight:bold;background-color: red;color: white" type="submit" value="Add account"></td>
+     <td><input style="border-color:white;font-weight:bold;background-color: red;color: white" type="reset" value="Reset"></td>
  </tr>
             </table>
               </form>
@@ -633,17 +633,17 @@
               <form th:action="@{/comptes/addcompteforothers}" method="post">
             <table class="table2">
               <tr>
-                <td><input type="text"name="fullname" placeholder="Full name"></td>
-                <td><input type="text"name="emailadress" placeholder="Email address"></td>
+                <td><input required type="text" name="fullname" placeholder="Full name"></td>
+                <td><input required type="text" name="emailadress" placeholder="Email address"></td>
               </tr>
                             <tr>
-                <td><input type="text" name="username" placeholder="Username"></td>
-                <td><input type="text"name="password" placeholder="Password"></td>
+                <td><input required type="text" name="username" placeholder="Username"></td>
+                <td><input required type="text" name="password" placeholder="Password"></td>
               </tr>
                                           <tr>
              
-                <td><input type="text"name="phone" placeholder="Phone number"></td>
-                                                                    <td><select name="type">
+                <td><input required type="text" name="phone" placeholder="Phone number"></td>
+                                                                    <td><select required name="type">
                   <option value="" disabled selected>Type</option>
                   <option value="option1">Supplier</option>
                   <option value="option2">DeliveryMan</option>
@@ -651,10 +651,14 @@
                 </select></td>
 </tr>
 <tr>
-    <td><input type="text" name="photo" placeholder="Image link"></td>
+    <td><input required type="text" name="photo" placeholder="Image link"></td>
 </tr>
+                 <tr>
+     <td><input style="border-color:white;font-weight:bold;background-color: red;color: white" type="submit" value="Add account"></td>
+     <td><input style="border-color:white;font-weight:bold;background-color: red;color: white" type="reset" value="Reset"></td>
+ </tr>
             </table>
-                    <button>StekStek</button>
+
               </form>
 
           </div>

@@ -548,7 +548,7 @@
 <body>
                   <div id="panel" class="panel">
             <p th:text="${session.authenticatedUsername}"></p>
-            <form th:action="@{/comptes/information}">
+            <form th:action="@{/comptes/informationAdmin}">
                 <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
             <button style="background-color: blue">Account information</button>
             </form>
@@ -608,15 +608,15 @@
                 <img th:src="${compte.photo}" class="profile-picture">
             </div>
             <tr>
-                <th><i class="fas fa-envelope"></i> Image link </th>
+                <th><i class="fas fa-link"></i> Image link </th>
                 <td><input name="photo" th:value="${compte.photo}"></td>
             </tr>
             <tr>
-                <th><i class="fas fa-envelope"></i> Full name</th>
+                <th><i class="fas fa-user"></i> Full name</th>
                 <td><input name="nom" th:value="${compte.nom}" ></td>
             </tr>
             <tr>
-                <th><i class="fas fa-envelope"></i> Username</th>
+                <th><i class="fas fa-user"></i> Username</th>
                 <td><input name="username" th:value="${compte.username}"></td>
             </tr>
             <tr>
@@ -631,14 +631,10 @@
                 <th><i class="fas fa-lock"></i> Password</th>
                 <td><input name="password" th:value="${compte.password}"></td>
             </tr>
-            <tr>
-                <th><i class="fas fa-user"></i>User Type</th>
-                <td><input th:value="${compte.type}" ></td>
-            </tr>
 
             </form>
         </table>
-        <button type="submit" id="modifier-button" style="background-color: red">Modifier</button>
+        <button type="submit" id="modifier-button" style="background-color: red">Update information</button>
     </form>
 </div>
     </section>
