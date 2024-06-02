@@ -59,13 +59,15 @@ public class CommentService {
         return res;
     }
 
-    public boolean deleteComment(int id) {
+    public boolean deleteComm(int id) {
         boolean res;
-        if (!commentRepository.existsById((long) id)) {
-            res = false;
-        } else {
+        if(commentRepository.existsById((long) id)) {
             commentRepository.deleteById((long) id);
-            res = true;
+            res=true;
+        }
+        else{
+
+            res=false;
         }
         return res;
     }

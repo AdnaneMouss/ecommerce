@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.modele.Comment;
 import com.example.demo.modele.Reclamation;
 import com.example.demo.modele.comptes;
@@ -14,39 +13,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
 @Controller
 @RequestMapping("/comment")
 public class CommentControllerImpl {
-
     private final CommentService commentService;
     private final ProduitService produitService;
-
     @Autowired
     public CommentControllerImpl(CommentService commentService, ProduitService produitService) {
         this.commentService = commentService;
         this.produitService = produitService;
     }
-
     @GetMapping("/commentaires")
     public String afficherCommentaires(Model model) {
         model.addAttribute("commentaires", commentService.obtenirTousLesCommentaires());
         return "commentaires";
     }
-
     @GetMapping
     public ResponseEntity<List<Comment>> getAllComments() {
         List<Comment> comments = commentService.getAllComments();
         return ResponseEntity.ok(comments);
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable int id) {
         Optional<Comment> comment = commentService.getCommentById((long) id);
         return comment.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
     @PutMapping("/{id}")
     public ResponseEntity<Boolean> updateComment(@PathVariable int id, @RequestBody Comment updatedComment) {
         boolean isUpdated = commentService.updateComment(id, updatedComment);
@@ -56,17 +47,18 @@ public class CommentControllerImpl {
             return ResponseEntity.status(400).body(false);
         }
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteComment(@PathVariable int id) {
-        boolean isDeleted = commentService.deleteComment(id);
-        if (isDeleted) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.status(404).build();
+    @PostMapping("/delete")
+    public String delete(@RequestParam int id,Model model,@RequestParam String username) {
+        boolean isDeleted=false;
+        try {
+            isDeleted = commentService.deleteComm(id);
+            model.addAttribute("deleted", isDeleted);
         }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/comment/mycomment/" + username;
     }
-
     @GetMapping("/count")
     public String countComments(Model model) {
         int totalComments = commentService.countComments();
@@ -110,14 +102,12 @@ public class CommentControllerImpl {
 
         return "dashboard_comments";
     }
-
     @GetMapping("/mycommentaires/produit/{produitId}")
     public String afficherCommentairesParProduitId(@PathVariable Long produitId, Model model) {
         List<Comment> commentaires = commentService.obtenirCommentairesParProduitId(produitId);
         model.addAttribute("commentaires", commentaires);
         return "catalogue";
     }
-
     @GetMapping("/mycomment/{username}")
     public  String getCommentByUsername(@PathVariable String username,Model model) {
         List<Comment> r = commentService.getCommentByUsername(username);
@@ -126,15 +116,13 @@ public class CommentControllerImpl {
     }
     @GetMapping("/viewdetails")
     public String details(@RequestParam String username) {
-
         return "redirect:/comment/mycomment/" + username;
     }
-
-
     @PostMapping("/addComment")
-    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte) {
+    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte, @RequestParam int rating) {
         Comment comment = new Comment();
         comment.setContent(content);
+        comment.setRating(rating);
         comptes compte = new comptes();
         compte.setId(idCompte);
         comment.setCompte(compte);
