@@ -503,6 +503,16 @@
         border-bottom: 2px;
         transition: all .55s ease;
     }
+    footer {
+         background: linear-gradient(to top, #040A4C, #0B1480);
+         color: white;
+         padding: 15px 20px;
+         height: 80px;
+         width: 100%;
+         display: flex;
+         text-align: center;
+         justify-content: space-between;
+     }
     .title{
         padding-top: 200px;
         color: white;
@@ -546,7 +556,6 @@
             </form>
             <button><a href="/log/login">Log out</a></button>
         </div>
-
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
@@ -565,13 +574,13 @@
                 </div>
                 <div class="des">
                     <form action="/confirmOrder" method="post">
-                    <span th:text="${command.p.categorie?.catname}"></span>
-                    <h3><span th:text="${command.p.label}"></span></h3>
-                    <h3>Quantity:<span th:text="${command.quantity}"></span></h3>
-                    <h3>Total:<span th:text="${command.p.price * command.quantity}+'MAD'"></span></h3>
-                    <h3>DeliveryMan:<span th:text="${command.deliveryman.nom}"></span></h3>
-                    <h3>Delivery Date:<span th:text="${command.dateLivraison}"></span></h3>
-                    <h3>Delivery Location:<span th:text="${command.lieuLivraison}"></span></h3>
+                        <span th:text="${command.p.categorie?.catname}"></span>
+                        <h3><span th:text="${command.p.label}"></span></h3>
+                        <h3>Quantity:<span th:text="${command.quantity}"></span></h3>
+                        <h3>Total:<span th:text="${command.p.price * command.quantity}+'MAD'"></span></h3>
+                        <h3>DeliveryMan:<span th:text="${command.deliveryman.nom}"></span></h3>
+                        <h3>Delivery Date:<span th:text="${command.dateLivraison}"></span></h3>
+                        <h3>Delivery Location:<span th:text="${command.lieuLivraison}"></span></h3>
                         <h3>DeliveryMan number:
                             <br><span th:text="${command.deliveryman.phone}"></span></h3>
                         <input type="hidden" name="customerName" th:value="${session.authenticatedUsername}" />
@@ -579,38 +588,41 @@
                 </div>
             </div>
         </div>
-</section>
-<script>
-    function confirmProduct(productName, price) {
-        const orderData = {
-            productName: productName,
-            price: price,
-            quantity: 1,
-            customerName: 'Username'
-        };
-        fetch('/api/confirmOrder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Order confirmed:', data);
+    </section>
+    <footer>
+        <p><center>&copy; 2024 UIRSUPPLY. Tous droits réservés.</center></p>
+    </footer>
+    <script>
+        function confirmProduct(productName, price) {
+            const orderData = {
+                productName: productName,
+                price: price,
+                quantity: 1,
+                customerName: 'Username'
+            };
+            fetch('/api/confirmOrder', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
             })
-            .catch(error => {
-                console.error('Error confirming order:', error);
-            });
-    }
-    function togglePanel() {
-        var panel = document.getElementById("panel");
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Order confirmed:', data);
+                })
+                .catch(error => {
+                    console.error('Error confirming order:', error);
+                });
         }
-    }
-</script>
+        function togglePanel() {
+            var panel = document.getElementById("panel");
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>

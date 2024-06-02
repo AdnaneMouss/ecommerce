@@ -544,11 +544,19 @@ h3{
         align-items: center;
         margin-left: 330px;
     }
-
     .navlist li {
         margin-left: 20px;
     }
-
+    footer {
+        background: linear-gradient(to top, #040A4C, #0B1480);
+        color: white;
+        padding: 15px 20px;
+        height: 80px;
+        width: 100%;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+    }
     .navlist img {
         width: 30px;
         height: auto;
@@ -563,12 +571,9 @@ h3{
         border-bottom: 2px;
         transition: all .55s ease;
     }
-
-
     .navlist a:hover{
         border-bottom: 2px solid white;
     }
-
 </style>
 <body>
 <header>
@@ -649,8 +654,10 @@ h3{
             </form>
         </div>
     </section>
+<footer>
+    <p><center>&copy; 2024 UIRSUPPLY. Tous droits réservés.</center></p>
 
-
+</footer>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
            const addComplaintButton = document.getElementById("add-complaint-button");
