@@ -611,24 +611,9 @@
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <br><br><br><br><br>
+<h1 style="color: white; margin-top: 200px;text-align: center">My comments</h1>
 <section class="hero"><div class="hero-text">
-    <h1 style="color: white; margin-top: 100px;">      My complaints</h1>
 </div>
-    <div class="add-complaint-container">
-        <button id="add-complaint-button" class="add-complaint-button"><i class="fas fa-plus-circle add-complaint-icon"></i>Add Comment</button>
-    </div>
-    <form th:action="@{/comment/addComment}" id="actual-complaint-form" method="post" >
-        <div class="card" id="complaint-form" style="display: none">
-            <h2>Add Comment</h2>
-            <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
-            <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-            <label for="complaint-description">Content:</label><br>
-            <textarea id="complaint-description" name="description" rows="4" cols="50" placeholder="content"></textarea><br>
-            <button type="submit">Submit</button>
-
-        </div>
-
-
         <section class="hero2">
             <div class="product-grid">
                 <!-- Loop over each complaint -->
@@ -641,7 +626,6 @@
             </div>
         </section>
 
-</section>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
