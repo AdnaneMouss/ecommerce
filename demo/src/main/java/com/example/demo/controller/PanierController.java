@@ -75,16 +75,16 @@ public class PanierController {
         return "panier";
     }
     @PostMapping("/delete")
-    public String delete(Model model, @RequestParam int id) {
+    public String delete(Model model, @RequestParam int idCompte,@RequestParam int id, @RequestParam String username) {
         boolean isDeleted = false;
         try {
-            isDeleted = panierservice.deleteProduitfromPanier(id);
+            isDeleted = commandeService.deleteProduitfromPanier(id);
             model.addAttribute("deleted", isDeleted);
         } catch(Exception e) {
             e.printStackTrace();
             model.addAttribute("error", "An error occurred while deleting the product.");
         }
-        return "redirect:/panier/getpanier/";
+        return "redirect:/panier/panier/"+ idCompte + "/" + username;
     }
 
     @PostMapping("/addtocard")

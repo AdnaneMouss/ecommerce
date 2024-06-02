@@ -95,7 +95,18 @@ public class CommandeService {
         }
         return totalBenefit;
     }
+    public boolean deleteProduitfromPanier(int id) {
+        boolean res;
+        if(commandeRepository.existsById((long) id)) {
+            commandeRepository.deleteById((long) id);
+            res=true;
+        }
+        else{
 
+            res=false;
+        }
+        return res;
+    }
     public int countCommByfiliere(String filiere){
         return commandeRepository.countByCompte_Filiere(filiere);
     }
