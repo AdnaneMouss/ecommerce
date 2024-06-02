@@ -493,42 +493,83 @@
       height: 30px;
       width: 50px;
   }
+  .navlist img {
+      width: 60px; /* Adjust the width of the image */
+      height: auto;
+      border-radius: 15px;/* Maintain aspect ratio */
+  }
+  .panel {
+      display: none; /* Initially hide the panel */
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 100px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      padding: 10px;
+      z-index: 1;
+  }
+  .panel p {
+      margin: 5px 0;
+  }
+
+  .panel button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      cursor: pointer;
+  }
 </style>
 <body>
+                  <div id="panel" class="panel">
+            <p th:text="${session.authenticatedUsername}"></p>
+            <form th:action="@{/comptes/informationAdmin}">
+                <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
+            <button style="background-color: blue">Account information</button>
+            </form>
+            <button><a href="/log/login">Log out</a></button>
+        </div>
   <div class="container">
-    <nav>
+    <nav class="navlist">
 <ul>
         <a href="#" class="logo">
-          <img src="/logo.png">
-          <span class="nav-item">DASHBOARD</span>
-        </a>
-            <a href="/comptes/count">
-          <i class="fas fa-solid fa-users"></i>
-          <span class="nav-item">Accounts</span><br><br><br><br>
-        </a>
-            <a href="products/products">
+         <img th:src="${session.authenticatedPhoto}" onclick="togglePanel()">
+               </a>
+            <a href="/products/products">
           <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Products</span><br><br><br><br>
-        </a>
-                <a href="categories/categories">
+          <span class="nav-item">Products</span>
+        </a><br>
+                <a href="/categories/categories">
           <i class="fas fa-sharp fa-regular fa-list"></i>
-          <span class="nav-item">Categories</span><br><br><br><br>
-        </a>
-        <a href="products/analytics">
+          <span class="nav-item">Categories</span>
+        </a><br>
+        <a href="/products/analytics">
             <i class="fas fa-solid fa-chart-simple"></i>
-          <span class="nav-item">Analytics</span><br><br><br><br>
-        </a>
-        <a href="">
+          <span class="nav-item">Analytics</span>
+        </a><br>
+               <a href="/comptes/count">
+          <i class="fas fa-solid fa-users"></i>
+          <span class="nav-item">Accounts</span>
+        </a><br>
+            <a href="/commande/commande">
                   <i class="fas fa-sharp fa-solid fa-envelope"></i>
-          <span class="nav-item">Contact</span><br><br><br><br>
-        </a>
-         <a href="">
-          <i class="fas fa-cog"></i>
-          <span class="nav-item">Settings</span><br><br><br><br>
-        </a>
-        <a href="log/login">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Log out</span><br><br><br><br>
+          <span class="nav-item">Commands</span>
+        </a><br>
+            <a href="/reclamation/count">
+           <i class="fas fa-solid fa-face-angry"></i>
+          <span class="nav-item">Complaints</span>
+        </a><br>
+            <a href="/comment/count">
+            <i class="fas fa-solid fa-comments"></i>
+          <span class="nav-item">Comments</span>
+        </a><br>
+        <a href="/comptes/contact">
+                  <i class="fas fa-sharp fa-solid fa-envelope"></i>
+          <span class="nav-item">Contact</span>
         </a>
       </ul>
     </nav>
@@ -538,7 +579,7 @@
         <div class="card">
           <section class="mysection">
             <div class="first">
-          <h1><span th:text="${countcomments}"></spanth:text></span></h1>
+          <h1><span th:text="${count}"></spanth:text></span></h1>
           <h4>Number of comments</h4>
         </div>
         <div class="second">
@@ -654,8 +695,9 @@
                         <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
                     </form>
             </section>
-    </section>
-  </div>
+        </div>
+              </div>
+  </section>
 <script th:inline="javascript">
   function showImage(imageUrl) {
       // Create a new window to display the image

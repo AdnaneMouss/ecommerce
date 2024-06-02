@@ -69,7 +69,7 @@ public class CommentControllerImpl {
         catch(Exception e){
             e.printStackTrace();
         }
-        return "dashboard_comments";
+        return "redirect:/comment/count";
     }
     @GetMapping("/count")
     public String countComments(Model model) {
@@ -91,6 +91,8 @@ public class CommentControllerImpl {
         List<Comment> allComments = commentService.getAllComments();
         model.addAttribute("allComments", allComments);
 
+        int all = commentService.countComments();
+        model.addAttribute("count", "" + all);
         int architecture = commentService.countByCompte_Filiere("Architecture");
         model.addAttribute("Architecturstudents", "" + architecture);
 
