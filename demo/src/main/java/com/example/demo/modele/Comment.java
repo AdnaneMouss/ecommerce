@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Comment {
 
+    private int rating;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,11 +23,20 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(Long id, String content, comptes compte, produit produit) {
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public Comment(Long id,int rating, String content, comptes compte, produit produit) {
         this.id = id;
         this.content = content;
         this.compte = compte;
         this.produit = produit;
+        this.rating = rating;
     }
 
     @Override

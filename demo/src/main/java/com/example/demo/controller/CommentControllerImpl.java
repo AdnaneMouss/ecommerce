@@ -132,9 +132,10 @@ public class CommentControllerImpl {
 
 
     @PostMapping("/addComment")
-    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte) {
+    public String addComment(@RequestParam String username,@RequestParam String content, @RequestParam int idCompte, @RequestParam int rating) {
         Comment comment = new Comment();
         comment.setContent(content);
+        comment.setRating(rating);
         comptes compte = new comptes();
         compte.setId(idCompte);
         comment.setCompte(compte);

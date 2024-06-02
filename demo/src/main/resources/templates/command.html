@@ -576,29 +576,24 @@ h3{
 </form>
           <button id="openPopup" style="position: absolute; top: 630px;">Add Comment</button>
           <div id="commentBox"></div>
-  <form th:action="@{/comment/addComment}" id="actual-complaint-form" method="post" >
-          <div id="commentPopup" class="popup">
-              <div class="popup-content">
-                  <span class="close" id="closePopup">&times;</span>
-                  <h2>Add Comment</h2>
-                  <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
-                  <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
-                  <label for="complaint-description">Description:</label><br>
-                  <textarea id="complaint-description" name="content" rows="4" cols="50" placeholder="Your comment"></textarea><br>
-                  <label for="rating">Rating</label><br>
-                  <select id="rating" name="rating">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                  </select><br><br>
-                  <button type="submit">Submit</button>
-              </div>
+  <form th:action="@{/comment/addComment}" id="actual-complaint-form" method="post">
+      <div id="commentPopup" class="popup">
+          <div class="popup-content">
+              <span class="close" id="closePopup">&times;</span>
+              <h2>Add Comment</h2>
+              <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
+              <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
+              <label for="complaint-description">Description:</label><br>
+              <textarea id="complaint-description" name="content" rows="4" cols="50" placeholder="Your comment"></textarea><br>
+              <label for="rating">Rating</label><br>
+              <select id="rating" required name="rating">
+                  <option value="" disabled selected>Rating</option>
+                  <option th:each="rating : ${#numbers.sequence(1, 5)}" th:value="${rating}" th:text="${rating}"></option>
+              </select><br><br>
+              <button type="submit">Submit</button>
           </div>
-  </form>
       </div>
-  </section>
+  </form>
   <div id="commentContainer">
       <ul>
           <li th:each="commentaires : ${commentaires}">

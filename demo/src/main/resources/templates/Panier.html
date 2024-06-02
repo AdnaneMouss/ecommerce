@@ -5,7 +5,6 @@
     <link rel="stylesheet" type="text/css" href="acceuil.css">
 </head>
 <style type="text/css">
-    /* Style the popup container */
     .popup {
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
@@ -14,9 +13,9 @@
         width: 100%; /* Full width */
         height: 100%; /* Full height */
         overflow: auto; /* Enable scrolling if needed */
-        background-color: rgba(0,0,0,0.4); /* Black background with 40% opacity */
-        padding-top: 60px;
+        background-color: rgba(0,0,0,0.4);
         display: none;
+        padding-top: 300px;
     }
     .popup .popuptext {
         visibility: hidden;
@@ -47,17 +46,14 @@
         -webkit-animation: fadeIn 1s;
         animation: fadeIn 1s;
     }
-
     @-webkit-keyframes fadeIn {
         from {opacity: 0;}
         to {opacity: 1;}
     }
-
     @keyframes fadeIn {
         from {opacity: 0;}
         to {opacity:1 ;}
     }
-
     .popup-content {
         background-color: #f9f9f9;
         color: #333;
@@ -68,7 +64,6 @@
         margin: 10px auto;
         width: 300px;
     }
-
     .popup-content h2 {
         margin: 0 0 10px;
     }
@@ -120,7 +115,6 @@
     :root {
         --background-gradient: linear-gradient(to right, #0B1480, #0B1480);
     }
-
     .close {
         position: absolute;
         top: 10px;
@@ -189,6 +183,7 @@
         grid-template-columns: repeat(4, 1fr);
         align-items: center;
         gap: 2rem;
+        padding-top: 90px;
     }
     section{
         padding: 0 10%;
@@ -521,11 +516,9 @@
         padding: 10px;
         z-index: 1;
     }
-
     .panel p {
         margin: 5px 0;
     }
-
     .panel button {
         background-color: #f44336;
         color: white;
@@ -548,7 +541,6 @@
         border-bottom: 2px;
         transition: all .55s ease;
     }
-
     .navlist button:hover{
         border-bottom: 2px solid white;
     }
@@ -561,17 +553,14 @@
         align-items: center;
         margin-left: 330px;
     }
-
     .navlist li {
         margin-left: 20px;
     }
-
     .navlist img {
         width: 30px;
         height: auto;
         border-radius: 15px;/* Maintain aspect ratio */
     }
-
     .navlist a {
         color: white;
         padding: 20px;
@@ -580,8 +569,6 @@
         border-bottom: 2px;
         transition: all .55s ease;
     }
-
-
     .navlist a:hover{
         border-bottom: 2px solid white;
     }
@@ -625,7 +612,57 @@
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
+<button id="openPopup">Confirm all products</button>
+<div id="commentPopup" class="popup">
+    <div class="popup-content">
+        <span class="close" id="closePopup">&times;</span>
+        <h2>Fill your information</h2>
+        <form th:action="@{/panier/addtocarde}" method="post">
+            <div th:each="command : ${panier}">
+                <input type="hidden" th:value="${command.id}" name="idCommandes">
+                <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
 
+            <input type="hidden" th:value="${session.authenticatedId}" name="id">
+            <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
+
+            <label>Order:</label>
+            <br>
+            <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
+            <br>
+            <label>Total price:</label>
+            <br>
+            <input readonly type="text"  th:value="${totalPrice}">
+            <br>
+            <label>When do you want your product:</label>
+            <br>
+            <input type="date" name="date">
+            <br>
+            <label>Where do you want your product:</label><br>
+            <select name="lieu">
+                <option>Cité 1</option>
+                <option>Cité 2</option>
+                <option>Cité 3</option>
+                <option>Cité 4</option>
+                <option>Cité 5</option>
+                <option>Barrière</option>
+                <option>Bâtiment 1</option>
+                <option>Bâtiment 2</option>
+                <option>Bâtiment 3</option>
+                <option>Bâtiment 4</option>
+                <option>Bâtiment 5</option>
+            </select>
+            <br>
+            <button onclick="opeenPopup()" type="submit" id="submitComment" >Submit All
+                <div id="myPopup" class="popup">
+                    <div class="popuptext" id="myPopupText">
+                        <span>Your order was confirmed!</span>
+                        <button onclick="closePopup()">Close</button>
+                    </div>
+                </div>
+            </button>
+        </form>
+    </div>
+</div>
 <section class="hero2">
     <section id="prod1" class="section-p1" th:each="command : ${panier}" th:if="${!command.confirmed}">
         <div class="pro-container">
@@ -650,57 +687,6 @@
         </div>
     </section>
 </section>
-<button id="openPopup">Confirm all products</button>
-<div id="commentPopup" class="popup">
-    <div class="popup-content">
-        <span class="close" id="closePopup">&times;</span>
-        <h2>Fill your information</h2>
-        <form th:action="@{/panier/addtocarde}" method="post">
-            <div th:each="command : ${panier}">
-                <input type="hidden" th:value="${command.id}" name="idCommandes">
-                <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
-
-                <input type="hidden" th:value="${session.authenticatedId}" name="id">
-                <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
-
-            <label>Order:</label>
-            <br>
-            <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
-            <br>
-            <label>Total price:</label>
-            <br>
-            <input readonly type="text"  th:value="${totalPrice}">
-            <br>
-                <label>When do you want your product:</label>
-            <br>
-                <input type="date" name="date">
-                <br>
-                <label>Where do you want your product:</label><br>
-                <select name="lieu">
-                    <option>Cité 1</option>
-                    <option>Cité 2</option>
-                    <option>Cité 3</option>
-                    <option>Cité 4</option>
-                    <option>Cité 5</option>
-                    <option>Barrière</option>
-                    <option>Bâtiment 1</option>
-                    <option>Bâtiment 2</option>
-                    <option>Bâtiment 3</option>
-                    <option>Bâtiment 4</option>
-                    <option>Bâtiment 5</option>
-                </select>
-                <br>
-            <button onclick="opeenPopup()" type="submit" id="submitComment" >Submit All
-                <div id="myPopup" class="popup">
-                <div class="popuptext" id="myPopupText">
-                    <span>Your order was confirmed!</span>
-                    <button onclick="closePopup()">Close</button>
-                </div>
-            </div>
-            </button>
-        </form>
-    </div>
-</div>
 <script>
     function opeenPopup() {
         var popup = document.getElementById('myPopup');

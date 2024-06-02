@@ -610,13 +610,15 @@ h3{
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
 <br><br><br><br><br><br><br><br>
+<h1 style="color: white; text-align: center">
+    My Complaints:
+</h1>
     <section style="display: grid;grid-template-columns: repeat(2,1Fr)" class="hero2">
         <div class="">
-            <!-- Loop over each complaint -->
             <form th:action="@{/reclamation/delete}" method="post">
             <section id="" class="" th:each="reclamation : ${reclam}" >
                 <div class="card" style="max-width: 500px; min-width: 500px">
-                    <h2>Reclamation</h2>
+                    <h2>Complaints</h2>
                     <input type="hidden" name="idReclam" th:value="${reclamation.id}">
                     <input type="hidden" name="usernamee" th:value="${session.authenticatedUsername}">
                     <p style="font-weight: bold;color: darkblue">Description : <span th:text="${reclamation.description}"></span></p>
