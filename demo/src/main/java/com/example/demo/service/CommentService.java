@@ -30,6 +30,9 @@ public class CommentService {
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
     }
+    public List<Comment> getAllCommentsById(int id) {
+        return commentRepository.findAllByProduitId(id);
+    }
 
     public Optional<Comment> getCommentById(Long id) {
         return commentRepository.findById(id);

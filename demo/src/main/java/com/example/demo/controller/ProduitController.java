@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.modele.Rating;
-import com.example.demo.modele.categorie;
-import com.example.demo.modele.comptes;
-import com.example.demo.modele.produit;
+import com.example.demo.modele.*;
 import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +25,8 @@ public class ProduitController {
     private CommandeService commandeService;
     @Autowired
     private RatingService ratingService;
+    @Autowired
+    private CommentService commentService;
 
 
     @GetMapping("/catalogue")
@@ -109,13 +108,15 @@ public class ProduitController {
     @GetMapping("/singleproduct/{id}")
     public String getSingleProduct(Model model, @PathVariable("id") int id) {
         Optional<produit> optionalProduct = produitService.getProduitById((long)id);
-
+List<Comment> comment= commentService.getAllCommentsById(id);
+model.addAttribute("comment", comment);
         // Check if the product exists
         if (optionalProduct.isPresent()) {
             produit product = optionalProduct.get();
             model.addAttribute("oneproduct", product);
             return "command";
-        } else {
+        }
+        else {
             return "error";
         }
     }

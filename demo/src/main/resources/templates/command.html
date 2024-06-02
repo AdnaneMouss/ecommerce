@@ -578,9 +578,10 @@ h3{
   </form>
   <div id="commentContainer">
       <ul>
-          <li th:each="commentaires : ${commentaires}">
-              <span th:text="${commentaires.content}"></span> -
-              <span th:text="${commentaires.compte.nom}"></span>
+          <li th:each="comm : ${comment}">
+              <h2 th:text="${comm.compte.nom}"></h2>
+              <span th:text="'Commented:'+${comm.content}"></span><br>
+              <span th:text="'Rated the product:'+${comm.rating}+'/5'"></span>
           </li>
       </ul>
   </div>
