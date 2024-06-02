@@ -324,7 +324,7 @@
                     </tr>
                     <tr>
                         <th><i class="fas fa-user"></i> Full name</th>
-                        <td><input name="nom" th:value="${compte.nom}"readonly ></td>
+                        <td><input name="nom" th:value="${compte.nom}" readonly ></td>
                     </tr>
                     <tr>
                         <th><i class="fas fa-user"></i> Username</th>
@@ -346,36 +346,11 @@
 
                 </form>
             </table>
-            <button type="submit" id="modifier-button" style="background-color: red">Modifier</button>
+            <button type="submit" id="modifier-button" style="background-color: red">Update</button>
         </form>
     </div>
 </section>
-                </tbody>
-            </table>
-        </div>
-        <div class="attendance-list">
-            <h1>List of delivered orders:</h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>GSM</th>
-                    <th>DELIVERING LOCATION</th>
-                    <th>DELIVERING DATE</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="commande : ${all}" class="productRow" th:if="${commande.delivered && commande.confirmed && commande.deliveryman.id == session.authenticatedId}">
-                    <td th:text="${commande.compte?.username}"></td>
-                    <td th:text="${commande.compte?.phone}"></td>
-                    <td th:text="${commande.lieuLivraison}"></td>
-                    <td th:text="${commande.dateLivraison}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-</div>
+
 <footer>
     <p><center>&copy; 2024 UIRSUPPLY. Tous droits réservés.</center></p>
 </footer>

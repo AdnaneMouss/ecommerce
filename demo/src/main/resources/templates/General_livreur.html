@@ -152,7 +152,7 @@
     </ul>
     <div id="panel" class="panel">
         <p th:text="${session.authenticatedUsername}"></p>
-        <form th:action="@{/comptes/information}" method="post">
+        <form th:action="@{/comptes/informationLivreur}">
           <p style="color: black">Welcome  <input style="color: black" type="text" name="username" th:value="${session.authenticatedUsername}"></p>
             <button style="background-color: blue">Account information</button>
         </form>
@@ -168,15 +168,21 @@
                 <tr>
                     <th>Customer</th>
                     <th>GSM</th>
-                    <th>DELIVERING LOCATION</th>
-                    <th>DELIVERING DATE</th>
+                    <th>Product to deliver:</th>
+                    <th>Quantity:</th>
+                    <th>Total price:</th>
+                    <th>Delivery location</th>
+                    <th>Delivery date</th>
                     <th>Is it delivered?</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="commande : ${all}" class="productRow" th:if="${!commande.delivered && commande.confirmed && commande.deliveryman.id == session.authenticatedId}">
-                    <td th:text="${commande.compte?.username}"></td>
+                    <td th:text="${commande.compte?.nom}"></td>
                     <td th:text="${commande.compte?.phone}"></td>
+                    <td th:text="${commande.p.label}"></td>
+                    <td th:text="${commande.quantity}"></td>
+                    <td th:text="${commande.p.price * commande.quantity}"></td>
                     <td th:text="${commande.lieuLivraison}"></td>
                     <td th:text="${commande.dateLivraison}"></td>
                     <td>
@@ -193,17 +199,24 @@
             <table class="table">
                 <thead>
                 <tr>
+                <tr>
                     <th>Customer</th>
                     <th>GSM</th>
-                    <th>DELIVERING LOCATION</th>
-                    <th>DELIVERING DATE</th>
+                    <th>Product to deliver:</th>
+                    <th>Quantity:</th>
+                    <th>Total price:</th>
+                    <th>Delivery location</th>
+                    <th>Delivery date</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="commande : ${all}" class="productRow" th:if="${commande.delivered && commande.confirmed}">
                     <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
-                    <td th:text="${commande.compte?.username}"></td>
+                    <td th:text="${commande.compte?.nom}"></td>
                     <td th:text="${commande.compte?.phone}"></td>
+                    <td th:text="${commande.p.label}"></td>
+                    <td th:text="${commande.quantity}"></td>
+                    <td th:text="${commande.p.price * commande.quantity}"></td>
                     <td th:text="${commande.lieuLivraison}"></td>
                     <td th:text="${commande.dateLivraison}"></td>
                 </tr>

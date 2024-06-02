@@ -145,6 +145,10 @@ public class CommandeService {
     }
 
 
+    public List<commande> findAllByPanierCompteEqualsAndConfirmed(comptes compte) {
+        return commandeRepository.findAllByPanierCompteEqualsAndConfirmed(compte, false);
+    }
+
     public List<commande> findAllByPanierCompteEquals(comptes compte) {
         return commandeRepository.findAllByPanierCompteEquals(compte);
     }

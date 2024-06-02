@@ -634,18 +634,21 @@
     </ul>
     <div class="bx bx-menu" id="menu-icon"></div>
 </header>
-<br><br><br><br><br>
-<h1 style="color: white; margin-top: 30px; text-align: center">My comments</h1>
-<section class="hero">
-    <div class="hero-text"></div>
-    <section class="hero2">
-        <div class="product-grid">
+    <section class="hero2" style="margin-left:200px;display: grid;grid-template-columns: repeat(1,1fr)">
+        <div class="product-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
             <!-- Loop over each complaint -->
             <section id="reclamation" class="section-reclamation" th:each="Comment : ${com}">
-                <div class="card">
+                <div class="card" style="min-width: 550px;max-width:550px">
+                    <section style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 90px;">
+                    <div>
                     <h2>Comment</h2>
                     <p>Comment's content: <span th:text="${Comment.content}"></span></p>
-                    <p>Rating: <span th:text="${Comment.rating}"></span></p>
+                    <p>Rating: <span th:text="${Comment.rating}+'/5'"></span></p>
+                    </div>
+                    <div>
+                        <img style="width: 200px;height:200px;" th:src="${Comment.produit.photo}">
+                    </div>
+                    </section>
                     <!-- Formulaire de suppression -->
                     <form th:action="@{/comment/delete}" method="post">
                         <button class="btnn" onclick="prepareDelete(this)">Delete</button>
@@ -657,7 +660,6 @@
             </section>
         </div>
     </section>
-</section>
 <footer>
     <p><center>&copy; 2024 UIRSUPPLY. Tous droits réservés.</center></p>
 

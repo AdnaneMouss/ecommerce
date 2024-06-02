@@ -44,7 +44,7 @@ public class PanierController {
     public String getPanierByUsername(@PathVariable("id") int id, @PathVariable("username") String username, Model model) {
         Optional<comptes> categoryOptional = comptesService.getAccById((long) id);
         comptes c = categoryOptional.orElseThrow(() -> new RuntimeException("Compte not found"));
-        List<commande> avoir = comm.findAllByPanierCompteEquals(c);
+        List<commande> avoir = comm.findAllByPanierCompteEqualsAndConfirmed(c);
         double totalPrice = 0;
         for (commande command : avoir) {
             totalPrice += command.getQuantity() * command.getP().getPrice();

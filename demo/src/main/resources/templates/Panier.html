@@ -580,7 +580,20 @@
         border-bottom: 2px;
         transition: all .55s ease;
     }
-
+    #openPopup {
+        position: absolute;
+        top: 650px;
+        right: 80%;
+        margin-top: 10px;
+        border: none;
+        font-weight: bold;
+        background-color: white;
+        color: darkblue;
+        border-radius: 5px;
+        cursor: pointer;
+        z-index: 1000;
+        height: 50px;
+    }
 
     .navlist a:hover{
         border-bottom: 2px solid white;
@@ -636,11 +649,11 @@
                     </div>
                 </div>
                 <div class="des">
-                    <span th:text="${command.p.categorie?.catname}"></span>
                     <h5 th:text="${command.p.label}"></h5>
-                    <h3 th:text="${command.p.price}"></h3>
+                    <h5 th:text="'x'+${command.quantity}"></h5>
+                    <h3 th:text="${command.p.price * command.quantity}"></h3>
                     <form th:action="@{/panier/delete}" method="post">
-                        <button onclick="prepareDelete(this)">Delete</button>
+                        <button style="color: white;font-weight: bold; background-color: darkblue; width: 200px;" onclick="prepareDelete(this)">Remove from basket</button>
                         <input type="hidden" th:value="${command.id}" name="id">
                         <input type="hidden" name="username" th:value="${session.authenticatedUsername}">
                         <input name="idCompte" type="hidden" th:value="${session.authenticatedId}">
@@ -650,7 +663,7 @@
         </div>
     </section>
 </section>
-<button id="openPopup">Confirm all products</button>
+<button style="bottom:0px;" id="openPopup">Confirm all products</button>
 <div id="commentPopup" class="popup">
     <div class="popup-content">
         <span class="close" id="closePopup">&times;</span>
@@ -659,18 +672,20 @@
         <form th:action="@{/panier/addtocarde}" method="post">
             <div th:each="command : ${panier}">
                 <input type="hidden" th:value="${command.id}" name="idCommandes">
-                <input type="hidden" th:value="${command.panier.id}" name="idPanier"></div>
-
+                <input type="hidden" th:value="${command.panier.id}" name="idPanier">
+                <input type="hidden" th:value="${command.p.id}" name="productId">
+                <input type="hidden" th:value="${command.p.quantity}" name="stock">
+                <input type="hidden" th:value="${command.quantity}" name="quantity">
                 <input type="hidden" th:value="${session.authenticatedId}" name="id">
                 <input type="hidden" th:value="${session.authenticatedUsername}" name="username">
-
+</div>
             <label>Order:</label>
             <br>
-            <input readonly type="text"  th:each="command : ${panier}" th:value="${command.p.label}+'x'+${command.quantity}">
+            <input readonly type="text"  th:each="command : ${panier}" th:if="${!command.confirmed}" th:value="${command.p.label}+'x'+${command.quantity}">
             <br>
             <label>Total price:</label>
             <br>
-            <input readonly type="text"  th:value="${totalPrice}">
+            <input readonly type="text" th:value="${totalPrice}">
             <br>
                 <label>When do you want your product:</label>
             <br>

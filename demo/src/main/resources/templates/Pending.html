@@ -539,7 +539,7 @@
             <input name="id" type="hidden" th:value="${session.authenticatedId}">
             <li><button>My Pending Deliveries</button></li>
         </form>
-        <form th:action="@{//}">
+        <form th:action="@{/comment/viewdetails}">
             <input name="username" type="hidden" th:value="${session.authenticatedUsername}">
             <li><button>My Comments</button></li>
         </form>
@@ -569,12 +569,11 @@
                 <div class="container">
                     <div class="wrapper">
                         <img th:src="${command.p.photo}"/>
-                        <img src="/deliveredok.jpeg" th:if="${command.delivered}" class="soldout">
+                        <img src="/deliveredok.png" th:if="${command.delivered}" class="soldout">
                     </div>
                 </div>
                 <div class="des">
                     <form action="/confirmOrder" method="post">
-                        <span th:text="${command.p.categorie?.catname}"></span>
                         <h3><span th:text="${command.p.label}"></span></h3>
                         <h3>Quantity:<span th:text="${command.quantity}"></span></h3>
                         <h3>Total:<span th:text="${command.p.price * command.quantity}+'MAD'"></span></h3>
@@ -589,9 +588,7 @@
             </div>
         </div>
     </section>
-    <footer>
-        <p><center>&copy; 2024 UIRSUPPLY. Tous droits réservés.</center></p>
-    </footer>
+
     <script>
         function confirmProduct(productName, price) {
             const orderData = {
