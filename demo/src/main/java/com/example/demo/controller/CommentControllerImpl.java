@@ -2,6 +2,7 @@ package com.example.demo.controller;
 import com.example.demo.modele.*;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.ProduitService;
+import com.example.demo.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,9 @@ public class CommentControllerImpl {
         this.commentService = commentService;
         this.produitService = produitService;
     }
+    @Autowired
+    public RatingService ratingService;
+
     @GetMapping("/commentaires")
     public String afficherCommentaires(Model model) {
         model.addAttribute("commentaires", commentService.obtenirTousLesCommentaires());
@@ -143,6 +147,7 @@ public class CommentControllerImpl {
         rat.setProduit(p);
         comment.setCompte(compte);
         rat.setCompte(compte);
+        ratingService.createRating(rat);
         commentService.createComment(comment);
         return "redirect:/comment/mycomment/" + username;
     }

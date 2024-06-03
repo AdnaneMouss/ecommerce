@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.modele.Comment;
 import com.example.demo.modele.Panier;
 import com.example.demo.modele.Rating;
 import com.example.demo.repository.PanierRepository;
@@ -28,6 +29,18 @@ public class RatingService {
 
     public List<Rating> getAllRatingsById(int id) {
         return ratingRepository.findByProduitId(id);
+    }
+
+    public boolean createRating(Rating rating) {
+        boolean res=false;
+        try{
+            ratingRepository.save(rating);
+            res=true;
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+        return res;
     }
 }
 

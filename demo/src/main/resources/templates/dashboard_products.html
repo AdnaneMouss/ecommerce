@@ -620,7 +620,7 @@
         <input type="hidden" name="id" th:value="${produit.id}"/>
         <td><button type="submit">Modify</button></td>
     </form>
-    <form th:action="@{/products/delete}" method="post" onsubmit="return handleSubmit(this)">
+    <form th:action="@{/products/delete}" method="post">
         <input type="hidden" name="id" th:value="${produit.id}"/>
         <td>
     <button type="submit">Delete</button>
